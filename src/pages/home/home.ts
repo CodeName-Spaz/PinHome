@@ -9,7 +9,7 @@ import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 export class HomePage {
 
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider) {
-
+  this.getLocation();
   }
 
   getLocation(){
