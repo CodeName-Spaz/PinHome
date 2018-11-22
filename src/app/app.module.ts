@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { ViewPage } from '../pages/view/view';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
@@ -22,7 +23,7 @@ firebase.initializeApp({
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,ViewPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,7 @@ firebase.initializeApp({
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,ViewPage
   ],
   providers: [
     StatusBar,

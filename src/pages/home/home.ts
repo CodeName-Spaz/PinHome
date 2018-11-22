@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,LoadingController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 
 @Component({
@@ -8,18 +8,29 @@ import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 })
 export class HomePage {
 orgArray  = new Array();
-  constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider) {
-  this.getLocation();
-  this.getOrganizations();
+  constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider,public loadingCtrl: LoadingController) {
+this.getNearByOrganizations();
+  }
+  getNearByOrganizations(){
+    // let loading = this.loadingCtrl.create({
+    //   spinner: 'bubbles',
+    //   content: 'please wait',
+    //   duration: 2000
+    // });
+    // loading.present();
+    this.pinhomeProvider.getCurrentLocation().then((radius:any) =>{
+      console.log(radius);
+      // this.pinhomeProvider.getOrganisations().then((org:any) =>{
+      //   console.log(org)
+        // this.pinhomeProvider.getNearByOrganizations(radius,org).then((data:any) =>{
+        //   loading.dismiss();
+        // })
+      // })
+    })
   }
 
-  getLocation(){
-    this.pinhomeProvider.getCurrentLocation();
-  }
-  getOrganizations(){
-    this.pinhomeProvider.getOrganisations().then((data:any) =>{
-      this.orgArray = data;
-    })
+  getAllOrganizations(){
+
   }
 
 }

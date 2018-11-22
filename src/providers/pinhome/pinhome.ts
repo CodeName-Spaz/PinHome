@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { Option } from 'ionic-angular';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -17,6 +18,7 @@ auth = firebase.auth();
 
 //arrays
 oraganisations =  new Array()
+nearByOrg =  new Array();
 
 //variables
 
@@ -27,31 +29,34 @@ oraganisations =  new Array()
 
   getCurrentLocation(){
     //listen for current location
+    return new Promise ((accpt, rej) =>{
     this.geolocation.getCurrentPosition().then((resp) => {
-      return new Promise ((accpt, rej) =>{
         let watch = this.geolocation.watchPosition();
         watch.subscribe((resp) => {
          this.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
-           console.log(data)
+          console.log(data)
           accpt(data);
          })
         });
        }).catch((error) => {
          console.log('Error getting location', error);
        });
-      })
+     })
   }
 
-  // getLocationName(latitude, longitude){
-  //   let options: NativeGeocoderOptions = {
-  //     useLocale: true,
-  //     maxResults: 5
-  // };
+  getLocationName(latitude, longitude){
+    let options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5
+  };
   
   // this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
   //   .then((result: NativeGeocoderReverseResult[]) => console.log(JSON.stringify(result[0])))
   //   .catch((error: any) => console.log(error));
-  // }
+  this.nativeGeocoder.forwardGeocode('Soweto Empowerment zone',options)
+  .then((coordinates: NativeGeocoderForwardResult[]) => console.log('The coordinates are latitude=' + coordinates[0].latitude + ' and longitude=' + coordinates[0].longitude))
+  .catch((error: any) => console.log(error));
+  }
 
   createPositionRadius(latitude, longitude){
     var leftposition, rightposition, downposition, uposititon;
@@ -75,7 +80,6 @@ if (down>= 100){
   else{
     downposition = downlat.substr(0,2) + "." + down+ downlat.substr(latIndex + 3,downlat.length)
   }
-
 }
 //up  position
 var uplat = new String(latitude); 
@@ -157,10 +161,23 @@ if (down <= 0){
             }
             this.oraganisations.push(organizationObject);
           }
-          console.log(this.oraganisations)
           accpt(this.oraganisations);
         }
        })
+    })
+  }
+
+  getNearByOrganizations(radius, allOrganizations){
+    return new Promise((accpt,rej) =>{
+      let options: NativeGeocoderOptions = {
+        useLocale: true,
+        maxResults: 5
+         };
+      for (var x = 0; x < allOrganizations.length; x++){
+        this.nativeGeocoder.forwardGeocode(allOrganizations[x].orgAddress,options)
+        .then((coordinates: NativeGeocoderForwardResult[]) => console.log('The coordinates are latitude=' + coordinates[0].latitude + ' and longitude=' + coordinates[0].longitude))
+        .catch((error: any) => console.log(error));
+      }
     })
   }
 
