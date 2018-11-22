@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+// import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -10,7 +10,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 @Injectable()
 export class PinhomeProvider {
 
-  constructor(private geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
+  constructor(private geolocation: Geolocation){// public nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
   }
 
