@@ -1,14 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <ion-icon ios="ios-more" md="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item no-lines>
+      <ion-label fixed>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <ion-buttons right>
+      <button ion-button icon-only outline>
+          <ion-icon ios="ios-person" md="md-person"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+
+  <div class="theSlides">
+    <ion-item class="labeler">
+      <h5><ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>  
+    </ion-item>
+    <ion-slides>
+      
+    </ion-slides>
+  </div>
+
 </ion-content>
