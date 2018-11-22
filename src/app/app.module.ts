@@ -3,35 +3,35 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
-import { IonicImageViewerModule } from 'ionic-img-viewer';
-
+import firebase from 'firebase'
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-<<<<<<< HEAD
-import { ViewPage } from '../pages/view/view'
-=======
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
->>>>>>> 8a4b4b367040e7ce12c960792f2e24824507e299
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
+  authDomain: "pinhome-823ec.firebaseapp.com",
+  databaseURL: "https://pinhome-823ec.firebaseio.com",
+  projectId: "pinhome-823ec",
+  storageBucket: "pinhome-823ec.appspot.com",
+  messagingSenderId: "523364615140"
+})
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ViewPage
+    HomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ViewPage
+    HomePage
   ],
   providers: [
     StatusBar,
