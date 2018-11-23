@@ -17,7 +17,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ViewPage {
 
+  orgArray = new Array();
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.orgArray.push(this.navParams.get('orgObject'));
+    console.log(this.orgArray)
   }
 
   ionViewDidLoad() {

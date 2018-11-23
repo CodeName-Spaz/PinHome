@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { Option } from 'ionic-angular';
+
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -23,39 +23,21 @@ nearByOrg =  new Array();
 //variables
 
 
-  constructor(private geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
+  constructor(private geolocation: Geolocation) {
     console.log('Hello PinhomeProvider Provider');
   }
 
   getCurrentLocation(){
     //listen for current location
+    console.log("ragga")
     return new Promise ((accpt, rej) =>{
     this.geolocation.getCurrentPosition().then((resp) => {
-        let watch = this.geolocation.watchPosition();
-        watch.subscribe((resp) => {
-         this.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
-          console.log(data)
-          accpt(data);
-         })
-        });
+      console.log(resp)
+          accpt(resp);
        }).catch((error) => {
          console.log('Error getting location', error);
        });
      })
-  }
-
-  getLocationName(latitude, longitude){
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-  };
-  
-  // this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
-  //   .then((result: NativeGeocoderReverseResult[]) => console.log(JSON.stringify(result[0])))
-  //   .catch((error: any) => console.log(error));
-  this.nativeGeocoder.forwardGeocode('Soweto Empowerment zone',options)
-  .then((coordinates: NativeGeocoderForwardResult[]) => console.log('The coordinates are latitude=' + coordinates[0].latitude + ' and longitude=' + coordinates[0].longitude))
-  .catch((error: any) => console.log(error));
   }
 
   createPositionRadius(latitude, longitude){
@@ -154,10 +136,13 @@ if (down <= 0){
           for (var x = 0; x < keys.length; x++){
             let OrganisationKeys = keys[x];
             let organizationObject ={
+              orgCat : organisations[OrganisationKeys].Category,
               orgName:organisations[OrganisationKeys].OrganizationName,
               orgAddress: organisations[OrganisationKeys].OrganizationAdress,
               orgContact:organisations[OrganisationKeys].ContactDetails,
-              orgPicture:organisations[OrganisationKeys].Url
+              orgPicture:organisations[OrganisationKeys].Url,
+              orgLat : organisations[OrganisationKeys].lat,
+              orgLong  : organisations[OrganisationKeys].long
             }
             this.oraganisations.push(organizationObject);
           }
@@ -167,19 +152,7 @@ if (down <= 0){
     })
   }
 
-  getNearByOrganizations(radius, allOrganizations){
-    return new Promise((accpt,rej) =>{
-      let options: NativeGeocoderOptions = {
-        useLocale: true,
-        maxResults: 5
-         };
-      for (var x = 0; x < allOrganizations.length; x++){
-        this.nativeGeocoder.forwardGeocode(allOrganizations[x].orgAddress,options)
-        .then((coordinates: NativeGeocoderForwardResult[]) => console.log('The coordinates are latitude=' + coordinates[0].latitude + ' and longitude=' + coordinates[0].longitude))
-        .catch((error: any) => console.log(error));
-      }
-    })
-  }
+
 
 
 }
