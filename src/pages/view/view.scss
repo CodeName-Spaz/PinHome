@@ -1,13 +1,14 @@
 page-view {
 
-    .content{
+    // .content{
         
-    }
+    // }
 
     .segment{
-        margin-top:-10px;
+        bottom:0px;
         background-color: white;
-      
+        position: absolute;
+        width: 100%;
     }
 
     .cover{
@@ -30,6 +31,7 @@ page-view {
         font-weight: 100;
         color: #fff;
         font-weight: bolder;
+        font-size: 1.4em;
         
     }
 
@@ -41,7 +43,9 @@ page-view {
     .main{
         // border: 2px solid red;
         margin-top:-10px;
-        background-color: #166b85
+        background-color: #166b85;
+        height: 170px;
+        position: relative;
     }
 
     .category{
@@ -89,6 +93,16 @@ page-view {
     .buttons{
         position: relative;
         bottom: 10px;
+    }
+
+    .backBtn{
+
+    }
+
+    .arrow{
+        position: relative;
+        top: 2%;
+        color: black;
     }
 
 }

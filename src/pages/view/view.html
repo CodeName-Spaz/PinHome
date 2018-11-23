@@ -13,8 +13,13 @@
 </ion-header>
 
 
-<ion-content class="content">
-  <img class="cover" src="../../assets/imgs/house.jpg">
+<ion-content class="content" (ionScroll)="scroller($event)">
+  <ion-fab top left class="backBtn">
+    <button clear ion-button icon-only (click)="Back()">
+      <ion-icon class="arrow" name="arrow-back"></ion-icon>
+    </button>
+  </ion-fab>
+  <img class="cover" src="../../assets/imgs/old.jpg">
   <div class="main">
     <div class="flex">
       <img class="round" imageViewer src="../../assets/imgs/orphan.png"> &ensp;
@@ -29,22 +34,23 @@
       <ion-icon name="star-half"></ion-icon>
       <ion-icon name="star-outline"></ion-icon>
     </h1>
-  </div>
-
-
-  <div class="segment">
+    <div class="segment">
     <ion-segment color="segments" [(ngModel)]="pet">
-      <ion-segment-button value="About">
+      <ion-segment-button value="About" (click)="reposition($event)">
         About
       </ion-segment-button>
-      <ion-segment-button value="Location">
+      <ion-segment-button value="Location" (click)="reposition($event)">
         Location
       </ion-segment-button>
-      <ion-segment-button value="Gallery">
+      <ion-segment-button value="Gallery" (click)="reposition($event)">
         Gallery
       </ion-segment-button>
     </ion-segment>
   </div>
+  </div>
+
+
+  
 
   <div [ngSwitch]="pet">
     <ion-list *ngSwitchCase="'About'">
@@ -306,7 +312,7 @@
           </ion-row>
         </ion-grid>
 
-        <ion-grid>
+        <ion-grid align="center">
           <ion-row>
             <ion-col>
               <img class="image" src="../../assets/imgs/activities.jpg">
@@ -320,7 +326,7 @@
           </ion-row>
         </ion-grid>
 
-        <ion-grid>
+        <ion-grid align="center">
           <ion-row>
             <ion-col>
               <img class="image" src="../../assets/imgs/activities.jpg">

@@ -8,13 +8,10 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-<<<<<<< HEAD
-import { ViewPage } from '../pages/view/view'
-=======
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
+import { ViewPage } from '../pages/view/view';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
->>>>>>> 8a4b4b367040e7ce12c960792f2e24824507e299
 
 @NgModule({
   declarations: [
@@ -38,8 +35,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
-    Geolocation,
-    NativeGeocoder
+   Geolocation,
+   NativeGeocoder
   ]
 })
 export class AppModule {}

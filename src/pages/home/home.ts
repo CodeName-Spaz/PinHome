@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
-
+import { ViewPage } from '../view/view'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,6 +14,10 @@ export class HomePage {
 
   getLocation(){
     this.pinhomeProvider.getCurrentLocation();
+  }
+
+  viewPage(){
+    this.navCtrl.push(ViewPage)
   }
 
 }
