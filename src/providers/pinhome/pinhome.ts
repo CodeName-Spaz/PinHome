@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
+import firebase from 'firebase'
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 /*
   Generated class for the PinhomeProvider provider.
@@ -10,11 +11,22 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 @Injectable()
 export class PinhomeProvider {
 
+  //firebase instances
+db = firebase.database();
+auth = firebase.auth();
+
+//arrays
+oraganisations =  new Array()
+
+//variables
+
+
   constructor(private geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
   }
 
   getCurrentLocation(){
+    //listen for current location
     this.geolocation.getCurrentPosition().then((resp) => {
       return new Promise ((accpt, rej) =>{
         let watch = this.geolocation.watchPosition();
@@ -126,6 +138,29 @@ if (down <= 0){
       down : downposition
     }
     accpt(radius);
+    })
+  }
+
+  getOrganisations(){
+    return new Promise((accpt, rej) =>{
+      this.db.ref('OrganizationList').on('value', (data:any) =>{
+        if (data.val() != null || data.val() != undefined){
+          let organisations =  data.val();
+          let keys = Object.keys(organisations);
+          for (var x = 0; x < keys.length; x++){
+            let OrganisationKeys = keys[x];
+            let organizationObject ={
+              orgName:organisations[OrganisationKeys].OrganizationName,
+              orgAddress: organisations[OrganisationKeys].OrganizationAdress,
+              orgContact:organisations[OrganisationKeys].ContactDetails,
+              orgPicture:organisations[OrganisationKeys].Url
+            }
+            this.oraganisations.push(organizationObject);
+          }
+          console.log(this.oraganisations)
+          accpt(this.oraganisations);
+        }
+       })
     })
   }
 
