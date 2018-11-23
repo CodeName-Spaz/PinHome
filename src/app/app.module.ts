@@ -7,12 +7,10 @@ import firebase from 'firebase'
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
-import { ViewPage } from '../pages/view/view';
 import { Geolocation } from '@ionic-native/geolocation';
-<<<<<<< HEAD
-import { NativeGeocoder } from '@ionic-native/native-geocoder';
-=======
-//import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { ViewPage } from '../pages/view/view';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
@@ -22,12 +20,12 @@ firebase.initializeApp({
   storageBucket: "pinhome-823ec.appspot.com",
   messagingSenderId: "523364615140"
 })
->>>>>>> c2c18daf5a17dcfed420f94b18851a49a357c137
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,ViewPage,
+    NearbyOrgPage
   ],
   imports: [
     BrowserModule,
@@ -36,20 +34,16 @@ firebase.initializeApp({
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,ViewPage,
+    NearbyOrgPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
-<<<<<<< HEAD
-   Geolocation,
-   NativeGeocoder
-=======
     Geolocation,
-    //NativeGeocoder
->>>>>>> c2c18daf5a17dcfed420f94b18851a49a357c137
+    GoogleMaps
   ]
 })
 export class AppModule {}

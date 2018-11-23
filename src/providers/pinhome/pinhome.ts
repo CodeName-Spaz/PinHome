@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { Option } from 'ionic-angular';
+
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -17,41 +18,27 @@ auth = firebase.auth();
 
 //arrays
 oraganisations =  new Array()
+nearByOrg =  new Array();
 
 //variables
 
 
-  constructor(private geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
+  constructor(private geolocation: Geolocation) {
     console.log('Hello PinhomeProvider Provider');
   }
 
   getCurrentLocation(){
     //listen for current location
+    console.log("ragga")
+    return new Promise ((accpt, rej) =>{
     this.geolocation.getCurrentPosition().then((resp) => {
-      return new Promise ((accpt, rej) =>{
-        let watch = this.geolocation.watchPosition();
-        watch.subscribe((resp) => {
-         this.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
-           console.log(data)
-          accpt(data);
-         })
-        });
+      console.log(resp)
+          accpt(resp);
        }).catch((error) => {
          console.log('Error getting location', error);
        });
-      })
+     })
   }
-
-  // getLocationName(latitude, longitude){
-  //   let options: NativeGeocoderOptions = {
-  //     useLocale: true,
-  //     maxResults: 5
-  // };
-  
-  // this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
-  //   .then((result: NativeGeocoderReverseResult[]) => console.log(JSON.stringify(result[0])))
-  //   .catch((error: any) => console.log(error));
-  // }
 
   createPositionRadius(latitude, longitude){
     var leftposition, rightposition, downposition, uposititon;
@@ -75,7 +62,6 @@ if (down>= 100){
   else{
     downposition = downlat.substr(0,2) + "." + down+ downlat.substr(latIndex + 3,downlat.length)
   }
-
 }
 //up  position
 var uplat = new String(latitude); 
@@ -150,19 +136,23 @@ if (down <= 0){
           for (var x = 0; x < keys.length; x++){
             let OrganisationKeys = keys[x];
             let organizationObject ={
+              orgCat : organisations[OrganisationKeys].Category,
               orgName:organisations[OrganisationKeys].OrganizationName,
               orgAddress: organisations[OrganisationKeys].OrganizationAdress,
               orgContact:organisations[OrganisationKeys].ContactDetails,
-              orgPicture:organisations[OrganisationKeys].Url
+              orgPicture:organisations[OrganisationKeys].Url,
+              orgLat : organisations[OrganisationKeys].lat,
+              orgLong  : organisations[OrganisationKeys].long
             }
             this.oraganisations.push(organizationObject);
           }
-          console.log(this.oraganisations)
           accpt(this.oraganisations);
         }
        })
     })
   }
+
+
 
 
 }
