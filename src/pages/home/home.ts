@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
-
+import { ViewPage } from '../view/view'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -30,6 +30,9 @@ this.getNearByOrganizations();
   }
 
   getAllOrganizations(){
+
+  viewPage(){
+    this.navCtrl.push(ViewPage)
 
   }
 

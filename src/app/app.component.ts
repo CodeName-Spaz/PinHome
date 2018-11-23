@@ -11,7 +11,9 @@ import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   rootPage:any;
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

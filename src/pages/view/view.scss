@@ -1,7 +1,9 @@
 page-view {
+
     // .content{
         
     // }
+
     .segment{
         bottom:0px;
         background-color: white;
@@ -26,6 +28,7 @@ page-view {
         font-weight: 100;
         color: #fff;
         font-weight: bolder;
+        font-size: 1.4em;
         
     }
     .flex{
@@ -77,11 +80,15 @@ page-view {
         position: relative;
         bottom: 10px;
     }
+
     .backBtn{
     }
+
     .arrow{
         position: relative;
         top: 2%;
         color: black;
     }
+
 }
+
