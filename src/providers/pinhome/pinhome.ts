@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
-import { Option } from 'ionic-angular';
+import { Option,LoadingController } from 'ionic-angular';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -23,17 +23,30 @@ nearByOrg =  new Array();
 //variables
 
 
-  constructor(private geolocation: Geolocation) {
+  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController) {
     console.log('Hello PinhomeProvider Provider');
   }
 
+  listenForLocation(){
+     //listen for current location
+     return new Promise((accpt,rej) =>{
+      let watch = this.geolocation.watchPosition();
+      watch.subscribe((data) => {
+        accpt(data)
+   // data can be a set of coordinates, or an error (if an error occurred).
+   // data.coords.latitude
+   // data.coords.longitude
+  });
+     })
+  }
+
   getCurrentLocation(){
-    //listen for current location
-    console.log("ragga")
+   //get current location
     return new Promise ((accpt, rej) =>{
     this.geolocation.getCurrentPosition().then((resp) => {
-      console.log(resp)
-          accpt(resp);
+      this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data:any) =>{
+        accpt(data);
+      })
        }).catch((error) => {
          console.log('Error getting location', error);
        });
@@ -54,33 +67,35 @@ if (down>= 100){
   else{
     var firstDigits = parseInt(downlat.substr(0,2)) + 1;
   }
-  downposition = firstDigits +  ".00" + downlat.substr(latIndex + 3,downlat.length);
+  var remainder = down - 100;
+  downposition = firstDigits +  ".0" + down;
 }else{
   if (downlat.substr(0,1) == "-"){
-    downposition =  downlat.substr(0,3) + "." + down + downlat.substr(latIndex + 3,downlat.length)
+    downposition =  downlat.substr(0,3) + "." + down ;
   }
   else{
-    downposition = downlat.substr(0,2) + "." + down+ downlat.substr(latIndex + 3,downlat.length)
+    downposition = downlat.substr(0,2) + "." + down;
   }
 }
 //up  position
 var uplat = new String(latitude); 
 var latIndex = uplat .indexOf( "." ); 
-var down = parseInt(uplat .substr(latIndex + 1,2)) - 6;
-if (down <= 0){
+var up= parseInt(uplat .substr(latIndex + 1,2)) - 6;
+if (up <= 0){
   if (uplat.substr(0,1) == "-"){
     var firstDigits = parseInt(uplat.substr(0,3)) + 1;
   }
   else{
     var firstDigits = parseInt(uplat.substr(0,2)) - 1;
   }
-  uposititon = firstDigits +  ".00" +uplat.substr(latIndex + 3,uplat.length);
+  var remainder = up - 100;
+  uposititon = firstDigits +  ".0" + remainder;
 }else{
   if (uplat.substr(0,1) == "-"){
-    uposititon = uplat.substr(0,3) + "." + down + uplat.substr(latIndex + 3,uplat.length)
+    uposititon = uplat.substr(0,3) + "." + up ;
   }
   else{
-    uposititon = uplat.substr(0,2) + "." + down+uplat.substr(latIndex + 3,uplat.length)
+    uposititon = uplat.substr(0,2) + "." + up ;
   }
 }
   //left position
@@ -93,29 +108,31 @@ if (down <= 0){
    }else{
     var firstDigits =  parseInt(leftlat.substr(0,2)) + 1;
    }
-   leftposition= firstDigits +  ".00" + leftlat.substr(longIndex  + 3,leftlat.length);
+   var remainder = left - 100;
+   leftposition= firstDigits +  ".0" + remainder;
  }else{
    if (leftlat.substr(0,1) == "-"){
-    leftposition = leftlat.substr(0,3) + "." + left + leftlat.substr(latIndex + 3,uplat.length)
+    leftposition = leftlat.substr(0,3) + "." + left;
    }
    else{
-    leftposition = leftlat.substr(0,2) + "." + left + leftlat.substr(latIndex + 3,uplat.length)
+    leftposition = leftlat.substr(0,2) + "." + left;
    }
 
  }
     //right position
     var rightlat = new String(longitude);
     var longIndex =  rightlat.indexOf(".");
-    var left =  parseInt(rightlat.substr(longIndex + 1,2)) + 6;
-    if (left >= 100){
+    var right =  parseInt(rightlat.substr(longIndex + 1,2)) + 6;
+    if (right >= 100){
       if (rightlat.substr(0,1) == "-"){
          var firstDigits =  parseInt(rightlat.substr(0,3)) - 1;
       }else{
        var firstDigits =  parseInt(rightlat.substr(0,2)) + 1;
       }
-      rightposition = firstDigits +  ".00" + rightlat.substr(longIndex  + 3,rightlat.length);
+      var remainder =  right - 100;
+      rightposition = firstDigits +  ".0" + remainder;
     }else{
-      rightposition = rightlat.substr(0,2) + "." + left + rightlat.substr(latIndex + 3,rightlat.length)
+      rightposition = rightlat.substr(0,2) + "." + right;
     }
     let radius ={
       left: leftposition,
@@ -152,6 +169,23 @@ if (down <= 0){
     })
   }
 
+  getNearByOrganizations(radius,org){
+    return new Promise((accpt,rej) =>{
+      this.listenForLocation().then((resp:any) =>{
+        var lat =  new String(resp.coords.latitude).substr(0,6);
+        var long = new String(resp.coords.longitude).substr(0,5);
+        for (var x = 0; x < org.length; x++){
+          var orglat = new String(org[x].orgLat).substr(0,6);
+          var orgLong =  new String(org[x].orgLong).substr(0,5);
+         if ((orgLong  <= long  && orgLong  >= radius.left || orgLong  >= long  && orgLong  <= radius.right) && (orglat >= lat && orglat <= radius.down || orglat <= lat && orglat >= radius.up)){
+          this.nearByOrg.push(org[x]);
+          }
+        }
+        accpt(this.nearByOrg)
+      })
+    })
+  
+  }
 
 
 
