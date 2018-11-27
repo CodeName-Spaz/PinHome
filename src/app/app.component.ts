@@ -11,13 +11,17 @@ import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
   templateUrl: 'app.html'
 })
 export class MyApp {
+<<<<<<< HEAD
+  rootPage:any = ViewPage;
+=======
 
   rootPage:any;
 
+>>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
-      this.rootPage = NearbyOrgPage;
+      this.rootPage = HomePage;
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

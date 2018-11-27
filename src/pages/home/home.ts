@@ -10,30 +10,35 @@ export class HomePage {
 orgArray  = new Array();
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider,public loadingCtrl: LoadingController) {
 this.getNearByOrganizations();
+
   }
   getNearByOrganizations(){
-    // let loading = this.loadingCtrl.create({
-    //   spinner: 'bubbles',
-    //   content: 'please wait',
-    //   duration: 2000
-    // });
-    // loading.present();
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'please wait',
+      duration: 222000
+    });
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius:any) =>{
-      console.log(radius);
-      // this.pinhomeProvider.getOrganisations().then((org:any) =>{
-      //   console.log(org)
-        // this.pinhomeProvider.getNearByOrganizations(radius,org).then((data:any) =>{
-        //   loading.dismiss();
-        // })
-      // })
+      this.pinhomeProvider.getOrganisations().then((org:any) =>{
+        this.pinhomeProvider.getNearByOrganizations(radius,org).then((data:any) =>{
+         this.orgArray = data;
+         console.log(this.orgArray)
+          loading.dismiss();
+        })
+      })
     })
   }
 
   getAllOrganizations(){
-
+  }
   viewPage(){
     this.navCtrl.push(ViewPage)
 
+  }
+
+  more(indx){
+    this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
   }
 
 }
