@@ -37,4 +37,8 @@ this.getNearByOrganizations();
 
   }
 
+  more(indx){
+    this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
+  }
+
 }
