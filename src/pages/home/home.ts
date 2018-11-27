@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
+import { ViewPage } from '../view/view';
 
 @Component({
   selector: 'page-home',
@@ -20,6 +21,10 @@ orgArray  = new Array();
     this.pinhomeProvider.getOrganisations().then((data:any) =>{
       this.orgArray = data;
     })
+  }
+
+  viewPage(){
+    this.navCtrl.push(ViewPage)
   }
 
 }

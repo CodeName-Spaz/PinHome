@@ -8,7 +8,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
-//import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { ViewPage } from '../pages/view/view';
+import { SignUpPage } from '../pages/sign-up/sign-up';
+import { SignInPage } from '../pages/sign-in/sign-in';
+import { ProfilePage } from '../pages/profile/profile';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
@@ -22,7 +26,11 @@ firebase.initializeApp({
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ViewPage,
+    SignUpPage,
+    SignInPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,11 @@ firebase.initializeApp({
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ViewPage,
+    SignUpPage,
+    SignInPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
@@ -39,7 +51,7 @@ firebase.initializeApp({
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
     Geolocation,
-    //NativeGeocoder
+    NativeGeocoder
   ]
 })
 export class AppModule {}
