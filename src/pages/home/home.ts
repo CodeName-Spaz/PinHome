@@ -29,14 +29,6 @@ this.getNearByOrganizations();
       })
     })
   }
-
-  getAllOrganizations(){
-  }
-  viewPage(){
-    this.navCtrl.push(ViewPage)
-
-  }
-
   more(indx){
     this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
   }

@@ -9,17 +9,12 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
-<<<<<<< HEAD
-import { SignUpPage } from '../pages/sign-up/sign-up';
-import { SignInPage } from '../pages/sign-in/sign-in';
-import { ProfilePage } from '../pages/profile/profile';
-//import { NativeGeocoder } from '@ionic-native/native-geocoder';
-=======
 import { ViewPage } from '../pages/view/view';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
->>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
-
+import {CallNumber} from '@ionic-native/call-number'
+import {EmailComposer} from '@ionic-native/email-composer'
+import {LaunchNavigator} from '@ionic-native/launch-navigator'
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
   authDomain: "pinhome-823ec.firebaseapp.com",
@@ -28,25 +23,12 @@ firebase.initializeApp({
   storageBucket: "pinhome-823ec.appspot.com",
   messagingSenderId: "523364615140"
 })
-<<<<<<< HEAD
-
-
-=======
->>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
 
 @NgModule({
   declarations: [
     MyApp,
-<<<<<<< HEAD
-    HomePage,
-    ViewPage,
-    SignUpPage,
-    SignInPage,
-    ProfilePage
-=======
     HomePage,ViewPage,
     NearbyOrgPage
->>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
   ],
   imports: [
     BrowserModule,
@@ -55,16 +37,8 @@ firebase.initializeApp({
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-<<<<<<< HEAD
-    HomePage,
-    ViewPage,
-    SignUpPage,
-    SignInPage,
-    ProfilePage
-=======
     HomePage,ViewPage,
     NearbyOrgPage
->>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
   ],
   providers: [
     StatusBar,
@@ -72,11 +46,11 @@ firebase.initializeApp({
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
     Geolocation,
-<<<<<<< HEAD
-    //NativeGeocoder
-=======
-    GoogleMaps
->>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
+    GoogleMaps,
+    CallNumber,
+    LaunchNavigator,
+    EmailComposer
+  
   ]
 })
 export class AppModule {}
