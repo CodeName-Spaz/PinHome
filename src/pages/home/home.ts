@@ -20,10 +20,10 @@ this.getNearByOrganizations();
     });
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius:any) =>{
-      console.log(radius)
       this.pinhomeProvider.getOrganisations().then((org:any) =>{
         this.pinhomeProvider.getNearByOrganizations(radius,org).then((data:any) =>{
          this.orgArray = data;
+         console.log(this.orgArray)
           loading.dismiss();
         })
       })
