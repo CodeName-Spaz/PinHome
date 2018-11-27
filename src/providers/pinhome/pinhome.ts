@@ -60,7 +60,7 @@ nearByOrg =  new Array();
 var downlat = new String(latitude); 
 var latIndex = downlat.indexOf( "." ); 
 var down = parseInt(downlat.substr(latIndex + 1,2)) + 6;
-if (down>= 100){
+if (down >= 100){
   if (downlat.substr(0,1) == "-"){
     var firstDigits = parseInt(downlat.substr(0,3)) - 1;
   }
@@ -150,7 +150,7 @@ if (up <= 0){
         if (data.val() != null || data.val() != undefined){
           let organisations =  data.val();
           let keys = Object.keys(organisations);
-          for (var x = 0; x < keys.length; x++){
+            for (var x = 0; x < keys.length; x++){
             let OrganisationKeys = keys[x];
             let organizationObject ={
               orgCat : organisations[OrganisationKeys].Category,
@@ -158,13 +158,17 @@ if (up <= 0){
               orgAddress: organisations[OrganisationKeys].OrganizationAdress,
               orgContact:organisations[OrganisationKeys].ContactDetails,
               orgPicture:organisations[OrganisationKeys].Url,
-              orgLat : organisations[OrganisationKeys].lat,
-              orgLong  : organisations[OrganisationKeys].long
+              orgLat : organisations[OrganisationKeys].latitude,
+              orgLong  : organisations[OrganisationKeys].longitude,
+              orgEmail : organisations[OrganisationKeys].Email,
+              orgAbout : organisations[OrganisationKeys].AboutOrg,
+              orgPrice : organisations[OrganisationKeys].Price
+              }
+              this.oraganisations.push(organizationObject);
             }
-            this.oraganisations.push(organizationObject);
+            console.log(this.oraganisations)
+            accpt(this.oraganisations);
           }
-          accpt(this.oraganisations);
-        }
        })
     })
   }
@@ -184,7 +188,6 @@ if (up <= 0){
         accpt(this.nearByOrg)
       })
     })
-  
   }
 
 

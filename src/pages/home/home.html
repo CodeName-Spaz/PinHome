@@ -25,9 +25,15 @@
       <h5>
         <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
     </ion-item>
+<<<<<<< HEAD
     <ion-slides loop="true" no-padding slidesPerView="3" speed="1000" autoplay="1000" effect="coverflow" *ngFor="let i of orgArray">
       <ion-slide class="slideContent" >
         <ion-card class="nearBy">
+=======
+    <ion-slides loop="true" no-padding slidesPerView="3" speed="1000" autoplay="1000" effect="coverflow" *ngFor="let i of orgArray; let in = index" (click)="more(in)">
+      <ion-slide class="slideContent" >
+        <ion-card class="nearBy" >
+>>>>>>> f922ebaaac3cff1ea6ab109d6f868980a189fe36
           <div class="nameOfOrg">
             <p>{{i.orgName}}</p>
           </div>
