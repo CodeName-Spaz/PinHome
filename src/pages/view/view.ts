@@ -34,7 +34,7 @@ export class ViewPage {
   }
 
   scroller(event){
-    console.log(event.scrollTop);
+    console.log(event);
     // console.log(event.directionY);
     
     let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf <HTMLElement>;
@@ -49,14 +49,13 @@ export class ViewPage {
 
     let seg = document.getElementsByClassName('segment') as HTMLCollectionOf <HTMLElement>;
     
-    if(event.scrollTop >= 360){
+    if(event.scrollTop >= 400){
       seg[0].style.width = "100%";
       seg[0].style.position = 'absolute';
-      seg[0].style.transform = "translateY("+(event.scrollTop - 376)+"px)";
+      seg[0].style.transform = "translateY("+(event.scrollTop - 420)+"px)";
     }
     else{
       seg[0].style.width = "100%";
-      seg[0].style.position = 'absolute';
       seg[0].style.transform = "translateY(0)"
 
     }

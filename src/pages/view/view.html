@@ -15,25 +15,37 @@
 
 <ion-content class="content" (ionScroll)="scroller($event)">
   <ion-fab top left class="backBtn">
-    <button clear ion-button icon-only (click)="Back()">
+    <button color="light" clear ion-button icon-only (click)="Back()">
       <ion-icon class="arrow" name="arrow-back"></ion-icon>
     </button>
   </ion-fab>
-  <img class="cover" src="../../assets/imgs/old.jpg">
+  <img class="cover" src="../../assets/imgs/house.jpg">
   <div class="main">
-    <div class="flex">
-      <img class="round" imageViewer src="../../assets/imgs/orphan.png"> &ensp;
-      <h1>Little Rose</h1>
-      <p class="category">Orphange Home</p>
-    </div>
 
+    <ion-grid>
+      <ion-row>
+          <ion-col col-3>
+            <img class="round" imageViewer src="../../assets/imgs/orphan.png">
+          </ion-col>
+          <ion-col class="details">
+            <p class="name">Little Rose</p>
+            <p class="category">Orphange Home</p></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
     <h1 align="center" class="ratings">
       <ion-icon name="star"></ion-icon>
       <ion-icon name="star"></ion-icon>
       <ion-icon name="star"></ion-icon>
       <ion-icon name="star-half"></ion-icon>
       <ion-icon name="star-outline"></ion-icon>
-    </h1>
+    </h1></ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
+  </div>
     <div class="segment">
     <ion-segment color="segments" [(ngModel)]="pet">
       <ion-segment-button value="About" (click)="reposition($event)">
@@ -45,10 +57,11 @@
       <ion-segment-button value="Gallery" (click)="reposition($event)">
         Gallery
       </ion-segment-button>
+      <ion-segment-button value="Reviews" (click)="reposition($event)">
+        Reviews
+      </ion-segment-button>
     </ion-segment>
   </div>
-  </div>
-
 
   
 
@@ -63,6 +76,8 @@
           ... -->
 
       <div padding>
+        <br>
+        <br>
         <B>FOR KIDS AGED O-15.</B>
         <BR> Explicabo rem labore corrupti non adipisci atque doloribus laborum voluptas dolore? Itaque, sapiente iusto natus
         sequi impedit veniam hic! Nemo velit repellendus porro provident dicta vitae dolor placeat delectus dignissimos?
@@ -263,6 +278,8 @@
 
 
     <ion-list *ngSwitchCase="'Location'">
+      <br>
+      <br>
       <!-- <ion-item>
             <ion-thumbnail item-start>
               <img src="img/thumbnail-kitten-1.jpg">
@@ -271,15 +288,15 @@
           </ion-item> -->
       <img class="map" src="../../assets/imgs/map.jpg">
 
-      <button ion-button full color="btn">Get Directions</button>
+      <button ion-button full color="segments">Get Directions</button>
 
       <ion-grid class="buttons">
         <ion-row>
           <ion-col>
-            <button ion-button block color="btn">Call</button>
+            <button ion-button block color="segments">Call</button>
           </ion-col>
           <ion-col>
-            <button ion-button block color="btn">Email</button>
+            <button ion-button block color="segments">Email</button>
           </ion-col>
         </ion-row>
 
@@ -296,6 +313,8 @@
               </ion-thumbnail>
               <h2>Luna</h2>
             </ion-item> -->
+            <br>
+            <br>
 
       <div>
         <ion-grid align="center" class="pictures">
@@ -340,6 +359,86 @@
           </ion-row>
         </ion-grid>
       </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'Reviews'">
+      <ion-card class="Reviews">
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/him.gif">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+         <div class="Rate">
+          <ion-icon class="stars" name="star"></ion-icon>
+          <ion-icon class="stars" name="star"></ion-icon>
+          <ion-icon class="stars" name="star"></ion-icon>
+          <ion-icon class="stars" name="star-outline"></ion-icon>
+          <ion-icon class="stars" name="star-outline"></ion-icon>
+        </div>
+          <p>November 5, 1955</p>
+        </ion-item>
+        <ion-card-content>
+          <p>Wait a minute. Wait a minute, Doc. Uhhh... </p>
+        </ion-card-content>
+        <hr>
+
+        <ion-item>
+            <ion-avatar item-start>
+              <img src="../../assets/imgs/him.gif">
+            </ion-avatar>
+            <h2>Marty McFly</h2>
+            <div class="Rate">
+                <ion-icon class="stars" name="star"></ion-icon>
+                <ion-icon class="stars" name="star"></ion-icon>
+                <ion-icon class="stars" name="star"></ion-icon>
+                <ion-icon class="stars" name="star-outline"></ion-icon>
+                <ion-icon class="stars" name="star-outline"></ion-icon>
+              </div>
+            <p>November 5, 1955</p>
+          </ion-item>
+          <ion-card-content>
+            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+          </ion-card-content>
+           <hr>
+
+          <ion-item>
+              <ion-avatar item-start>
+                <img src="../../assets/imgs/him.gif">
+              </ion-avatar>
+              <h2>Marty McFly</h2>
+              <div class="Rate">
+                  <ion-icon class="stars" name="star"></ion-icon>
+                  <ion-icon class="stars" name="star"></ion-icon>
+                  <ion-icon class="stars" name="star"></ion-icon>
+                  <ion-icon class="stars" name="star-outline"></ion-icon>
+                  <ion-icon class="stars" name="star-outline"></ion-icon>
+                </div>
+              <p>November 5, 1955</p>
+            </ion-item>
+            <ion-card-content>
+              <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+            </ion-card-content>
+            <hr>
+            <ion-item>
+                <ion-avatar item-start>
+                  <img src="../../assets/imgs/him.gif">
+                </ion-avatar>
+                <h2>Marty McFly</h2>
+                <div class="Rate">
+                    <ion-icon class="stars" name="star"></ion-icon>
+                    <ion-icon class="stars" name="star"></ion-icon>
+                    <ion-icon class="stars" name="star"></ion-icon>
+                    <ion-icon class="stars" name="star"></ion-icon>
+                    <ion-icon class="stars" name="star"></ion-icon>
+                  </div>
+                <p>November 5, 1955</p>
+              </ion-item>
+              <ion-card-content>
+                <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+              </ion-card-content>
+      
+      </ion-card>
+
     </ion-list>
   </div>
 </ion-content>

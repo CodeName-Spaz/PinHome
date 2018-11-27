@@ -5,10 +5,11 @@ page-view {
     // }
 
     .segment{
-        bottom:0px;
+        // top:0px;
         background-color: white;
         position: absolute;
         width: 100%;
+        z-index: 1;
     }
 
     .cover{
@@ -26,13 +27,16 @@ page-view {
         margin-top: 3%;        
     }
 
-    h1{
+    .name{
         text-align: center;
-        font-weight: 100;
-        color: #fff;
         font-weight: bolder;
-        font-size: 1.4em;
-        
+        color: #fff;
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .details{
+        text-align: left
     }
 
     .flex{
@@ -46,15 +50,12 @@ page-view {
         background-color: #166b85;
         height: 170px;
         position: relative;
+        text-transform: capitalize;
     }
 
     .category{
         color: white;
         font-style: italic;
-        font-weight: 100;
-        position: absolute;
-        left:95px;
-        top: 35px;
     }
 
 
@@ -96,7 +97,7 @@ page-view {
     }
 
     .backBtn{
-
+        color: white;
     }
 
     .arrow{
@@ -105,4 +106,155 @@ page-view {
         color: black;
     }
 
+    .Reviews{
+        position: relative;
+        top: 25px;
+    }
+
+    .Rate{
+        position: relative;
+        top: 15px;
+        
+    }
+
+    .stars{
+        color: rgb(119, 114, 114);
+        font-size: 1em
+    }
+   
+
+    @media  screen and (min-width:700px){
+            // .content{
+        
+    // }
+    .segment{
+        // top:0px;
+        background-color: white;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .cover{
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .round{
+        border: solid 2px white;
+        width: 90px;
+        border-radius: 50%;
+        height: 90px;
+        margin-left: 30%;
+        margin-top: 3%;        
+    }
+
+    .name{
+        text-align: center;
+        font-weight: bolder;
+        color: #fff;
+        font-size: 1.8em;
+        text-align: left;
+    }
+
+    .details{
+        text-align: left
+    }
+
+    .flex{
+        display: flex;
+        position: relative;
+    }
+
+    .main{
+        // border: 2px solid red;
+        margin-top:-10px;
+        background-color: #166b85;
+        height: 170px;
+        position: relative;
+        text-transform: capitalize;
+    }
+
+    .category{
+        color: white;
+        font-style: italic;
+        font-size: 1.5em;
+        font-weight: 100;
+        position: relative;
+        bottom: 12%;
+    }
+
+
+    
+    ion-icon{
+        color: rgb(223, 219, 219);
+        position: relative;
+        top: -19px;
+    }
+
+    .test{
+        // height: 1000px;
+        background: white;
+    }
+
+    .pictures{
+        height: 230px;
+        // border: solid 2px red;
+        // border-left: solid 2px white;
+    }
+
+
+    .image{
+        height: 200px;
+        width: 220px;
+    }
+
+    .map{
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .fullBtn{
+        position: relative;
+        top: 10%;
+    }
+
+    .buttons{
+        position: relative;
+        bottom: 10px;
+    }
+
+    .backBtn{
+        color: white;
+    }
+
+    .arrow{
+        position: relative;
+        top: 2%;
+        color: black;
+    }
+
+    .Reviews{
+        position: relative;
+        top: 25px;
+    }
+
+    .Rate{
+        position: relative;
+        top: 15px;
+        
+    }
+
+    .stars{
+        color: rgb(119, 114, 114);
+        font-size: 1em
+    }
+
+    .ratings{
+        position: relative;
+        bottom: 45%;
+    }
+   
+    }
 }

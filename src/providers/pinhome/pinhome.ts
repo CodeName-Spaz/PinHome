@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+//import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -21,7 +21,7 @@ oraganisations =  new Array()
 //variables
 
 
-  constructor(private geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
+  constructor(private geolocation: Geolocation) {
     console.log('Hello PinhomeProvider Provider');
   }
 
