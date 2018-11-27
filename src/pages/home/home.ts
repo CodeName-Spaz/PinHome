@@ -37,12 +37,8 @@ this.getNearByOrganizations();
 
   }
 
-<<<<<<< HEAD
-  
-=======
   more(indx){
     this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
   }
->>>>>>> f922ebaaac3cff1ea6ab109d6f868980a189fe36
 
 }

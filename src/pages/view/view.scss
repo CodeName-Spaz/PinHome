@@ -26,7 +26,7 @@ page-view {
     }
 
     .name{
-        text-align: center;
+        // text-align: center;
         font-weight: bolder;
         color: #fff;
         font-size: 15px;
@@ -38,6 +38,7 @@ page-view {
     }
     .flex{
         display: flex;
+        flex-wrap: wrap;
         position: relative;
     }
     .main{
@@ -51,6 +52,10 @@ page-view {
     .category{
         color: white;
         font-style: italic;
+        font-weight: 100;
+        position: absolute;
+        left:95px;
+        top: 35px;
     }
     
     ion-icon{
@@ -108,6 +113,14 @@ page-view {
         color: rgb(119, 114, 114);
         font-size: 1em
     }
+
+    .about{
+        margin-top: 50px;
+    }
+
+    .info{
+        font-weight: 100;
+    }
    
 
     @media  screen and (min-width:700px){
@@ -133,16 +146,17 @@ page-view {
         width: 90px;
         border-radius: 50%;
         height: 90px;
-        margin-left: 30%;
+        margin-left: 8%;
         margin-top: 3%;        
     }
 
     .name{
-        text-align: center;
+        // text-align: center;
         font-weight: bolder;
         color: #fff;
-        font-size: 1.8em;
-        text-align: left;
+        font-size: 2.5em;
+       position: relative;
+       left: 4%;
     }
 
     .details{
@@ -166,10 +180,11 @@ page-view {
     .category{
         color: white;
         font-style: italic;
-        font-size: 1.5em;
+        font-size: 2em;
         font-weight: 100;
         position: relative;
         bottom: 12%;
+        left: -26%;
     }
 
 
