@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { IonicImageViewerModule } from 'ionic-img-viewer';
-import { HomePage } from '../home/home';
+//import { IonicImageViewerModule } from 'ionic-img-viewer';
+
 
 
 /**
@@ -18,7 +18,10 @@ import { HomePage } from '../home/home';
 })
 export class ViewPage {
 
+  orgArray = new Array();
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.orgArray.push(this.navParams.get('orgObject'));
+    console.log(this.orgArray)
   }
 
   ionViewDidLoad() {

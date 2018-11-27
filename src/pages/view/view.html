@@ -13,14 +13,24 @@
 </ion-header>
 
 
-<ion-content class="content" (ionScroll)="scroller($event)">
+<ion-content class="content" (ionScroll)="scroller($event)" *ngFor="let i of orgArray">
   <ion-fab top left class="backBtn">
     <button color="light" clear ion-button icon-only (click)="Back()">
       <ion-icon class="arrow" name="arrow-back"></ion-icon>
     </button>
   </ion-fab>
+<<<<<<< HEAD
   <img class="cover" src="../../assets/imgs/house.jpg">
   <div class="main">
+=======
+  <img class="cover" src="{{i.orgPicture}}">
+  <div class="main">
+    <div class="flex">
+      <img class="round" imageViewer src="../../assets/imgs/orphan.png"> &ensp;
+      <h1>{{i.orgName}}</h1>
+      <p class="category">{{i.orgCat}}</p>
+    </div>
+>>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
 
     <ion-grid>
       <ion-row>
@@ -76,6 +86,7 @@
           ... -->
 
       <div padding>
+<<<<<<< HEAD
         <br>
         <br>
         <B>FOR KIDS AGED O-15.</B>
@@ -273,6 +284,8 @@
         impedit sit tenetur doloribus nemo aperiam non, repudiandae recusandae illum explicabo magnam voluptatibus perferendis
         quaerat voluptas! Eum, maxime! Voluptas amet maxime aliquam quisquam. Inventore hic suscipit reprehenderit ex tenetur
         quidem cumque odit consectetur in.
+=======
+>>>>>>> b59fd0333f60653f485e4f8a8c27889716d62bec
       </div>
     </ion-list>
 
