@@ -3,16 +3,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import firebase from 'firebase'
+// import firebase from 'firebase';
+import firebase from 'firebase';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ViewPage } from '../pages/view/view';
-import { SignUpPage } from '../pages/sign-up/sign-up';
-import { SignInPage } from '../pages/sign-in/sign-in';
-import { ProfilePage } from '../pages/profile/profile';
-import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { SignUpPage } from '../pages/sign-up/sign-up'
+
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
@@ -28,9 +29,8 @@ firebase.initializeApp({
     MyApp,
     HomePage,
     ViewPage,
-    SignUpPage,
-    SignInPage,
-    ProfilePage
+    NearbyOrgPage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
@@ -41,9 +41,8 @@ firebase.initializeApp({
     MyApp,
     HomePage,
     ViewPage,
-    SignUpPage,
-    SignInPage,
-    ProfilePage
+    NearbyOrgPage,
+    SignUpPage
   ],
   providers: [
     StatusBar,
@@ -51,7 +50,7 @@ firebase.initializeApp({
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
     Geolocation,
-    NativeGeocoder
+    GoogleMaps
   ]
 })
 export class AppModule {}
