@@ -21,7 +21,9 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
+
   pet =  "Location"
+
   orgArray = new Array();
   state = ["star-outline","star-outline","star-outline","star-outline","star-outline"]
 
