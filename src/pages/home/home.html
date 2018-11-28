@@ -1,21 +1,5 @@
 <ion-header no-border-bottom>
-  <!-- <ion-navbar color="custom" no-border-bottom>
-    <ion-buttons left>
-      <button ion-button icon-only>
-        <ion-icon ios="ios-more" md="md-more"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-item no-lines class="theItem">
-      <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
-    </ion-item>
-    <ion-buttons right>
-      <button ion-button icon-only outline color="light" class="profile">
-        <ion-icon ios="ios-person" md="md-person"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar> -->
   <ion-navbar color="custom">
-
     <div class="top">
       <ion-item class="hidden">
         <ion-label>Filtey by</ion-label>
@@ -32,39 +16,19 @@
       <div class="more">
         <ion-icon name="more"></ion-icon>
       </div>
-
       <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
-
       <button ion-button icon-only outline color="light" class="profile">
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
     </div>
-
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-
   <ion-item no-lines class="labeler">
     <h5>
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
   </ion-item>
   <div class="theSlides">
-
-
-    <!-- <ion-slides loop="true" preloadImages="true" no-padding slidesPerView="3" speed="1000" autoplay="1000" effect="coverflow" *ngFor="let i of orgArray; let in = index">
-      <ion-slide class="slideContent" (click)="more(in)">
-        <ion-card class="nearBy">
-          <div class="nameOfOrg">
-            <p>{{i.orgName}}</p>
-          </div>
-          <img id="homeImage" src="{{i.orgPicture}}" alt="">
-          <div class="starRate">
-            <p></p>
-          </div>
-        </ion-card>
-      </ion-slide>
-    </ion-slides> -->
     <ion-slides slidesPerView="3" initialSlide="3" effect="coverflow">
       <ion-slide class="trans">
       </ion-slide>
@@ -73,19 +37,14 @@
           <div class="title">
             <p class="orgName">{{i.orgName}}</p>
           </div>
-
           <ion-card-content no-padding>
             <img id="homeImage" src="{{i.orgPicture}}" alt="">
           </ion-card-content>
         </ion-card>
-
       </ion-slide>
       <ion-slide class="trans">
-
       </ion-slide>
     </ion-slides>
-
-
   </div>
   <div class="spacer"></div>
   <ion-item no-lines class="area">
@@ -109,9 +68,5 @@
         </p>
       </ion-item>
     </ion-card>
-
-
-
   </div>
-
 </ion-content>
