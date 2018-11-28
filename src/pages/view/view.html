@@ -35,11 +35,11 @@
         <ion-row class="stars">
           <ion-col >
       <h1 align="center" class="ratings">
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star-half"></ion-icon>
-        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon name={{Star1}} (click)="rate('1')"></ion-icon>
+        <ion-icon name={{Star2}} (click)="rate('2')"></ion-icon>
+        <ion-icon name={{Star3}} (click)="rate('3')"></ion-icon>
+        <ion-icon name={{Star4}} (click)="rate('4')"></ion-icon>
+        <ion-icon name={{Star5}} (click)="rate('5')"></ion-icon>
       </h1></ion-col>
         </ion-row>
       </ion-grid>
@@ -80,23 +80,16 @@
       <ion-list *ngSwitchCase="'Location'">
         <br>
         <br>
-        <!-- <ion-item>
-              <ion-thumbnail item-start>
-                <img src="img/thumbnail-kitten-1.jpg">
-              </ion-thumbnail>
-              <h2>Luna</h2>
-            </ion-item> -->
-        <img class="map" src="../../assets/imgs/map.jpg">
-  
-        <button ion-button full color="segments">Get Directions</button>
+            <p id="map" style="height:450px"></p>
+        <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
   
         <ion-grid class="buttons">
           <ion-row>
             <ion-col>
-              <button ion-button block color="segments">Call</button>
+              <button ion-button block color="segments" (click)="call(i.orgContact)">Call</button>
             </ion-col>
             <ion-col>
-              <button ion-button block color="segments">Email</button>
+              <button ion-button block color="segments" (click)="email(i.orgEmail)">Email</button>
             </ion-col>
           </ion-row>
   

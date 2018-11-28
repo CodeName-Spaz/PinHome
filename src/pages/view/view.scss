@@ -1,9 +1,7 @@
 page-view {
-
     // .content{
         
     // }
-
     .segment{
         // top:0px;
         background-color: white;
@@ -24,7 +22,6 @@ page-view {
         margin-left: 4%;
         margin-top: 3%;        
     }
-
     .name{
         // text-align: center;
         font-weight: bolder;
@@ -32,6 +29,7 @@ page-view {
         font-size: 15px;
         text-align: left;
     }
+
     ion-grid{
         // border: 2px solid red
     }
@@ -43,6 +41,7 @@ page-view {
         position: relative;
         height: 50px;
     }
+
 
     .details{
         text-align: lebnft
@@ -102,29 +101,24 @@ page-view {
         position: relative;
         bottom: 10px;
     }
-
     .backBtn{
         color: white;
     }
-
     .arrow{
         position: relative;
         top: 2%;
         text-shadow: 0 0 5px black;
         font-size: 2em;
     }
-
     .Reviews{
         position: relative;
         top: 25px;
     }
-
     .Rate{
         position: relative;
         top: 15px;
         
     }
-
     .stars{
         color: rgb(119, 114, 114);
         font-size: 1em
@@ -134,11 +128,12 @@ page-view {
         margin-top: 50px;
     }
 
+
+
     .info{
         font-weight: 100;
     }
    
-
     @media  screen and (min-width:700px){
             // .content{
         
@@ -150,13 +145,11 @@ page-view {
         width: 100%;
         z-index: 1;
     }
-
     .cover{
         height: 250px;
         width: 100%;
         object-fit: cover;
     }
-
     .round{
         border: solid 2px white;
         width: 90px;
@@ -165,7 +158,6 @@ page-view {
         margin-left: 8%;
         margin-top: 3%;        
     }
-
     .name{
         // text-align: center;
         font-weight: bolder;
@@ -174,16 +166,13 @@ page-view {
        position: relative;
        left: 4%;
     }
-
     .details{
         text-align: left
     }
-
     .flex{
         display: flex;
         position: relative;
     }
-
     .main{
         // border: 2px solid red;
         margin-top:-10px;
@@ -192,7 +181,6 @@ page-view {
         position: relative;
         text-transform: capitalize;
     }
-
     .category{
         color: white;
         font-style: italic;
@@ -202,73 +190,58 @@ page-view {
         bottom: 12%;
         left: -26%;
     }
-
-
     
     ion-icon{
         color: rgb(223, 219, 219);
         position: relative;
         top: -19px;
     }
-
     .test{
         // height: 1000px;
         background: white;
     }
-
     .pictures{
         height: 230px;
         // border: solid 2px red;
         // border-left: solid 2px white;
     }
-
-
     .image{
         height: 200px;
         width: 220px;
     }
-
     .map{
         width: 100%;
         object-fit: cover;
     }
-
     .fullBtn{
         position: relative;
         top: 10%;
     }
-
     .buttons{
         position: relative;
         bottom: 10px;
     }
-
     .backBtn{
         color: white;
     }
-
     .arrow{
         position: relative;
         top: 2%;
         color: black;
     }
-
     .Reviews{
         position: relative;
         top: 25px;
     }
-
     .Rate{
         position: relative;
         top: 15px;
         
     }
-
     .stars{
         color: rgb(119, 114, 114);
         font-size: 1em
     }
-
     .ratings{
         position: relative;
         bottom: 45%;
@@ -276,4 +249,3 @@ page-view {
    
     }
 }
-

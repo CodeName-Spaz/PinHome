@@ -13,9 +13,7 @@ import { SignInPage } from '../pages/sign-in/sign-in'
   templateUrl: 'app.html'
 })
 export class MyApp {
-
   rootPage:any;
-
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
