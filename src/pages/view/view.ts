@@ -6,6 +6,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 //import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { AlertController } from 'ionic-angular';
+import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 
 
 
@@ -24,11 +25,17 @@ declare var google;
 export class ViewPage {
   pet =  "Location"
   orgArray = new Array();
+
+  comments;
+
   
-  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
 
   console.log(this.orgArray[0].orgAddress)
+
+
+  
   }
 
   ionViewDidEnter() {
@@ -127,12 +134,12 @@ export class ViewPage {
 
   comment() {
     const prompt = this.alertCtrl.create({
-      title: 'Login',
-      message: "Enter a name for this new album you're so keen on adding",
+      title: 'Comment',
+      message: "You can comment below",
       inputs: [
         {
-          name: 'title',
-          placeholder: 'Title'
+          name: 'comments',
+          placeholder: 'comments'
         },
       ],
       buttons: [
@@ -143,15 +150,21 @@ export class ViewPage {
           }
         },
         {
-          text: 'Save',
+          text: 'Comment',
           handler: data => {
-            console.log('Saved clicked');
+            console.log('Saved clicked' + data.comments);
+            
+            this.pinhomeProvider.comments(data.comments).then((data)=>{
+            console.log(data);
+            })
+
           }
         }
       ]
     });
     prompt.present();
   }
+  
 
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option,LoadingController } from 'ionic-angular';
+import moment from 'moment';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -20,6 +21,8 @@ auth = firebase.auth();
 oraganisations =  new Array()
 nearByOrg =  new Array();
 categoryArr = new Array();
+commentArr = new Array();
+searchOrgArray = new Array();
 //variables
 
 
@@ -255,4 +258,69 @@ if (up <= 0){
     })
   }
 
+  comments(comment: any) {
+    // var user = firebase.auth().currentUser;
+    return new Promise((accpt, rejc) => {
+      var day = moment().format('MMMM Do YYYY, h:mm:ss a');
+      firebase.database().ref('comments/').push({
+        comment: comment,
+        // uid: user.uid,
+        date: day,
+        // url: this.url
+      })
+      accpt('success');
+    });
+
+  }
+
+
+
+  viewComments(key: any, comment: string) {
+    this.commentArr.length = 0;
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("comments/" + key).on("value", (data: any) => {
+        var CommentDetails = data.val();
+        if (data.val() == null) {
+          this.commentArr = null;
+        }
+        else {
+          var keys1: any = Object.keys(CommentDetails);
+          for (var i = 0; i < keys1.length; i++) {
+            var key = keys1[i];
+            var chckId = CommentDetails[key].uid;
+            let obj = {
+              comment: CommentDetails[key].comment,
+              uid: user.uid,
+              // url: this.url,
+              date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
+              // username: ""
+            }
+            accpt(this.commentArr);
+          }
+        }
+      }, Error => {
+        rejc(Error.message)
+      })
+
+    })
+  }
+
+
+  getOrgNames(){
+    return new Promise((accpt, rej) =>{
+      this.db.ref('OrganizationList').on('value', (data:any) =>{
+        if (data.val() != null || data.val() != undefined){
+          let organisations =  data.val();
+          let keys = Object.keys(organisations);
+            for (var x = 0; x < keys.length; x++){
+            let OrganisationKeys = keys[x];
+              this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
+            }
+            console.log(this.searchOrgArray)
+            accpt(this.searchOrgArray);
+          }
+       })
+    })
+  }
 }

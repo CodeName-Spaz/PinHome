@@ -119,9 +119,7 @@ export class NearbyOrgPage {
       })
     })
   }
-
   GoToHomePage(){
     this.navCtrl.push(HomePage);
   }
-
 }
