@@ -16,16 +16,24 @@
     <img class="cover" src="{{i.orgPicture}}">
     <div class="main">
       <div class="flex">
-        <img class="round" imageViewer src="../../assets/imgs/orphan.png"> &ensp;
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+        <img class="round" src="../../assets/imgs/orphan.png"> &ensp;
+      </ion-col>
+      <ion-col>
         <h1 class="name">{{i.orgName}}</h1><br>
         <p class="category">{{i.orgCat}}</p>
+      </ion-col>
+      </ion-row>
+      </ion-grid>
       </div>
   
       <ion-grid>
         <ion-row>
         </ion-row>
-        <ion-row>
-          <ion-col>
+        <ion-row class="stars">
+          <ion-col >
       <h1 align="center" class="ratings">
         <ion-icon name="star"></ion-icon>
         <ion-icon name="star"></ion-icon>
@@ -112,24 +120,10 @@
           <ion-grid align="center" class="pictures">
             <ion-row>
               <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg">
+                <img imageViewer class="image" src="../../assets/imgs/activities.jpg">
               </ion-col>
               <ion-col>
-                <img class="image" src="../../assets/imgs/beds.jpg">
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/mealtime.jpg">
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-  
-          <ion-grid align="center">
-            <ion-row>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg">
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/beds.jpg">
+                <img imageViewer class="image" src="../../assets/imgs/beds.jpg">
               </ion-col>
               <ion-col>
                 <img class="image" src="../../assets/imgs/mealtime.jpg">
@@ -140,13 +134,27 @@
           <ion-grid align="center">
             <ion-row>
               <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg">
+                <img imageViewer class="image" src="../../assets/imgs/activities.jpg">
               </ion-col>
               <ion-col>
-                <img class="image" src="../../assets/imgs/beds.jpg">
+                <img imageViewer class="image" src="../../assets/imgs/beds.jpg">
               </ion-col>
               <ion-col>
-                <img class="image" src="../../assets/imgs/mealtime.jpg">
+                <img imageViewer class="image" src="../../assets/imgs/mealtime.jpg">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+  
+          <ion-grid align="center">
+            <ion-row>
+              <ion-col>
+                <img imageViewer class="image" src="../../assets/imgs/activities.jpg">
+              </ion-col>
+              <ion-col>
+                <img imageViewer class="image" src="../../assets/imgs/beds.jpg">
+              </ion-col>
+              <ion-col>
+                <img imageViewer class="image" src="../../assets/imgs/mealtime.jpg">
               </ion-col>
             </ion-row>
           </ion-grid>
