@@ -42,7 +42,6 @@ export class ViewPage {
 
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
-    console.log(this.pet)
   }
 
 

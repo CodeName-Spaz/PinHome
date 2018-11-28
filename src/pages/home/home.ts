@@ -8,10 +8,23 @@ import { ViewPage } from '../view/view'
 })
 export class HomePage {
 orgArray  = new Array();
+searchQuery: string = '';
+items: string[];
+orgs =  [];
+
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider,public loadingCtrl: LoadingController) {
 this.getNearByOrganizations();
+this.pinhomeProvider.getOrgNames().then((data:any) =>{
+ this.storedata( data);
+ this.initializeItems();
+})
 
   }
+storedata(data){
+  this.orgs =  data;
+}
+
+  
   getNearByOrganizations(){
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -21,9 +34,8 @@ this.getNearByOrganizations();
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius:any) =>{
       this.pinhomeProvider.getOrganisations().then((org:any) =>{
-        this.pinhomeProvider.getNearByOrganizations(radius,org).then((data:any) =>{
+        this.pinhomeProvider.getNearByOrganisations(radius,org).then((data:any) =>{
          this.orgArray = data;
-         console.log(this.orgArray)
           loading.dismiss();
         })
       })
@@ -31,6 +43,25 @@ this.getNearByOrganizations();
   }
   more(indx){
     this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
+  }
+
+  initializeItems() {
+    this.items =  this.orgs;
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != "") {
+      this.items = this.items.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
 
 }
