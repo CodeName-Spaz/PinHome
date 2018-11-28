@@ -20,9 +20,14 @@ auth = firebase.auth();
 //arrays
 oraganisations =  new Array()
 nearByOrg =  new Array();
+<<<<<<< HEAD
 categoryArr = new Array();
 commentArr = new Array();
 searchOrgArray = new Array();
+=======
+searchOrgArray =  new Array();
+
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 //variables
 
 
@@ -169,14 +174,13 @@ if (up <= 0){
               }
               this.oraganisations.push(organizationObject);
             }
-            console.log(this.oraganisations)
             accpt(this.oraganisations);
           }
        })
     })
   }
 
-  getNearByOrganizations(radius,org){
+  getNearByOrganisations(radius,org){
     return new Promise((accpt,rej) =>{
       this.listenForLocation().then((resp:any) =>{
         var lat =  new String(resp.coords.latitude).substr(0,6);
@@ -193,6 +197,21 @@ if (up <= 0){
     })
   }
 
+  getOrgNames(){
+    return new Promise((accpt, rej) =>{
+      this.db.ref('OrganizationList').on('value', (data:any) =>{
+        if (data.val() != null || data.val() != undefined){
+          let organisations =  data.val();
+          let keys = Object.keys(organisations);
+            for (var x = 0; x < keys.length; x++){
+            let OrganisationKeys = keys[x];
+              this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
+            }
+            accpt(this.searchOrgArray);
+          }
+       })
+    })
+  }
 
   DisplayCategory(Category) {
     this.categoryArr.length =0;

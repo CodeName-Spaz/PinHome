@@ -7,6 +7,7 @@ import { ViewPage } from '../view/view'
   templateUrl: 'home.html'
 })
 export class HomePage {
+<<<<<<< HEAD
   category;
 
   orgArray = new Array();
@@ -75,18 +76,59 @@ export class HomePage {
           this.orgArray = data;
           console.log(this.orgArray)
           // loading.dismiss();
+=======
+orgArray  = new Array();
+searchQuery: string = '';
+items: string[];
+orgs =  [];
+
+  constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider,public loadingCtrl: LoadingController) {
+this.getNearByOrganizations();
+this.pinhomeProvider.getOrgNames().then((data:any) =>{
+ this.storedata( data);
+ this.initializeItems();
+})
+
+  }
+storedata(data){
+  this.orgs =  data;
+}
+
+  
+  getNearByOrganizations(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'please wait',
+      duration: 222000
+    });
+    loading.present();
+    this.pinhomeProvider.getCurrentLocation().then((radius:any) =>{
+      this.pinhomeProvider.getOrganisations().then((org:any) =>{
+        this.pinhomeProvider.getNearByOrganisations(radius,org).then((data:any) =>{
+         this.orgArray = data;
+          loading.dismiss();
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
         })
       })
     })
   }
+<<<<<<< HEAD
 
   getAllOrganizations() {
   }
   viewPage() {
     this.navCtrl.push(ViewPage)
+=======
+  more(indx){
+    this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
+  }
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 
+  initializeItems() {
+    this.items =  this.orgs;
   }
 
+<<<<<<< HEAD
   more(indx) {
     this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
   }
@@ -99,6 +141,21 @@ export class HomePage {
 
   initializeItems() {
     this.items = this.orgs;
+=======
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != "") {
+      this.items = this.items.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
   }
 
   getItems(ev: any) {

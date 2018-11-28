@@ -29,8 +29,25 @@ page-view {
         font-size: 15px;
         text-align: left;
     }
+<<<<<<< HEAD
+=======
+
+    ion-grid{
+        // border: 2px solid red
+    }
+    ion-row{
+        // border: 2px solid greenyellow        
+    }
+    ion-col{
+        // border: 2px solid red;
+        position: relative;
+        height: 50px;
+    }
+
+
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
     .details{
-        text-align: left
+        text-align: lebnft
     }
     .flex{
         display: flex;
@@ -45,12 +62,16 @@ page-view {
         position: relative;
         text-transform: capitalize;
     }
+    .stars{
+        // border: 2px solid red;
+        margin-top: 25px;
+    }
     .category{
         color: white;
         font-style: italic;
         font-weight: 100;
         position: absolute;
-        left:95px;
+        // left:95px;
         top: 35px;
     }
     
@@ -89,7 +110,8 @@ page-view {
     .arrow{
         position: relative;
         top: 2%;
-        color: black;
+        text-shadow: 0 0 5px black;
+        font-size: 2em;
     }
     .Reviews{
         position: relative;
@@ -108,6 +130,8 @@ page-view {
     .about{
         margin-top: 50px;
     }
+
+
 
     .info{
         font-weight: 100;
@@ -228,4 +252,3 @@ page-view {
    
     }
 }
-
