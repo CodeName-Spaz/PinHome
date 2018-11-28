@@ -10,6 +10,8 @@ import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ViewPage } from '../pages/view/view';
+import { SignUpPage } from '../pages/sign-up/sign-up'
+
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
 import {CallNumber} from '@ionic-native/call-number'
@@ -27,8 +29,10 @@ firebase.initializeApp({
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,ViewPage,
-    NearbyOrgPage
+    HomePage,
+    ViewPage,
+    NearbyOrgPage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
@@ -37,8 +41,10 @@ firebase.initializeApp({
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,ViewPage,
-    NearbyOrgPage
+    HomePage,
+    ViewPage,
+    NearbyOrgPage,
+    SignUpPage
   ],
   providers: [
     StatusBar,
