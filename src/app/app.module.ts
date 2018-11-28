@@ -14,6 +14,9 @@ import { SignUpPage } from '../pages/sign-up/sign-up'
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { CallNumber } from '@ionic-native/call-number';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 firebase.initializeApp({
   apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
@@ -50,7 +53,10 @@ firebase.initializeApp({
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PinhomeProvider,
     Geolocation,
-    GoogleMaps
+    GoogleMaps,
+    EmailComposer,
+    CallNumber,
+    LaunchNavigator
   ]
 })
 export class AppModule {}

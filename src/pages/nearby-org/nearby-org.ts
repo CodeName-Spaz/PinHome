@@ -12,6 +12,7 @@ import {
 } from '@ionic-native/google-maps';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the NearbyOrgPage page.
@@ -86,9 +87,8 @@ export class NearbyOrgPage {
             }
           }).then((marker : Marker ) =>{
             marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
-                var mark = e[0];
                 for (var i = 0; i < this.orgArray.length; i++ ){
-                  if (this.orgArray[i].orgLat == mark[0].lat && this.orgArray[i].orgLong == mark[0].lng){
+                  if (this.orgArray[i].orgName ==  marker.getTitle()){
                     this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
                       break;
                   }
@@ -119,4 +119,9 @@ export class NearbyOrgPage {
       })
     })
   }
+
+  GoToHomePage(){
+    this.navCtrl.push(HomePage);
+  }
+
 }

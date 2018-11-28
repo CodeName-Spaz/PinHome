@@ -7,10 +7,51 @@ import { ViewPage } from '../view/view'
   templateUrl: 'home.html'
 })
 export class HomePage {
+category;
+
 orgArray  = new Array();
+categoryArr = new Array();
+
+
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider,public loadingCtrl: LoadingController) {
 this.getNearByOrganizations();
 
+
+
+this.selectcategory();
+
+this.pinhomeProvider.retrieveOrganization().then((data: any) => {
+  this.categoryArr = data;
+  console.log(this.categoryArr);
+
+})
+  }
+
+  selectcategory() {
+    this.categoryArr.length = 0;
+    this.pinhomeProvider.DisplayCategory(this.category).then((data: any) => {
+      console.log(data);
+      let keys = Object.keys(data);
+      for (var i = 0; i < keys.length; i++) {
+        let k = keys[i];
+        if (this.category == data[k].category) {
+          let obj = {
+            orgAbout: data[k].orgAbout,
+            orgCat: data[k].orgCat,
+            orgContact: data[k].orgContact,
+            orgEmail: data[k].orgEmail,
+            orgAddress: data[k].orgAddress,
+            orgName: data[k].orgName,
+            orgPrice: data[k].orgPrice,
+            orgPicture: data[k].orgPicture,
+            orgLat: data[k].orgLat,
+            orgLong: data[k].orgLong
+          }
+          this.categoryArr.push(obj);
+          console.log(this.categoryArr);
+        }
+      }
+    })
   }
   getNearByOrganizations(){
     let loading = this.loadingCtrl.create({
@@ -37,12 +78,12 @@ this.getNearByOrganizations();
 
   }
 
-<<<<<<< HEAD
-  
-=======
   more(indx){
     this.navCtrl.push(ViewPage,{orgObject:this.orgArray[indx]})
   }
->>>>>>> f922ebaaac3cff1ea6ab109d6f868980a189fe36
+
+  goToViewPage(indx){
+    this.navCtrl.push(ViewPage,{orgObject:this.categoryArr[indx]});
+  }
 
 }

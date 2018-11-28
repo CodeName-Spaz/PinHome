@@ -19,7 +19,7 @@ auth = firebase.auth();
 //arrays
 oraganisations =  new Array()
 nearByOrg =  new Array();
-
+categoryArr = new Array();
 //variables
 
 
@@ -191,5 +191,68 @@ if (up <= 0){
   }
 
 
+  DisplayCategory(Category) {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+          if(Category == SelectCategory[k].Category){
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+          }
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
+ 
+  retrieveOrganization() {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
 
 }

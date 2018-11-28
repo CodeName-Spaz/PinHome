@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ViewPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <!-- <ion-navbar class="Nav"> -->
@@ -23,23 +17,17 @@
   <div class="main">
     <div class="flex">
       <img class="round" imageViewer src="../../assets/imgs/orphan.png"> &ensp;
-      <h1>{{i.orgName}}</h1>
+      <h1 class="name">{{i.orgName}}</h1><br>
       <p class="category">{{i.orgCat}}</p>
     </div>
 
     <ion-grid>
       <ion-row>
-          <ion-col col-3>
-            <img class="round" imageViewer src="../../assets/imgs/orphan.png">
-          </ion-col>
-          <ion-col class="details">
-            <p class="name">Little Rose</p>
-            <p class="category">Orphange Home</p></ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
     <h1 align="center" class="ratings">
-      <ion-icon name="star"></ion-icon>
+      <ion-icon name="star" (click)="comment()"></ion-icon>
       <ion-icon name="star"></ion-icon>
       <ion-icon name="star"></ion-icon>
       <ion-icon name="star-half"></ion-icon>
@@ -70,15 +58,11 @@
 
   
 
-  <div [ngSwitch]="pet">
-    <ion-list *ngSwitchCase="'About'">
-      <!-- <ion-item>
-            <ion-thumbnail item-start>
-              <img src="img/thumbnail-puppy-1.jpg">
-            </ion-thumbnail>
-            <h2>Ruby</h2>
-          </ion-item>
-          ... -->
+  <div padding [ngSwitch]="pet">
+    <ion-list class="about" *ngSwitchCase="'About'">
+      <h1 class="info">About {{i.orgName}} {{i.orgCat}}</h1>
+
+      <p>{{i.orgAbout}}</p>
 
       <div padding>
       </div>
@@ -88,23 +72,16 @@
     <ion-list *ngSwitchCase="'Location'">
       <br>
       <br>
-      <!-- <ion-item>
-            <ion-thumbnail item-start>
-              <img src="img/thumbnail-kitten-1.jpg">
-            </ion-thumbnail>
-            <h2>Luna</h2>
-          </ion-item> -->
-      <img class="map" src="../../assets/imgs/map.jpg">
-
-      <button ion-button full color="segments">Get Directions</button>
+          <p id="map" style="height:450px"></p>
+      <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
 
       <ion-grid class="buttons">
         <ion-row>
           <ion-col>
-            <button ion-button block color="segments">Call</button>
+            <button ion-button block color="segments" (click)="call(i.orgContact)">Call</button>
           </ion-col>
           <ion-col>
-            <button ion-button block color="segments">Email</button>
+            <button ion-button block color="segments" (click)="email(i.orgEmail)">Email</button>
           </ion-col>
         </ion-row>
 

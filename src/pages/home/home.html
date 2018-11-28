@@ -5,6 +5,18 @@
         <ion-icon ios="ios-more" md="md-more"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-item class="CatBar" color="secondary">
+      <ion-label>category</ion-label>
+      <ion-select class="animation" [(ngModel)]="category" (ionChange)="selectcategory()">
+        <ion-option value="Orphanage">Orphanage</ion-option>
+        <ion-option value="Disability">Disability</ion-option>
+        <ion-option value="old age">Old Age Homes</ion-option>
+        <ion-option value="theraphy">Theraphy</ion-option>
+        <ion-option value="Psychiatric">Psychiatric centres/Hospital</ion-option>
+        <ion-option value="social centre">Social Centre</ion-option>
+        <ion-option value="Rehab">Rehab</ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item no-lines class="theItem">
       <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
     </ion-item>
@@ -19,21 +31,15 @@
 <ion-content>
 
 
-  <div class="theSlides">
+  <!-- <div class="theSlides">
 
     <ion-item no-lines class="labeler">
       <h5>
         <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
     </ion-item>
-<<<<<<< HEAD
-    <ion-slides loop="true" no-padding slidesPerView="3" speed="1000" autoplay="1000" effect="coverflow" *ngFor="let i of orgArray">
-      <ion-slide class="slideContent" >
-        <ion-card class="nearBy">
-=======
     <ion-slides loop="true" no-padding slidesPerView="3" speed="1000" autoplay="1000" effect="coverflow" *ngFor="let i of orgArray; let in = index" (click)="more(in)">
       <ion-slide class="slideContent" >
         <ion-card class="nearBy" >
->>>>>>> f922ebaaac3cff1ea6ab109d6f868980a189fe36
           <div class="nameOfOrg">
             <p>{{i.orgName}}</p>
           </div>
@@ -44,22 +50,29 @@
         </ion-card>
       </ion-slide>
     </ion-slides>
-  </div>
+  </div> -->
   <ion-item no-lines class="area">
     <h5>
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> In Your Area</h5>
   </ion-item>
   <div class="restOfBody">
-    <ion-card class="listedCard">
+    <ion-card class="listedCard" (click)="goToViewPage(i)"    *ngFor="let a of categoryArr; let i = index">
       <ion-item>
         <ion-thumbnail item-start>
-          <img src="../../assets/imgs/Template Images/pixel.jpg">
+          <img [src]="a.orgPicture">
         </ion-thumbnail>
-        <h2>Finn</h2>
-        <h3>Don't Know What To Do!</h3>
-        <p><ion-icon name="star-outline"></ion-icon><ion-icon name="star-outline"></ion-icon><ion-icon name="star-outline"></ion-icon><ion-icon name="star-outline"></ion-icon><ion-icon name="star-outline"></ion-icon></p>
+        <h2>{{a.orgName}}</h2>
+        <h3>{{a.orgAbout}}</h3>
+        <p>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </p>
       </ion-item>
-    </ion-card>
+      
+    </ion-card> 
     
    
 
