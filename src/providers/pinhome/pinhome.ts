@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option,LoadingController } from 'ionic-angular';
+import moment from 'moment';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -12,13 +13,17 @@ import { Option,LoadingController } from 'ionic-angular';
 @Injectable()
 export class PinhomeProvider {
 
-  //firebase instances
+  // firebase instances
 db = firebase.database();
 auth = firebase.auth();
 
 //arrays
 oraganisations =  new Array()
 nearByOrg =  new Array();
+searchOrgArray =  new Array();
+commentArr = new Array();
+categoryArr = new Array();
+
 
 //variables
 
@@ -166,14 +171,13 @@ if (up <= 0){
               }
               this.oraganisations.push(organizationObject);
             }
-            console.log(this.oraganisations)
             accpt(this.oraganisations);
           }
        })
     })
   }
 
-  getNearByOrganizations(radius,org){
+  getNearByOrganisations(radius,org){
     return new Promise((accpt,rej) =>{
       this.listenForLocation().then((resp:any) =>{
         var lat =  new String(resp.coords.latitude).substr(0,6);
@@ -187,6 +191,134 @@ if (up <= 0){
         }
         accpt(this.nearByOrg)
       })
+    })
+  }
+
+  getOrgNames(){
+    return new Promise((accpt, rej) =>{
+      this.db.ref('OrganizationList').on('value', (data:any) =>{
+        if (data.val() != null || data.val() != undefined){
+          let organisations =  data.val();
+          let keys = Object.keys(organisations);
+            for (var x = 0; x < keys.length; x++){
+            let OrganisationKeys = keys[x];
+              this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
+            }
+            accpt(this.searchOrgArray);
+          }
+       })
+    })
+  }
+
+  DisplayCategory(Category) {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+          if(Category == SelectCategory[k].Category){
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+          }
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
+ 
+  retrieveOrganization() {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
+
+  comments(comment: any) {
+    // var user = firebase.auth().currentUser;
+    return new Promise((accpt, rejc) => {
+      var day = moment().format('MMMM Do YYYY, h:mm:ss a');
+      firebase.database().ref('comments/').push({
+        comment: comment,
+        // uid: user.uid,
+        date: day,
+        // url: this.url
+      })
+      accpt('success');
+    });
+
+  }
+
+
+
+  viewComments(key: any, comment: string) {
+    this.commentArr.length = 0;
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("comments/" + key).on("value", (data: any) => {
+        var CommentDetails = data.val();
+        if (data.val() == null) {
+          this.commentArr = null;
+        }
+        else {
+          var keys1: any = Object.keys(CommentDetails);
+          for (var i = 0; i < keys1.length; i++) {
+            var key = keys1[i];
+            var chckId = CommentDetails[key].uid;
+            let obj = {
+              comment: CommentDetails[key].comment,
+              uid: user.uid,
+              // url: this.url,
+              date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
+              // username: ""
+            }
+            accpt(this.commentArr);
+          }
+        }
+      }, Error => {
+        rejc(Error.message)
+      })
+
     })
   }
 

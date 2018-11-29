@@ -25,11 +25,11 @@ page-home {
         box-shadow: 0 0 5px grey;
         border-radius: 5px;
     }
-
     .spacer{
         height: 15px;
         border: 2px;
-        background: #166b85;        
+        background: #166b85;     
+        box-shadow: 0 -5px 2px #166b85;      
     }
     .orgName{
         font-size:10px;
@@ -59,7 +59,7 @@ page-home {
     }
     .hidden{
         opacity: 0;
-        width: 20px;
+        width: 30px;
         position: absolute;
         top: -20px;
     }
@@ -72,19 +72,18 @@ page-home {
         font-size: 25px;
         padding-left: 7px;
     }
-
     .theSlides{
         // height: 250px;
         background: #166b85;
         // border: 2px solid red;
         height: 150px;
     }
-
     .labeler{
         background: #166b85;
         // border: 2px solid red;
         height: 15px;
         padding-bottom: 0;
+        box-shadow: 0 5px 2px #166b85;
         h5{
             color: white;
         }
