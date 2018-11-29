@@ -21,6 +21,10 @@ page-sign-in {
         border-right: 100vw solid #166b85;
     }
 
+    b{
+        padding-left: 5px;
+    }
+
     .div1{
         background: #166b85;
         height: 200px;
@@ -119,6 +123,7 @@ page-sign-in {
         width: 80%;
         position: relative;
         bottom: 20px;
+        transition: 300ms;
         // left: 60px
     }
 
