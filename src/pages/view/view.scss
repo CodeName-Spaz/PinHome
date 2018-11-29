@@ -29,7 +29,6 @@ page-view {
         font-size: 15px;
         text-align: left;
     }
-
     ion-grid{
         // border: 2px solid red
     }
@@ -41,8 +40,6 @@ page-view {
         position: relative;
         height: 50px;
     }
-
-
     .details{
         text-align: lebnft
     }
@@ -61,15 +58,15 @@ page-view {
     }
     .stars{
         // border: 2px solid red;
-        margin-top: 25px;
+        margin-top: -10px;
     }
     .category{
         color: white;
         font-style: italic;
         font-weight: 100;
-        position: absolute;
+        // position: absolute;
         // left:95px;
-        top: 35px;
+        top: -10px;
     }
     
     ion-icon{
@@ -123,13 +120,9 @@ page-view {
         color: rgb(119, 114, 114);
         font-size: 1em
     }
-
     .about{
         margin-top: 50px;
     }
-
-
-
     .info{
         font-weight: 100;
     }

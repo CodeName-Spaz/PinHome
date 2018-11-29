@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view'
+import { ProfilePage } from '../profile/profile';
+import { SignInPage } from '../sign-in/sign-in';
+import { NearbyOrgPage } from '../nearby-org/nearby-org';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -100,12 +103,19 @@ export class HomePage {
     //   duration: 222000
     // });
     // loading.present();
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'please wait',
+      duration: 222000
+    });
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           this.orgArray = data;
           console.log(this.orgArray)
           // loading.dismiss();
+          loading.dismiss();
         })
       })
     })
@@ -114,17 +124,9 @@ export class HomePage {
   getAllOrganizations() {
   }
   viewPage() {
-    this.navCtrl.push(ViewPage)
-
-
-
-
-
-
-
-
-
+    this.navCtrl.push(SignInPage);
   }
- 
-
+ GoToMap(){
+   this.navCtrl.setRoot(NearbyOrgPage);
+ }
 }

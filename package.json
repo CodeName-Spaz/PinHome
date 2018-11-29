@@ -30,6 +30,7 @@
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "^4.15.0",
     "@ionic/storage": "2.2.0",
+    "angular-google-map": "0.0.2",
     "angular2-google-map": "^0.1.8",
     "animate.css": "^3.7.0",
     "call-number": "^1.0.1",

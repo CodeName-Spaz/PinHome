@@ -5,11 +5,10 @@ import { CompileNgModuleMetadata } from '@angular/compiler';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
-//import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 
-import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 
 
@@ -27,9 +26,10 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
-  pet =  "Location"
+  pet =  "About"
   orgArray = new Array();
   comments;
+  address;
   state = ["star-outline","star-outline","star-outline","star-outline","star-outline"]
   Star1 = "star-outline";
   Star2 = "star-outline";
@@ -59,7 +59,7 @@ export class ViewPage {
       let myLatLng = { lat: this.latitude, lng: this.longitude };
       this.objectArray = "test"
       let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 18,
         center: myLatLng,
         mapTypeId: 'terrain'
       });
@@ -75,6 +75,7 @@ export class ViewPage {
     this.navCtrl.pop()
   }
   reposition(event){
+  //   this.pet = "";
     this.initMap(this.orgArray[0].orgAddress);
     let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf <HTMLElement>;
     segPosition[0].style.transform ="translateY(0%)"

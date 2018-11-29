@@ -1,12 +1,11 @@
 
 
 <ion-header no-border-bottom>
-  <ion-navbar color="custom">
+  <ion-toolbar color="custom">
     <div class="top">
       <ion-item class="hidden">
         <ion-label>Filtey by</ion-label>
         <ion-select [(ngModel)]="category" (ionChange)="selectcategory()" color="custom" id="drop">
-          <ion-option value="All">All</ion-option>
           <ion-option value="Orphanage">Orphanage</ion-option>
           <ion-option value="Disability">Disability</ion-option>
           <ion-option value="old age">Old Age Homes</ion-option>
@@ -20,13 +19,19 @@
         <ion-icon name="more"></ion-icon>
       </div>
       <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
-      <button ion-button icon-only outline color="light" class="profile" (click)="GoToSignUp()">
+      <button ion-button icon-only outline color="light" class="profile" (click)="viewPage()">
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
     </div>
-  </ion-navbar>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
+    <ion-fab bottom right>
+        <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
+          <ion-icon name="map" ></ion-icon>
+        </button>
+      </ion-fab>
+      
   <ion-item no-lines no-borders class="labeler">
     <h5>
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
@@ -54,7 +59,7 @@
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> In Your Area</h5>
   </ion-item>
   <div class="restOfBody">
-    <ion-card class="listedCard" (click)="goToViewPage(i)"    *ngFor="let a of categoryArr; let i = index">
+    <ion-card class="listedCard" (click)="goToViewPage(i)" *ngFor="let a of categoryArr; let i = index">
       <ion-item>
         <ion-thumbnail item-start>
           <img [src]="a.orgPicture">
@@ -72,5 +77,4 @@
     </ion-card> 
   </div>
 </ion-content>
-
 
