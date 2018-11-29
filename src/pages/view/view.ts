@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-<<<<<<< HEAD
-=======
 
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 import { CompileNgModuleMetadata } from '@angular/compiler';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CallNumber } from '@ionic-native/call-number';
@@ -30,28 +27,10 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
-<<<<<<< HEAD
   pet =  "Location"
   orgArray = new Array();
-
   comments;
-
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
-    this.orgArray.push(this.navParams.get('orgObject'));
-
-  console.log(this.orgArray[0].orgAddress)
-
-
-  
-=======
-
-  pet =  "Location"
-
-  orgArray = new Array();
   state = ["star-outline","star-outline","star-outline","star-outline","star-outline"]
-
-
   Star1 = "star-outline";
   Star2 = "star-outline";
   Star3 = "star-outline";
@@ -59,24 +38,17 @@ export class ViewPage {
   Star5 = "star-outline";
 
   blankStar = "star-outline";
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
 
   console.log(this.orgArray[0].orgAddress)
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
-  }
 
+
+  }
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
-<<<<<<< HEAD
     console.log(this.pet)
-=======
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
   }
-
-
-
   initMap(address) {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address }, function (results, status) {
@@ -164,7 +136,6 @@ export class ViewPage {
     this.emailComposer.open(email);
   }
 
-<<<<<<< HEAD
   comment() {
     const prompt = this.alertCtrl.create({
       title: 'Comment',
@@ -198,7 +169,6 @@ export class ViewPage {
     prompt.present();
   }
   
-=======
   rate(num){  
      if (num == 1){
         if (this.Star1 == "star-outline"){
@@ -271,7 +241,6 @@ export class ViewPage {
      }
     }
   }
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 
 
 }
