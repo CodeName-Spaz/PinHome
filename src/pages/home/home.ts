@@ -25,6 +25,8 @@ this.getNearByOrganizations();
          this.orgArray = data;
          console.log(this.orgArray)
           loading.dismiss();
+          let slider = document.getElementsByClassName('x') as HTMLCollectionOf <HTMLElement>;
+          slider[0].style.animation = "700ms slideInRight";
         })
       })
     })
