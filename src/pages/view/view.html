@@ -1,3 +1,4 @@
+
 <ion-header>
 
     <!-- <ion-navbar class="Nav"> -->
@@ -35,11 +36,19 @@
         <ion-row class="stars">
           <ion-col >
       <h1 align="center" class="ratings">
+<<<<<<< HEAD
+        <ion-icon name="star"  (click)="comment()"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star-half"></ion-icon>
+        <ion-icon name="star-outline"></ion-icon>
+=======
         <ion-icon name={{Star1}} (click)="rate('1')"></ion-icon>
         <ion-icon name={{Star2}} (click)="rate('2')"></ion-icon>
         <ion-icon name={{Star3}} (click)="rate('3')"></ion-icon>
         <ion-icon name={{Star4}} (click)="rate('4')"></ion-icon>
         <ion-icon name={{Star5}} (click)="rate('5')"></ion-icon>
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
       </h1></ion-col>
         </ion-row>
       </ion-grid>
@@ -80,8 +89,20 @@
       <ion-list *ngSwitchCase="'Location'">
         <br>
         <br>
+<<<<<<< HEAD
+         <ion-item>
+              <ion-thumbnail item-start>
+                <img src="img/thumbnail-kitten-1.jpg">
+              </ion-thumbnail>
+              <h2>Luna</h2>
+            </ion-item> 
+       <img class="map" src="../../assets/imgs/map.jpg">
+  
+        <button ion-button full color="segments">Get Directions</button>
+=======
             <p id="map" style="height:450px"></p>
         <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
   
         <ion-grid class="buttons">
           <ion-row>
@@ -99,14 +120,14 @@
   
       </ion-list>
   
-      <ion-list *ngSwitchCase="'Gallery'">
-        <!-- <ion-item>
+      <ion-list *ngSwitchCase="'Gallery'"> -->
+         <ion-item>
                 <ion-thumbnail item-start>
                   <img src="img/thumbnail-kitten-1.jpg">
                 </ion-thumbnail>
                 <h2>Luna</h2>
-              </ion-item> -->
-              <br>
+              </ion-item> 
+            <br>
               <br>
   
         <div>
@@ -234,4 +255,5 @@
   
       </ion-list>
     </div>
-  </ion-content>
+  </ion-content>  
+

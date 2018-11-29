@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+<<<<<<< HEAD
+=======
 
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 import { CompileNgModuleMetadata } from '@angular/compiler';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CallNumber } from '@ionic-native/call-number';
 import { EmailComposer } from '@ionic-native/email-composer';
 //import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { AlertController } from 'ionic-angular';
+import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 
@@ -25,6 +30,21 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
+<<<<<<< HEAD
+  pet =  "Location"
+  orgArray = new Array();
+
+  comments;
+
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
+    this.orgArray.push(this.navParams.get('orgObject'));
+
+  console.log(this.orgArray[0].orgAddress)
+
+
+  
+=======
 
   pet =  "Location"
 
@@ -44,10 +64,15 @@ export class ViewPage {
     this.orgArray.push(this.navParams.get('orgObject'));
 
   console.log(this.orgArray[0].orgAddress)
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
   }
 
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
+<<<<<<< HEAD
+    console.log(this.pet)
+=======
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
   }
 
 
@@ -139,6 +164,41 @@ export class ViewPage {
     this.emailComposer.open(email);
   }
 
+<<<<<<< HEAD
+  comment() {
+    const prompt = this.alertCtrl.create({
+      title: 'Comment',
+      message: "You can comment below",
+      inputs: [
+        {
+          name: 'comments',
+          placeholder: 'comments'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Comment',
+          handler: data => {
+            console.log('Saved clicked' + data.comments);
+            
+            this.pinhomeProvider.comments(data.comments).then((data)=>{
+            console.log(data);
+            })
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  
+=======
   rate(num){  
      if (num == 1){
         if (this.Star1 == "star-outline"){
@@ -211,6 +271,7 @@ export class ViewPage {
      }
     }
   }
+>>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
 
 
 }
