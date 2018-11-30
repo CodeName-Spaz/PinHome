@@ -30,10 +30,7 @@
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "^4.15.0",
     "@ionic/storage": "2.2.0",
-<<<<<<< HEAD
-=======
     "angular2-google-map": "^0.1.8",
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
     "call-number": "^1.0.1",
     "cordova-android": "7.0.0",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -83,13 +80,9 @@
         "PLAY_SERVICES_VERSION": "15.0.1",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-<<<<<<< HEAD
-      "uk.co.workingedge.phonegap.plugin.launchnavigator": {},
-=======
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
         "OKHTTP_VERSION": "3.+"
       },
->>>>>>> 2d7fb56b6fe732cf8d9a5191f19da06b056794d0
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-email-composer": {}
     },
