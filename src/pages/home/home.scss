@@ -11,7 +11,7 @@ page-home {
         height: 150px;
         // position: absolute;
         // top: 0;
-        width: 120px;
+        width: 100%;
         margin: 0 auto;
     }
     .trans{
@@ -32,6 +32,11 @@ page-home {
         box-shadow: 0 -5px 2px #166b85;     
     }
     .orgName{
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+        
+        
         font-size:12px;
     }
     .start{

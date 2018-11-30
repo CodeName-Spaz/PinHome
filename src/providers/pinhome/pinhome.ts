@@ -434,11 +434,11 @@ if (up <= 0){
 
 
 
-  viewComments(key: any, comment: string) {
-    this.commentArr.length = 0;
+  viewComments( comment: any) {
+    this.commentArr.length =0;
     return new Promise((accpt, rejc) => {
       var user = firebase.auth().currentUser
-      firebase.database().ref("comments").on("value", (data: any) => {
+      firebase.database().ref("comments/").on("value", (data: any) => {
         var CommentDetails = data.val();
         if (data.val() == null) {
           this.commentArr = null;
@@ -450,11 +450,10 @@ if (up <= 0){
             var chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
-              uid: user.uid,
-              // url: this.url,
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
-              // username: ""
             }
+            this.commentArr.push(obj);
+            console.log(this.commentArr);
             accpt(this.commentArr);
           }
         }

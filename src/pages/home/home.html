@@ -1,5 +1,3 @@
-
-
 <ion-header no-border-bottom>
   <ion-toolbar color="custom">
     <div class="top">
@@ -31,14 +29,14 @@
           <ion-icon name="map" ></ion-icon>
         </button>
       </ion-fab>
-      
   <ion-item no-lines no-borders class="labeler">
     <h5>
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
   </ion-item>
   <div class="theSlides">
-    <ion-slides no-borders  slidesPerView="3" initialSlide="3" effect="coverflow">
-
+    <ion-slides no-borders slidesPerView="3" initialSlide="3" effect="coverflow">
+      <ion-slide  class="transE">
+      </ion-slide>
       <ion-slide *ngFor="let i of orgArray; let in = index" (click)="more(in)">
         <ion-card no-padding class="slideCard">
           <div class="title">
@@ -49,14 +47,14 @@
           </ion-card-content>
         </ion-card>
       </ion-slide>
-      <ion-slide class="trans">
+      <ion-slide class="transE">
       </ion-slide>
     </ion-slides>
   </div>
   <div class="spacer"></div>
   <ion-item no-lines class="area">
     <h5>
-      <ion-icon ios="ios-pin" md="md-pin"></ion-icon> In Your Area</h5>
+      <ion-icon ios="ios-briefcase" md="md-briefcase"></ion-icon> Organisations</h5>
   </ion-item>
   <div class="restOfBody">
     <ion-card class="listedCard" (click)="goToViewPage(i)" *ngFor="let a of categoryArr; let i = index">
@@ -73,8 +71,7 @@
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
         </p>
-      </ion-item>  
-    </ion-card> 
+      </ion-item>
+    </ion-card>
   </div>
 </ion-content>
-

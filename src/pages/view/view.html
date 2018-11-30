@@ -148,9 +148,9 @@
       </div>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'Reviews'">
-      <ion-card class="Reviews">
-        <ion-item>
+    <ion-list *ngSwitchCase="'Reviews'" >
+      <ion-card class="Reviews" *ngFor="let a of commentArr">
+        <ion-item >
           <ion-avatar item-start>
             <img src="../../assets/imgs/him.gif">
           </ion-avatar>
@@ -162,68 +162,11 @@
           <ion-icon class="stars" name="star-outline"></ion-icon>
           <ion-icon class="stars" name="star-outline"></ion-icon>
         </div>
-          <p>November 5, 1955</p>
+          <p>{{a.date}}</p>
         </ion-item>
         <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... </p>
+          <p>{{a.comments}}</p>
         </ion-card-content>
-        <hr>
-
-        <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/him.gif">
-            </ion-avatar>
-            <h2>Marty McFly</h2>
-            <div class="Rate">
-                <ion-icon class="stars" name="star"></ion-icon>
-                <ion-icon class="stars" name="star"></ion-icon>
-                <ion-icon class="stars" name="star"></ion-icon>
-                <ion-icon class="stars" name="star-outline"></ion-icon>
-                <ion-icon class="stars" name="star-outline"></ion-icon>
-              </div>
-            <p>November 5, 1955</p>
-          </ion-item>
-          <ion-card-content>
-            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-          </ion-card-content>
-           <hr>
-
-          <ion-item>
-              <ion-avatar item-start>
-                <img src="../../assets/imgs/him.gif">
-              </ion-avatar>
-              <h2>Marty McFly</h2>
-              <div class="Rate">
-                  <ion-icon class="stars" name="star"></ion-icon>
-                  <ion-icon class="stars" name="star"></ion-icon>
-                  <ion-icon class="stars" name="star"></ion-icon>
-                  <ion-icon class="stars" name="star-outline"></ion-icon>
-                  <ion-icon class="stars" name="star-outline"></ion-icon>
-                </div>
-              <p>November 5, 1955</p>
-            </ion-item>
-            <ion-card-content>
-              <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-            </ion-card-content>
-            <hr>
-            <ion-item>
-                <ion-avatar item-start>
-                  <img src="../../assets/imgs/him.gif">
-                </ion-avatar>
-                <h2>Marty McFly</h2>
-                <div class="Rate">
-                    <ion-icon class="stars" name="star"></ion-icon>
-                    <ion-icon class="stars" name="star"></ion-icon>
-                    <ion-icon class="stars" name="star"></ion-icon>
-                    <ion-icon class="stars" name="star"></ion-icon>
-                    <ion-icon class="stars" name="star"></ion-icon>
-                  </div>
-                <p>November 5, 1955</p>
-              </ion-item>
-              <ion-card-content>
-                <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-              </ion-card-content>
-      
       </ion-card>
 
     </ion-list>

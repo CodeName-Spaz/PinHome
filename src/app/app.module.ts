@@ -23,6 +23,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 firebase.initializeApp({
@@ -42,6 +43,7 @@ firebase.initializeApp({
     NearbyOrgPage,
     SignInPage,
     SignUpPage,
+    ProfilePage
     // IonicImageViewerModule
   ],
   imports: [
@@ -57,6 +59,7 @@ firebase.initializeApp({
     NearbyOrgPage,
     SignUpPage,
     SignInPage,
+    ProfilePage
     // IonicImageViewerModule
   ],
   providers: [
