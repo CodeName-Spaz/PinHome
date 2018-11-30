@@ -122,12 +122,7 @@ export class HomePage {
     })
   }
   getNearByOrganizations() {
-    // let loading = this.loadingCtrl.create({
-    //   spinner: 'bubbles',
-    //   content: 'please wait',
-    //   duration: 222000
-    // });
-    // loading.present();
+
     // let loading = this.loadingCtrl.create({
     //   spinner: 'bubbles',
     //   content: 'please wait',
@@ -139,7 +134,6 @@ export class HomePage {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           this.orgArray = data;
           console.log(this.orgArray)
-          // loading.dismiss();
           // loading.dismiss();
         })
       })

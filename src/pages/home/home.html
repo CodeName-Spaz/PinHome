@@ -18,42 +18,44 @@
       </div>
       <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
       <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
-      <button ion-button icon-only outline color="light" class="profile" (click)="viewPage()">
+      <button ion-button icon-only outline color="light" class="profile" (click)="goToProfile()">
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
     </div>
   </ion-navbar>
 </ion-header>
 <ion-content (click)="bodyClick($event)">
-    <div class="searchResults">
-        <ion-card class="listedCard" *ngFor="let item of items" (click)="viewer(item)"> 
-            <ion-item>
-              <ion-thumbnail item-start>
-                <img src="../../assets/imgs/Template Images/pixel.jpg">
-              </ion-thumbnail>
-              <h2>{{item}}</h2>
-              <p>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-                <ion-icon name="star-outline"></ion-icon>
-              </p>
-            </ion-item>
-          </ion-card>
-    </div>
-    <ion-fab bottom right>
-        <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
-          <ion-icon name="map" ></ion-icon>
-        </button>
-      </ion-fab>
+
+  <div class="searchResults">
+    <ion-card class="listedCard" *ngFor="let item of items" (click)="viewer(item)">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="../../assets/imgs/Template Images/pixel.jpg">
+        </ion-thumbnail>
+        <h2>{{item}}</h2>
+        <p>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </p>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <ion-fab bottom right>
+    <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
+      <ion-icon name="map"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-item no-lines no-borders class="labeler">
     <h5>
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
   </ion-item>
   <div class="theSlides">
     <ion-slides no-borders slidesPerView="3" effect="coverflow">
-      <ion-slide  class="transE">
+      <ion-slide class="transE">
       </ion-slide>
       <ion-slide *ngFor="let i of orgArray; let in = index" (click)="more(in)">
         <ion-card no-padding class="slideCard">
