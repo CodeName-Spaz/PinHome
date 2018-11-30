@@ -78,15 +78,18 @@ export class ViewPage {
   Back() {
     this.navCtrl.pop()
   }
-  reposition(event) {
-    //   this.pet = "";
+
+  reposition(event){
+  
     this.initMap(this.orgArray[0].orgAddress);
     let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf<HTMLElement>;
     segPosition[0].style.transform = "translateY(0%)"
   }
 
+
   scroller(event) {
     // console.log(event.directionY);
+
 
     let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf<HTMLElement>;
 
