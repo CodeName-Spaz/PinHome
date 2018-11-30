@@ -13,17 +13,17 @@
 </ion-header> -->
 
 
-<ion-content>
+<ion-content *ngFor="let item of detailArray">
   <div class="top">
     <div class="head">
-      <button ion-button clear icon-only color="light" class="backBTN"><ion-icon name="arrow-back"></ion-icon></button>
+      <button ion-button clear icon-only color="light" class="backBTN" (click)="GoTOHomePage()"><ion-icon name="arrow-back"></ion-icon></button>
       <button class="editor" ion-button clear color="light">
         <ion-icon name="brush"></ion-icon>
       </button>
       <img class="coverImage" src="../../assets/imgs/hands.jpg" alt="">
       <img class="DP" src="../../assets/imgs/old.jpg" alt="" imageViewer>
       <div class="userName">
-        <h3 align="center">Ndichimuga Ramafatha</h3>
+        <h3 align="center">{{item.name}}</h3>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
       <p class="subTitles">
         Email
       </p>
-      <h3>spazgrafficz@outlook.com</h3>
+      <h3>{{item.email}}</h3>
     </ion-card>
     <ion-card class="detail">
       <p class="subTitles">Address</p>

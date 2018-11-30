@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { CompileNgModuleMetadata } from '@angular/compiler';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CallNumber } from '@ionic-native/call-number';
@@ -25,13 +26,12 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
-
-  pet =  "Location"
-
+  pet = "About"
   orgArray = new Array();
-  state = ["star-outline","star-outline","star-outline","star-outline","star-outline"]
-
-
+  commentArr = new Array();
+  comments;
+  address;
+  state = ["star-outline", "star-outline", "star-outline", "star-outline", "star-outline"]
   Star1 = "star-outline";
   Star2 = "star-outline";
   Star3 = "star-outline";
@@ -39,19 +39,20 @@ export class ViewPage {
   Star5 = "star-outline";
 
   blankStar = "star-outline";
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
 
-  console.log(this.orgArray[0].orgAddress)
-  }
+    console.log(this.orgArray[0].orgAddress)
 
+    this.pinhomeProvider.viewComments(this.comments).then((data) => {
+      this.commentArr.push(data)
+      console.log(this.commentArr);
+    })
+  }
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
+    console.log(this.pet)
   }
-
-
-
   initMap(address) {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address }, function (results, status) {
@@ -62,7 +63,7 @@ export class ViewPage {
       let myLatLng = { lat: this.latitude, lng: this.longitude };
       this.objectArray = "test"
       let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 18,
         center: myLatLng,
         mapTypeId: 'terrain'
       });
@@ -74,62 +75,63 @@ export class ViewPage {
     })
   }
 
-  Back(){
+  Back() {
     this.navCtrl.pop()
   }
-  reposition(event){
+  reposition(event) {
+    //   this.pet = "";
     this.initMap(this.orgArray[0].orgAddress);
-    let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf <HTMLElement>;
-    segPosition[0].style.transform ="translateY(0%)"
+    let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf<HTMLElement>;
+    segPosition[0].style.transform = "translateY(0%)"
   }
 
-  scroller(event){
+  scroller(event) {
     // console.log(event.directionY);
-    
-    let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf <HTMLElement>;
 
-    if(event.scrollTop > 0 && event.directionY == "down"){
+    let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf<HTMLElement>;
+
+    if (event.scrollTop > 0 && event.directionY == "down") {
       btnBack[0].style.transition = "700ms"
-      btnBack[0].style.transform ="translateY(-200%)"
+      btnBack[0].style.transform = "translateY(-200%)"
     }
-    else if (event.directionY == "up" || event.scrollTop == 0){
-      btnBack[0].style.transform ="translateY(0%)"
+    else if (event.directionY == "up" || event.scrollTop == 0) {
+      btnBack[0].style.transform = "translateY(0%)"
     }
 
-    let seg = document.getElementsByClassName('segment') as HTMLCollectionOf <HTMLElement>;
-    
-    if(event.scrollTop >= 400){
+    let seg = document.getElementsByClassName('segment') as HTMLCollectionOf<HTMLElement>;
+
+    if (event.scrollTop >= 400) {
       seg[0].style.width = "100%";
       seg[0].style.position = 'absolute';
-      seg[0].style.transform = "translateY("+(event.scrollTop - 420)+"px)";
+      seg[0].style.transform = "translateY(" + (event.scrollTop - 420) + "px)";
     }
-    else{
+    else {
       seg[0].style.width = "100%";
       seg[0].style.transform = "translateY(0)"
 
     }
   }
 
-  directions(address){
+  directions(address) {
     this.launchNavigator.navigate(address)
-    .then(
-      success => console.log('Launched navigator'),
-      error => console.log('Error launching navigator', error)
-    );
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
   }
 
-  call(cell){
+  call(cell) {
     this.callNumber.callNumber(cell, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
 
-  email(emails){
+  email(emails) {
     let email = {
       to: emails,
       cc: [],
       bcc: [],
-      attachment:[],
+      attachment: [],
       subject: '',
       body: '',
       isHtml: false,
@@ -139,76 +141,118 @@ export class ViewPage {
     this.emailComposer.open(email);
   }
 
-  rate(num){  
-     if (num == 1){
-        if (this.Star1 == "star-outline"){
-          this.Star1 = "star";
+
+  view() {
+    this.pinhomeProvider.viewComments(this.comments).then((data) => {
+      console.log(data);
+    })
+  }
+
+  comment() {
+    const prompt = this.alertCtrl.create({
+      title: 'Comment',
+      message: "You can comment below",
+      inputs: [
+        {
+          name: 'comments',
+          placeholder: 'comments'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Comment',
+          handler: data => {
+            console.log('Saved clicked' + data.comments);
+
+            this.pinhomeProvider.comments(data.comments).then((data) => {
+              this.pinhomeProvider.viewComments(this.comments).then((data) => {
+                console.log(data);
+              })
+            })
+
+          }
         }
-        else{
-          this.Star1 = "star-outline";
-          this.Star2 = "star-outline"
-          this.Star3 = "star-outline";
-          this.Star4 = "star-outline"
-          this.Star5 = "star-outline";
-        }
-     }
-     else if (num == 2){
-       if (this.Star2 == "star-outline"){
+      ]
+    });
+    prompt.present();
+  }
+
+  rate(num) {
+    if (num == 1) {
+      if (this.Star1 == "star-outline") {
+        this.Star1 = "star";
+      }
+      else {
+        this.Star1 = "star-outline";
+        this.Star2 = "star-outline"
+        this.Star3 = "star-outline";
+        this.Star4 = "star-outline"
+        this.Star5 = "star-outline";
+      }
+    }
+    else if (num == 2) {
+      if (this.Star2 == "star-outline") {
         this.Star1 = "star";
         this.Star2 = "star";
-       }
-       else{
+      }
+      else {
         this.Star1 = "star";
         this.Star2 = "star-outline"
         this.Star3 = "star-outline";
         this.Star4 = "star-outline"
         this.Star5 = "star-outline";
       }
-     }
-     else if (num == 3){
-      if (this.Star3 == "star-outline"){
-       this.Star1 = "star";
-       this.Star2 = "star";
-       this.Star3 = "star";
-      }
-      else{
-       this.Star1 = "star";
-       this.Star2 = "star"
-       this.Star3 = "star-outline";
-       this.Star4 = "star-outline"
-       this.Star5 = "star-outline";
-     }
     }
-    else if (num == 4){
-      if (this.Star4 == "star-outline"){
-       this.Star1 = "star";
-       this.Star2 = "star";
-       this.Star3 = "star";
-       this.Star4 = "star";
+    else if (num == 3) {
+      if (this.Star3 == "star-outline") {
+        this.Star1 = "star";
+        this.Star2 = "star";
+        this.Star3 = "star";
       }
-      else{
-       this.Star1 = "star";
-       this.Star2 = "star"
-       this.Star3 = "star";
-       this.Star4 = "star-outline"
-       this.Star5 = "star-outline";
-     }
+      else {
+        this.Star1 = "star";
+        this.Star2 = "star"
+        this.Star3 = "star-outline";
+        this.Star4 = "star-outline"
+        this.Star5 = "star-outline";
+      }
     }
-    else if (num == 5){
-      if (this.Star5 == "star-outline"){
-       this.Star1 = "star";
-       this.Star2 = "star";
-       this.Star3 = "star";
-       this.Star4 = "star";
-       this.Star5 = "star";
+    else if (num == 4) {
+      if (this.Star4 == "star-outline") {
+        this.Star1 = "star";
+        this.Star2 = "star";
+        this.Star3 = "star";
+        this.Star4 = "star";
       }
-      else{
-       this.Star1 = "star";
-       this.Star2 = "star"
-       this.Star3 = "star";
-       this.Star4 = "star"
-       this.Star5 = "star-outline";
-     }
+      else {
+        this.Star1 = "star";
+        this.Star2 = "star"
+        this.Star3 = "star";
+        this.Star4 = "star-outline"
+        this.Star5 = "star-outline";
+      }
+    }
+    else if (num == 5) {
+      if (this.Star5 == "star-outline") {
+        this.Star1 = "star";
+        this.Star2 = "star";
+        this.Star3 = "star";
+        this.Star4 = "star";
+        this.Star5 = "star";
+      }
+      else {
+        this.Star1 = "star";
+        this.Star2 = "star"
+        this.Star3 = "star";
+        this.Star4 = "star"
+        this.Star5 = "star-outline";
+      }
     }
   }
 
