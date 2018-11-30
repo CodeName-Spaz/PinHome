@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view'
+import { ProfilePage } from '../profile/profile';
+import { SignInPage } from '../sign-in/sign-in';
+import { NearbyOrgPage } from '../nearby-org/nearby-org';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -12,10 +15,10 @@ export class HomePage {
   orgArray = new Array();
   categoryArr = new Array();
 
-
   searchQuery: string = '';
   items: string[];
   orgs = [];
+  color= "custom"
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
   
@@ -54,6 +57,7 @@ export class HomePage {
   }
 
 
+<<<<<<< HEAD
   getItems(ev: any) {
     // Reset items back to all of the items
     this.initializeItems();
@@ -66,6 +70,45 @@ export class HomePage {
       })
     }
   }
+=======
+    getItems(ev: any) {
+      // Reset items back to all of the items
+      this.initializeItems();
+      
+      // set val to the value of the searchbar
+      const val = ev.target.value;
+      
+      
+      // Determines the visibility of the search panel
+      var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
+
+  
+      // if the value is an empty string don't filter the items
+      if (val && val.trim() != "") {
+        this.items = this.items.filter((item) => {
+          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        });
+        search[0].style.display = 'block';
+        this.color ="light"
+        search[0].style.opacity ="1"
+
+        }
+        if(val.length == 0 || val == null || val == undefined || val.length == undefined){
+          search[0].style.display = 'none';
+          search[0].style.opacity ="0"
+        }
+        // console.log(val.length);
+
+
+    }
+    bodyClick(event){
+      console.log(event);
+      
+      var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
+      search[0].style.display = "none"
+
+    }
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 
   selectcategory() {
     this.categoryArr.length = 0;
@@ -88,12 +131,18 @@ export class HomePage {
             orgLong: data[k].orgLong
           }
           this.categoryArr.push(obj);
-          console.log(this.categoryArr);
+          // console.log(this.categoryArr);
         }
       }
     })
   }
   getNearByOrganizations() {
+    // let loading = this.loadingCtrl.create({
+    //   spinner: 'bubbles',
+    //   content: 'please wait',
+    //   duration: 222000
+    // });
+    // loading.present();
     // let loading = this.loadingCtrl.create({
     //   spinner: 'bubbles',
     //   content: 'please wait',
@@ -106,6 +155,10 @@ export class HomePage {
           this.orgArray = data;
           console.log(this.orgArray)
           // loading.dismiss();
+<<<<<<< HEAD
+=======
+          // loading.dismiss();
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
         })
       })
     })
@@ -114,6 +167,7 @@ export class HomePage {
   getAllOrganizations() {
   }
   viewPage() {
+<<<<<<< HEAD
     this.navCtrl.push(ViewPage)
 
 
@@ -128,3 +182,14 @@ export class HomePage {
  
 
 }
+=======
+    this.navCtrl.push(SignInPage);
+  }
+ GoToMap(){
+   this.navCtrl.setRoot(NearbyOrgPage);
+ }
+ goToProfile(){
+  this.navCtrl.push(ProfilePage);
+ }
+}
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7

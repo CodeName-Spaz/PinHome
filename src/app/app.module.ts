@@ -10,8 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ViewPage } from '../pages/view/view';
-import { SignUpPage } from '../pages/sign-up/sign-up';
-import { SignInPage } from '../pages/sign-in/sign-in'
+
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
@@ -19,8 +18,15 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { CallNumber } from '@ionic-native/call-number';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { SignInPage } from '../pages/sign-in/sign-in';
+import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 firebase.initializeApp({
@@ -38,8 +44,10 @@ firebase.initializeApp({
     HomePage,
     ViewPage,
     NearbyOrgPage,
+    SignInPage,
     SignUpPage,
-    SignInPage
+    ProfilePage
+    // IonicImageViewerModule
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,9 @@ firebase.initializeApp({
     ViewPage,
     NearbyOrgPage,
     SignUpPage,
-    SignInPage
+    SignInPage,
+    ProfilePage
+    // IonicImageViewerModule
   ],
   providers: [
     StatusBar,
@@ -62,10 +72,16 @@ firebase.initializeApp({
     PinhomeProvider,
     Geolocation,
     GoogleMaps,
+<<<<<<< HEAD
     CallNumber,
     LaunchNavigator,
     EmailComposer
   
+=======
+    EmailComposer,
+    CallNumber,
+    LaunchNavigator
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
   ]
 })
 export class AppModule {}

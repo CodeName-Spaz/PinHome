@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { SignInPage } from '../pages/sign-in/sign-in'
+import { ProfilePage } from '../pages/profile/profile';
 @Component({
   templateUrl: 'app.html'
 })
@@ -17,7 +18,12 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
+<<<<<<< HEAD
       this.rootPage = HomePage;
+=======
+      this.rootPage = HomePage
+      ;
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

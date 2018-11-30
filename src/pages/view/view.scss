@@ -8,6 +8,7 @@ page-view {
         position: absolute;
         width: 100%;
         z-index: 1;
+        transition: 50ms;
     }
     .cover{
         height: 250px;
@@ -29,7 +30,10 @@ page-view {
         font-size: 15px;
         text-align: left;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
     ion-grid{
         // border: 2px solid red
     }
@@ -41,8 +45,11 @@ page-view {
         position: relative;
         height: 50px;
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
     .details{
         text-align: lebnft
     }
@@ -123,13 +130,9 @@ page-view {
         color: rgb(119, 114, 114);
         font-size: 1em
     }
-
     .about{
         margin-top: 50px;
     }
-
-
-
     .info{
         font-weight: 100;
     }

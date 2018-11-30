@@ -58,7 +58,7 @@ export class NearbyOrgPage {
              lat: resp.coords.latitude,
              lng: resp.coords.longitude
            },
-           zoom: 18,
+           zoom: 15,
            tilt: 30
          }
       };

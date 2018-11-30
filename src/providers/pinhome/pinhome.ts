@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option,LoadingController } from 'ionic-angular';
 import moment from 'moment';
+import { AlertController } from 'ionic-angular';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -13,7 +14,7 @@ import moment from 'moment';
 @Injectable()
 export class PinhomeProvider {
 
-  //firebase instances
+  // firebase instances
 db = firebase.database();
 auth = firebase.auth();
 
@@ -23,11 +24,158 @@ nearByOrg =  new Array();
 categoryArr = new Array();
 commentArr = new Array();
 searchOrgArray = new Array();
+<<<<<<< HEAD
+=======
+ProfileArr = new Array();
+stayLoggedIn;
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 //variables
 
 
-  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController) {
+  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     console.log('Hello PinhomeProvider Provider');
+  }
+
+
+  checkstate() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user != null) {
+          this.stayLoggedIn = 1
+        } else {
+          this.stayLoggedIn = 0
+        }
+        resolve(this.stayLoggedIn)
+      })
+    })
+  }
+ 
+  Signup(email, password, name) {
+    return new Promise((resolve, reject) => {
+      let loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Sign in....',
+        duration: 4000000
+      });
+      loading.present();
+      return firebase.auth().createUserWithEmailAndPassword(email, password).then((newUser) => {
+        var user = firebase.auth().currentUser
+        firebase.database().ref("profiles/" + user.uid).set({
+          name: name,
+          email: email,
+          contact: "",
+        })
+        resolve();
+        loading.dismiss();
+      }).catch((error) => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          subTitle: error.message,
+          buttons: [
+            {
+              text: 'ok',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        alert.present();
+        console.log(error);
+      })
+    })
+  }
+  SignIn(email, password) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Sign In....',
+      duration: 4000000
+    });
+    loading.present();
+    return new Promise((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        resolve();
+        loading.dismiss();
+      }).catch((error) => {
+        loading.dismiss();
+        if (error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+          const alert = this.alertCtrl.create({
+            subTitle: "It seems like you have not registered to use StreetArt, please check your login information or sign up to get started",
+            buttons: [
+              {
+                text: 'ok',
+                handler: data => {
+                  console.log('Cancel');
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
+        else {
+          const alert = this.alertCtrl.create({
+
+
+            subTitle: error.message,
+            buttons: [
+              {
+                text: 'ok',
+                handler: data => {
+                  console.log('Cancel');
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
+
+      })
+    })
+
+  }
+
+  forgotpassword(email) {
+    return new Promise((resolve, reject) => {
+      if (email == null || email == undefined) {
+        const alert = this.alertCtrl.create({
+          subTitle: 'Please enter your Email.',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+      else if (email != null || email != undefined) {
+        firebase.auth().sendPasswordResetEmail(email).then(() => {
+          const alert = this.alertCtrl.create({
+            title: 'Password request Sent',
+            subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
+            buttons: ['OK']
+
+          });
+          alert.present();
+          resolve()
+        }, Error => {
+          const alert = this.alertCtrl.create({
+            subTitle: Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
+          resolve()
+        });
+      }
+    }).catch((error) => {
+      const alert = this.alertCtrl.create({
+        subTitle: error.message,
+        buttons: [
+          {
+            text: 'ok',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      alert.present();
+    })
   }
 
   listenForLocation(){
@@ -275,11 +423,11 @@ if (up <= 0){
 
 
 
-  viewComments(key: any, comment: string) {
-    this.commentArr.length = 0;
+  viewComments( comment: any) {
+    this.commentArr.length =0;
     return new Promise((accpt, rejc) => {
       var user = firebase.auth().currentUser
-      firebase.database().ref("comments/" + key).on("value", (data: any) => {
+      firebase.database().ref("comments/").on("value", (data: any) => {
         var CommentDetails = data.val();
         if (data.val() == null) {
           this.commentArr = null;
@@ -291,11 +439,10 @@ if (up <= 0){
             var chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
-              uid: user.uid,
-              // url: this.url,
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
-              // username: ""
             }
+            this.commentArr.push(obj);
+            console.log(this.commentArr);
             accpt(this.commentArr);
           }
         }
@@ -307,20 +454,5 @@ if (up <= 0){
   }
 
 
-  getOrgNames(){
-    return new Promise((accpt, rej) =>{
-      this.db.ref('OrganizationList').on('value', (data:any) =>{
-        if (data.val() != null || data.val() != undefined){
-          let organisations =  data.val();
-          let keys = Object.keys(organisations);
-            for (var x = 0; x < keys.length; x++){
-            let OrganisationKeys = keys[x];
-              this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
-            }
-            console.log(this.searchOrgArray)
-            accpt(this.searchOrgArray);
-          }
-       })
-    })
-  }
+
 }

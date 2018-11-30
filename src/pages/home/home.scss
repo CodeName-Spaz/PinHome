@@ -1,4 +1,21 @@
 page-home {
+    ion-slides{
+        // animation: 700ms slideInRight;
+    }
+    ion-content{
+        position: relative;
+    }
+    .searchResults{
+        position: absolute;
+        background: white;
+        opacity: 0;
+        // border: 2px solid red;
+        height: 100%;
+        z-index: 10000000000;
+        width: 100%;
+        display: none;
+        transition: 700ms;
+    }
     .top{
         position: relative;
         background: #166b85;
@@ -8,7 +25,7 @@ page-home {
         height: 150px;
         // position: absolute;
         // top: 0;
-        width: 120px;
+        width: 100%;
         margin: 0 auto;
     }
     .trans{
@@ -19,16 +36,27 @@ page-home {
         // border: 2px solid red;
     }
     .listedCard{
-        box-shadow: 0 0 5px grey;
+        box-shadow: 0 2px 5px rgba(128, 128, 128, 0.5);
         border-radius: 5px;
+        transition: 500ms;
     }
     .spacer{
         height: 15px;
         border: 2px;
+<<<<<<< HEAD
         background: #166b85;        
+=======
+        background: #166b85;   
+        box-shadow: 0 -5px 2px #166b85;     
+>>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
     }
     .orgName{
-        font-size:10px;
+        padding-top: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+        
+        
+        font-size:12px;
     }
     .start{
         height: 20px;
@@ -55,7 +83,7 @@ page-home {
     }
     .hidden{
         opacity: 0;
-        width: 20px;
+        width: 30px;
         position: absolute;
         top: -20px;
     }
