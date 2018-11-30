@@ -74,14 +74,14 @@ export class ViewPage {
     this.navCtrl.pop()
   }
   reposition(event){
+    this.pet = "";
+    this.pet = event.target.innerText
     this.initMap(this.orgArray[0].orgAddress);
     let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf <HTMLElement>;
     segPosition[0].style.transform ="translateY(0%)"
   }
 
   scroller(event){
-    // console.log(event.directionY);
-    
     let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf <HTMLElement>;
 
     if(event.scrollTop > 0 && event.directionY == "down"){
