@@ -12,6 +12,7 @@ import {
 } from '@ionic-native/google-maps';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the NearbyOrgPage page.
@@ -57,7 +58,7 @@ export class NearbyOrgPage {
              lat: resp.coords.latitude,
              lng: resp.coords.longitude
            },
-           zoom: 18,
+           zoom: 15,
            tilt: 30
          }
       };
@@ -117,5 +118,8 @@ export class NearbyOrgPage {
       this.pinhome.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
       })
     })
+  }
+  GoToHomePage(){
+    this.navCtrl.push(HomePage);
   }
 }

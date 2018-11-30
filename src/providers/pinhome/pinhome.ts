@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option,LoadingController } from 'ionic-angular';
+import moment from 'moment';
+import { AlertController } from 'ionic-angular';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -12,20 +14,165 @@ import { Option,LoadingController } from 'ionic-angular';
 @Injectable()
 export class PinhomeProvider {
 
-  //firebase instances
+  // firebase instances
 db = firebase.database();
 auth = firebase.auth();
 
 //arrays
 oraganisations =  new Array()
 nearByOrg =  new Array();
-searchOrgArray =  new Array();
-
+categoryArr = new Array();
+commentArr = new Array();
+searchOrgArray = new Array();
+ProfileArr = new Array();
+stayLoggedIn;
 //variables
 
 
-  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController) {
+  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     console.log('Hello PinhomeProvider Provider');
+  }
+
+
+  checkstate() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user != null) {
+          this.stayLoggedIn = 1
+        } else {
+          this.stayLoggedIn = 0
+        }
+        resolve(this.stayLoggedIn)
+      })
+    })
+  }
+ 
+  Signup(email, password, name) {
+    return new Promise((resolve, reject) => {
+      let loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Sign in....',
+        duration: 4000000
+      });
+      loading.present();
+      return firebase.auth().createUserWithEmailAndPassword(email, password).then((newUser) => {
+        var user = firebase.auth().currentUser
+        firebase.database().ref("profiles/" + user.uid).set({
+          name: name,
+          email: email,
+          contact: "",
+        })
+        resolve();
+        loading.dismiss();
+      }).catch((error) => {
+        loading.dismiss();
+        const alert = this.alertCtrl.create({
+          subTitle: error.message,
+          buttons: [
+            {
+              text: 'ok',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        alert.present();
+        console.log(error);
+      })
+    })
+  }
+  SignIn(email, password) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Sign In....',
+      duration: 4000000
+    });
+    loading.present();
+    return new Promise((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        resolve();
+        loading.dismiss();
+      }).catch((error) => {
+        loading.dismiss();
+        if (error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+          const alert = this.alertCtrl.create({
+            subTitle: "It seems like you have not registered to use StreetArt, please check your login information or sign up to get started",
+            buttons: [
+              {
+                text: 'ok',
+                handler: data => {
+                  console.log('Cancel');
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
+        else {
+          const alert = this.alertCtrl.create({
+
+
+            subTitle: error.message,
+            buttons: [
+              {
+                text: 'ok',
+                handler: data => {
+                  console.log('Cancel');
+                }
+              }
+            ]
+          });
+          alert.present();
+        }
+
+      })
+    })
+
+  }
+
+  forgotpassword(email) {
+    return new Promise((resolve, reject) => {
+      if (email == null || email == undefined) {
+        const alert = this.alertCtrl.create({
+          subTitle: 'Please enter your Email.',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+      else if (email != null || email != undefined) {
+        firebase.auth().sendPasswordResetEmail(email).then(() => {
+          const alert = this.alertCtrl.create({
+            title: 'Password request Sent',
+            subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
+            buttons: ['OK']
+
+          });
+          alert.present();
+          resolve()
+        }, Error => {
+          const alert = this.alertCtrl.create({
+            subTitle: Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
+          resolve()
+        });
+      }
+    }).catch((error) => {
+      const alert = this.alertCtrl.create({
+        subTitle: error.message,
+        buttons: [
+          {
+            text: 'ok',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      alert.present();
+    })
   }
 
   listenForLocation(){
@@ -205,6 +352,118 @@ if (up <= 0){
        })
     })
   }
+
+  DisplayCategory(Category) {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+          if(Category == SelectCategory[k].Category){
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+          }
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
+ 
+  retrieveOrganization() {
+    this.categoryArr.length =0;
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        let SelectCategory = data.val();
+        console.log(SelectCategory);
+        let keys = Object.keys(SelectCategory);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+          let k = keys[i];
+            let obj = {
+              orgCat : SelectCategory[k].Category,
+              orgName:SelectCategory[k].OrganizationName,
+              orgAddress: SelectCategory[k].OrganizationAdress,
+              orgContact:SelectCategory[k].ContactDetails,
+              orgPicture:SelectCategory[k].Url,
+              orgLat : SelectCategory[k].latitude,
+              orgLong  : SelectCategory[k].longitude,
+              orgEmail : SelectCategory[k].Email,
+              orgAbout : SelectCategory[k].AboutOrg,
+              orgPrice : SelectCategory[k].Price
+  
+            }
+            this.categoryArr.push(obj);
+            console.log(this.categoryArr)
+        }
+        accpt(this.categoryArr);
+      }) 
+    })
+  }
+
+  comments(comment: any) {
+    // var user = firebase.auth().currentUser;
+    return new Promise((accpt, rejc) => {
+      var day = moment().format('MMMM Do YYYY, h:mm:ss a');
+      firebase.database().ref('comments/').push({
+        comment: comment,
+        // uid: user.uid,
+        date: day,
+        // url: this.url
+      })
+      accpt('success');
+    });
+
+  }
+
+
+
+  viewComments( comment: any) {
+    this.commentArr.length =0;
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("comments/").on("value", (data: any) => {
+        var CommentDetails = data.val();
+        if (data.val() == null) {
+          this.commentArr = null;
+        }
+        else {
+          var keys1: any = Object.keys(CommentDetails);
+          for (var i = 0; i < keys1.length; i++) {
+            var key = keys1[i];
+            var chckId = CommentDetails[key].uid;
+            let obj = {
+              comment: CommentDetails[key].comment,
+              date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
+            }
+            this.commentArr.push(obj);
+            console.log(this.commentArr);
+            accpt(this.commentArr);
+          }
+        }
+      }, Error => {
+        rejc(Error.message)
+      })
+
+    })
+  }
+
 
 
 }
