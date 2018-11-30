@@ -15,10 +15,10 @@ export class HomePage {
   orgArray = new Array();
   categoryArr = new Array();
 
-
   searchQuery: string = '';
   items: string[];
   orgs = [];
+  color= "custom"
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
   
@@ -57,18 +57,43 @@ export class HomePage {
   }
 
 
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != "") {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+    getItems(ev: any) {
+      // Reset items back to all of the items
+      this.initializeItems();
+      
+      // set val to the value of the searchbar
+      const val = ev.target.value;
+      
+      
+      // Determines the visibility of the search panel
+      var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
+
+  
+      // if the value is an empty string don't filter the items
+      if (val && val.trim() != "") {
+        this.items = this.items.filter((item) => {
+          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        });
+        search[0].style.display = 'block';
+        this.color ="light"
+        search[0].style.opacity ="1"
+
+        }
+        if(val.length == 0 || val == null || val == undefined || val.length == undefined){
+          search[0].style.display = 'none';
+          search[0].style.opacity ="0"
+        }
+        // console.log(val.length);
+
+
     }
-  }
+    bodyClick(event){
+      console.log(event);
+      
+      var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
+      search[0].style.display = "none"
+
+    }
 
   selectcategory() {
     this.categoryArr.length = 0;
@@ -91,7 +116,7 @@ export class HomePage {
             orgLong: data[k].orgLong
           }
           this.categoryArr.push(obj);
-          console.log(this.categoryArr);
+          // console.log(this.categoryArr);
         }
       }
     })
@@ -103,19 +128,19 @@ export class HomePage {
     //   duration: 222000
     // });
     // loading.present();
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'please wait',
-      duration: 222000
-    });
-    loading.present();
+    // let loading = this.loadingCtrl.create({
+    //   spinner: 'bubbles',
+    //   content: 'please wait',
+    //   duration: 222000
+    // });
+    // loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           this.orgArray = data;
           console.log(this.orgArray)
           // loading.dismiss();
-          loading.dismiss();
+          // loading.dismiss();
         })
       })
     })
@@ -128,5 +153,8 @@ export class HomePage {
   }
  GoToMap(){
    this.navCtrl.setRoot(NearbyOrgPage);
+ }
+ goToProfile(){
+  this.navCtrl.push(ProfilePage);
  }
 }
