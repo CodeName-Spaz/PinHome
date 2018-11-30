@@ -1,3 +1,125 @@
 page-sign-in {
 
+    .content{
+        background-color: #d3d2c7;
+       
+    }
+    .whole{
+        background: #166b85;
+        // transition: 1s;
+        height: 0;
+        width: 0;
+        position: absolute;
+        z-index: -1000000;
+        // top:-100%;
+        // left: -300%;
+        // margin-top: 110px;
+        // transform: rotateZ(30DEG)
+        border-top: 100vh solid #d3d2c7;
+        border-bottom:0px solid blue;
+        border-left: 0px solid green;
+        border-right: 100vw solid #166b85;
+    }
+
+    .div1{
+        background: #166b85;
+        height: 200px;
+        width: 55vw;
+        // border: 2px solid #166b85;
+        position: absolute;
+
+        right: 0;
+        top: -90px;        
+        border-radius: 50000px
+        
+
+    }
+    .dive2{
+        background: #166b85;
+        height: 200px;
+        width: 51vw;
+        border: 2px solid #166b85;
+        position: absolute;
+
+        left: 0;
+        top: -87px;
+        border-radius: 50000px
+        
+    }
+    .backUp{
+        background: #ffffff;
+        // border: 2px solid red;
+        height: 150px;
+        width: 43vw;
+        position: absolute;
+        right: 0;
+        top: -55px;
+        z-index: -1;
+    }
+
+    p{
+        position: relative;
+        bottom: 16px;
+        color: rgb(10, 10, 10)
+    }
+
+    .logo{
+        transition: 1s;
+        width: 25vw;
+    }
+
+    .picture{
+        position: absolute;
+        // left:-150%;
+        // top: 5%;
+        width: 100%;
+        // border: 2px solid red;
+        margin-top: 50px;
+        // transform: rotateZ(-30DEG)
+    }
+    .stuff{
+        position: absolute;
+        top: -5%;
+        // left: 0;
+        width: 100vw;
+        margin: 0 auto;
+    }
+
+    h1{
+        font-weight: 100;
+        font-size: 2.5em;
+        margin-top: 190px;
+        text-align: center;
+    }
+
+
+
+    .list{
+        width: 85%;
+        // position: relative;
+        // left: 60px
+    
+    }
+
+    .item{
+        background-color: #ffffffad;
+        color: rgb(0, 0, 0);
+        border-radius: 50px;
+        // border: solid 3px #b6ad2d;
+        margin-bottom: 10px;
+
+        ::-webkit-input-placeholder{
+            color: rgb(112, 110, 110);
+        }
+    }
+
+    .btn{
+        border-radius: 50px;
+        border: solid 2.5px; 
+        width: 80%;
+        position: relative;
+        bottom: 20px;
+        // left: 60px
+    }
+
 }
