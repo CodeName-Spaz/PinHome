@@ -1,4 +1,5 @@
 page-profile {
+    // transition: 1s;
     .top{
         // border: 2px solid red;
         background: #fff;
@@ -20,6 +21,7 @@ page-profile {
     .coverImage{
         height: 180px;
         width: 100%;
+        object-fit: cover;
     }
     .userName{
         position: absolute;
@@ -45,11 +47,14 @@ page-profile {
         position: absolute;
         right: 0px;
         text-shadow: 0 0 10px black;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0);
+
     }
     .backBTN{
         position: absolute;
         left: 0px;
         text-shadow: 0 0 10px black;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0);
     }
     .head{
         position: relative;
@@ -66,9 +71,10 @@ page-profile {
         border: 5px solid #fff;
         object-fit: cover;
         z-index: 10000;
+        box-shadow: 0 5px 15px grey
     }
     .body{
-        
+        // border: 2px solid red;
     }
     .detail{
         // height: 50px;
@@ -79,6 +85,52 @@ page-profile {
     .subTitles{
         color: grey;
         font-size: 10px;
+    }
+    .myRatings{
+
+    }
+    .orgName{
+        font-weight: bolder;
+    }
+    .theRatingsPart{
+        padding-left: 2em;
+        color: grey;
+        font-size: 10px;
+        font-weight: bolder;
+        border-bottom: 1px solid grey
+    }
+    .comment{
+        font-size: 12px;
+        font-style: italic;
+    }
+    .stars{
+        font-size: 10px;
+    }
+    .theFab{
+        top: -0.5%;
+        left: 0;
+    }
+    .theFab2{
+        top: -0.5%;
+        right: 0;
+    }
+    .colorThing{
+        width: 150vw;
+        height: 50px;
+        background: #166b85;
+        opacity: 0;
+        transform: translateX(-50%);
+        position:s absolute;
+        top: 0;
+    }
+    .popover{
+        background: white;
+        padding: 10px;
+    }
+    .thePopover{
+        right: -50%;
+        transition: 300ms;
+        // opacity: 0;
     }
 
 }

@@ -39,7 +39,8 @@ stayLoggedIn;
       firebase.auth().onAuthStateChanged((user) => {
         if (user != null) {
           this.stayLoggedIn = 1
-        } else {
+        }
+        else {
           this.stayLoggedIn = 0
         }
         resolve(this.stayLoggedIn)
