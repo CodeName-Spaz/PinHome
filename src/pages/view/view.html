@@ -19,18 +19,21 @@
       <ion-grid>
         <ion-row>
           <ion-col col-3>
-      <img class="round" src="../../assets/imgs/orphan.png"> &ensp;
-    </ion-col>
-    <ion-col>
-      <h1 class="name">{{i.orgName}}</h1><br>
-      
-    </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-3></ion-col>
-      <ion-col><p class="category">{{i.orgCat}}</p></ion-col>
-      </ion-row>
-    </ion-grid>
+            <img class="round" src="../../assets/imgs/orphan.png"> &ensp;
+          </ion-col>
+          <ion-col>
+            <h1 class="name">{{i.orgName}}</h1>
+            <br>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3></ion-col>
+          <ion-col>
+            <p class="category">{{i.orgCat}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
 
     <ion-grid>
@@ -50,7 +53,7 @@
 
 
   </div>
-    <div class="segment">
+  <div class="segment">
     <ion-segment color="segments" [(ngModel)]="pet">
       <ion-segment-button value="About" (click)="reposition($event)">
         About
@@ -67,7 +70,7 @@
     </ion-segment>
   </div>
 
-  
+
 
   <div padding [ngSwitch]="pet">
     <ion-list class="about" *ngSwitchCase="'About'">
@@ -83,7 +86,7 @@
     <ion-list *ngSwitchCase="'Location'">
       <br>
       <br>
-          <p id="map" style="height:350px"></p>
+      <p id="map" style="height:450px"></p>
       <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
 
       <ion-grid class="buttons">
@@ -148,20 +151,20 @@
       </div>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'Reviews'" >
+    <ion-list *ngSwitchCase="'Reviews'">
       <ion-card class="Reviews" *ngFor="let a of commentArr">
-        <ion-item >
+        <ion-item>
           <ion-avatar item-start>
             <img src="../../assets/imgs/him.gif">
           </ion-avatar>
-          <h2>Marty McFly</h2>
-         <div class="Rate">
-          <ion-icon class="stars" name="star"></ion-icon>
-          <ion-icon class="stars" name="star"></ion-icon>
-          <ion-icon class="stars" name="star"></ion-icon>
-          <ion-icon class="stars" name="star-outline"></ion-icon>
-          <ion-icon class="stars" name="star-outline"></ion-icon>
-        </div>
+          <h2>{{a.username}}</h2>
+          <div class="Rate">
+            <ion-icon class="stars" name="star"></ion-icon>
+            <ion-icon class="stars" name="star"></ion-icon>
+            <ion-icon class="stars" name="star"></ion-icon>
+            <ion-icon class="stars" name="star-outline"></ion-icon>
+            <ion-icon class="stars" name="star-outline"></ion-icon>
+          </div>
           <p>{{a.date}}</p>
         </ion-item>
         <ion-card-content>
@@ -171,4 +174,4 @@
 
     </ion-list>
   </div>
-</ion-content>  
+</ion-content>

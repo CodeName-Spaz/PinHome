@@ -8,7 +8,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
-
+import { SignInPage } from '../sign-in/sign-in';
 
 
 
@@ -20,6 +20,7 @@ import { PinhomeProvider } from '../../providers/pinhome/pinhome';
  * Ionic pages and navigation.
  */
 declare var google;
+declare var firebase;
 @IonicPage()
 @Component({
   selector: 'page-view',
@@ -29,6 +30,7 @@ export class ViewPage {
   pet = "About"
   orgArray = new Array();
   commentArr = new Array();
+  profileArr = new Array();
   comments;
   address;
   state = ["star-outline", "star-outline", "star-outline", "star-outline", "star-outline"]
@@ -37,42 +39,51 @@ export class ViewPage {
   Star3 = "star-outline";
   Star4 = "star-outline";
   Star5 = "star-outline";
-
+  condition;
+  commentKey: any;
+  keys2;
   blankStar = "star-outline";
+  imageKey;
+  username: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
 
-    console.log(this.orgArray[0].orgAddress)
+    console.log(this.orgArray[0].key)
+    this.imageKey = this.orgArray[0].key;
+    console.log(this.imageKey);
 
     this.retrieveComments();
+
   }
+
+
   ionViewDidEnter() {
+
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
+
+
+    this.pinhomeProvider.checkstate().then((data) => {
+      console.log(data);
+    })
+
+
+    this.pinhomeProvider.UserProfile().then((data) => {
+      console.log(data)
+
+    })
   }
 
-
+  storeCatData(data) {
+    this.profileArr = data;
+    console.log(this.profileArr)
+    // console.log(this.tempArray);
+  }
   retrieveComments() {
-    this.pinhomeProvider.viewComments(this.comments).then((data) => {
-      if (data != null || data != undefined) {
-
-        this.commentArr.length = 0;
-        var keys = Object.keys(data)
-        for (var i = 0; keys.length; i++) {
-          var k = keys[i];
-          let obj = {
-            comment: data[k].comment,
-            date: data[k].date
-          }
-          this.commentArr.push(obj)
-          this.commentArr.reverse();
-          console.log(this.commentArr);
-        }
-      }
-      else {
-        console.log('empty');
-      }
-
+    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data:any) => {
+      this.commentArr.reverse();
+      this.commentArr = data;
+      console.log(this.commentArr);
     })
   }
   initMap(address) {
@@ -100,15 +111,17 @@ export class ViewPage {
   Back() {
     this.navCtrl.pop()
   }
+
   reposition(event) {
-    //   this.pet = "";
     this.initMap(this.orgArray[0].orgAddress);
     let segPosition = document.getElementsByClassName('segment') as HTMLCollectionOf<HTMLElement>;
     segPosition[0].style.transform = "translateY(0%)"
   }
 
+
   scroller(event) {
     // console.log(event.directionY);
+
 
     let btnBack = document.getElementsByClassName('backBtn') as HTMLCollectionOf<HTMLElement>;
 
@@ -165,7 +178,7 @@ export class ViewPage {
 
 
   view() {
-    this.pinhomeProvider.viewComments(this.comments).then((data) => {
+    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
       console.log(data);
     })
   }
@@ -190,15 +203,20 @@ export class ViewPage {
         {
           text: 'Comment',
           handler: data => {
-            console.log('Saved clicked' + data.comments);
-
-            this.pinhomeProvider.comments(data.comments).then((data) => {
-              this.pinhomeProvider.viewComments(this.comments).then((data) => {
-                console.log(data);
-                this.commentArr.length = 0;
-                this.retrieveComments();
+            // if (this.condition == true) {
+              console.log('Saved clicked' + data.comments);
+              this.pinhomeProvider.comments(data.comments, this.imageKey).then((data) => {
+                this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
+                  console.log(data);
+                  this.commentArr.length = 0;
+                  this.retrieveComments();
+                })
               })
-            })
+            // }
+            // else {
+              // console.log("User has Logged out");
+              // this.navCtrl.push(SignInPage);
+            // }
 
           }
         }

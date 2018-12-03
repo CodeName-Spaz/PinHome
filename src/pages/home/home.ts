@@ -5,39 +5,50 @@ import { ViewPage } from '../view/view'
 import { ProfilePage } from '../profile/profile';
 import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
+
+
+declare var firebase;
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   category;
-
   orgArray = new Array();
   categoryArr = new Array();
-
-
   searchQuery: string = '';
   items: string[];
   orgs = [];
-  tempArray =  []
+  tempArray = [];
+  color = "custom";
+  key: any
+  condition;
+  role;
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
-   this.storeCatData(data)
+      this.storeCatData(data)
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
       this.storedata(data);
       this.initializeItems();
     })
 
+
+    this.pinhomeProvider.checkstate().then((data) => {
+      console.log(data);
+    })
+
+
   }
 
-  storeCatData(data){
-    this.categoryArr =  data;
+  storeCatData(data) {
+    this.categoryArr = data;
     this.tempArray = this.categoryArr;
+    // console.log(this.tempArray);
   }
 
-  setArrayBack(data){
+  setArrayBack(data) {
     this.categoryArr = data;
   }
 
@@ -50,37 +61,74 @@ export class HomePage {
   }
 
   goToViewPage(name) {
-    for (var x = 0; x < this.categoryArr.length; x++){
-      if (name == this.categoryArr[x].orgName){
-        this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x]});
+    for (var x = 0; x < this.categoryArr.length; x++) {
+      if (name == this.categoryArr[x].orgName) {
+        this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }
 
   }
 
-  
+
   more(indx) {
     this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
   }
-  trimPictures(state){
-    this.categoryArr.length =  0;
+  trimPictures(state) {
+    this.categoryArr.length = 0;
     this.categoryArr = this.tempArray;
   }
 
   getItems(ev: any) {
     // Reset items back to all of the items
     this.initializeItems();
-   // this.setArrayBack(this.tempArray)
+    // this.setArrayBack(this.tempArray)
     // set val to the value of the searchbar
     const val = ev.target.value;
     // if the value is an empty string don't filter the items
     if (val && val.trim() != "") {
       this.items = this.items.filter((item) => {
-        
-          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
 
     }
+
+  }
+  getItems1(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+
+    // Determines the visibility of the search panel
+    var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf<HTMLElement>;
+
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != "") {
+      this.items = this.items.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+      search[0].style.display = 'block';
+      this.color = "light"
+      search[0].style.opacity = "1"
+
+    }
+    if (val.length == 0 || val == null || val == undefined || val.length == undefined) {
+      search[0].style.display = 'none';
+      search[0].style.opacity = "0"
+    }
+    // console.log(val.length);
+
+
+  }
+  bodyClick(event) {
+    console.log(event);
+
+    var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf<HTMLElement>;
+    search[0].style.display = "none"
 
   }
 
@@ -105,17 +153,12 @@ export class HomePage {
           }
           console.log(data[k].orgName)
           this.categoryArr.push(obj);
+          // console.log(this.categoryArr);
         }
       }
     })
   }
   getNearByOrganizations() {
-    // let loading = this.loadingCtrl.create({
-    //   spinner: 'bubbles',
-    //   content: 'please wait',
-    //   duration: 222000
-    // });
-    // loading.present();
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'please wait',
@@ -135,9 +178,32 @@ export class HomePage {
   getAllOrganizations() {
   }
   viewPage() {
-    this.navCtrl.push(SignInPage);
+    this.navCtrl.setRoot(SignInPage);
   }
- GoToMap(){
-   this.navCtrl.setRoot(NearbyOrgPage);
- }
+  GoToMap() {
+    this.navCtrl.setRoot(NearbyOrgPage);
+  }
+  goToProfile() {
+    if (this.condition == true) {
+      let userKey = firebase.auth().currentUser.uid;
+      console.log(userKey);
+      console.log("user has signed in")
+      this.pinhomeProvider.UserProfile().then((data) => {
+        console.log(data);
+        if (this.role == 'Audience') {
+          this.navCtrl.setRoot(ProfilePage);
+        }
+        else {
+          console.log('Please log in');
+        }
+      });
+    }
+    else {
+      console.log("User has Logged out");
+      this.navCtrl.setRoot(SignInPage);
+    }
+  }
+
+
+
 }

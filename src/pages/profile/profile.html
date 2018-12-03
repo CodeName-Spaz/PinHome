@@ -16,15 +16,20 @@
 <ion-content *ngFor="let item of detailArray">
   <div class="top">
     <div class="head">
+        <div class="slant">
+        
+          </div>
       <button ion-button clear icon-only color="light" class="backBTN" (click)="GoTOHomePage()"><ion-icon name="arrow-back"></ion-icon></button>
-      <button class="editor" ion-button clear color="light">
-        <ion-icon name="brush"></ion-icon>
+      <button class="editor" ion-button icon-only clear color="light">
+          <ion-icon ios="ios-settings-outline" md="md-settings"></ion-icon>
       </button>
       <img class="coverImage" src="../../assets/imgs/hands.jpg" alt="">
-      <img class="DP" src="../../assets/imgs/old.jpg" alt="" imageViewer>
-      <div class="userName">
-        <h3 align="center">{{item.name}}</h3>
-      </div>
+      <img class="DP" src="../../assets/imgs/mealtime.jpg" alt="" imageViewer>
+      <ion-card class="userName">
+        <h3>{{item.name}}</h3>
+        <p class="para">0813917127</p>
+      </ion-card>
+
     </div>
   </div>
   <div class="body">

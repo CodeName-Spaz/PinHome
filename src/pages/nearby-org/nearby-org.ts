@@ -41,7 +41,7 @@ export class NearbyOrgPage {
   loadMap() {
        let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Getting your location,please wait',
+      content: 'Looking for organisations near you...',
       duration: 22222000
     });
     loading.present();
@@ -120,6 +120,6 @@ export class NearbyOrgPage {
     })
   }
   GoToHomePage(){
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
 }
