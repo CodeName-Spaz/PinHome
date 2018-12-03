@@ -17,15 +17,16 @@ import { PinhomeProvider } from '../providers/pinhome/pinhome';
 export class MyApp {
   rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public PinhomeProvider: PinhomeProvider) {
-    PinhomeProvider.checkstate().then((data:any)=>{
-      if (data ==1){
-        this.rootPage = HomePage;
-      }
-      else {
-        this.rootPage = SignInPage
-      }
-     });
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+    platform.ready().then(() => {
+      this.rootPage = HomePage;
+      ;
+      // Okay, so the plSignInPageatform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      statusBar.styleDefault();
+      splashScreen.hide();
+    });
   }
 }
 

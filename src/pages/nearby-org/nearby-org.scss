@@ -1,27 +1,25 @@
 page-nearby-org {
-   #map_canvas{
-       width: 100%;
-       box-shadow: 0 0 0.1px grey;     
-       height: 30%;
-   }
-   .cont{
-
-   }
-   .cat{
-    position: absolute; 
-    padding-left: 10px;
-    padding-right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    // border: 2px solid red;
-    width: 100%;
-   }
-   .theCard{
-       height: 25vh;
-       position: relative;
-       box-shadow: 0 0 1px grey;     
-       border-radius: 10px; 
-   }
-
-}
+    #map_canvas{
+        width: 100%;
+        box-shadow: 0 0 0.1px grey;     
+        height: 30%;
+    }
+    .cont{
+    }
+    .cat{
+     position: absolute; 
+     padding-left: 10px;
+     padding-right: 10px;
+     top: 50%;
+     transform: translateY(-50%);
+     text-align: center;
+     // border: 2px solid red;
+     width: 100%;
+    }
+    .theCard{
+        height: 25vh;
+        position: relative;
+        box-shadow: 0 0 1px grey;     
+        border-radius: 10px; 
+    }
+ }

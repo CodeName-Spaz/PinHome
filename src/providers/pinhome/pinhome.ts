@@ -27,7 +27,8 @@ searchOrgArray = new Array();
 ProfileArr = new Array();
 stayLoggedIn;
 //variables
-
+url
+rating
 
   constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     console.log('Hello PinhomeProvider Provider');
@@ -359,9 +360,7 @@ if (up <= 0){
     return new Promise((accpt, rej) => {
       this.db.ref('OrganizationList').on('value', (data: any) => {
         let SelectCategory = data.val();
-        console.log(SelectCategory);
         let keys = Object.keys(SelectCategory);
-        console.log(keys);
         for (var i = 0; i < keys.length; i++) {
           let k = keys[i];
           if(Category == SelectCategory[k].Category){
@@ -379,7 +378,6 @@ if (up <= 0){
   
             }
             this.categoryArr.push(obj);
-            console.log(this.categoryArr)
           }
         }
         accpt(this.categoryArr);
@@ -388,44 +386,46 @@ if (up <= 0){
   }
  
   retrieveOrganization() {
-    this.categoryArr.length =0;
+    this.categoryArr.length = 0;
     return new Promise((accpt, rej) => {
-      this.db.ref('OrganizationList').on('value', (data: any) => {
+      this.db.ref('OrganizationList').on('value', (data) => {
         let SelectCategory = data.val();
         console.log(SelectCategory);
         let keys = Object.keys(SelectCategory);
         console.log(keys);
         for (var i = 0; i < keys.length; i++) {
           let k = keys[i];
-            let obj = {
-              orgCat : SelectCategory[k].Category,
-              orgName:SelectCategory[k].OrganizationName,
-              orgAddress: SelectCategory[k].OrganizationAdress,
-              orgContact:SelectCategory[k].ContactDetails,
-              orgPicture:SelectCategory[k].Url,
-              orgLat : SelectCategory[k].latitude,
-              orgLong  : SelectCategory[k].longitude,
-              orgEmail : SelectCategory[k].Email,
-              orgAbout : SelectCategory[k].AboutOrg,
-              orgPrice : SelectCategory[k].Price
-  
-            }
-            this.categoryArr.push(obj);
-            console.log(this.categoryArr)
+          let obj = {
+            orgCat: SelectCategory[k].Category,
+            orgName: SelectCategory[k].OrganizationName,
+            orgAddress: SelectCategory[k].OrganizationAdress,
+            orgContact: SelectCategory[k].ContactDetails,
+            orgPicture: SelectCategory[k].Url,
+            orgLat: SelectCategory[k].latitude,
+            orgLong: SelectCategory[k].longitude,
+            orgEmail: SelectCategory[k].Email,
+            orgAbout: SelectCategory[k].AboutOrg,
+            orgPrice: SelectCategory[k].Price,
+            key: k
+
+          }
+          this.categoryArr.push(obj);
+          // console.log(this.categoryArr)
         }
         accpt(this.categoryArr);
-      }) 
+      })
     })
   }
 
-  comments(comment: any) {
-    // var user = firebase.auth().currentUser;
+  comments(comment: any, commentKey: any, rating) {
+    let user = firebase.auth().currentUser;
     return new Promise((accpt, rejc) => {
       var day = moment().format('MMMM Do YYYY, h:mm:ss a');
-      firebase.database().ref('comments/').push({
+      firebase.database().ref('comments/' + commentKey).push({
         comment: comment,
-        // uid: user.uid,
+        uid: user.uid,
         date: day,
+        rate :  parseInt(rating)
         // url: this.url
       })
       accpt('success');
@@ -435,29 +435,43 @@ if (up <= 0){
 
 
 
-  viewComments( comment: any) {
-    this.commentArr.length =0;
+  viewComments(comment: any, commentKey: any) {
     return new Promise((accpt, rejc) => {
       var user = firebase.auth().currentUser
-      firebase.database().ref("comments/").on("value", (data: any) => {
+      this.db.ref("comments/" + commentKey).on("value", (data: any) => {
         var CommentDetails = data.val();
-        if (data.val() == null) {
-          this.commentArr = null;
-        }
-        else {
+        if (data.val() != null || data.val() != undefined) {
+          this.commentArr.length = 0;
           var keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
             var key = keys1[i];
             var chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
+              uid: CommentDetails[key].uid,
+              url: this.url,
+              rating:parseInt(CommentDetails[key].rate), 
+              username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
             }
-            this.commentArr.push(obj);
-            console.log(this.commentArr);
-            accpt(this.commentArr);
+            if (user){
+              if (user.uid ==  CommentDetails[key].uid){
+                this.assignRating(CommentDetails[key].rate)
+              }
+            } 
+            this.viewProfileMain(chckId).then((profileData: any) => {
+              obj.url = profileData.downloadurl
+              obj.username = profileData.name
+              console.log(obj )
+              this.commentArr.push(obj);
+            });
           }
+          accpt(this.commentArr);
         }
+        else {
+          this.commentArr = null;
+        }
+      
       }, Error => {
         rejc(Error.message)
       })
@@ -465,6 +479,50 @@ if (up <= 0){
     })
   }
 
+  assignRating(rating){
+    this.rating = rating;
+  }
 
+  getRating(){
+    return this.rating;
+  }
+
+  viewProfileMain(userid: string) {
+    return new Promise((accpt, rejc) => {
+      firebase.database().ref("profiles/" + userid).on("value", (data: any) => {
+        var a = data.val();
+        accpt(a);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  getProfile(){
+   this.auth.onAuthStateChanged(function(user) {
+    return new Promise ((accpt, rej) =>{
+      if (user) {
+        firebase.database().ref("profiles/" + user.uid).on('value', (data: any) => {
+       let details = data.val();
+        console.log(details)
+      })
+    } else {
+      console.log('no user');
+    }
+   });
+    })
+  }
+
+  checkAuthState(){
+    return new Promise ((accpt, rej) =>{
+    this.auth.onAuthStateChanged(function(user) {
+        if (user) {
+        accpt(true)
+      } else {
+        accpt(false)
+      }
+     });
+      })
+  }
 
 }
