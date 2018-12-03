@@ -18,7 +18,8 @@ export class HomePage {
   searchQuery: string = '';
   items: string[];
   orgs = [];
-  color= "custom"
+  color= "custom";
+  contribute = 0;
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
   
@@ -48,6 +49,7 @@ export class HomePage {
   }
 
   goToViewPage(indx) {
+    this.bodyClick(event);
     this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[indx] });
   }
 
@@ -90,9 +92,23 @@ export class HomePage {
     bodyClick(event){
       console.log(event);
       
+      var hide = document.getElementsByClassName('hidden') as HTMLCollectionOf <HTMLElement>;
+      hide[0].style.right ="-100%";
+      
       var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
       search[0].style.display = "none"
 
+    }
+    showButton(){
+      this.contribute = 1;
+      let show = document.getElementsByClassName("hidden") as HTMLCollectionOf <HTMLElement>;
+      if(this.contribute == 1){
+        show[0].style.right = "0";
+      }
+      else{
+        show[0].style.right = "-100%"
+      }
+      
     }
 
   selectcategory() {
@@ -149,6 +165,11 @@ export class HomePage {
    this.navCtrl.setRoot(NearbyOrgPage);
  }
  goToProfile(){
+  this.bodyClick(event);
   this.navCtrl.push(ProfilePage);
+ }
+ gotToAddOrg(){
+   console.log("this takes you to the Add Organisation Page");
+   
  }
 }
