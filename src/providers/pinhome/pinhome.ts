@@ -3,7 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option,LoadingController } from 'ionic-angular';
 import moment from 'moment';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -14,6 +14,10 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class PinhomeProvider {
 
+  downloadurl: any;
+  Placeobject: any;
+  url: any;
+  detailArray: any;
   // firebase instances
 db = firebase.database();
 auth = firebase.auth();
@@ -24,15 +28,12 @@ nearByOrg =  new Array();
 categoryArr = new Array();
 commentArr = new Array();
 searchOrgArray = new Array();
-<<<<<<< HEAD
-=======
 ProfileArr = new Array();
 stayLoggedIn;
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 //variables
 
 
-  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
+  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController, public toastCtrl: ToastController) {
     console.log('Hello PinhomeProvider Provider');
   }
 
@@ -190,6 +191,26 @@ stayLoggedIn;
   });
      })
   }
+
+  getOrgNames(){
+    return new Promise((accpt, rej) =>{
+      this.db.ref('OrganizationList').on('value', (data:any) =>{
+        if (data.val() != null || data.val() != undefined){
+          let organisations =  data.val();
+          let keys = Object.keys(organisations);
+            for (var x = 0; x < keys.length; x++){
+            let OrganisationKeys = keys[x];
+              this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
+            }
+            accpt(this.searchOrgArray);
+          }
+       })
+    })
+  }
+
+  
+ 
+ 
 
   getCurrentLocation(){
    //get current location
@@ -453,6 +474,123 @@ if (up <= 0){
     })
   }
 
+  storeImgur(url) {
+    this.url = url;
+    // console.log(url);
+  }
+  storeImgDownloadurl(downloadurl) {
+    this.downloadurl = downloadurl;
+    // console.log(downloadurl);
+  }
+  storeName(name) {
+    this.Placeobject.name = name;
+  }
+
+  viewPicGallery() {
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("uploads").on("value", (data: any) => {
+        if(data.val() != null || data.val() !=undefined){
+          var DisplayData = data.val();
+          var keys = Object.keys(DisplayData);
+          if (DisplayData !== null) {
+          }
+          for (var i = 0; i < keys.length; i++) {
+            this.storeImgDownloadurl(DisplayData[keys[i]].downloadurl);
+          }
+          accpt(DisplayData);
+        }
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  getUserID() {
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("uploads").on("value", (data: any) => {
+        var a = data.val();
+        if (a !== null) {
+        }
+        accpt(user.uid);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+  uploadProfilePic(pic, name) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait',
+      duration: 2000
+    });
+    const toast = this.toastCtrl.create({
+      message: 'data has been updated!',
+      duration: 3000
+    });
+    return new Promise((accpt, rejc) => {
+      toast.present();
+      firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
+        accpt(name);
+        console.log(name);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  viewPicGallery1() {
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("profiles").on("value", (data: any) => {
+        var b = data.val();
+        var keys = Object.keys(b);
+        if (b !== null) {
+        }
+        this.storeImgur(b[keys[0]].downloadurl);
+        accpt(b);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  update(name, email, contact, downloadurl) {
+    this.detailArray.length = 0;
+    return new Promise((pass, fail) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref('profiles/' + user.uid).update({
+        name: name,
+        email: email,
+        downloadurl: downloadurl,
+      });
+    })
+  }
+
+  uploadPic(pic) {
+    var name = "SA" + Date.now();
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait',
+      duration: 7000
+    });
+    const toast = this.toastCtrl.create({
+      message: 'your imagine had been uploaded!',
+      duration: 3000
+    });
+    loading.present();
+    return new Promise((accpt, rejc) => {
+
+      firebase.storage().ref(name + "jpg").putString(pic, 'data_url').then(() => {
+        toast.present();
+        accpt(name);
+        console.log(name)
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
 
 
 }

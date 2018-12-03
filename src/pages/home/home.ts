@@ -57,20 +57,6 @@ export class HomePage {
   }
 
 
-<<<<<<< HEAD
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != "") {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
-=======
     getItems(ev: any) {
       // Reset items back to all of the items
       this.initializeItems();
@@ -108,7 +94,6 @@ export class HomePage {
       search[0].style.display = "none"
 
     }
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 
   selectcategory() {
     this.categoryArr.length = 0;
@@ -155,10 +140,7 @@ export class HomePage {
           this.orgArray = data;
           console.log(this.orgArray)
           // loading.dismiss();
-<<<<<<< HEAD
-=======
           // loading.dismiss();
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
         })
       })
     })
@@ -167,22 +149,6 @@ export class HomePage {
   getAllOrganizations() {
   }
   viewPage() {
-<<<<<<< HEAD
-    this.navCtrl.push(ViewPage)
-
-
-
-
-
-
-
-
-
-  }
- 
-
-}
-=======
     this.navCtrl.push(SignInPage);
   }
  GoToMap(){
@@ -192,4 +158,3 @@ export class HomePage {
   this.navCtrl.push(ProfilePage);
  }
 }
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7

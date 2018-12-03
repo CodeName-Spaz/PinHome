@@ -1,51 +1,5 @@
 <ion-header>
 
-<<<<<<< HEAD
-    <!-- <ion-navbar class="Nav"> -->
-    <!-- <ion-title>View</ion-title> -->
-    <!-- </ion-navbar> -->
-  
-  </ion-header>
-  
-  
-  <ion-content class="content" (ionScroll)="scroller($event)" *ngFor="let i of orgArray">
-    <ion-fab top left class="backBtn">
-      <button color="light" clear ion-button icon-only (click)="Back()">
-        <ion-icon class="arrow" name="arrow-back"></ion-icon>
-      </button>
-    </ion-fab>
-    <img class="cover" src="{{i.orgPicture}}">
-    <div class="main">
-      <div class="flex">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-        <img class="round" src="../../assets/imgs/orphan.png"> &ensp;
-      </ion-col>
-      <ion-col>
-        <h1 class="name">{{i.orgName}}</h1><br>
-        
-      </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-3></ion-col>
-        <ion-col><p class="category">{{i.orgCat}}</p></ion-col>
-        </ion-row>
-      </ion-grid>
-      </div>
-  
-      <ion-grid>
-
-        <ion-row class="stars">
-          <ion-col >
-      <h1 align="center" class="ratings">
-        <ion-icon name={{Star1}} (click)="rate('1')"></ion-icon>
-        <ion-icon name={{Star2}} (click)="rate('2')"></ion-icon>
-        <ion-icon name={{Star3}} (click)="rate('3')"></ion-icon>
-        <ion-icon name={{Star4}} (click)="rate('4')"></ion-icon>
-        <ion-icon name={{Star5}} (click)="rate('5')"></ion-icon>
-      </h1></ion-col>
-=======
   <!-- <ion-navbar class="Nav"> -->
   <!-- <ion-title>View</ion-title> -->
   <!-- </ion-navbar> -->
@@ -69,50 +23,21 @@
           </ion-col>
           <ion-col>
             <h1 class="name">{{i.orgName}}</h1>
+            <p class="category">{{i.orgCat}}</p>
             <br>
 
           </ion-col>
         </ion-row>
-        <ion-row>
+        <!-- <ion-row>
           <ion-col col-3></ion-col>
           <ion-col>
             <p class="category">{{i.orgCat}}</p>
           </ion-col>
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
-        </ion-row>
+        </ion-row> -->
       </ion-grid>
     </div>
 
-<<<<<<< HEAD
-        <p>{{i.orgAbout}}</p>
-  
-        <div padding>
-        </div>
-      </ion-list>
-  
-  
-      <ion-list *ngSwitchCase="'Location'">
-        <br>
-        <br>
-            <p id="map" style="height:450px"></p>
-        <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
-  
-        <ion-grid class="buttons">
-=======
-    <ion-grid>
-
-      <ion-row class="stars">
-        <ion-col>
-          <h1 align="center" class="ratings">
-            <ion-icon name={{Star1}} (click)="rate('1')" (click)="comment()"></ion-icon>
-            <ion-icon name={{Star2}} (click)="rate('2')"></ion-icon>
-            <ion-icon name={{Star3}} (click)="rate('3')"></ion-icon>
-            <ion-icon name={{Star4}} (click)="rate('4')"></ion-icon>
-            <ion-icon name={{Star5}} (click)="rate('5')"></ion-icon>
-          </h1>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    
 
 
 
@@ -122,9 +47,9 @@
       <ion-segment-button value="About" (click)="reposition($event)">
         About
       </ion-segment-button>
-      <ion-segment-button value="Location" (click)="reposition($event)">
+      <!-- <ion-segment-button value="Location" (click)="reposition($event)">
         Location
-      </ion-segment-button>
+      </ion-segment-button> -->
       <ion-segment-button value="Gallery" (click)="reposition($event)">
         Gallery
       </ion-segment-button>
@@ -147,7 +72,7 @@
     </ion-list>
 
 
-    <ion-list *ngSwitchCase="'Location'">
+    <!-- <ion-list *ngSwitchCase="'Location'">
       <br>
       <br>
       <p id="map" style="height:450px"></p>
@@ -167,12 +92,11 @@
 
 
 
-    </ion-list>
+    </ion-list> -->
 
     <ion-list *ngSwitchCase="'Gallery'">
       <div>
         <ion-grid align="center" class="pictures">
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
           <ion-row>
             <ion-col>
               <img class="image" src="../../assets/imgs/activities.jpg" imageViewer>
@@ -185,67 +109,6 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-<<<<<<< HEAD
-  
-  
-  
-      </ion-list>
-  
-      <ion-list *ngSwitchCase="'Gallery'">
-        <div>
-          <ion-grid align="center" class="pictures">
-            <ion-row>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg" imageViewer>
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/beds.jpg" imageViewer>
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/mealtime.jpg" imageViewer>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-  
-          <ion-grid align="center">
-            <ion-row>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg" imageViewer>
-              </ion-col>
-              <ion-col>
-                <img imageViewer class="image" src="../../assets/imgs/beds.jpg">
-              </ion-col>
-              <ion-col>
-                <img imageViewer class="image" src="../../assets/imgs/mealtime.jpg">
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-  
-          <ion-grid align="center">
-            <ion-row>
-              <ion-col>
-                <img imageViewer class="image" src="../../assets/imgs/activities.jpg">
-              </ion-col>
-              <ion-col>
-                <img imageViewer class="image" src="../../assets/imgs/beds.jpg">
-              </ion-col>
-              <ion-col>
-                <img imageViewer class="image" src="../../assets/imgs/mealtime.jpg">
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-list>
-  
-      <ion-list *ngSwitchCase="'Reviews'">
-        <ion-card class="Reviews">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/him.gif">
-            </ion-avatar>
-            <h2>Marty McFly</h2>
-           <div class="Rate">
-=======
 
         <ion-grid align="center">
           <ion-row>
@@ -278,6 +141,24 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'Reviews'">
+        <!-- <ion-grid> -->
+<!-- class="stars" -->
+            <!-- <ion-row > -->
+              <!-- <ion-col> -->
+                <!-- class="ratings" -->
+              <!-- </ion-col> -->
+            <!-- </ion-row> -->
+          <!-- </ion-grid> -->
+          <ion-card class="StarCard">
+                <h1 align="center" >
+                  <ion-icon class="Sstars" name={{Star1}} (click)="rate('1')" (click)="comment()"></ion-icon>
+                  <ion-icon class="Sstars" name={{Star2}} (click)="rate('2')"></ion-icon>
+                  <ion-icon class="Sstars" name={{Star3}} (click)="rate('3')"></ion-icon>
+                  <ion-icon class="Sstars" name={{Star4}} (click)="rate('4')"></ion-icon>
+                  <ion-icon class="Sstars" name={{Star5}} (click)="rate('5')"></ion-icon>
+                </h1>
+                <p style="text-align: center;">Rate this Organisation!</p>
+          </ion-card>
       <ion-card class="Reviews" *ngFor="let a of commentArr">
         <ion-item>
           <ion-avatar item-start>
@@ -285,7 +166,6 @@
           </ion-avatar>
           <h2>Marty McFly</h2>
           <div class="Rate">
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
             <ion-icon class="stars" name="star"></ion-icon>
             <ion-icon class="stars" name="star"></ion-icon>
             <ion-icon class="stars" name="star"></ion-icon>
@@ -298,7 +178,7 @@
           <p>{{a.comments}}</p>
         </ion-card-content>
       </ion-card>
-
+<hr>
     </ion-list>
   </div>
 </ion-content>

@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-<<<<<<< HEAD
-=======
-
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 import { CompileNgModuleMetadata } from '@angular/compiler';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { CallNumber } from '@ionic-native/call-number';
@@ -29,22 +25,12 @@ declare var google;
   templateUrl: 'view.html',
 })
 export class ViewPage {
-<<<<<<< HEAD
-
-  pet =  "Location"
-
-  orgArray = new Array();
-  state = ["star-outline","star-outline","star-outline","star-outline","star-outline"]
-
-
-=======
   pet = "About"
   orgArray = new Array();
   commentArr = new Array();
   comments;
   address;
   state = ["star-outline", "star-outline", "star-outline", "star-outline", "star-outline"]
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
   Star1 = "star-outline";
   Star2 = "star-outline";
   Star3 = "star-outline";
@@ -55,12 +41,7 @@ export class ViewPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
 
-<<<<<<< HEAD
-  console.log(this.orgArray[0].orgAddress)
-  }
-=======
     console.log(this.orgArray[0].orgAddress)
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 
     this.pinhomeProvider.viewComments(this.comments).then((data) => {
       this.commentArr.push(data)
@@ -69,10 +50,7 @@ export class ViewPage {
   }
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
-<<<<<<< HEAD
-=======
     console.log(this.pet)
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
   }
   initMap(address) {
     let geocoder = new google.maps.Geocoder();
@@ -165,23 +143,6 @@ export class ViewPage {
     this.emailComposer.open(email);
   }
 
-<<<<<<< HEAD
-  rate(num){  
-     if (num == 1){
-        if (this.Star1 == "star-outline"){
-          this.Star1 = "star";
-        }
-        else{
-          this.Star1 = "star-outline";
-          this.Star2 = "star-outline"
-          this.Star3 = "star-outline";
-          this.Star4 = "star-outline"
-          this.Star5 = "star-outline";
-        }
-     }
-     else if (num == 2){
-       if (this.Star2 == "star-outline"){
-=======
 
   view() {
     this.pinhomeProvider.viewComments(this.comments).then((data) => {
@@ -239,7 +200,6 @@ export class ViewPage {
     }
     else if (num == 2) {
       if (this.Star2 == "star-outline") {
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
         this.Star1 = "star";
         this.Star2 = "star";
       }

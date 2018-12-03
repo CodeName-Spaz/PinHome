@@ -18,15 +18,12 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { CallNumber } from '@ionic-native/call-number';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
-<<<<<<< HEAD
-=======
-
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
 
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile'
 
 
 firebase.initializeApp({
@@ -46,7 +43,8 @@ firebase.initializeApp({
     NearbyOrgPage,
     SignInPage,
     SignUpPage,
-    ProfilePage
+    ProfilePage,
+    EditProfilePage
     // IonicImageViewerModule
   ],
   imports: [
@@ -62,7 +60,8 @@ firebase.initializeApp({
     NearbyOrgPage,
     SignUpPage,
     SignInPage,
-    ProfilePage
+    ProfilePage,
+    EditProfilePage
     // IonicImageViewerModule
   ],
   providers: [
@@ -72,16 +71,9 @@ firebase.initializeApp({
     PinhomeProvider,
     Geolocation,
     GoogleMaps,
-<<<<<<< HEAD
-    CallNumber,
-    LaunchNavigator,
-    EmailComposer
-  
-=======
     EmailComposer,
     CallNumber,
     LaunchNavigator
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
   ]
 })
 export class AppModule {}

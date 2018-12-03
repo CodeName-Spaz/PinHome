@@ -16,14 +16,9 @@
       <div class="more">
         <ion-icon name="more"></ion-icon>
       </div>
-<<<<<<< HEAD
-      <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
-      <button ion-button icon-only outline color="light" class="profile" (click)="GoToSignUp()">
-=======
       <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
       <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
       <button ion-button icon-only outline color="light" class="profile" (click)="viewPage()">
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
     </div>
@@ -57,14 +52,9 @@
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
   </ion-item>
   <div class="theSlides">
-<<<<<<< HEAD
-    <ion-slides no-borders  slidesPerView="3" initialSlide="3" effect="coverflow">
-
-=======
     <ion-slides no-borders slidesPerView="3" effect="coverflow">
       <ion-slide  class="transE">
       </ion-slide>
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
       <ion-slide *ngFor="let i of orgArray; let in = index" (click)="more(in)">
         <ion-card no-padding class="slideCard">
           <div class="title">
@@ -82,27 +72,16 @@
   <div class="spacer"></div>
   <ion-item no-lines class="area">
     <h5>
-<<<<<<< HEAD
-      <ion-icon ios="ios-pin" md="md-pin"></ion-icon> In Your Area</h5>
-  </ion-item>
-  <div class="restOfBody">
-    <ion-card class="listedCard" (click)="goToViewPage(i)"    *ngFor="let a of categoryArr; let i = index">
-=======
       <ion-icon ios="ios-briefcase" md="md-briefcase"></ion-icon> Organisations</h5>
   </ion-item>
   <div class="restOfBody">
     <ion-card class="listedCard" (click)="goToViewPage(i)" *ngFor="let a of categoryArr; let i = index">
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
       <ion-item>
         <ion-thumbnail item-start>
           <img [src]="a.orgPicture">
         </ion-thumbnail>
         <h2>{{a.orgName}}</h2>
-<<<<<<< HEAD
-        <h3>{{a.orgAbout}}</h3>
-=======
         <p>{{a.orgAbout}}</p>
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
         <p>
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
@@ -110,12 +89,7 @@
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
         </p>
-<<<<<<< HEAD
-      </ion-item>  
-    </ion-card> 
-=======
       </ion-item>
     </ion-card>
->>>>>>> dd6393b9ddb4a8c15375e184689122b0162649a7
   </div>
 </ion-content>
