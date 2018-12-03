@@ -10,21 +10,27 @@ import { NearbyOrgPage } from '../pages/nearby-org/nearby-org';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { SignInPage } from '../pages/sign-in/sign-in'
 import { ProfilePage } from '../pages/profile/profile';
+import { PinhomeProvider } from '../providers/pinhome/pinhome';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any;
 
+
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+    
     platform.ready().then(() => {
-      this.rootPage = HomePage
+      this.rootPage = HomePage;
       ;
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
   }
 }
 

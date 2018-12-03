@@ -24,36 +24,41 @@
   <div class="cont">
     <ion-grid>
       <ion-row>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('Orphanage')">
           <ion-card class="theCard">
             <h3 class="cat">Orphanage</h3>
           </ion-card>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('Disability')">
           <ion-card class="theCard">
             <h3 class="cat">Disability</h3>
           </ion-card>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('old age')">
           <ion-card class="theCard">
             <h3 class="cat">Old Age Homes/ Retirements</h3>
           </ion-card>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('theraphy')">
           <ion-card class="theCard">
             <h3 class="cat">Theraphy</h3>
           </ion-card>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('Psychiatric')">
           <ion-card class="theCard">
             <h3 class="cat">Psychiatric centres/Hospital</h3>
           </ion-card>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-6 (click)="more('social centre')"> 
           <ion-card class="theCard">
             <h3 class="cat">Social Centre</h3>
           </ion-card>
         </ion-col>
+        <ion-col col-6 (click)="more('Rehab')"> 
+            <ion-card class="theCard">
+              <h3 class="cat">Rehab</h3>
+            </ion-card>
+          </ion-col>
       </ion-row>
 
     </ion-grid>

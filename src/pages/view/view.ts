@@ -50,7 +50,7 @@ export class ViewPage {
 
     console.log(this.orgArray[0].key)
     this.imageKey = this.orgArray[0].key;
-    console.log(this.imageKey);
+    console.log(this.orgArray);
 
     this.retrieveComments();
 

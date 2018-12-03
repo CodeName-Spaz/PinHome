@@ -28,6 +28,8 @@ import { HomePage } from '../home/home';
 export class NearbyOrgPage {
   map: GoogleMap;
   orgArray =  new Array();
+  cat = [];
+  location;
  
 
   constructor(public pinhome : PinhomeProvider, public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
@@ -35,18 +37,21 @@ export class NearbyOrgPage {
 
   ionViewDidLoad() {
     this.loadMap();
+    // this.pinhome.getProfile()
     //this.createCurrentLocationMarker();
   }
 
   loadMap() {
        let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Looking for organisations near you...',
-      duration: 22222000
+      content: 'Getting your location,please wait',
+      // duration: 22222000
+        duration: 2000
     });
     loading.present();
     // This code is necessary for browser
     this.pinhome.listenForLocation().then((resp:any) =>{
+      this.assignLocation(resp);
       Environment.setEnv({
         'API_KEY_FOR_BROWSER_RELEASE': '(your api key for `https://`)',
         'API_KEY_FOR_BROWSER_DEBUG': '(your api key for `http://`)'
@@ -58,8 +63,8 @@ export class NearbyOrgPage {
              lat: resp.coords.latitude,
              lng: resp.coords.longitude
            },
-           zoom: 15,
-           tilt: 30
+           zoom: 10,
+           tilt: 25
          }
       };
       this.map = GoogleMaps.create('map_canvas', mapOptions);
@@ -121,5 +126,48 @@ export class NearbyOrgPage {
   }
   GoToHomePage(){
     this.navCtrl.setRoot(HomePage);
+  }
+  more(category){
+    console.log(category);
+    this.map.clear();
+    this.pinhome.DisplayCategory(category).then((data:any) =>{
+     this.cat =  data;
+    this.map.addMarker({
+      title: 'current Location',
+      icon: 'blue',
+      animation: 'DROP',
+      position: {
+        lat:this.location.coords.latitude,
+        lng: this.location.coords.longitude
+      }
+    }).then((marker : Marker ) =>{
+      marker.showInfoWindow();
+    })
+      this.orgArray =  data;
+      for (var x = 0; x <this.cat.length; x++){
+        this.map.addMarker({
+          title: this.cat[x].orgName,
+          icon: 'red',
+          animation: 'DROP',
+          position: {
+            lat: this.cat[x].orgLat,
+            lng:  this.cat[x].orgLong 
+          }
+        }).then((marker : Marker ) =>{
+          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
+              for (var i = 0; i < this.cat.length; i++ ){
+                if (this.orgArray[i].orgName ==  marker.getTitle()){
+                  this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
+                    break;
+                }
+              }
+          })
+        })
+      }
+    })
+  }
+
+  assignLocation(resp){
+    this.location =  resp;
   }
 }

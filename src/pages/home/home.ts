@@ -5,6 +5,7 @@ import { ViewPage } from '../view/view'
 import { ProfilePage } from '../profile/profile';
 import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
+import { AddOrganizationPage } from '../add-organization/add-organization';
 
 
 declare var firebase;
@@ -24,10 +25,13 @@ export class HomePage {
   key: any
   condition;
   role;
+  checkArr = new Array();
+  ProfileArr = new Array();
   constructor(public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
       this.storeCatData(data)
+      console.log(data)
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
       this.storedata(data);
@@ -35,8 +39,9 @@ export class HomePage {
     })
 
 
-    this.pinhomeProvider.checkstate().then((data) => {
-      console.log(data);
+    this.pinhomeProvider.checkstate().then((data:any) => {
+      this.checkArr = data;
+      console.log(this.checkArr);
     })
 
 
@@ -184,26 +189,38 @@ export class HomePage {
     this.navCtrl.setRoot(NearbyOrgPage);
   }
   goToProfile() {
-    if (this.condition == true) {
-      let userKey = firebase.auth().currentUser.uid;
-      console.log(userKey);
-      console.log("user has signed in")
-      this.pinhomeProvider.UserProfile().then((data) => {
-        console.log(data);
-        if (this.role == 'Audience') {
-          this.navCtrl.setRoot(ProfilePage);
-        }
-        else {
-          console.log('Please log in');
-        }
-      });
-    }
-    else {
-      console.log("User has Logged out");
-      this.navCtrl.setRoot(SignInPage);
-    }
-  }
+    this.navCtrl.setRoot(SignInPage);
+    // this.pinhomeProvider.checkstate().then((data:any) => {
+    //   console.log(data);
+    // })
+    // if (this.condition == true) {
+    //   let userKey = firebase.auth().currentUser.uid;
+    //   console.log(userKey);
+    //   console.log("user has signed in")
+    //   this.pinhomeProvider.UserProfile().then((data:any) => {
+    //     this.ProfileArr = data;
+    //     console.log(this.ProfileArr);
+    //   })
+    //   this.navCtrl.push(ProfilePage);
+      // console.log("User has Logged out");
+      // this.navCtrl.setRoot(SignInPage);
+    // }
+    // else {
+    //   console.log("User has Logged out");
+    //   this.navCtrl.setRoot(SignInPage);
 
+      // let userKey = firebase.auth().currentUser.uid;
+      // console.log(userKey);
+      // console.log("user has signed in")
+      // this.pinhomeProvider.UserProfile().then((data:any) => {
+      //   this.ProfileArr = data;
+      //   console.log(this.ProfileArr);
+      // })
+    }
+  
+    GoToAddInfor(){
+      this.navCtrl.setRoot(AddOrganizationPage);
+    }
 
 
 }

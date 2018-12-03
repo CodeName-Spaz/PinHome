@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import firebase from 'firebase'
+import firebase from 'firebase';
 import { Option, LoadingController } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController } from 'ionic-angular';
@@ -57,9 +57,7 @@ export class PinhomeProvider {
 
           console.log(this.condition);
         }
-
-
-      });
+        })
     })
   }
 
@@ -442,7 +440,9 @@ export class PinhomeProvider {
             orgEmail: SelectCategory[k].Email,
             orgAbout: SelectCategory[k].AboutOrg,
             orgPrice: SelectCategory[k].Price,
-            key: k
+            key: k,
+            UrlGallery:SelectCategory[k].UrlGallery,
+            UrlLogo:SelectCategory[k].UrlLogo
 
           }
           this.categoryArr.push(obj);
@@ -482,7 +482,7 @@ export class PinhomeProvider {
             var chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
-              uid: user.uid,
+              uid: CommentDetails[key].uid,
               url: this.url,
               username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
@@ -517,6 +517,8 @@ export class PinhomeProvider {
       })
     })
   }
+
+
 
 
 
