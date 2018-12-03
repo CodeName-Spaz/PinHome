@@ -10,11 +10,12 @@ page-home {
         background: white;
         opacity: 0;
         // border: 2px solid red;
-        height: 100%;
+        // min-height: 100%;
         z-index: 10000000000;
         width: 100%;
         display: none;
         transition: 700ms;
+        box-shadow: 0 20px 30px grey
     }
     .top{
         position: relative;
@@ -67,9 +68,9 @@ page-home {
         // margin-left:10px;
         position: absolute;
         top: -20px;
-        left: 25px;
+        right: 25px;
         width: 70vw;
-        margin-left: 5%;
+        margin-right: 6%;
     }
     
     .theItem{
@@ -82,15 +83,17 @@ page-home {
         width: 30px;
         position: absolute;
         top: -20px;
+        right: 0;
     }
     .more{
         color: white;
         position: absolute;
         top: -15px;
+        right: 0;
         z-index: -1;
         height: 100%;
         font-size: 25px;
-        padding-left: 7px;
+        padding-right: 7px;
     }
     .theSlides{
         // height: 250px;
@@ -133,7 +136,7 @@ page-home {
         height: 40px;
         border-radius: 40px;
         position: absolute;
-        right: 0;
+        left: 0;
         top: -24px;
     }
     .selector{

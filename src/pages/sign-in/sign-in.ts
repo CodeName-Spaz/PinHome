@@ -5,6 +5,8 @@ import { SignUpPage } from '../sign-up/sign-up';
 import { ProfilePage } from '../profile/profile';
 import { HomePage } from '../home/home';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
+import { ThrowStmt } from '@angular/compiler';
+import { ViewPage } from '../view/view';
 
 
 
@@ -26,12 +28,14 @@ export class SignInPage {
   password;
   PlaceObject = {} as object;
   errMsg;
+  option = this.navParams.get('option');
+  obj = this.navParams.get('obj');
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl:  AlertController,public pinhomeProvider: PinhomeProvider ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
+    console.log(this.obj);
   }
   // signup() {
   //   this.navCtrl.setRoot(EulaPage);
@@ -66,7 +70,12 @@ export class SignInPage {
  
       this.pinhomeProvider.SignIn(this.email,this.password).then(() => {
         // this.presentLoading1();
-        this.navCtrl.setRoot(ProfilePage);
+       if (this.option == "profile"){
+         this.navCtrl.push(ProfilePage);
+       }
+       else if (this.option == "rate"){
+         this.navCtrl.pop();
+       }
       }, (error) => {
         console.log(error.message);
       })
