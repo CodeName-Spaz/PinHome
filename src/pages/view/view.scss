@@ -39,7 +39,7 @@ page-view {
     ion-col{
         // border: 2px solid red;
         position: relative;
-        height: 50px;
+        // height: 50px;
     }
     .details{
         text-align: lebnft
@@ -53,7 +53,7 @@ page-view {
         // border: 2px solid red;
         margin-top:-10px;
         background-color: #166b85;
-        height: 170px;
+        height: 120px;
         position: relative;
         text-transform: capitalize;
     }
@@ -67,7 +67,7 @@ page-view {
         font-weight: 100;
         // position: absolute;
         // left:95px;
-        top: -10px;
+        // top: -10px;
     }
     
     ion-icon{
@@ -111,14 +111,32 @@ page-view {
     .Reviews{
         position: relative;
         top: 25px;
+        right: 9%;
+        width: 100vw;
+        // box-shadow: 0 0 0;
     }
+
+    .Sstars{
+        font-size: 1.5em;
+        position: relative;
+        top: 2px;
+        color: black;
+    }
+
+    .StarCard{
+        background-color: #166b8500;
+        position: relative;
+        top: 20px;
+        box-shadow: 0 0 0 
+    }
+    
     .Rate{
         position: relative;
         top: 15px;
         
     }
     .stars{
-        color: rgb(119, 114, 114);
+        color: rgb(0, 0, 0);
         font-size: 1em
     }
     .about{
