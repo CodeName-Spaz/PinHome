@@ -16,7 +16,7 @@
       <div class="more">
         <ion-icon name="more"></ion-icon>
       </div>
-      <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input>
+      <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
       <button ion-button icon-only outline color="light" class="profile" (click)="viewPage()">
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
@@ -34,7 +34,7 @@
       <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
   </ion-item>
   <div class="theSlides">
-    <ion-slides no-borders slidesPerView="3" initialSlide="3" effect="coverflow">
+    <ion-slides no-borders slidesPerView="3" effect="coverflow">
       <ion-slide  class="transE">
       </ion-slide>
       <ion-slide *ngFor="let i of orgArray; let in = index" (click)="more(in)">
@@ -57,13 +57,16 @@
       <ion-icon ios="ios-briefcase" md="md-briefcase"></ion-icon> Organisations</h5>
   </ion-item>
   <div class="restOfBody">
-    <ion-card class="listedCard" (click)="goToViewPage(i)" *ngFor="let a of categoryArr; let i = index">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img [src]="a.orgPicture">
+    <div (click)="goToViewPage(a)" *ngFor="let a of items; let i = index">
+        <div *ngFor="let x of categoryArr">
+          <div *ngIf="x.orgName == a">
+    <ion-card class="listedCard" >
+      <ion-item >
+        <ion-thumbnail  item-start>
+          <img [src]="x.orgPicture">
         </ion-thumbnail>
-        <h2>{{a.orgName}}</h2>
-        <h3>{{a.orgAbout}}</h3>
+        <h2>{{x.orgName}}</h2>
+        <h3>{{x.orgAbout}}</h3>
         <p>
           <ion-icon name="star-outline"></ion-icon>
           <ion-icon name="star-outline"></ion-icon>
@@ -73,5 +76,8 @@
         </p>
       </ion-item>
     </ion-card>
+  </div> 
+</div>
+  </div>
   </div>
 </ion-content>

@@ -361,7 +361,9 @@ if (up <= 0){
         console.log(SelectCategory);
         let keys = Object.keys(SelectCategory);
         console.log(keys);
+     
         for (var i = 0; i < keys.length; i++) {
+
           let k = keys[i];
           if(Category == SelectCategory[k].Category){
             let obj = {
@@ -435,15 +437,16 @@ if (up <= 0){
 
 
   viewComments( comment: any) {
-    this.commentArr.length =0;
+
     return new Promise((accpt, rejc) => {
       var user = firebase.auth().currentUser
       firebase.database().ref("comments/").on("value", (data: any) => {
         var CommentDetails = data.val();
-        if (data.val() == null) {
+        if (data.val() == null || data.val() === undefined) {
           this.commentArr = null;
         }
         else {
+          this.commentArr.length =0;
           var keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
             var key = keys1[i];

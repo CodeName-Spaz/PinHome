@@ -39,10 +39,10 @@
         <ion-col >
     <h1 align="center" class="ratings">
       <ion-icon name={{Star1}} (click)="rate('1')" (click)="comment()"></ion-icon>
-      <ion-icon name={{Star2}} (click)="rate('2')"></ion-icon>
-      <ion-icon name={{Star3}} (click)="rate('3')"></ion-icon>
-      <ion-icon name={{Star4}} (click)="rate('4')"></ion-icon>
-      <ion-icon name={{Star5}} (click)="rate('5')"></ion-icon>
+      <ion-icon name={{Star2}} (click)="rate('2')"  (click)="comment()"></ion-icon>
+      <ion-icon name={{Star3}} (click)="rate('3')"  (click)="comment()"></ion-icon>
+      <ion-icon name={{Star4}} (click)="rate('4')"  (click)="comment()"></ion-icon>
+      <ion-icon name={{Star5}} (click)="rate('5')"  (click)="comment()"></ion-icon>
     </h1></ion-col>
       </ion-row>
     </ion-grid>
@@ -83,7 +83,7 @@
     <ion-list *ngSwitchCase="'Location'">
       <br>
       <br>
-          <p id="map" style="height:450px"></p>
+          <p id="map" style="height:350px"></p>
       <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
 
       <ion-grid class="buttons">
@@ -118,7 +118,7 @@
           </ion-row>
         </ion-grid>
 
-        <ion-grid align="center">
+        <ion-grid align="center" class="pictures">
           <ion-row>
             <ion-col>
               <img class="image" src="../../assets/imgs/activities.jpg" imageViewer>
@@ -132,7 +132,7 @@
           </ion-row>
         </ion-grid>
 
-        <ion-grid align="center">
+        <ion-grid align="center" class="pictures">
           <ion-row>
             <ion-col>
               <img imageViewer class="image" src="../../assets/imgs/activities.jpg">
@@ -165,7 +165,7 @@
           <p>{{a.date}}</p>
         </ion-item>
         <ion-card-content>
-          <p>{{a.comments}}</p>
+          <p>{{a.comment}}</p>
         </ion-card-content>
       </ion-card>
 

@@ -44,14 +44,36 @@ export class ViewPage {
 
     console.log(this.orgArray[0].orgAddress)
 
-    this.pinhomeProvider.viewComments(this.comments).then((data) => {
-      this.commentArr.push(data)
-      console.log(this.commentArr);
-    })
+    this.retrieveComments();
   }
   ionViewDidEnter() {
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
+  }
+
+
+  retrieveComments() {
+    this.pinhomeProvider.viewComments(this.comments).then((data) => {
+      if (data != null || data != undefined) {
+
+        this.commentArr.length = 0;
+        var keys = Object.keys(data)
+        for (var i = 0; keys.length; i++) {
+          var k = keys[i];
+          let obj = {
+            comment: data[k].comment,
+            date: data[k].date
+          }
+          this.commentArr.push(obj)
+          this.commentArr.reverse();
+          console.log(this.commentArr);
+        }
+      }
+      else {
+        console.log('empty');
+      }
+
+    })
   }
   initMap(address) {
     let geocoder = new google.maps.Geocoder();
@@ -63,7 +85,7 @@ export class ViewPage {
       let myLatLng = { lat: this.latitude, lng: this.longitude };
       this.objectArray = "test"
       let map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 18,
+        zoom: 16,
         center: myLatLng,
         mapTypeId: 'terrain'
       });
@@ -173,6 +195,8 @@ export class ViewPage {
             this.pinhomeProvider.comments(data.comments).then((data) => {
               this.pinhomeProvider.viewComments(this.comments).then((data) => {
                 console.log(data);
+                this.commentArr.length = 0;
+                this.retrieveComments();
               })
             })
 
