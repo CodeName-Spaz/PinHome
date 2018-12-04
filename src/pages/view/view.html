@@ -150,22 +150,6 @@
           </ion-grid>
         </div>
       </ion-list>
-  
-      <ion-list *ngSwitchCase="'Reviews'">
-        <ion-card class="Reviews" *ngFor="let a of commentArr">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/him.gif">
-            </ion-avatar>
-            <h2>{{a.username}}</h2>
-             <P>{{a.rating}} Stars Rating</P>
-            <p>{{a.date}}</p>
-          </ion-item>
-          <ion-card-content>
-            <p>{{a.comment}}</p>
-          </ion-card-content>
-        </ion-card>
-  
-      </ion-list>
+   +
     </div>
   </ion-content>

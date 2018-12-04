@@ -6,6 +6,7 @@ page-nearby-org {
    }
    .cont{
     position: relative;
+    height: 50%;
     // border: 2px solid
     box-shadow: 0 0 10px grey;
    }
@@ -42,7 +43,7 @@ page-nearby-org {
        top: 0;
    }
    .theMap{
-       height: 30%;
+       height: 50%;
        transition: 700ms;
    }
    .handle{
@@ -60,7 +61,7 @@ page-nearby-org {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: -5%;
+        top: -25px;
         box-shadow: 0 -5px 10px rgba(128, 128, 128, 0.5);
    }
    .theIcon{
@@ -131,6 +132,95 @@ page-nearby-org {
  background: #fff;
 }
 
+.slides{
+    height: 200px;
+}
+.theImage{
+    width: 100%;
+    object-fit: cover;
+
+}
+.card-background-page {
+
+    ion-card {
+      position: relative;
+      text-align: left;
+      box-shadow: 0 0 10px black;
+      height: 150px;
+      margin-top: -15px;
+      border-radius: 7px;
+    }
+  
+    .card-title {
+      position: absolute;
+      bottom: 25%;
+      font-size: 1em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+      padding-right: 10px;
+      padding-left: 10px;
+      text-shadow: 0 0 15px black;
+    //   border: 2px solid red;
+    }
+  
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      bottom: 15%;
+      width: 100%;
+      color: #fff;
+      text-shadow: 0 0 15px black;
+      padding-left: 10px;
+      padding-right: 10px;
+      
+    //   border: 2px solid red;
+    }
+  
+  }
+  .theArrow{
+      transition: 700ms;
+    //   transform: rotateX(180DEG)
+  }
+
+  ion-slide.swiper-slide{
+      left: 25%;
+  }
+  ion-slide.slider-pager{
+      fill: red;
+      stroke: red;
+  }
+  ion-slide.slider-pager-page.active{
+      fill: red;
+  }
+  .hidden{
+      width: 35px;
+      position: absolute;
+      right: 0;
+      top: -20px;
+    background: red;
+    opacity: 0;
+    
+
+  }
+  .flex{
+      display: flex;
+      width: 100%;
+    //   border: 2px solid red;
+      position: relative;
+    //   opacity: 0;
+  }
+  .btn{
+      position: absolute;
+      top: -25px;
+      right: -10px;
+      z-index: -1;
+  }
+  .listView{
+      position: absolute;
+      top: -25px;
+      left: -10px;
+  }
 
 
 }

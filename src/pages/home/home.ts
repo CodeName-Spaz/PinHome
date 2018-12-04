@@ -145,7 +145,7 @@ export class HomePage {
       content: 'please wait',
       duration: 222000
     });
-    loading.present();
+    // loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
