@@ -2,9 +2,12 @@ page-home {
     ion-slides{
         // animation: 700ms slideInRight;
     }
+    .ionHeader{
+        height: 10px;
+    }
     ion-content{
         position: relative;
-        background: rgb(248, 248, 0);
+        // background: rgb(248, 248, 0);
     }
     .searchResults{
         position: absolute;
@@ -21,6 +24,7 @@ page-home {
     .top{
         position: relative;
         background: #166b85;
+        // border: 2px solid red
     }
     .slideCard{
         // border: 2px solid red;
@@ -39,11 +43,12 @@ page-home {
         // border: 2px solid red;
     }
     .listedCard{
-        box-shadow: 0 0 5px grey;
+        box-shadow: 0 5px 5px rgba(128, 128, 128, 0.5);
         border-radius: 5px;
         transition: 500ms;
         padding: 0;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        height: 110px;
     }
 
     .theItem{
@@ -74,7 +79,7 @@ page-home {
         right: 0;
     }
     .searchBar{
-        transition: 400ms;
+        transition: 700ms;
         border-radius: 550px;
         background: white;
         padding-left: 10px;
@@ -175,7 +180,7 @@ page-home {
         padding-right: 7px;
     }
     .selector{
-        border: 2px solid red;
+        // border: 2px solid red;
         width: 5px;
         // display: none;
         // position: absolute;
@@ -195,33 +200,53 @@ page-home {
         display: flex;
     }
     .nearOrFar{
-        background: red;
+        // background: red;
         height: 100px;
     }
     .restOfBody{
-        margin-top: 40px;
-        background: #fff;
+        padding-left: 15px;        
+        padding-right: 15px;
+        padding-top: 210px;
+        transition: 500ms;
+        // margin-top: 80px;
+        background: whitesmoke;
     }
     .theHead{
+        transition: 500ms;
         height: 120px;
         background: #166b85;
         position: relative;
+        box-shadow: 0 0 5px #fff;
     }
     .options{
-        height: 80px;
+        height: 140px;
         // width: 100vw;
         // box-shadow: 0 0 15px grey;
         border-radius: 5px;
-        transition: 500ms;
+        transition: 700ms;
         background: white;
         position: absolute;
-        top: 52%;
+        top: 60px;
+        z-index: 10000000000000000000;
         // display: flex;
+    }
+    .selects{
+        border-radius: 50px;
+        width: 120px;
+        height: 30px;
+    }
+    .intro{
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
     }
     .picture{
         width: 60px;
     }  
     .myFlexBox{
+        position: absolute;
+        bottom: 10px;
+        padding-left: 10px;
         display: flex;
     }
     button{
@@ -232,12 +257,47 @@ page-home {
         height: 30px;
         border-radius: 40px;
     }
-    .intro{
-        padding-left: 10px;
-        padding-top: 10px;
-        padding-right: 10px;
-    }
+
     .statement{
-        font-size:  12px;
+        font-size:  14px;
+        font-weight: bolder;
+        margin-top: 10px;
+    }
+    .item ion-thumbnail {
+        min-width:110px;    
+        min-height: 110px;
+        img {
+            max-width: 80px;    
+            min-width: 110px;
+            height: 110px;
+            object-fit: cover;
+        }
+    }
+    .theTitle{
+        transition: 500ms;
+        color: white;
+        position: absolute;
+        // border: 2px solid red;
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%)
+        // left: 0%;
+    }
+    b{
+        color: white
+    }
+    .finePrint{
+        font-size: 11px;
+        color: grey;
+
+    }
+ 
+    @media screen and (max-width: 330px){
+        .adder{
+            margin-top: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 40px;
+        }
     }
 }

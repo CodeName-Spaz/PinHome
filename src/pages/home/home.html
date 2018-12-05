@@ -1,111 +1,72 @@
 <!-- (click)="bodyClick($event)" -->
-<ion-content>
-  <ion-fab bottom right>
-    <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
-      <ion-icon name="map"></ion-icon>
-    </button>
-  </ion-fab>
-  <!-- <ion-fab class="hidden">
-    <div class="theDiv">
-    <button ion-button color="btn" clear (click)="gotToAddOrg()">Add an Organisation</button>
-    </div>
-  </ion-fab> -->
-  <!-- <div class="searchResults">
-    this is the div for search results
-    <ion-card class="listedCard" *ngFor="let item of items" (click)="viewer(item)">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="../../assets/imgs/Template Images/pixel.jpg">
-        </ion-thumbnail>
-        <h2>{{item}}</h2>
-        <p>
-          <ion-icon name="star-outline"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
-          <ion-icon name="star-outline"></ion-icon>
-        </p>
-      </ion-item>
-    </ion-card>
-  </div> -->
-  <!-- <ion-item no-lines no-borders class="labeler">
-    <h5>
-      <ion-icon ios="ios-pin" md="md-pin"></ion-icon> Near By</h5>
-  </ion-item> -->
-  <!-- <div class="theSlides">
-    <ion-slides no-borders slidesPerView="3" effect="coverflow">
-      <ion-slide  class="transE">
-      </ion-slide>
-      <ion-slide *ngFor="let i of orgArray; let in = index" (click)="more(in)">
-        <ion-card no-padding class="slideCard">
-          <div class="title">
-            <p class="orgName">{{i.orgName}}</p>
-          </div>
-          <ion-card-content no-padding>
-            <img id="homeImage" src="{{i.orgPicture}}" alt="">
-          </ion-card-content>
-        </ion-card>
-      </ion-slide>
-      <ion-slide class="transE">
-      </ion-slide>
-    </ion-slides>
-  </div> -->
-  <!-- <div class="spacer"></div> -->
-  <!-- <ion-item no-lines class="area">
-    <h5>
-      <ion-icon ios="ios-briefcase" md="md-briefcase"></ion-icon></h5>
-  </ion-item> -->
-  <div class="theHead">
-    <div class="top">
-      <button ion-button icon-only clear class="more" (click)="showButton()">
-        <ion-icon name="{{state}}"></ion-icon>
-      </button>
-
-      <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
-      <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
-      <button ion-button icon-only clear color="light" class="profile" (click)="goToProfile()">
-        <ion-icon ios="ios-person" md="md-person"></ion-icon>
-      </button>
-    </div>
-    <ion-card class="options">
-      <div class="intro">
-        <p class="statement">The list is based on your location <ion-icon name="pin"></ion-icon></p>
-      </div>
-      <div class="myFlexBox">
-        <button ion-button clear color="custom">Show near me</button>
-        <button ion-button clear color="custom">Show near me</button>
-        <button class="adder" ion-button outline color="custom" icon-only>
-            <ion-icon name="add"></ion-icon>
+<ion-header class="ionHeader">
+    <div class="theHead">
+      <ion-title class="theTitle">
+      <b>PinHome</b>
+      </ion-title>
+        <div class="top">
+          <button ion-button icon-only clear class="more" (click)="showButton()">
+            <ion-icon name="{{state}}"></ion-icon>
           </button>
-      </div>
-    </ion-card>
-  </div>
-  <div class="restOfBody" padding>
-    <div *ngFor="let a of items; let i = index">
-      <div *ngFor="let x of categoryArr">
-        <div *ngIf="x.orgName == a">
-          <ion-item (click)="goToViewPage(a)" no-padding class="listedCard" no-lines>
-            <ion-thumbnail item-start>
-              <img class="image" [src]="x.orgPicture">
-            </ion-thumbnail>
-            <h2>{{x.orgName}}</h2>
-            <p>{{x.orgAbout}}</p>
-            <p>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
-              <ion-icon name="star-outline"></ion-icon>
+          
+          <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
+          <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
+          <button ion-button icon-only clear color="light" class="profile" (click)="viewPage()">
+            <ion-icon ios="ios-person" md="md-person"></ion-icon>
+          </button>
+        <ion-card class="options">
+          <div class="intro">
+            <p class="statement"><ion-icon name="pin"></ion-icon>
+               {{location}} <br>
+             <i class="finePrint"> PinHome uses your location to provide you with places near you.</i>
             </p>
-            <button ion-button icon-only color="custom" clear item-end>
-              <ion-icon name="arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-
+          </div>
+          <div class="myFlexBox">
+            <button class="selects" ion-button color={{custom1}} (click)="all()">Show All</button>
+            <button class="selects" ion-button color={{custom2}} (click)="near()">Show Near Me</button>
+            <button class="adder" ion-button outline color="custom" (click)="gotToAddOrg()" icon-only>
+                <ion-icon name="add"></ion-icon>
+              </button>
+          </div>
+        </ion-card>
         </div>
       </div>
+</ion-header>
+
+<ion-content (ionScroll)="scroll($event)">
+    <ion-fab bottom right>
+      <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
+        <ion-icon name="map"></ion-icon>
+      </button>
+    </ion-fab>
+
+
+    <div class="restOfBody">
+      <div *ngFor="let a of items; let i = index">
+        <div *ngFor="let x of categoryArr">
+          <div *ngIf="x.orgName == a">
+            <ion-item (click)="goToViewPage(a)" no-padding class="listedCard" no-lines>
+              <ion-thumbnail item-start large>
+                <img class="image" [src]="x.orgPicture">
+              </ion-thumbnail>
+              <h2>{{x.orgName}}</h2>
+              <p>{{x.orgAbout}}</p>
+              <p>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </p>
+              <button ion-button icon-only color="custom" clear item-end>
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
+            </ion-item>
+  
+          </div>
+        </div>
+      </div>
+      <!-- <div *ngIf="items === null">
+      </div> -->
     </div>
-    <!-- <div *ngIf="items === null">
-    </div> -->
-  </div>
-</ion-content>
+  </ion-content>
