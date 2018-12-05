@@ -3,7 +3,8 @@ page-profile {
     .top{
         // border: 2px solid red;
         background: #fff;
-        height:250px;
+        margin-bottom: 25px
+        // height:250px;
         // box-shadow: 0 0px 2px rgba(128, 128, 128, 0.5);
 
     }
@@ -62,11 +63,11 @@ page-profile {
     .DP{
         // border: 2px solid red;
         position: absolute;
-        bottom: -25%;
+        bottom: -15%;
         left: 15px;
         transform: translateY(-25%);
-        height: 100px;
-        width: 100px;
+        height: 80px;
+        width: 80px;
         border-radius: 100px;
         border: 5px solid #fff;
         object-fit: cover;
@@ -131,6 +132,9 @@ page-profile {
         right: -50%;
         transition: 300ms;
         // opacity: 0;
+    }
+    .head{
+        // border: 2px solid red
     }
 
 }

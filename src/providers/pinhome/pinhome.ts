@@ -32,7 +32,7 @@ export class PinhomeProvider {
   //variables
   // url;
   rating;
- 
+
   constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
     console.log('Hello PinhomeProvider Provider');
   }
@@ -66,7 +66,7 @@ export class PinhomeProvider {
           name: name,
           email: email,
           contact: "",
-          downloadurl:"../../assets/imgs/Defaults/default.jpg"
+          downloadurl: "../../assets/imgs/Defaults/default.jpg"
         })
         resolve();
         loading.dismiss();
@@ -417,7 +417,7 @@ export class PinhomeProvider {
             orgAbout: SelectCategory[k].AboutOrg,
             orgPrice: SelectCategory[k].Price,
             key: k,
-            UrlGallery:SelectCategory[k].UrlGallery
+            UrlGallery: SelectCategory[k].UrlGallery
 
           }
           this.categoryArr.push(obj);
@@ -638,7 +638,7 @@ export class PinhomeProvider {
     })
   }
 
-   retrieve() {
+  retrieve() {
     let userID = firebase.auth().currentUser;
     return firebase.database().ref("profiles/" + userID.uid)
   }

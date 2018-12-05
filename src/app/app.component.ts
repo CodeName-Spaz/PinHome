@@ -18,6 +18,7 @@ import { PinhomeProvider } from '../providers/pinhome/pinhome';
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 
 
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -39,4 +40,3 @@ export class MyApp {
     });
   }
 }
-
