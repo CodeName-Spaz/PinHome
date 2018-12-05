@@ -20,11 +20,14 @@ export class HomePage {
   searchQuery: string = '';
   items: string[];
   orgs = [];
-  tempArray =  []
+  color = "custom";
+  contribute = 0;
+  tempArray = [];
+  state = "search";
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
-   this.storeCatData(data)
+      this.storeCatData(data)
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
       this.storedata(data);
@@ -33,12 +36,12 @@ export class HomePage {
 
   }
 
-  storeCatData(data){
-    this.categoryArr =  data;
+  storeCatData(data) {
+    this.categoryArr = data;
     this.tempArray = this.categoryArr;
   }
 
-  setArrayBack(data){
+  setArrayBack(data) {
     this.categoryArr = data;
   }
 
@@ -51,20 +54,21 @@ export class HomePage {
   }
 
   goToViewPage(name) {
-    for (var x = 0; x < this.categoryArr.length; x++){
-      if (name == this.categoryArr[x].orgName){
-        this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x]});
+    this.bodyClick(event);
+    for (var x = 0; x < this.categoryArr.length; x++) {
+      if (name == this.categoryArr[x].orgName) {
+        this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }
 
   }
 
-  
+
   more(indx) {
     this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
   }
-  trimPictures(state){
-    this.categoryArr.length =  0;
+  trimPictures(state) {
+    this.categoryArr.length = 0;
     this.categoryArr = this.tempArray;
   }
 
@@ -77,10 +81,36 @@ export class HomePage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != "") {
       this.items = this.items.filter((item) => {
-        
-          return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
 
+    }
+  }
+  bodyClick(event) {
+    console.log(event);
+
+    // var hide = document.getElementsByClassName('hidden') as HTMLCollectionOf <HTMLElement>;
+    // hide[0].style.right ="-100%";
+
+    // var search = document.getElementsByClassName('searchResults') as HTMLCollectionOf <HTMLElement>;
+    // search[0].style.display = "none"
+
+  }
+  showButton() {
+    let searcher = document.getElementsByClassName('searchBar') as HTMLCollectionOf <HTMLElement>;
+
+    if (this.state =="close"){
+      this.state = "search";
+      console.log(this.state);
+      searcher[0].style.width = "0";
+      searcher[0].style.left = "-10%"
+    } 
+    else if(this.state == "search"){
+      this.state ="close";
+      console.log(this.state);
+      searcher[0].style.width = "72vw"
+      searcher[0].style.left = "15%"
     }
 
   }
@@ -136,35 +166,43 @@ export class HomePage {
   getAllOrganizations() {
   }
   viewPage() {
-    this.pinhomeProvider.checkAuthState().then(data =>{
-      if(data == false){
+    this.pinhomeProvider.checkAuthState().then(data => {
+      if (data == false) {
         let alert = this.alertCtrl.create({
           title: 'ohhhh! sorry!',
           subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
           buttons: [
             {
               text: 'Yes',
-              handler:  data =>{
-                var opt =  "profile";
-                this.navCtrl.push(SignInPage, {option:opt})
+              handler: data => {
+                var opt = "profile";
+                this.navCtrl.push(SignInPage, { option: opt })
               }
             },
             {
               text: 'No',
-              handler: data =>{
+              handler: data => {
 
               }
             }
           ]
         });
         alert.present();
-      }else{
+      } else {
         this.navCtrl.push(ProfilePage)
       }
-   
+
     })
   }
- GoToMap(){
-   this.navCtrl.setRoot(NearbyOrgPage);
- }
+  GoToMap() {
+    this.navCtrl.setRoot(NearbyOrgPage);
+  }
+  goToProfile() {
+    this.bodyClick(event);
+    this.navCtrl.push(ProfilePage);
+  }
+  gotToAddOrg() {
+    console.log("this takes you to the Add Organisation Page");
+
+  }
 }

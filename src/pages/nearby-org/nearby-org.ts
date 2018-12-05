@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -27,12 +27,15 @@ import { HomePage } from '../home/home';
 })
 export class NearbyOrgPage {
   map: GoogleMap;
-  orgArray =  new Array();
+  orgArray = new Array();
   cat = [];
   location;
- 
+  decide = 0;
+  arrow = "arrow-down";
 
-  constructor(public pinhome : PinhomeProvider, public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
+  arrowDir = "arrow-down";
+
+  constructor(public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -42,30 +45,30 @@ export class NearbyOrgPage {
   }
 
   loadMap() {
-       let loading = this.loadingCtrl.create({
+    let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting your location,please wait',
       // duration: 22222000
-        duration: 2000
+      duration: 2000
     });
     loading.present();
     // This code is necessary for browser
-    this.pinhome.listenForLocation().then((resp:any) =>{
+    this.pinhome.listenForLocation().then((resp: any) => {
       this.assignLocation(resp);
       Environment.setEnv({
         'API_KEY_FOR_BROWSER_RELEASE': '(your api key for `https://`)',
         'API_KEY_FOR_BROWSER_DEBUG': '(your api key for `http://`)'
       });
-  
+
       let mapOptions: GoogleMapOptions = {
         camera: {
-           target: {
-             lat: resp.coords.latitude,
-             lng: resp.coords.longitude
-           },
-           zoom: 10,
-           tilt: 25
-         }
+          target: {
+            lat: resp.coords.latitude,
+            lng: resp.coords.longitude
+          },
+          zoom: 10,
+          tilt: 25
+        }
       };
       this.map = GoogleMaps.create('map_canvas', mapOptions);
       this.map.addMarker({
@@ -76,28 +79,28 @@ export class NearbyOrgPage {
           lat: resp.coords.latitude,
           lng: resp.coords.longitude
         }
-      }).then((marker : Marker ) =>{
+      }).then((marker: Marker) => {
         marker.showInfoWindow();
       })
-      this.pinhome.getOrganisations().then((data:any) =>{
-        this.orgArray =  data;
-        for (var x = 0; x < this.orgArray.length; x++){
+      this.pinhome.getOrganisations().then((data: any) => {
+        this.orgArray = data;
+        for (var x = 0; x < this.orgArray.length; x++) {
           this.map.addMarker({
             title: this.orgArray[x].orgName,
             icon: 'red',
             animation: 'DROP',
             position: {
               lat: this.orgArray[x].orgLat,
-              lng:  this.orgArray[x].orgLong 
+              lng: this.orgArray[x].orgLong
             }
-          }).then((marker : Marker ) =>{
-            marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
-                for (var i = 0; i < this.orgArray.length; i++ ){
-                  if (this.orgArray[i].orgName ==  marker.getTitle()){
-                    this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
-                      break;
-                  }
+          }).then((marker: Marker) => {
+            marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e => {
+              for (var i = 0; i < this.orgArray.length; i++) {
+                if (this.orgArray[i].orgName == marker.getTitle()) {
+                  this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+                  break;
                 }
+              }
             })
           })
         }
@@ -107,67 +110,117 @@ export class NearbyOrgPage {
 
   }
 
-  createCurrentLocationMarker(){
-    this.pinhome.getCurrentLocation().then((resp:any) =>{
+  createCurrentLocationMarker() {
+    this.pinhome.getCurrentLocation().then((resp: any) => {
       this.map.addMarker({
         title: 'current Location',
         icon: 'red',
         animation: 'DROP',
         position: {
           lat: -26.26099,
-          lng:  27.9496564
+          lng: 27.9496564
         }
-      }).then((marker : Marker ) =>{
+      }).then((marker: Marker) => {
         marker.showInfoWindow();
       })
-      this.pinhome.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
+      this.pinhome.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then(data => {
       })
     })
   }
-  GoToHomePage(){
-    this.navCtrl.push(HomePage);
+  GoToHomePage() {
+    this.navCtrl.setRoot(HomePage);
   }
-  more(category){
+  more(category) {
     console.log(category);
     this.map.clear();
-    this.pinhome.DisplayCategory(category).then((data:any) =>{
-     this.cat =  data;
-    this.map.addMarker({
-      title: 'current Location',
-      icon: 'blue',
-      animation: 'DROP',
-      position: {
-        lat:this.location.coords.latitude,
-        lng: this.location.coords.longitude
-      }
-    }).then((marker : Marker ) =>{
-      marker.showInfoWindow();
-    })
-      this.orgArray =  data;
-      for (var x = 0; x <this.cat.length; x++){
+    this.pinhome.DisplayCategory(category).then((data: any) => {
+      this.cat = data;
+      this.map.addMarker({
+        title: 'current Location',
+        icon: 'blue',
+        animation: 'DROP',
+        position: {
+          lat: this.location.coords.latitude,
+          lng: this.location.coords.longitude
+        }
+      }).then((marker: Marker) => {
+        marker.showInfoWindow();
+      })
+      this.orgArray = data;
+      for (var x = 0; x < this.cat.length; x++) {
         this.map.addMarker({
           title: this.cat[x].orgName,
           icon: 'red',
           animation: 'DROP',
           position: {
             lat: this.cat[x].orgLat,
-            lng:  this.cat[x].orgLong 
+            lng: this.cat[x].orgLong
           }
-        }).then((marker : Marker ) =>{
-          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
-              for (var i = 0; i < this.cat.length; i++ ){
-                if (this.orgArray[i].orgName ==  marker.getTitle()){
-                  this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
-                    break;
-                }
+        }).then((marker: Marker) => {
+          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e => {
+            for (var i = 0; i < this.cat.length; i++) {
+              if (this.orgArray[i].orgName == marker.getTitle()) {
+                this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+                break;
               }
+            }
           })
         })
       }
     })
   }
 
-  assignLocation(resp){
-    this.location =  resp;
+  assignLocation(resp) {
+    this.location = resp;
   }
+
+  scroller(event) {
+    // var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    // var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
+    // if (event.scrollTop >= 0) {
+    //   mapper[0].style.height = "50%";
+    //   if (this.arrow == "arrow-up") {
+    //     this.arrow = "arrow-down";
+    //   }
+    // }
+
+  }
+  changeMapSize() {
+    var theArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
+    // var divver = document.getElementsByClassName("cont") as HTMLCollectionOf<HTMLElement>;
+    var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+
+    if (this.decide == 0) {
+      this.decide = 1;
+      this.arrow ="arrow-up"
+    }
+    else {
+      this.decide = 0;
+      this.arrow ="arrow-down"
+    }
+    if (this.decide == 1 && this.arrow =="arrow-up") {
+
+      mapSize[0].style.height = "95%";
+      console.log('growing map');
+      this.arrow = "arrow-up";
+
+
+    }
+    else if (this.decide == 0) {
+
+      mapSize[0].style.height = "50%";
+      console.log('shrinking map');
+      this.arrow = "arrow-down"
+    }
+    setTimeout(() => {
+      mapSize[0].style.height = "50%";
+      this.arrow = "arrow-down"
+      this.decide = 0;
+    }, 60000);
+
+  }
+
+
+
+
 }
