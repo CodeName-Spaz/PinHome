@@ -19,12 +19,12 @@ import { CallNumber } from '@ionic-native/call-number';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 
-
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 
 firebase.initializeApp({
@@ -45,7 +45,9 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
-  AddOrganizationPage
+  AddOrganizationPage,
+   EditProfilePage
+    // IonicImageViewerModule
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,9 @@ firebase.initializeApp({
     SignUpPage,
     SignInPage,
     ProfilePage,
-    AddOrganizationPage
+    AddOrganizationPage,
+    EditProfilePage
+    // IonicImageViewerModule
   ],
   providers: [
     StatusBar,

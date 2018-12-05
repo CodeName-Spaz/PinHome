@@ -26,7 +26,7 @@
       </div>
 
       <img class="coverImage" src="{{coverUrl}}" alt="">
-      <img class="DP" src="{{dpUrl}}" alt="" imageViewer>
+      <img class="DP" [src]="item.downloadurl" alt="" imageViewer>
       <ion-card class="userName">
         <h3>{{item.name}}</h3>
         <p class="para">Made 30 Reviews</p>
@@ -39,7 +39,7 @@
     <div class="about">
     <ion-card class="detail">
       <p class="subTitles">Phone</p>
-      0813917127
+    {{item.contact}}
     </ion-card>
     <ion-card class="detail">
       <p class="subTitles">

@@ -30,6 +30,8 @@ export class NearbyOrgPage {
   orgArray =  new Array();
   cat = [];
   location;
+  decide = 0;
+  arrow="arrow-down";
  
 
   constructor(public pinhome : PinhomeProvider, public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
@@ -170,4 +172,38 @@ export class NearbyOrgPage {
   assignLocation(resp){
     this.location =  resp;
   }
+
+  scroller(event){
+    // console.log(event.scroll);
+
+    var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf <HTMLElement>; 
+    if(event.scrollTop ==0){
+       mapper[0].style.height = "70%";
+       this.arrow = "arrow-down"
+     }
+     else{
+        mapper[0].style.height = "30%";
+        console.log(event.scrollTop);
+     }
+    
+  }
+  changeMapSize(){
+    var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf <HTMLElement>;
+    if(this.decide == 0){
+      this.decide = 1;
+      this.arrow = "arrow-up"
+    }
+    else{
+      this.decide = 0;
+      this.arrow = "arrow-down"
+    }
+    
+    if (this.decide == 1){
+      mapSize[0].style.height = "100%";
+    }
+    else{
+      mapSize[0].style.height = "30%";
+    }
+  }
+
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import firebase from 'firebase';
-import { Option, LoadingController } from 'ionic-angular';
+import firebase from 'firebase'
+import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -14,10 +14,13 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class PinhomeProvider {
 
+  downloadurl: any;
+  Placeobject: any;
+  url: any;
+  detailArray: any;
   // firebase instances
   db = firebase.database();
   auth = firebase.auth();
-
   //arrays
   oraganisations = new Array()
   nearByOrg = new Array();
@@ -27,37 +30,25 @@ export class PinhomeProvider {
   ProfileArr = new Array();
   stayLoggedIn;
   //variables
-  condition;
-  username;
-  url;
-  name;
-
-
-  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  // url;
+  rating;
+ 
+  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
     console.log('Hello PinhomeProvider Provider');
   }
 
 
-
   checkstate() {
     return new Promise((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-
-          console.log("user has signed in")
-
-          console.log(user.uid);
-          this.condition = true;
-
-          console.log(this.condition);
-
-        } else {
-          console.log("User has Logged out");
-          this.condition = false;
-
-          console.log(this.condition);
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user != null) {
+          this.stayLoggedIn = 1
         }
-        })
+        else {
+          this.stayLoggedIn = 0
+        }
+        resolve(this.stayLoggedIn)
+      })
     })
   }
 
@@ -75,6 +66,7 @@ export class PinhomeProvider {
           name: name,
           email: email,
           contact: "",
+          downloadurl:"../../assets/imgs/Defaults/default.jpg"
         })
         resolve();
         loading.dismiss();
@@ -111,7 +103,7 @@ export class PinhomeProvider {
         loading.dismiss();
         if (error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
           const alert = this.alertCtrl.create({
-            subTitle: "It seems like you have not registered to use StreetArt, please check your login information or sign up to get started",
+            subTitle: "It seems like you have not registered to use PinHome, please check your login information or sign up to get started",
             buttons: [
               {
                 text: 'ok',
@@ -189,23 +181,6 @@ export class PinhomeProvider {
     })
   }
 
-  UserProfile() {
-    return new Promise((accpt, rej) => {
-      let userID = firebase.auth().currentUser;
-      firebase.database().ref("profiles/" + userID.uid).on('value', (data: any) => {
-        let details = data.val();
-        this.ProfileArr.push(details);
-      })
-      accpt(this.ProfileArr);
-      console.log(this.ProfileArr);
-    })
-  }
-
-  storeImgDownloadurl(downloadurl) {
-    // this.downloadurl = downloadurl;
-    // console.log(downloadurl);
-  }
-
   listenForLocation() {
     //listen for current location
     return new Promise((accpt, rej) => {
@@ -218,6 +193,26 @@ export class PinhomeProvider {
       });
     })
   }
+
+  getOrgNames() {
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data: any) => {
+        if (data.val() != null || data.val() != undefined) {
+          let organisations = data.val();
+          let keys = Object.keys(organisations);
+          for (var x = 0; x < keys.length; x++) {
+            let OrganisationKeys = keys[x];
+            this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
+          }
+          accpt(this.searchOrgArray);
+        }
+      })
+    })
+  }
+
+
+
+
 
   getCurrentLocation() {
     //get current location
@@ -368,33 +363,15 @@ export class PinhomeProvider {
     })
   }
 
-  getOrgNames() {
-    return new Promise((accpt, rej) => {
-      this.db.ref('OrganizationList').on('value', (data: any) => {
-        if (data.val() != null || data.val() != undefined) {
-          let organisations = data.val();
-          let keys = Object.keys(organisations);
-          for (var x = 0; x < keys.length; x++) {
-            let OrganisationKeys = keys[x];
-            this.searchOrgArray.push(organisations[OrganisationKeys].OrganizationName);
-          }
-          accpt(this.searchOrgArray);
-        }
-      })
-    })
-  }
+
 
   DisplayCategory(Category) {
     this.categoryArr.length = 0;
     return new Promise((accpt, rej) => {
       this.db.ref('OrganizationList').on('value', (data: any) => {
         let SelectCategory = data.val();
-        console.log(SelectCategory);
         let keys = Object.keys(SelectCategory);
-        console.log(keys);
-
         for (var i = 0; i < keys.length; i++) {
-
           let k = keys[i];
           if (Category == SelectCategory[k].Category) {
             let obj = {
@@ -411,7 +388,6 @@ export class PinhomeProvider {
 
             }
             this.categoryArr.push(obj);
-            console.log(this.categoryArr)
           }
         }
         accpt(this.categoryArr);
@@ -441,18 +417,18 @@ export class PinhomeProvider {
             orgAbout: SelectCategory[k].AboutOrg,
             orgPrice: SelectCategory[k].Price,
             key: k,
-            UrlGallery:SelectCategory[k].UrlGallery,
-            UrlLogo:SelectCategory[k].UrlLogo
+            UrlGallery:SelectCategory[k].UrlGallery
 
           }
           this.categoryArr.push(obj);
+          console.log(this.categoryArr)
         }
         accpt(this.categoryArr);
       })
     })
   }
 
-  comments(comment: any, commentKey: any) {
+  comments(comment: any, commentKey: any, rating) {
     let user = firebase.auth().currentUser;
     return new Promise((accpt, rejc) => {
       var day = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -460,6 +436,7 @@ export class PinhomeProvider {
         comment: comment,
         uid: user.uid,
         date: day,
+        rate: parseInt(rating)
         // url: this.url
       })
       accpt('success');
@@ -484,27 +461,41 @@ export class PinhomeProvider {
               comment: CommentDetails[key].comment,
               uid: CommentDetails[key].uid,
               url: this.url,
+              rating: parseInt(CommentDetails[key].rate),
               username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
             }
-            accpt(this.commentArr);
+            if (user) {
+              if (user.uid == CommentDetails[key].uid) {
+                this.assignRating(CommentDetails[key].rate)
+              }
+            }
             this.viewProfileMain(chckId).then((profileData: any) => {
               obj.url = profileData.downloadurl
               obj.username = profileData.name
+              console.log(obj)
               this.commentArr.push(obj);
-              console.log(this.commentArr);
             });
           }
-
+          accpt(this.commentArr);
         }
         else {
           this.commentArr = null;
         }
+
       }, Error => {
         rejc(Error.message)
       })
 
     })
+  }
+
+  assignRating(rating) {
+    this.rating = rating;
+  }
+
+  getRating() {
+    return this.rating;
   }
 
   viewProfileMain(userid: string) {
@@ -518,8 +509,138 @@ export class PinhomeProvider {
     })
   }
 
+  getProfile() {
+    this.auth.onAuthStateChanged(function (user) {
+      return new Promise((accpt, rej) => {
+        if (user) {
+          firebase.database().ref("profiles/" + user.uid).on('value', (data: any) => {
+            let details = data.val();
+            console.log(details)
+          })
+        } else {
+          console.log('no user');
+        }
+      });
+    })
+  }
+
+  checkAuthState() {
+    return new Promise((accpt, rej) => {
+      this.auth.onAuthStateChanged(function (user) {
+        if (user) {
+          accpt(true)
+        } else {
+          accpt(false)
+        }
+      });
+    })
+  }
+
+  logout() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().signOut().then(() => {
+        resolve()
+      }, (error) => {
+        reject(error)
+      });
+    });
+  }
 
 
 
+  uploadProfilePic(pic, name) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait',
+      duration: 2000
+    });
+    const toast = this.toastCtrl.create({
+      message: 'data has been updated!',
+      duration: 3000
+    });
+    return new Promise((accpt, rejc) => {
+      toast.present();
+      firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
+        accpt(name);
+        console.log(name);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  storeToDB1(name) {
+    return new Promise((accpt, rejc) => {
+      this.ProfileArr.length = 0;
+      var storageRef = firebase.storage().ref(name);
+      storageRef.getDownloadURL().then(url => {
+        console.log(url)
+        var user = firebase.auth().currentUser;
+        var link = url;
+        firebase.database().ref('profiles/' + user.uid).update({
+          downloadurl: link,
+        });
+        accpt('success');
+      }, Error => {
+        rejc(Error.message);
+        console.log(Error.message);
+      });
+    })
+  }
+
+
+  viewPicGallery1() {
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("profiles").on("value", (data: any) => {
+        var b = data.val();
+        var keys = Object.keys(b);
+        if (b !== null) {
+        }
+        this.storeImgur(b[keys[0]].downloadurl);
+        accpt(b);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  getUserID() {
+    return new Promise((accpt, rejc) => {
+      var userID = firebase.auth().currentUser
+      firebase.database().ref("profiles").on("value", (data: any) => {
+        var b = data.val();
+        if (b !== null) {
+        }
+        console.log(b);
+        accpt(userID.uid);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  storeImgur(downloadurl) {
+    this.downloadurl = downloadurl;
+    console.log(downloadurl);
+  }
+
+  update(name, email, contact, downloadurl) {
+    this.ProfileArr.length = 0;
+    return new Promise((pass, fail) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref('profiles/' + user.uid).update({
+        name: name,
+        email: email,
+        contact: contact,
+        downloadurl: downloadurl,
+      });
+    })
+  }
+
+   retrieve() {
+    let userID = firebase.auth().currentUser;
+    return firebase.database().ref("profiles/" + userID.uid)
+  }
 
 }

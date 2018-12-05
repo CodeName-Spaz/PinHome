@@ -115,7 +115,7 @@ export class AddOrganizationPage {
   }
 
 
-  addOrganizations(organization, address, contactDetails, email, AboutOrg, price, select) {
+  addOrganizations(organization, address, contactDetails, email, AboutOrg, select) {
     this.getcoo(address).then((data: any) => {
       console.log(data.lat);
       this.long = data.lat;
@@ -126,17 +126,15 @@ export class AddOrganizationPage {
         ContactDetails: contactDetails,
         Email: email,
         AboutOrg: AboutOrg,
-        Price: price,
         Category: select,
         Url: this.urlCover,
         UrlGallery: this.urlGallery,
-        UrlLogo: this.urlLogo,
         longitude: data.lng,
         latitude: data.lat
 
       })
       this.presentToast();
-      this.navCtrl.push(HomePage);
+      // this.navCtrl.push(HomePage);
     })
 
   }
