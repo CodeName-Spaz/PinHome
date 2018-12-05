@@ -4,6 +4,7 @@ page-home {
     }
     ion-content{
         position: relative;
+        background: rgb(248, 248, 0);
     }
     .searchResults{
         position: absolute;
@@ -28,6 +29,7 @@ page-home {
         // top: 0;
         width: 100%;
         margin: 0 auto;
+        
     }
     .trans{
         opacity: 0;
@@ -37,16 +39,22 @@ page-home {
         // border: 2px solid red;
     }
     .listedCard{
-        box-shadow: 0 2px 5px rgba(128, 128, 128, 0.5);
+        box-shadow: 0 0 5px grey;
         border-radius: 5px;
         transition: 500ms;
+        padding: 0;
+        margin-bottom: 10px;
     }
-    .spacer{
-        height: 15px;
-        border: 2px;
-        background: #166b85;   
-        box-shadow: 0 -5px 2px #166b85;     
+
+    .theItem{
+        background: white;
     }
+    // .spacer{
+    //     height: 15px;
+    //     border: 2px;
+    //     background: #166b85;   
+    //     box-shadow: 0 -5px 2px #166b85;     
+    // }
     .orgName{
         padding-top: 5px;
         padding-right: 5px;
@@ -66,21 +74,28 @@ page-home {
         right: 0;
     }
     .searchBar{
+        transition: 400ms;
         border-radius: 550px;
         background: white;
         padding-left: 10px;
         position: absolute;
-        top: -20px;
-        width: 72vw;
+        top: 18px;
+        width: 0;
         margin-right: 20px;
-        left: 15%;
+        left: -10%;
+        // transform: rotateY(180DEG)
 
     }
     
     .theItem{
         // background: rgba(0, 0, 0, 0);
-        margin-right: 30px;
-        z-index: 0;
+        // margin-right: 30px;
+        // z-index: 0;
+        padding: 0;
+        height: 50px;
+        box-shadow: 0 0 5px grey;
+        margin-top: 10px;
+        display: flex;
     }
     .hidden{
         position: absolute;
@@ -88,17 +103,29 @@ page-home {
         top: -5%;
         transition: 300ms;
     }
+    ion-icon{
+        transition: 500ms
+    }
     .more{
+        transition: 700ms;
         color: white;
         position: absolute;
-        top: -15px;
-        right: 0;
-        z-index: -1;
-        height: 100%;
-        font-size: 25px;
-        padding-right: 7px;
+        top: 20px;
+        right: 10px;
+        z-index: 1;
+        // font-size: 12px;
+        // padding-right: 7px;
+        // border: 1px solid white;
+        height: 40px;
+        width: 40px;
+        border-radius: 50px;
+        // text-align: right;
+
     }
-    .theSlides{
+        // .searcher{
+        //     transform: translateY(10px)
+        // }  
+          .theSlides{
         // height: 250px;
         background: #166b85;
         // border: 2px solid red;
@@ -135,12 +162,17 @@ page-home {
         object-fit: cover;
     }
     .profile{
-        width: 40px;
-        height: 40px;
-        border-radius: 40px;
+        transition: 700ms;
+        color: white;
         position: absolute;
-        left: 0;
-        top: -24px;
+        top: 15px;
+        left: 10px;
+        z-index: 1;
+        height: 40px;
+        width: 40px;
+        border-radius: 40px;
+        // font-size: 25px;
+        padding-right: 7px;
     }
     .selector{
         border: 2px solid red;
@@ -158,5 +190,54 @@ page-home {
     .theDiv{
         background: white;
 
+    }
+    .flexer{
+        display: flex;
+    }
+    .nearOrFar{
+        background: red;
+        height: 100px;
+    }
+    .restOfBody{
+        margin-top: 40px;
+        background: #fff;
+    }
+    .theHead{
+        height: 120px;
+        background: #166b85;
+        position: relative;
+    }
+    .options{
+        height: 80px;
+        // width: 100vw;
+        // box-shadow: 0 0 15px grey;
+        border-radius: 5px;
+        transition: 500ms;
+        background: white;
+        position: absolute;
+        top: 52%;
+        // display: flex;
+    }
+    .picture{
+        width: 60px;
+    }  
+    .myFlexBox{
+        display: flex;
+    }
+    button{
+        text-transform: capitalize;
+    }  
+    .adder{
+        width: 30px;
+        height: 30px;
+        border-radius: 40px;
+    }
+    .intro{
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+    }
+    .statement{
+        font-size:  12px;
     }
 }

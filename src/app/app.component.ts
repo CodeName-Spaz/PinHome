@@ -20,7 +20,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,public PinhomeProvider: PinhomeProvider) {
     PinhomeProvider.checkstate().then((data:any)=>{
       if (data ==1){
-        this.rootPage = NearbyOrgPage;
+        this.rootPage = HomePage;
       }
       else {
         this.rootPage = SignInPage
