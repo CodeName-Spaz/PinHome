@@ -31,7 +31,7 @@ searchOrgArray = new Array();
 ProfileArr = new Array();
 stayLoggedIn;
 //variables
-url
+
 rating
 
   constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController, public toastCtrl: ToastController) {
@@ -489,68 +489,6 @@ if (up <= 0){
     })
   }
 
-<<<<<<< HEAD
-  storeImgur(url) {
-    this.url = url;
-    // console.log(url);
-  }
-  storeImgDownloadurl(downloadurl) {
-    this.downloadurl = downloadurl;
-    // console.log(downloadurl);
-  }
-  storeName(name) {
-    this.Placeobject.name = name;
-  }
-
-  viewPicGallery() {
-    return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
-      firebase.database().ref("uploads").on("value", (data: any) => {
-        if(data.val() != null || data.val() !=undefined){
-          var DisplayData = data.val();
-          var keys = Object.keys(DisplayData);
-          if (DisplayData !== null) {
-          }
-          for (var i = 0; i < keys.length; i++) {
-            this.storeImgDownloadurl(DisplayData[keys[i]].downloadurl);
-          }
-          accpt(DisplayData);
-        }
-      }, Error => {
-        rejc(Error.message)
-      })
-    })
-  }
-
-  getUserID() {
-    return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
-      firebase.database().ref("uploads").on("value", (data: any) => {
-        var a = data.val();
-        if (a !== null) {
-        }
-        accpt(user.uid);
-      }, Error => {
-        rejc(Error.message)
-      })
-    })
-  }
-  uploadProfilePic(pic, name) {
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Please wait',
-      duration: 2000
-    });
-    const toast = this.toastCtrl.create({
-      message: 'data has been updated!',
-      duration: 3000
-    });
-    return new Promise((accpt, rejc) => {
-      toast.present();
-      firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
-        accpt(name);
-        console.log(name);
-=======
   assignRating(rating){
     this.rating = rating;
   }
@@ -564,64 +502,12 @@ if (up <= 0){
       firebase.database().ref("profiles/" + userid).on("value", (data: any) => {
         var a = data.val();
         accpt(a);
->>>>>>> c5af63a72c19dbe316b015e7ac70972a882e76c6
       }, Error => {
         rejc(Error.message)
       })
     })
   }
 
-<<<<<<< HEAD
-  viewPicGallery1() {
-    return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
-      firebase.database().ref("profiles").on("value", (data: any) => {
-        var b = data.val();
-        var keys = Object.keys(b);
-        if (b !== null) {
-        }
-        this.storeImgur(b[keys[0]].downloadurl);
-        accpt(b);
-      }, Error => {
-        rejc(Error.message)
-      })
-    })
-  }
-
-  update(name, email, contact, downloadurl) {
-    this.detailArray.length = 0;
-    return new Promise((pass, fail) => {
-      var user = firebase.auth().currentUser
-      firebase.database().ref('profiles/' + user.uid).update({
-        name: name,
-        email: email,
-        downloadurl: downloadurl,
-      });
-    })
-  }
-
-  uploadPic(pic) {
-    var name = "SA" + Date.now();
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Please wait',
-      duration: 7000
-    });
-    const toast = this.toastCtrl.create({
-      message: 'your imagine had been uploaded!',
-      duration: 3000
-    });
-    loading.present();
-    return new Promise((accpt, rejc) => {
-
-      firebase.storage().ref(name + "jpg").putString(pic, 'data_url').then(() => {
-        toast.present();
-        accpt(name);
-        console.log(name)
-      }, Error => {
-        rejc(Error.message)
-      })
-=======
   getProfile(){
    this.auth.onAuthStateChanged(function(user) {
     return new Promise ((accpt, rej) =>{
@@ -634,7 +520,6 @@ if (up <= 0){
       console.log('no user');
     }
    });
->>>>>>> c5af63a72c19dbe316b015e7ac70972a882e76c6
     })
   }
 

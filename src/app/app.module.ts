@@ -23,7 +23,8 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
-import { EditProfilePage } from '../pages/edit-profile/edit-profile'
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization'
 
 
 firebase.initializeApp({
@@ -44,7 +45,8 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
-    EditProfilePage
+    EditProfilePage,
+    AddOrganizationPage
     // IonicImageViewerModule
   ],
   imports: [
@@ -61,7 +63,8 @@ firebase.initializeApp({
     SignUpPage,
     SignInPage,
     ProfilePage,
-    EditProfilePage
+    EditProfilePage,
+    AddOrganizationPage
     // IonicImageViewerModule
   ],
   providers: [

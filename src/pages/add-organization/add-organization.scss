@@ -1,0 +1,130 @@
+page-add-organization {
+
+    .content{
+        background-color: #166b85;
+    }
+    .textArea{
+        border: 1px solid black;
+        margin-top: 10px;
+        margin: 0 auto;
+        border-radius: 50px;
+        background-color: white;
+        width: 90vw;
+        padding-left: 10px
+    }
+    // .cover{
+    //     // border: 2px solid red;
+    // }
+    #uploadCover{
+        display: none;
+    }
+    .uploadLabel{
+        // font-size: 20px;
+        color: rgb(26, 26, 26);
+        padding: 10px;
+        background: rgba(187, 187, 187, 0.5);
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: 50%;
+        color: white;
+        transform: translateX(-50%)
+    }
+    .mapRegion{
+        width: 100%;
+        height: 250px;
+        // border: 2px solid red;
+        margin-top: 10px;
+        position: relative;
+    }
+    .coverImage{
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        position: relative;
+    }
+    .coverImg{
+        position: relative;
+        // border: 2px solid grey
+    }
+    .Logo{
+        margin-left: 15px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background: white;
+        position: relative;
+        // border: 2px solid green;
+        margin-top:-50px;
+        // z-index: 10000000000000000000000;
+    }
+    .uploadLabel2{
+        font-size: 20px;
+        color: rgb(26, 26, 26);
+        padding-top: 9px;
+        padding-left:11px;
+        height:40px;
+        width: 40px;
+        background: rgba(187, 187, 187, 0.5);
+        position: absolute;
+        z-index: 1;
+        left: 45px;
+        top: 135px;
+        color: white;
+        border-radius: 50px;
+        // transform: translateX(-50%)
+    }
+    #logoImg{
+        display: none;
+    }
+    .theMap{
+        width: 100%;
+        height: 250px;
+        // background: rgb(0, 17, 0);
+    }
+    .mapOverLay{
+        height: 250px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.425);
+        position: absolute;
+    }
+    .mapOverLay:active{
+        height: 250px;
+        width: 100%;
+        background: rgb(0, 0, 0);
+        position: absolute;
+    }
+    #ionSelect{
+        opacity: 0.5;
+        margin-top: -30px;
+        border: 2px solid red;
+        width: 100%;
+        height: 30px;
+        padding-top:5px;
+    }
+    .selector{
+        width: 100vw;
+        margin-top: 10px;
+    }
+    .theLabel{
+        width: 100%;
+        border: 2px solid green;
+        height: 30px;
+    }
+    .gallery{
+        width: 100%;
+        text-align: center;
+    }
+    // .uploader{
+        
+    // }
+    #gal{
+        display: none;
+    }
+    .galImg{
+        width: 100%;
+        max-width: 550px;
+        max-height: 550px;
+        object-fit: cover; 
+    }
+}
