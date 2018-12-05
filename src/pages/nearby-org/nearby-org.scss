@@ -7,7 +7,7 @@ page-nearby-org {
    .cont{
     position: relative;
     height: 50%;
-    // border: 2px solid
+    background:#242f3e;
     box-shadow: 0 0 10px grey;
    }
    .cat{
@@ -47,15 +47,16 @@ page-nearby-org {
        transition: 700ms;
    }
    .handle{
-
+    background:#242f3e;
     }
     .ico{
         //    height: 2px;
         //    width: 25px;
-        background: white;
+        background:#242f3e;
         //    border: 2px solid grey;
         //    margin-top: 2px;
         width: 50px;
+        color: white;
         height: 50px;
         border-radius: 50PX;
         position: absolute;
@@ -67,73 +68,10 @@ page-nearby-org {
    .theIcon{
        transition: 700ms;
    }
-   #one{
-       background: #26819c;
-       transition: 700ms;
-   }
-   
-   #two{
-    background: #26819c;
-    transition: 700ms;
-}
-
-#three{
-    background: #2e9ec0;
-    transition: 700ms;
-}
-
-#four{
-    background: #2e9ec0;
-    transition: 700ms;
-}
-
-#five{
-    background: #39c0e9;
-    transition: 700ms;
-}
-
-#six{
-    background: #39c0e9;
-    transition: 700ms;
-}
-
-#seven{
-    background: #6cddff;
-     transition: 700ms;
-}
-
-#one:active{
-    background: #fff;
-    color: white;
-}
-
-#two:active{
- background: #fff;
- color: white;
-}
-
-#three:active{
- background: #fff;
-}
-
-#four:active{
- background: #fff;
-}
-
-#five:active{
- background: #fff;
-}
-
-#six:active{
- background: #fff;
-}
-
-#seven:active{
- background: #fff;
-}
 
 .slides{
     height: 200px;
+    background:#242f3e;
 }
 .theImage{
     width: 100%;
@@ -224,6 +162,24 @@ page-nearby-org {
       position: absolute;
       top: -25px;
       left: -10px;
+  }
+  .statement{
+      font-weight: bold;
+      color: white;
+      padding-left: 15px;
+      padding-top: 10px;
+      padding-right: 15px;
+      text-align: center;
+  }
+  @media screen and (min-width: 500px) {
+    .statement{
+        font-weight: bold;
+        color: white;
+        padding-left: 15px;
+        padding-top: 30px;
+        padding-right: 15px;
+        text-align: center;
+    }
   }
 
 
