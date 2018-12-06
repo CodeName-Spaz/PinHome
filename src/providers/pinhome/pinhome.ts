@@ -5,7 +5,7 @@ import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-
+import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -400,7 +400,7 @@ export class PinhomeProvider {
               key: k,
             }
             this.categoryArr.push(obj);
-            console.log(this.categoryArr);
+            // console.log(this.categoryArr);
           }
         }
         accpt(this.categoryArr);
@@ -433,7 +433,7 @@ export class PinhomeProvider {
             key: k,
           }
           this.categoryArr.push(obj);
-          console.log(this.categoryArr)
+          // console.log(this.categoryArr)
         }
         accpt(this.categoryArr);
       })
@@ -456,12 +456,13 @@ export class PinhomeProvider {
   }
   viewComments(comment: any, commentKey: any) {
     return new Promise((accpt, rejc) => {
+      // this.commentArr.length = 0;
       let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
         let CommentDetails = data.val();
-             
-        if (data.val() != null || data.val() != undefined) {
-          this.commentArr.length = 0;
+        this.commentArr = _.uniqWith(this.commentArr,_ .isEqual);
+        if (data.val() != null || data.val() != undefined || this.commentArr != null) {
+          // this.commentArr.length = 0;
           let keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
             let key = keys1[i];

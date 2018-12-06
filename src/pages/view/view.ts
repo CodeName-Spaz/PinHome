@@ -10,7 +10,7 @@ import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { SignInPage } from '../sign-in/sign-in';
 import { HomePage } from '../home/home';
-
+import * as _ from 'lodash';
 
 
 
@@ -57,7 +57,7 @@ export class ViewPage {
     this.retrieveComments();
   }
   ionViewDidEnter() {
-
+    this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 
@@ -78,7 +78,8 @@ export class ViewPage {
     // console.log(this.tempArray);
   }
   retrieveComments() {
-    this.commentArr.length = 0;
+    // this.commentArr.length = 0;
+    this.commentArr = _.uniqWith(this.commentArr,_ .isEqual);
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
       console.log(this.commentArr);
@@ -191,6 +192,7 @@ export class ViewPage {
   }
 
   comment(num) {
+    this.commentArr.length = 0;
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == true) {
         console.log(data);
@@ -214,7 +216,6 @@ export class ViewPage {
               {
                 text: 'Comment',
                 handler: data => {
-
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
                     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {

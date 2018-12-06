@@ -10,17 +10,11 @@
       </button>
 
       <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" (input)="getItems($event)"></ion-input>
-      <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
       <button ion-button icon-only clear color="light" class="profile" (click)="viewPage()">
         <ion-icon ios="ios-person" md="md-person"></ion-icon>
       </button>
       <ion-card class="options">
         <div class="intro">
-          <!-- <p class="statement"><ion-icon name="pin"></ion-icon>
-             {{location}} <br>
-           <i class="finePrint"> PinHome uses your location to provide you with places near you.</i>
-          </p> -->
-
           <p class="statement" style="font-size: 16px; font-weight: bolder">
             <ion-icon name="pin">
             </ion-icon> {{location}}

@@ -679,14 +679,13 @@
 
     <ion-list *ngSwitchCase="'Gallery'">
       <div class="thecontent">
-          <div *ngIf="this.orgArray == null || this.orgArray == undefined">
-              <img src="../../assets/empty.JPG">
-              <p>There are no reviews avaliable yet .....</p>
-            </div>
+        <div *ngIf="orgArray.length == null || orgArray.length == undefined">
+          <img src="../../assets/empty.JPG">
+        </div>
         <ion-grid align="center" class="pictures">
-          <ion-row *ngFor="let of orgArray">
+          <ion-row *ngFor="let a of orgArray">
             <ion-col>
-              <img class="image" [src]="a.orgGallery">
+              <img class="image" src="{{a.orgGallery}}">
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -696,7 +695,7 @@
     <ion-list *ngSwitchCase="'Reviews'">
       <div class="StarCard">
         <div class="ratings" align="center">
-           
+
           <h1 class="h1">
             <ion-icon class="Sstar" name={{Star1}} (click)="comment('1')"></ion-icon>
             <ion-icon class="Sstar" name={{Star2}} (click)="comment('2')"></ion-icon>
@@ -707,22 +706,9 @@
           <h3>Rate this organisation!</h3>
         </div>
       </div>
-      <!-- <ion-card class="Reviews" *ngFor="let a of commentArr">
-            <ion-item>
-              <ion-avatar item-start>
-                <img src="../../assets/imgs/him.gif">
-              </ion-avatar>
-              <h2>{{a.username}}</h2>
-               <P>{{a.rating}} Stars Rating</P>
-              <p>{{a.date}}</p>
-            </ion-item>
-            <ion-card-content>
-              <p>{{a.comment}}</p>
-            </ion-card-content>
-          </ion-card> -->
 
       <ion-card class="comments" *ngFor="let a of commentArr">
-        <ion-item>
+        <ion-item >
           <ion-avatar item-start>
             <img [src]="a.url">
           </ion-avatar>
@@ -737,8 +723,5 @@
       </ion-card>
     </ion-list>
   </div>
-  <!-- <div *ngIf="commentArr.length == 0 || commentArr.length == undefined">
-          <img src="../../assets/empty.JPG">
-          <p>There are no reviews avaliable yet .....</p>
-         </div> -->
+
 </ion-content>
