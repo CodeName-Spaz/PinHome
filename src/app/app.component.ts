@@ -21,7 +21,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
-      this.rootPage = EditProfilePage;
+      this.rootPage = HomePage;
       ;
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
