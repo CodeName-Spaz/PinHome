@@ -1,22 +1,33 @@
 page-edit-profile {
 
     .content{
-        background-color: #166b85;
+        background-color: whitesmoke;
     }
 
     .list{
         position: relative;
-        top: 20px;
+        top: 120px;
     }
 
     .item{
         border-radius: 50px;
+        background-color: #166b85;
+        color: white;
+
+    ::-webkit-input-placeholder{
+        color: rgb(207, 205, 205);
+    }
+
     }
 
     .Check{
         position: relative;
         bottom: 45px;
         font-size: 1em;
+        text-shadow: 0 0 5px black
+    }
+    .arrow{
+        text-shadow: 0 0 5px black
     }
 
     .fileChooser{
@@ -25,18 +36,24 @@ page-edit-profile {
     }
 
     .round{
-        width: 185px;
-        height: 185px;
+        width: 160px;
+        height: 165px;
         border-radius: 100px;
-        border: white solid 2px;
+        border: white solid 3px;
         margin: 0 auto;
+        z-index: 100000000;
+        // position: relative;
+        // bottom: 50px;
     }
 
     .picture{
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
         border-radius: 100px;
         margin: 0 auto;
+        z-index: 100000000;
+        
+    
     }
 
     #file{
@@ -53,13 +70,14 @@ page-edit-profile {
     }
 
     .head{
-        height: 50px;
+        height: 170px;
+        background-image: url('../../assets/imgs/Defaults/defaultCover1.jpg');
     }
 
     h1{
         text-align: center;
         font-weight: 100;
-        color: white;
+        color: #166b85;
     }
 
 
@@ -67,11 +85,18 @@ page-edit-profile {
 
         .list{
             position: relative;
-            top: 20px;
+            top: 120px;
         }
     
         .item{
             border-radius: 50px;
+            background-color: #166b85;
+            color: white;
+    
+        ::-webkit-input-placeholder{
+            color: rgb(207, 205, 205);
+        }
+    
         }
     
         .Check{
@@ -86,20 +111,25 @@ page-edit-profile {
         }
     
         .round{
-            width: 185px;
-            height: 185px;
+            width: 160px;
+            height: 165px;
             border-radius: 100px;
-            border: white solid 2px;
+            border: white solid 3px;
             margin: 0 auto;
+            z-index: 100000000;
+            position: relative;
+            bottom: 50px;
         }
     
         .picture{
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 100px;
             margin: 0 auto;
+            z-index: 100000000;
+            
+        
         }
-    
         #file{
             display: none
         }
@@ -116,9 +146,9 @@ page-edit-profile {
         h1{
             text-align: center;
             font-weight: 100;
-            color: white;
+            color: #166b85;
+            font-size: 2.1em;
         }
-
     }
 
 
@@ -126,11 +156,18 @@ page-edit-profile {
     @media screen and (max-width:350px){
         .list{
             position: relative;
-            top: 20px;
+            top: 80px;
         }
     
         .item{
             border-radius: 50px;
+            background-color: #166b85;
+            color: white;
+    
+        ::-webkit-input-placeholder{
+            color: rgb(207, 205, 205);
+        }
+    
         }
     
         .Check{
@@ -175,8 +212,8 @@ page-edit-profile {
         h1{
             text-align: center;
             font-weight: 100;
-            color: white;
-            font-size: 1.6em;
+            color: #166b85;
+            font-size: 1.5em;
         }
 
         

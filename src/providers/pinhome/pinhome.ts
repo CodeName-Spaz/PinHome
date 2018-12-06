@@ -19,24 +19,6 @@ export class PinhomeProvider {
   url: any;
   detailArray: any;
   // firebase instances
-<<<<<<< HEAD
-db = firebase.database();
-auth = firebase.auth();
-
-//arrays
-oraganisations =  new Array()
-nearByOrg =  new Array();
-categoryArr = new Array();
-commentArr = new Array();
-searchOrgArray = new Array();
-ProfileArr = new Array();
-stayLoggedIn;
-//variables
-
-rating
-
-  constructor(private geolocation: Geolocation,public loadingCtrl: LoadingController,public alertCtrl: AlertController, public toastCtrl: ToastController) {
-=======
   db = firebase.database();
   auth = firebase.auth();
 
@@ -53,7 +35,6 @@ rating
   rating;
 
   constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616
     console.log('Hello PinhomeProvider Provider');
   }
 
@@ -501,12 +482,6 @@ rating
           this.commentArr = null;
         }
 
-<<<<<<< HEAD
-    })
-  }
-
-  assignRating(rating){
-=======
       }, Error => {
         rejc(Error.message)
       })
@@ -515,7 +490,6 @@ rating
   }
 
   assignRating(rating) {
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616
     this.rating = rating;
   }
 
@@ -534,26 +508,6 @@ rating
     })
   }
 
-<<<<<<< HEAD
-  getProfile(){
-   this.auth.onAuthStateChanged(function(user) {
-    return new Promise ((accpt, rej) =>{
-      if (user) {
-        firebase.database().ref("profiles/" + user.uid).on('value', (data: any) => {
-       let details = data.val();
-        console.log(details)
-      })
-    } else {
-      console.log('no user');
-    }
-   });
-    })
-  }
-
-  checkAuthState(){
-    return new Promise ((accpt, rej) =>{
-    this.auth.onAuthStateChanged(function(user) {
-=======
   getProfile() {
     this.auth.onAuthStateChanged(function (user) {
       return new Promise((accpt, rej) => {
@@ -572,7 +526,6 @@ rating
   checkAuthState() {
     return new Promise((accpt, rej) => {
       this.auth.onAuthStateChanged(function (user) {
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616
         if (user) {
           accpt(true)
         } else {

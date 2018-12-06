@@ -16,7 +16,6 @@
     <img class="cover" src="{{i.orgPicture}}">
     <div class="main">
       <div class="flex">
-<<<<<<< HEAD
        
           <!-- <ion-row> -->
             <!-- <ion-col col-3> -->
@@ -28,18 +27,6 @@
              <ion-col>
                 <h1 class="name">{{i.orgName}}</h1>
              </ion-col>
-=======
-        <ion-grid>
-          <ion-row>
-            <ion-col col-3>
-              <img class="round" src="../../assets/imgs/orphan.png"> &ensp;
-            </ion-col>
-            <ion-col>
-              <h1 class="name">{{i.orgName}}</h1>
-              <br>
-  
-            </ion-col>
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616
           </ion-row>
             <ion-row align="center">
               <ion-col  class="TheCol">
@@ -60,7 +47,19 @@
        
           <p class="P">{{i.orgAbout}}</p>
         
-     
+     <ion-grid cla>
+       <ion-row>
+         <ion-col>
+            <ion-icon name="call"></ion-icon>
+         </ion-col>
+         <ion-col>
+            <ion-icon name="compass"></ion-icon>
+         </ion-col>
+         <ion-col>
+            <ion-icon name="mail"></ion-icon>
+         </ion-col>
+       </ion-row>
+     </ion-grid>
       
      
         <!-- <ion-col col-3></ion-col> -->
@@ -103,7 +102,6 @@
 <!--   
         <div padding>
         </div>
-<<<<<<< HEAD
       </ion-list> -->
   
       <ion-list *ngSwitchCase="'Gallery'" >
@@ -112,45 +110,6 @@
             <ion-row *ngFor="let a of orgArray">
               <ion-col col-6>
                 <img class="image" [src]="a.UrlGallery" imageViewer>
-=======
-      </ion-list>
-  
-  
-      <ion-list *ngSwitchCase="'Location'">
-        <br>
-        <br>
-        <p id="map" style="height:450px"></p>
-        <button ion-button full color="segments" (click)="directions(i.orgAddress)">Get Directions</button>
-  
-        <ion-grid class="buttons">
-          <ion-row>
-            <ion-col>
-              <button ion-button block color="segments" (click)="call(i.orgContact)">Call</button>
-            </ion-col>
-            <ion-col>
-              <button ion-button block color="segments" (click)="email(i.orgEmail)">Email</button>
-            </ion-col>
-          </ion-row>
-  
-        </ion-grid>
-  
-  
-  
-      </ion-list>
-  
-      <ion-list *ngSwitchCase="'Gallery'">
-        <div>
-          <ion-grid align="center" class="pictures">
-            <ion-row>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/activities.jpg" imageViewer>
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/beds.jpg" imageViewer>
-              </ion-col>
-              <ion-col>
-                <img class="image" src="../../assets/imgs/mealtime.jpg" imageViewer>
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616
               </ion-col>
             </ion-row>
           </ion-grid> -->
@@ -183,7 +142,6 @@
             </ion-grid>
         </div>
       </ion-list>
-<<<<<<< HEAD
   
       <ion-list *ngSwitchCase="'Reviews'">
         <div class="StarCard">
@@ -260,8 +218,3 @@
       </ion-list>
     </div>
   </ion-content>  
-=======
-   +
-    </div>
-  </ion-content>
->>>>>>> e829aa534074054f1c7284cfe74390f08bd15616

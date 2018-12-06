@@ -7,23 +7,22 @@
 <ion-header class="head">
 
     <ion-buttons left>
-       <button ion-button color="light" icon-only clear (click)="GoToProfile()">
-         <ion-icon name="arrow-back" id="mark"></ion-icon>
+       <button ion-button color="bg" icon-only clear (click)="GoToProfile()">
+         <ion-icon class="arrow" name="arrow-back" id="mark"></ion-icon>
        </button>
      </ion-buttons>
      <ion-buttons right>
-       <button class="Check" ion-button color="light" clear icon-only (click)="uploadPicture()">
+       <button class="Check" ion-button color="bg" clear icon-only (click)="uploadPicture()">
          <ion-icon name="checkmark" id="mark"></ion-icon>
        </button>
      </ion-buttons>
+     <div class="round" align="cenetr"><img class="picture" src="../../assets/imgs/city2.jfif">
+      <h1>Shaun Paul</h1>
+    </div>
  </ion-header>
  
  
  <ion-content padding class="content">
-
-  <div class="round" align="cenetr"><img class="picture" src="../../assets/imgs/city2.jfif">
-    <h1>Shaun Paul</h1>
-  </div>
      <div class="fileChooser">
          <div >
            <label for="file" id="cam">
