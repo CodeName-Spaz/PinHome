@@ -783,16 +783,8 @@ page-view {
         position: relative;
         top: 50px;
     }
-    .ratings{
-     position: absolute;
-    //  border: #a6d7e6 solid 2px;
-     bottom: 200px;
     //  z-index: 100000000;
     left: 270px;
-    }
-    .thecontent{
-        position: relative;
-        bottom: 250%;
     }
     .P{
        position: relative;
@@ -965,8 +957,6 @@ page-view {
     }
    
     }
-
-
     @media  screen and (max-width:350px){
         .h1{
             position: relative;
@@ -974,10 +964,6 @@ page-view {
             font-size: 1em;
         }
         .comments{
-            z-index: 1;
-            // background-color: #166b85;
-            position: absolute;
-            top: 640px;
             right: 0px;
         }
         .Msg{
@@ -1175,10 +1161,7 @@ page-view {
         .info{
             font-weight: 100;
         }
-
     }
-
-
     @media screen and (max-width: 500px){
         .h1{
             position: relative;
@@ -1397,5 +1380,5 @@ page-view {
         .info{
             font-weight: 100;
         }
+       
     }
-}
