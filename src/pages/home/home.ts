@@ -132,22 +132,55 @@ export class HomePage {
 
   }
   showButton() {
-    
+    var theCard = document.getElementsByClassName("options") as HTMLCollectionOf <HTMLElement>;
     let searcher = document.getElementsByClassName('searchBar') as HTMLCollectionOf <HTMLElement>;
     var theTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>
+    var nav = document.getElementsByClassName("theHead") as HTMLCollectionOf <HTMLElement>;
+    var searchBtn = document.getElementsByClassName("more") as HTMLCollectionOf <HTMLElement>;
+    var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
+    var restOf = document.getElementsByClassName("restOfBody") as HTMLCollectionOf <HTMLElement>;
+
     if (this.state =="close"){
       this.state = "search";
       // console.log(this.state);
       searcher[0].style.width = "0";
       searcher[0].style.left = "-10%";
-      theTitle[0].style.opacity = "1"
+      searcher[0].style.top = "18px";
+      theTitle[0].style.opacity = "1";
+
+      theCard[0].style.height = "140px";
+      theCard[0].style.top = "60px";
+      theCard[0].style.opacity = "1";
+
+      nav[0].style.height = "120px";
+
+      searchBtn[0].style.top = "20px";
+
+      prof[0].style.top ="20px";
+
+      restOf[0].style.paddingTop = "230px";
+
     } 
     else if(this.state == "search"){
       this.state ="close";
       // console.log(this.state);
-      searcher[0].style.width = "72vw"
-      searcher[0].style.left = "15%"
-      theTitle[0].style.opacity = "0"
+      searcher[0].style.width = "72vw";
+      searcher[0].style.left = "15%";
+      searcher[0].style.top = "5px"
+      theTitle[0].style.opacity = "0";
+
+      theCard[0].style.height = "50px";
+      theCard[0].style.top = "-65px";
+      theCard[0].style.opacity = "0.5";
+
+      nav[0].style.height = "50px";
+
+      searchBtn[0].style.top = "0";
+      prof[0].style.top ="0";
+
+      restOf[0].style.paddingTop = "60px";
+
+
 
       
     }
@@ -270,8 +303,8 @@ export class HomePage {
         console.log("hide card");
 
         theCard[0].style.height = "50px";
-        theCard[0].style.top = "-100px";
-        theCard[0].style.opacity = "0";
+        theCard[0].style.top = "-65px";
+        theCard[0].style.opacity = "0.5";
         
         nav[0].style.height = "50px";
 

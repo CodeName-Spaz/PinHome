@@ -4,6 +4,7 @@
       <ion-title class="theTitle">
       <b>PinHome</b>
       </ion-title>
+      
         <div class="top">
           <button ion-button icon-only clear class="more" (click)="showButton(textField)">
             <ion-icon name="{{state}}"></ion-icon>
@@ -17,10 +18,12 @@
           </button>
         <ion-card class="options">
           <div class="intro">
-            <p class="statement"><ion-icon name="pin"></ion-icon>
-               {{location}} <br>
-             <i class="finePrint"> PinHome uses your location to provide you with places near you.</i>
+            <p class="statement">
+              <ion-icon name="pin"></ion-icon> ON
+               
             </p>
+              <i class="finePrint"> PinHome uses your location to provide you with places near you.</i>
+           
           </div>
           <div class="myFlexBox">
             <button class="selects" ion-button color={{custom1}} (click)="all()">Show All</button>
@@ -35,11 +38,11 @@
 </ion-header>
 
 <ion-content (ionScroll)="scroll($event)">
-    <!-- <ion-fab bottom right>
+    <ion-fab class="addFAB" bottom right>
       <button ion-fab mini icon-only color="btn" (click)="GoToMap()">
-        <ion-icon name="map"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </button>
-    </ion-fab> -->
+    </ion-fab>
 
 
     <div class="restOfBody">

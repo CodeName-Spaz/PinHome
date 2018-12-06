@@ -26,7 +26,7 @@ page-profile {
         height: 180px;
         width: 100%;
         object-fit: cover;
-        background-image: url('../../assets/imgs/Defaults/defaultCover1.jpg')
+        background:#166b85;
     }
     .userName{
         position: absolute;
@@ -125,7 +125,7 @@ page-profile {
         width: 150vw;
         height: 50px;
         background: #166b85;
-        opacity: 0.2;
+        opacity: 0;
         transform: translateX(-50%);
         position:s absolute;
         top: 0;

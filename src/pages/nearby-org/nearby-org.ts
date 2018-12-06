@@ -177,14 +177,18 @@ export class NearbyOrgPage {
   }
 
   scroller(event) {
-    // var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
-    // var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
-    // if (event.scrollTop >= 0) {
-    //   mapper[0].style.height = "50%";
-    //   if (this.arrow == "arrow-up") {
-    //     this.arrow = "arrow-down";
-    //   }
-    // }
+    var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+
+    if (event.scrollTop > 0) {
+      mapper[0].style.height = "50%";
+              this.arrow = "arrow-down";
+        // footBtn[0].style.top= "-45px";
+      
+        this.arrow = "arrow-up"
+    
+    }
 
   }
   changeMapSize() {
