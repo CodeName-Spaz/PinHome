@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -13,6 +13,8 @@ import {
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view';
 import { HomePage } from '../home/home';
+import { ProfilePage } from '../profile/profile';
+import { SignInPage } from '../sign-in/sign-in';
 
 /**
  * Generated class for the NearbyOrgPage page.
@@ -35,7 +37,7 @@ export class NearbyOrgPage {
 
   arrowDir = "arrow-down";
 
-  constructor(public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  constructor(private pinhomeProvider: PinhomeProvider,private alertCtrl: AlertController,public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -189,6 +191,7 @@ export class NearbyOrgPage {
     var theArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
     // var divver = document.getElementsByClassName("cont") as HTMLCollectionOf<HTMLElement>;
     var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
 
     if (this.decide == 0) {
       this.decide = 1;
@@ -203,6 +206,8 @@ export class NearbyOrgPage {
       mapSize[0].style.height = "95%";
       console.log('growing map');
       this.arrow = "arrow-up";
+      footBtn[0].style.transition = "300ms"
+      footBtn[0].style.top= "0";
 
 
     }
@@ -210,7 +215,9 @@ export class NearbyOrgPage {
 
       mapSize[0].style.height = "50%";
       console.log('shrinking map');
-      this.arrow = "arrow-down"
+      this.arrow = "arrow-down";
+      footBtn[0].style.transition = "1200ms"
+      footBtn[0].style.top= "-45px";
     }
     setTimeout(() => {
       mapSize[0].style.height = "50%";
@@ -219,8 +226,34 @@ export class NearbyOrgPage {
     }, 60000);
 
   }
+  viewPage() {
+    this.pinhomeProvider.checkAuthState().then(data => {
+      if (data == false) {
+        let alert = this.alertCtrl.create({
+          title: 'ohhhh! sorry!',
+          subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
+          buttons: [
+            {
+              text: 'Yes',
+              handler: data => {
+                var opt = "profile";
+                this.navCtrl.push(SignInPage, { option: opt })
+              }
+            },
+            {
+              text: 'No',
+              handler: data => {
 
+              }
+            }
+          ]
+        });
+        alert.present();
+      } else {
+        this.navCtrl.push(ProfilePage)
+      }
 
-
+    })
+  }
 
 }

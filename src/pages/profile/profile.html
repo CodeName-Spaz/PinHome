@@ -1,4 +1,4 @@
-<ion-content (ionScroll)="scroller($event)">
+<ion-content (ionScroll)="scroller($event)" class="content">
   <ion-fab class="greenBar" center>
     <div (click)="removePopper()" class="colorThing"></div>
   </ion-fab>
@@ -25,8 +25,8 @@
         <div class="slant">
 
         </div>
-
-        <img class="coverImage" src="{{coverUrl}}" alt="">
+        <div class="coverImage"></div>
+        <!-- <img class="coverImage" src="{{coveroUrl}}" alt=""> -->
         <img class="DP" src="{{dpUrl}}" alt="" imageViewer>
         <ion-card class="userName">
           <h3>{{item.name}}</h3>
@@ -35,7 +35,7 @@
 
       </div>
     </div>
-    <p>About</p>
+    <p class="theAbout">About</p>
     <div class="body">
       <div class="about">
         <ion-card class="detail">

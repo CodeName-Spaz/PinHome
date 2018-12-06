@@ -23,8 +23,10 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
-import { EditProfilePage } from '../pages/edit-profile/edit-profile'
-import { AddOrganizationPage } from '../pages/add-organization/add-organization';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization'
+
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 
@@ -77,7 +79,8 @@ firebase.initializeApp({
     GoogleMaps,
     EmailComposer,
     CallNumber,
-    LaunchNavigator
+    LaunchNavigator,
+    ScreenOrientation
   ]
 })
 export class AppModule {}

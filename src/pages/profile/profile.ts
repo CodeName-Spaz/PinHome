@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import firebase from 'firebase';
 import { HomePage } from '../home/home';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -96,7 +97,9 @@ export class ProfilePage {
     
   }
   editProfile(){
-    this.removePopper()
+    this.navCtrl.push(EditProfilePage)
+    this.removePopper();
+   
   }
 
   logOut(){

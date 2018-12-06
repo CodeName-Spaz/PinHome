@@ -92,20 +92,24 @@ page-nearby-org {
   
     .card-title {
       position: absolute;
-      bottom: 25%;
-      font-size: 1em;
+      bottom: 40%;
+      font-size: 12px;
       width: 100%;
       font-weight: bold;
       color: #fff;
       padding-right: 10px;
       padding-left: 10px;
-      text-shadow: 0 0 15px black;
+      text-align: center;
+    //   text-shadow: 0 0 15px black;
+      -webkit-text-stroke-color: 2px solid black;
+      -webkit-text-stroke: red;
     //   border: 2px solid red;
     }
   
     .card-subtitle {
       font-size: 1.0em;
       position: absolute;
+      text-align: center;
       bottom: 15%;
       width: 100%;
       color: #fff;
@@ -118,7 +122,7 @@ page-nearby-org {
   
   }
   ion-slide{
-      box-shadow: 0 0 10px grey
+    //   box-shadow: 0 0 10px grey
   }
   .theArrow{
       transition: 700ms;
@@ -171,6 +175,25 @@ page-nearby-org {
       padding-right: 15px;
       text-align: center;
   }
+  .categories{
+      height: 30px;
+      display: none
+  }
+  .small{
+      height: 30px;
+      font-size: 10px;
+  }
+  .theFooter{
+      background: #242f3e;
+    //   position: relative;
+      bottom: 0;
+      height: 0px;
+  }
+  .listerBtn{
+      position: absolute;
+      top: -45px;
+      transition: 1200ms
+  }
   @media screen and (min-width: 500px) {
     .statement{
         font-weight: bold;
@@ -180,7 +203,34 @@ page-nearby-org {
         padding-right: 15px;
         text-align: center;
     }
+
   }
 
+  .theFooter{
+      
+  }
+
+  @media screen and (min-height: 700px){
+    .categories{
+        height: 50px;
+        display: block;
+        font-size: 10px;
+        color: white;
+        // border: 2px solid green;
+    }
+    .small{
+        height: 40px;
+        // font-size: 8px;
+        // font-size: 8px;
+        background: white;
+        color: white;
+        border: 2px grey;
+        padding-top: 2px;
+        box-shadow: 0 0 10px black;
+    }
+    // {
+    //     font-size: 12px;
+    // }
+  }
 
 }

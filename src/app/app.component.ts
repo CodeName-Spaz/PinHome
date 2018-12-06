@@ -11,6 +11,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { SignInPage } from '../pages/sign-in/sign-in'
 import { ProfilePage } from '../pages/profile/profile';
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization'
 @Component({
   templateUrl: 'app.html'
 })

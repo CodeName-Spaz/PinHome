@@ -6,6 +6,8 @@ import { ProfilePage } from '../profile/profile';
 import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
 import { text } from '@angular/core/src/render3/instructions';
+// import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -31,6 +33,7 @@ export class HomePage {
   temp;
   colorState = false;
   location;
+  textField = "";
 
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
@@ -41,7 +44,7 @@ export class HomePage {
       this.storedata(data);
       this.initializeItems();
     })
-  
+
   }
 
   storeCatData(data) {
@@ -129,23 +132,28 @@ export class HomePage {
 
   }
   showButton() {
+    
     let searcher = document.getElementsByClassName('searchBar') as HTMLCollectionOf <HTMLElement>;
     var theTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>
     if (this.state =="close"){
       this.state = "search";
-      console.log(this.state);
+      // console.log(this.state);
       searcher[0].style.width = "0";
       searcher[0].style.left = "-10%";
       theTitle[0].style.opacity = "1"
     } 
     else if(this.state == "search"){
       this.state ="close";
-      console.log(this.state);
+      // console.log(this.state);
       searcher[0].style.width = "72vw"
       searcher[0].style.left = "15%"
       theTitle[0].style.opacity = "0"
-    }
 
+      
+    }
+      console.log(this.textField);
+      this.textField =""
+      
   }
 
   selectcategory() {
@@ -230,6 +238,13 @@ export class HomePage {
   GoToMap() {
     this.navCtrl.setRoot(NearbyOrgPage);
   }
+  header($event){
+    console.log("header");
+
+    var locSearch = document.getElementsByClassName("locationSearch") as HTMLCollectionOf <HTMLElement>
+    
+    locSearch[0].style.display = "none"
+  }
   goToProfile() {
     this.bodyClick(event);
     this.navCtrl.push(ProfilePage);
@@ -247,6 +262,7 @@ export class HomePage {
     var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
     var barTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>;
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf <HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
 
     restOf[0].style.transition ="700ms";
     if(event.directionY == "down"){
@@ -268,6 +284,9 @@ export class HomePage {
         barTitle[0].style.top = "12px";
 
         searchTxt[0].style.top = "5px";
+
+        footBtn[0].style.transition = "300ms"
+        footBtn[0].style.top= "0";
       }
     }
     else{
@@ -278,7 +297,7 @@ export class HomePage {
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "210px";
+        restOf[0].style.paddingTop = "230px";
 
         searchBtn[0].style.top = "20px";
 
@@ -287,8 +306,11 @@ export class HomePage {
         barTitle[0].style.top = "25px";
 
         searchTxt[0].style.top = "18px";
+
+        footBtn[0].style.top= "-45px";
       
     }
     
   }
+
 }
