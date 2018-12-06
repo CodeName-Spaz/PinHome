@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
-import { Option, LoadingController } from 'ionic-angular';
+import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
-
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -21,7 +22,6 @@ export class PinhomeProvider {
   // firebase instances
   db = firebase.database();
   auth = firebase.auth();
-
   //arrays
   oraganisations = new Array()
   nearByOrg = new Array();
@@ -33,8 +33,9 @@ export class PinhomeProvider {
   //variables
   // url;
   rating;
+  Location;
 
-  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
   }
 
@@ -67,6 +68,7 @@ export class PinhomeProvider {
           name: name,
           email: email,
           contact: "",
+          downloadurl: "../../assets/imgs/Defaults/default.jpg"
         })
         resolve();
         loading.dismiss();
@@ -103,7 +105,7 @@ export class PinhomeProvider {
         loading.dismiss();
         if (error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
           const alert = this.alertCtrl.create({
-            subTitle: "It seems like you have not registered to use StreetArt, please check your login information or sign up to get started",
+            subTitle: "It seems like you have not registered to use PinHome, please check your login information or sign up to get started",
             buttons: [
               {
                 text: 'ok',
@@ -210,23 +212,32 @@ export class PinhomeProvider {
     })
   }
 
-
-
-
-
-  getCurrentLocation() {
-    //get current location
-    return new Promise((accpt, rej) => {
-      this.geolocation.getCurrentPosition().then((resp) => {
-        this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data: any) => {
-          accpt(data);
+  setLocation(data){
+    this.Location =  data;
+    console.log(this.Location);
+    }
+  
+    getLocation(){
+      console.log(this.Location);
+      return this.Location;
+    }
+  getCurrentLocation(){
+   //get current location
+    return new Promise ((accpt, rej) =>{
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data:any) =>{
+        this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+        .then((result: NativeGeocoderReverseResult[]) => {
+          this.setLocation(result[0])
         })
-      }).catch((error) => {
-        console.log('Error getting location', error);
-      });
-    })
+        .catch((error: any) => console.log(error))
+        accpt(data);
+      })
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+     })
   }
-
   createPositionRadius(latitude, longitude) {
     var leftposition, rightposition, downposition, uposititon;
     return new Promise((accpt, rej) => {
@@ -384,10 +395,12 @@ export class PinhomeProvider {
               orgLong: SelectCategory[k].longitude,
               orgEmail: SelectCategory[k].Email,
               orgAbout: SelectCategory[k].AboutOrg,
-              orgPrice: SelectCategory[k].Price
-
+              orgPrice: SelectCategory[k].Price,
+              orgGallery :SelectCategory[k].UrlGallery,
+              key: k,
             }
             this.categoryArr.push(obj);
+            // console.log(this.categoryArr);
           }
         }
         accpt(this.categoryArr);
@@ -416,8 +429,8 @@ export class PinhomeProvider {
             orgEmail: SelectCategory[k].Email,
             orgAbout: SelectCategory[k].AboutOrg,
             orgPrice: SelectCategory[k].Price,
-            key: k
-
+            orgGallery :SelectCategory[k].UrlGallery,
+            key: k,
           }
           this.categoryArr.push(obj);
           // console.log(this.categoryArr)
@@ -440,22 +453,20 @@ export class PinhomeProvider {
       })
       accpt('success');
     });
-
   }
-
-
-
   viewComments(comment: any, commentKey: any) {
     return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
+      // this.commentArr.length = 0;
+      let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
-        var CommentDetails = data.val();
-        if (data.val() != null || data.val() != undefined) {
-          this.commentArr.length = 0;
-          var keys1: any = Object.keys(CommentDetails);
+        let CommentDetails = data.val();
+        this.commentArr = _.uniqWith(this.commentArr,_ .isEqual);
+        if (data.val() != null || data.val() != undefined || this.commentArr != null) {
+          // this.commentArr.length = 0;
+          let keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
-            var key = keys1[i];
-            var chckId = CommentDetails[key].uid;
+            let key = keys1[i];
+            let chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
               uid: CommentDetails[key].uid,
@@ -463,6 +474,7 @@ export class PinhomeProvider {
               rating: parseInt(CommentDetails[key].rate),
               username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
+              key: key,
             }
             if (user) {
               if (user.uid == CommentDetails[key].uid) {
@@ -474,6 +486,7 @@ export class PinhomeProvider {
               obj.username = profileData.name
               console.log(obj)
               this.commentArr.push(obj);
+              console.log(this.commentArr)
             });
           }
           accpt(this.commentArr);
@@ -533,6 +546,113 @@ export class PinhomeProvider {
         }
       });
     })
+  }
+
+  logout() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().signOut().then(() => {
+        resolve()
+      }, (error) => {
+        reject(error)
+      });
+    });
+  }
+
+
+
+  uploadProfilePic(pic, name) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait',
+      duration: 2000
+    });
+    const toast = this.toastCtrl.create({
+      message: 'data has been updated!',
+      duration: 3000
+    });
+    return new Promise((accpt, rejc) => {
+      toast.present();
+      firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
+        accpt(name);
+        console.log(name);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  storeToDB1(name) {
+    return new Promise((accpt, rejc) => {
+      this.ProfileArr.length = 0;
+      var storageRef = firebase.storage().ref(name);
+      storageRef.getDownloadURL().then(url => {
+        console.log(url)
+        var user = firebase.auth().currentUser;
+        var link = url;
+        firebase.database().ref('profiles/' + user.uid).update({
+          downloadurl: link,
+        });
+        accpt('success');
+      }, Error => {
+        rejc(Error.message);
+        console.log(Error.message);
+      });
+    })
+  }
+
+
+  viewPicGallery1() {
+    return new Promise((accpt, rejc) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref("profiles").on("value", (data: any) => {
+        var b = data.val();
+        var keys = Object.keys(b);
+        if (b !== null) {
+        }
+        this.storeImgur(b[keys[0]].downloadurl);
+        accpt(b);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  getUserID() {
+    return new Promise((accpt, rejc) => {
+      var userID = firebase.auth().currentUser
+      firebase.database().ref("profiles").on("value", (data: any) => {
+        var b = data.val();
+        if (b !== null) {
+        }
+        console.log(b);
+        accpt(userID.uid);
+      }, Error => {
+        rejc(Error.message)
+      })
+    })
+  }
+
+  storeImgur(downloadurl) {
+    this.downloadurl = downloadurl;
+    console.log(downloadurl);
+  }
+
+  update(name, email, contact, downloadurl) {
+    this.ProfileArr.length = 0;
+    return new Promise((pass, fail) => {
+      var user = firebase.auth().currentUser
+      firebase.database().ref('profiles/' + user.uid).update({
+        name: name,
+        email: email,
+        contact: contact,
+        downloadurl: downloadurl,
+      });
+    })
+  }
+
+  retrieve() {
+    let userID = firebase.auth().currentUser;
+    return firebase.database().ref("profiles/" + userID.uid)
   }
 
 }

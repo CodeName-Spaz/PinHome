@@ -6,6 +6,8 @@ import { ProfilePage } from '../profile/profile';
 import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
 import { text } from '@angular/core/src/render3/instructions';
+import * as _ from 'lodash';
+import { AddOrganizationPage } from '../add-organization/add-organization';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -24,6 +26,15 @@ export class HomePage {
   contribute = 0;
   tempArray = [];
   state = "search";
+  storeAllOrgs = [];
+  storeNear = new Array();
+  custom1 = "custom1";
+  custom2 = "custom2";
+  temp;
+  colorState = false;
+  location;
+  tempOrg =  new Array();
+
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
@@ -33,12 +44,40 @@ export class HomePage {
       this.storedata(data);
       this.initializeItems();
     })
-
+  
   }
 
   storeCatData(data) {
     this.categoryArr = data;
     this.tempArray = this.categoryArr;
+    this.storeAllOrgs = data;
+  }
+
+  storeNearByOrgs(data){
+    this.storeNear =  _.uniqWith(data, _.isEqual)
+  }
+//this.storeNear[x] =  data[x];
+  near(){
+    if (this.colorState == false){
+      this.categoryArr = this.storeNear ;
+      console.log(this.categoryArr)
+      this.temp = this.custom1;
+      this.custom1 =  this.custom2;
+      this.custom2 =  this.temp;
+      this.colorState =  true
+    }
+
+  }
+
+  all()
+  {
+    if (this.colorState == true){
+    this.categoryArr = _.uniqWith(this.storeAllOrgs, _.isEqual);
+    this.temp = this.custom2;
+    this.custom2 =  this.custom1;
+    this.custom1 =  this.temp;
+    this.colorState =  false
+    }
   }
 
   setArrayBack(data) {
@@ -99,21 +138,25 @@ export class HomePage {
   }
   showButton() {
     let searcher = document.getElementsByClassName('searchBar') as HTMLCollectionOf <HTMLElement>;
-
+    var theTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>
     if (this.state =="close"){
       this.state = "search";
       console.log(this.state);
       searcher[0].style.width = "0";
-      searcher[0].style.left = "-10%"
+      searcher[0].style.left = "-10%";
+      theTitle[0].style.opacity = "1"
     } 
     else if(this.state == "search"){
       this.state ="close";
       console.log(this.state);
       searcher[0].style.width = "72vw"
       searcher[0].style.left = "15%"
+      theTitle[0].style.opacity = "0"
     }
 
   }
+
+
 
   selectcategory() {
     this.categoryArr.length = 0;
@@ -134,34 +177,32 @@ export class HomePage {
             orgLat: data[k].orgLat,
             orgLong: data[k].orgLong
           }
-          console.log(data[k].orgName)
           this.categoryArr.push(obj);
         }
       }
     })
   }
+
   getNearByOrganizations() {
-    // let loading = this.loadingCtrl.create({
-    //   spinner: 'bubbles',
-    //   content: 'please wait',
-    //   duration: 222000
-    // });
-    // loading.present();
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'please wait',
-      duration: 222000
+      duration: 2000
     });
-    // loading.present();
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
+          this.location =  this.pinhomeProvider.getLocation();
+         this.location =  this.location.locality; 
           this.orgArray = data;
+          this.storeNearByOrgs(data);
           loading.dismiss();
         })
       })
     })
   }
+
 
   getAllOrganizations() {
   }
@@ -202,7 +243,65 @@ export class HomePage {
     this.navCtrl.push(ProfilePage);
   }
   gotToAddOrg() {
+    this.navCtrl.push(AddOrganizationPage);
     console.log("this takes you to the Add Organisation Page");
 
   }
+
+  scroll(event){
+    // console.log(event.directionY);
+    var theCard = document.getElementsByClassName("options") as HTMLCollectionOf <HTMLElement>;
+    var nav = document.getElementsByClassName("theHead") as HTMLCollectionOf <HTMLElement>;
+    var restOf = document.getElementsByClassName("restOfBody") as HTMLCollectionOf <HTMLElement>;
+    var searchBtn = document.getElementsByClassName("more") as HTMLCollectionOf <HTMLElement>;
+    var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
+    var barTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>;
+    var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf <HTMLElement>;
+
+    restOf[0].style.transition ="700ms";
+    if(event.directionY == "down"){
+      if(event.scrollTop > 15){
+        console.log("hide card");
+
+        theCard[0].style.height = "50px";
+        theCard[0].style.top = "-100px";
+        theCard[0].style.opacity = "0";
+        
+        nav[0].style.height = "50px";
+
+        restOf[0].style.paddingTop = "90px";
+
+        searchBtn[0].style.top = "0";
+
+        prof[0].style.top = "0";
+
+        barTitle[0].style.top = "12px";
+
+        searchTxt[0].style.top = "5px";
+      }
+    }
+    else{
+      // console.log("show Card");
+      theCard[0].style.height = "140px";
+        theCard[0].style.top = "60px";
+        theCard[0].style.opacity = "1";
+
+        nav[0].style.height = "120px";
+
+        restOf[0].style.paddingTop = "210px";
+
+        searchBtn[0].style.top = "20px";
+
+        prof[0].style.top = "15px";
+
+        barTitle[0].style.top = "25px";
+
+        searchTxt[0].style.top = "18px";
+      
+    }
+    
+  }
 }
+
+
+

@@ -72,7 +72,7 @@ export class SignUpPage {
     }
     else {
       this.pinhomeProvider.Signup(this.email, this.password, this.name).then(() => {
-        this.presentLoading1();
+        // this.presentLoading1();
         this.navCtrl.setRoot(ProfilePage);
       }, (error) => {
         console.log(error.message);

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import firebase from 'firebase';
 import { HomePage } from '../home/home';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -18,10 +19,10 @@ import { HomePage } from '../home/home';
 export class ProfilePage {
   detailArray = new Array();
 
-  dpUrl = "../../assets/imgs/Defaults/default.jpg";
+  // downloadurl = "../../assets/imgs/Defaults/default.jpg";
   coverUrl = "../../assets/imgs/Defaults/defaultCover1.jpg";
   popState=0;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
   }
 
   ionViewDidLoad() {
@@ -96,10 +97,14 @@ export class ProfilePage {
     
   }
   editProfile(){
-    this.removePopper()
+    this.navCtrl.setRoot(EditProfilePage);
   }
 
   logOut(){
-    this.removePopper()
+    this.pinhomeProvider.logout().then(() => {
+      this.navCtrl.push(HomePage);
+    }, (error) => {
+      console.log(error.message);
+    })
   }
 }
