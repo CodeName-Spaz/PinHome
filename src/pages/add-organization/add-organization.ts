@@ -128,13 +128,13 @@ export class AddOrganizationPage {
         AboutOrg: AboutOrg,
         Category: select,
         Url: this.urlCover,
-        // UrlGallery: this.urlGallery,
+        UrlGallery: this.urlGallery,
         longitude: data.lng,
         latitude: data.lat
 
       })
       this.presentToast();
-      // this.navCtrl.push(HomePage);
+      this.navCtrl.push(HomePage);
     })
 
   }

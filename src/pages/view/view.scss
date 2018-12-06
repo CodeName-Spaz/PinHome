@@ -524,48 +524,377 @@
 //     }
 // }
 
-page-view {
+// page-view {
     // .content{
         
     // }
-    .StarCard{
+//     .StarCard{
+//         // background-color: #166b85;
+//         margin-top: 25px;
+//         box-shadow: 0 0 0
+//     }
+//     .Sstar{
+//         position: relative;
+//         top: 9px;
+//         font-size: 1.8em;
+//         // color: black;
+//         font-weight: 100;
+//     }
+//     .segment{
+//         // top:0px;
+//         background-color: white;
+//         position: absolute;
+//         width: 100%;
+//         z-index: 1;
+//     }
+//     .cover{
+//         height: 250px;
+//         width: 100%;
+//         object-fit: cover;
+//     }
+//     .round{
+//         border: solid 2px white;
+//         width: 70px;
+//         border-radius: 50%;
+//         height: 70px;
+//         margin-left: 4%;
+//         margin-top: 3%;        
+//     }
+//     .name{
+//         // text-align: center;
+//         font-weight: bolder;
+//         color: #fff;
+//         font-size: 15px;
+//         text-align: left;
+//     }
+//     ion-grid{
+//         // border: 2px solid red
+//     }
+//     ion-row{
+//         // border: 2px solid greenyellow        
+//     }
+//     ion-col{
+//         // border: 2px solid red;
+//         position: relative;
+//         height: 50px;
+//     }
+//     .details{
+//         text-align: lebnft
+//     }
+//     .flex{
+//         display: flex;
+//         flex-wrap: wrap;
+//         position: relative;
+//     }
+//     .main{
+//         // border: 2px solid red;
+//         margin-top:-10px;
+//         background-color: #166b85;
+//         height: 110px;
+//         position: relative;
+//         text-transform: capitalize;
+//     }
+//     .stars{
+//         // border: 2px solid red;
+//         margin-top: -10px;
+//     }
+//     .category{
+//         color: white;
+//         font-style: italic;
+//         font-weight: 100;
+//         // position: absolute;
+//         // left:95px;
+//         top: -10px;
+//     }
+    
+//     ion-icon{
+//         color: rgb(223, 219, 219);
+//         position: relative;
+//         top: -19px;
+//     }
+//     .test{
+//         // height: 1000px;
+//         background: white;
+//     }
+//     .pictures{
+//         height: 120px;
+//         // border: solid 2px white;
+//         // border-left: solid 2px white;
+//     }
+//     .image{
+//         height: 100px;
+//     }
+//     .map{
+//         width: 100%;
+//         object-fit: cover;
+//     }
+//     .fullBtn{
+//         position: relative;
+//         top: 10%;
+//     }
+//     .buttons{
+//         position: relative;
+//         bottom: 10px;
+//     }
+//     .backBtn{
+//         color: white;
+//     }
+//     .arrow{
+//         position: relative;
+//         top: 2%;
+//         text-shadow: 0 0 5px black;
+//         font-size: 2em;
+//     }
+//     .Reviews{
+//         // position: relative;
+//         // top: 20px;
+//     }
+//     .Rate{
+//         position: relative;
+//         top: 15px;
+        
+//     }
+//     .stars{
+//         color: rgb(119, 114, 114);
+//         font-size: 1em
+//     }
+//     .about{
+//         margin-top: 50px;
+//     }
+//     .info{
+//         font-weight: 100;
+//     }
+   
+//     @media  screen and (min-width:700px){
+//             // .content{
+        
+//     // }
+//     .segment{
+//         // top:0px;
+//         background-color: white;
+//         position: absolute;
+//         width: 100%;
+//         z-index: 1;
+//     }
+//     .cover{
+//         height: 250px;
+//         width: 100%;
+//         object-fit: cover;
+//     }
+//     .round{
+//         border: solid 2px white;
+//         width: 90px;
+//         border-radius: 50%;
+//         height: 90px;
+//         margin-left: 8%;
+//         margin-top: 3%;        
+//     }
+//     .name{
+//         // text-align: center;
+//         font-weight: bolder;
+//         color: #fff;
+//         font-size: 2.5em;
+//        position: relative;
+//        left: 4%;
+//     }
+//     .details{
+//         text-align: left
+//     }
+//     .flex{
+//         display: flex;
+//         position: relative;
+//     }
+//     .main{
+//         // border: 2px solid red;
+//         margin-top:-10px;
+//         background-color: #166b85;
+//         height: 170px;
+//         position: relative;
+//         text-transform: capitalize;
+//     }
+//     .category{
+//         color: white;
+//         font-style: italic;
+//         font-size: 2em;
+//         font-weight: 100;
+//         position: relative;
+//         bottom: 12%;
+//         left: -26%;
+//     }
+    
+//     ion-icon{
+//         color: rgb(223, 219, 219);
+//         position: relative;
+//         top: -19px;
+//     }
+//     .test{
+//         // height: 1000px;
+//         background: white;
+//     }
+//     .pictures{
+//         height: 230px;
+//         // border: solid 2px red;
+//         // border-left: solid 2px white;
+//     }
+//     .image{
+//         height: 200px;
+//         width: 220px;
+//     }
+//     .map{
+//         width: 100%;
+//         object-fit: cover;
+//     }
+//     .fullBtn{
+//         position: relative;
+//         top: 10%;
+//     }
+//     .buttons{
+//         position: relative;
+//         bottom: 10px;
+//     }
+//     .backBtn{
+//         color: white;
+//     }
+//     .arrow{
+//         position: relative;
+//         top: 2%;
+//         color: black;
+//     }
+//     .Reviews{
+//         position: relative;
+//         top: 25px;
+//     }
+//     .Rate{
+//         position: relative;
+//         top: 15px;
+        
+//     }
+//     .stars{
+//         color: rgb(119, 114, 114);
+//         font-size: 1em
+//     }
+//     .ratings{
+//         position: relative;
+//         bottom: 45%;
+//     }
+   
+//     }
+// }
+
+
+page-view {
+    // .content{
+    //     background-color: #f3fcff
+    // }
+    h3{
+        position: relative;
+        top: 250px;
+        font-weight: 100;
+        font-size: 1em;
+        text-align: left;
+        
+    }
+    .h1{
+        position: relative;
+        // left: 30px;
+        // transform: translateX(-10);
+        top: 100px;
+        font-weight: 100;
+        
+    }
+    .comments{
+        z-index: 1;
         // background-color: #166b85;
-        margin-top: 25px;
-        box-shadow: 0 0 0
+        position: absolute;
+        top: 690px;
+        right: 0px;
+    }
+    .Msg{
+        position: relative;
+        top: 15px;
+    }
+    .Feedback{
+        position: relative;
+        top: 50px;
+    }
+    .ratings{
+    //     position: absolute;
+    //     border: #a6d7e6 solid 2px;
+    //     // bottom: 90px;
+    //     // z-index: 100000000;
+    // //    left: 80px;
+       }
+    .thecontent{
+        position: relative;
+        bottom: 250%;
+    }
+    .P{
+       position: relative;
+       bottom: 150px;
+       padding: 10px;
+    }
+    
+    .TheCol{
+        // border: #166b85 2px solid;
+        position: relative;
+        bottom: 90px;
+        width: 100vw;
+    }
+   
+    .Gold{
+        color: gold;
+        font-size: 20px;
+        padding-bottom: 200%;
+       
+    }
+    .StarCard{
+        // border: #166b85 solid 2px;
+        margin-bottom: 500px;
+        position:absolute;
+        box-shadow: 0 0 0;
+        z-index: 1000000000;
+        width:90%;
+        height: 50px;
     }
     .Sstar{
         position: relative;
-        top: 9px;
+        bottom: 550px;
         font-size: 1.8em;
-        // color: black;
-        font-weight: 100;
+        color: gold;
+        // font-weight: 100;
     }
     .segment{
-        // top:0px;
+        top: 240px;
         background-color: white;
         position: absolute;
         width: 100%;
         z-index: 1;
     }
     .cover{
-        height: 250px;
+        height: 200px;
         width: 100%;
         object-fit: cover;
     }
     .round{
-        border: solid 2px white;
-        width: 70px;
-        border-radius: 50%;
-        height: 70px;
-        margin-left: 4%;
-        margin-top: 3%;        
+        border: solid 5px rgb(255, 255, 255);
+        width: 110px;
+        border-radius: 100px;
+        height: 110px;
+        left: 50%;
+        transform: translateX(-140%);
+        margin-bottom: 50px;
+        position: relative;
+        bottom: 50px;
+        // margin: 0 auto;     
     }
     .name{
         // text-align: center;
-        font-weight: bolder;
-        color: #fff;
-        font-size: 15px;
-        text-align: left;
+        font-weight: 100;
+        color: rgb(0, 0, 0);
+        font-size: 1.5em;
+        text-align: center;
+        position: relative;
+        bottom: 120px;
     }
     ion-grid{
         // border: 2px solid red
@@ -589,8 +918,8 @@ page-view {
     .main{
         // border: 2px solid red;
         margin-top:-10px;
-        background-color: #166b85;
-        height: 110px;
+        background-color: #ffffff;
+        height: 120px;
         position: relative;
         text-transform: capitalize;
     }
@@ -599,12 +928,14 @@ page-view {
         margin-top: -10px;
     }
     .category{
-        color: white;
+        color: rgb(0, 0, 0);
         font-style: italic;
-        font-weight: 100;
+        font-weight: 200;
         // position: absolute;
         // left:95px;
-        top: -10px;
+        text-align: center;
+        position: relative;
+        bottom: 135px;
     }
     
     ion-icon{
@@ -618,8 +949,10 @@ page-view {
     }
     .pictures{
         height: 120px;
-        // border: solid 2px white;
+        // border: solid 2px blue;
         // border-left: solid 2px white;
+        position: relative;
+        top: 275px;
     }
     .image{
         height: 100px;
@@ -669,57 +1002,159 @@ page-view {
             // .content{
         
     // }
+    h3{
+        position: relative;
+        bottom: 500%;
+        z-index: 100000000000;
+        font-weight: 100;
+        font-size: 1.3em;
+        text-align: left;
+        
+    }
+    .h1{
+        position: relative;
+        // left: 30px;
+        // transform: translateX(-10);
+        top: 520px;
+        font-weight: 100;
+        
+    }
+    .segbut{
+        font-size: 1.5em
+    }
+    .comments{
+        z-index: 1;
+        // background-color: #166b85;
+        position: absolute;
+        top: 850px;
+        width: 720px;
+    }
+    .Msg{
+        position: relative;
+        top: 15px;
+        font-size: 1.5em;
+    }
+    .Feedback{
+        position: relative;
+        top: 50px;
+    }
+    .ratings{
+     position: absolute;
+    //  border: #a6d7e6 solid 2px;
+     bottom: 200px;
+    //  z-index: 100000000;
+    left: 270px;
+    }
+    .thecontent{
+        position: relative;
+        bottom: 250%;
+    }
+    .P{
+       position: relative;
+       bottom: 150px;
+       padding: 10px;
+       font-size: 1.5em
+    }
+    
+    .TheCol{
+        // border: #166b85 2px solid;
+        position: relative;
+        bottom: 90px;
+        width: 100vw;
+    }
+   
+    .Gold{
+        color: gold;
+        font-size: 20px;
+        padding-bottom: 200%;
+       
+    }
+    .StarCard{
+        // border: #166b85 solid 2px;
+        margin-top: 25px;
+        box-shadow: 0 0 0
+    }
+    .Sstar{
+        position: relative;
+        top: 9px;
+        font-size: 2em;
+        color: black;
+        font-weight: 100;
+    }
     .segment{
-        // top:0px;
+        top: 350px;
         background-color: white;
         position: absolute;
         width: 100%;
-        z-index: 1;
+        z-index: 1000000000000000000;
+       
     }
     .cover{
-        height: 250px;
+        height: 300px;
         width: 100%;
         object-fit: cover;
     }
     .round{
-        border: solid 2px white;
-        width: 90px;
-        border-radius: 50%;
-        height: 90px;
-        margin-left: 8%;
-        margin-top: 3%;        
+        border: solid 5px rgb(255, 255, 255);
+        width: 110px;
+        border-radius: 100px;
+        height: 110px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 50px;
+        position: relative;
+        bottom: 50px;
+        // margin: 0 auto;     
     }
     .name{
         // text-align: center;
-        font-weight: bolder;
-        color: #fff;
-        font-size: 2.5em;
-       position: relative;
-       left: 4%;
+        font-weight: 100;
+        color: rgb(0, 0, 0);
+        font-size: 1.5em;
+        text-align: center;
+        position: relative;
+        bottom: 120px;
+    }
+    ion-grid{
+        // border: 2px solid red
+    }
+    ion-row{
+        // border: 2px solid greenyellow        
+    }
+    ion-col{
+        // border: 2px solid red;
+        position: relative;
+        height: 50px;
     }
     .details{
-        text-align: left
+        text-align: lebnft
     }
     .flex{
         display: flex;
+        flex-wrap: wrap;
         position: relative;
     }
     .main{
         // border: 2px solid red;
         margin-top:-10px;
-        background-color: #166b85;
-        height: 170px;
+        background-color: #ffffff;
+        height: 120px;
         position: relative;
         text-transform: capitalize;
     }
+    .stars{
+        // border: 2px solid red;
+        margin-top: -10px;
+    }
     .category{
-        color: white;
+        color: rgb(0, 0, 0);
         font-style: italic;
-        font-size: 2em;
-        font-weight: 100;
+        font-weight: 200;
+        // position: absolute;
+        // left:95px;
+        text-align: center;
         position: relative;
-        bottom: 12%;
-        left: -26%;
+        bottom: 135px;
     }
     
     ion-icon{
@@ -732,13 +1167,16 @@ page-view {
         background: white;
     }
     .pictures{
-        height: 230px;
-        // border: solid 2px red;
+        height: 130px;
+        width: 100%;
+        // border: solid 2px blue;
         // border-left: solid 2px white;
+        position: relative;
+        top: 320px;
     }
     .image{
-        height: 200px;
-        width: 220px;
+        height: 120px;
+        width: 100vw;
     }
     .map{
         width: 100%;
@@ -758,11 +1196,12 @@ page-view {
     .arrow{
         position: relative;
         top: 2%;
-        color: black;
+        text-shadow: 0 0 5px black;
+        font-size: 2em;
     }
     .Reviews{
-        position: relative;
-        top: 25px;
+        // position: relative;
+        // top: 20px;
     }
     .Rate{
         position: relative;
@@ -773,10 +1212,440 @@ page-view {
         color: rgb(119, 114, 114);
         font-size: 1em
     }
-    .ratings{
-        position: relative;
-        bottom: 45%;
+    .about{
+        margin-top: 50px;
+    }
+    .info{
+        font-weight: 100;
     }
    
+    }
+    @media  screen and (max-width:350px){
+        .h1{
+            position: relative;
+            top: 200px;
+            font-size: 1em;
+        }
+        .comments{
+            z-index: 1;
+            // background-color: #166b85;
+            position: absolute;
+            top: 640px;
+            right: 0px;
+        }
+        .Msg{
+            position: relative;
+            bottom: 80px;
+            right: 30px;
+            z-index: 100000000;
+        }
+    
+        .Feedback{
+            position: relative;
+            top: 50px;
+        }
+    
+        .ratings{
+         position: absolute;
+        //  border: #a6d7e6 solid 2px;
+         bottom: 1px;
+        //  z-index: 100000000;
+        left: 80px;
+        }
+    
+        .thecontent{
+            position: relative;
+            bottom: 250%;
+        }
+    
+        .P{
+           position: relative;
+           bottom: 150px;
+           padding: 10px;
+        }
+        
+        .TheCol{
+            // border: #166b85 2px solid;
+            position: relative;
+            bottom: 90px;
+            width: 100vw;
+        }
+       
+        .Gold{
+            color: gold;
+            font-size: 20px;
+            padding-bottom: 200%;
+           
+        }
+        .StarCard{
+            // border: #166b85 solid 2px;
+            margin-top: 45px;
+            box-shadow: 0 0 0
+        }
+        .Sstar{
+            position: relative;
+            top: 60px;
+            right: 25px;
+            font-size: 1.8em;
+            color: black;
+            font-weight: 100;
+            
+        }
+        .segment{
+            top: 260px;
+            background-color: white;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+        .cover{
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .round{
+            border: solid 5px rgb(255, 255, 255);
+            width: 110px;
+            border-radius: 100px;
+            height: 110px;
+            left: 50%;
+            transform: translateX(-140%);
+            margin-bottom: 50px;
+            position: relative;
+            bottom: 50px;
+            // margin: 0 auto;     
+        }
+        .name{
+            // text-align: center;
+            font-weight: 100;
+            color: rgb(0, 0, 0);
+            font-size: 1.5em;
+            text-align: center;
+            position: relative;
+            bottom: 120px;
+        }
+        ion-grid{
+            // border: 2px solid red
+        }
+        ion-row{
+            // border: 2px solid greenyellow        
+        }
+        ion-col{
+            // border: 2px solid red;
+            position: relative;
+            height: 50px;
+        }
+        .details{
+            text-align: lebnft
+        }
+        .flex{
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .main{
+            // border: 2px solid red;
+            margin-top:-10px;
+            background-color: #ffffff;
+            height: 120px;
+            position: relative;
+            text-transform: capitalize;
+        }
+        .stars{
+            // border: 2px solid red;
+            margin-top: -10px;
+        }
+        .category{
+            color: rgb(0, 0, 0);
+            font-style: italic;
+            font-weight: 200;
+            // position: absolute;
+            // left:95px;
+            text-align: center;
+            position: relative;
+            bottom: 135px;
+        }
+        
+        ion-icon{
+            color: rgb(223, 219, 219);
+            position: relative;
+            top: -19px;
+        }
+        .test{
+            // height: 1000px;
+            background: white;
+        }
+        .pictures{
+            height: 110px;
+            // border: solid 2px blue;
+            // border-left: solid 2px white;
+            position: relative;
+            top: 225px;
+            
+        
+        }
+        .image{
+            height: 100px;
+            width: 250vw;
+        }
+        .map{
+            width: 100%;
+            object-fit: cover;
+        }
+        .fullBtn{
+            position: relative;
+            top: 10%;
+        }
+        .buttons{
+            position: relative;
+            bottom: 10px;
+        }
+        .backBtn{
+            color: white;
+        }
+        .arrow{
+            position: relative;
+            top: 2%;
+            text-shadow: 0 0 5px black;
+            font-size: 2em;
+        }
+        .Reviews{
+            // position: relative;
+            // top: 20px;
+        }
+        .Rate{
+            position: relative;
+            top: 15px;
+            
+        }
+        .stars{
+            color: rgb(119, 114, 114);
+            font-size: 1em
+        }
+        .about{
+            margin-top: 50px;
+        }
+        .info{
+            font-weight: 100;
+        }
+    }
+    @media screen and (max-width: 500px){
+        .h1{
+            position: relative;
+            top: 200px;
+            font-size: 1.5em;
+            left: 30px;
+            transform: translateX(-30)
+    
+        }
+        h3{
+            position: relative;
+            top: 260px;
+            left: 14px;
+            transform: translateX(-40);
+            font-weight: 100;
+            font-size: 1em;
+            // text-align: left;    
+        }
+        .comments{
+            z-index: 1;
+            // background-color: #166b85;
+            position: absolute;
+            top: 670px;
+            right: 0px;
+        }
+        .Msg{
+            position: relative;
+            top: 60px;
+            right: 30px;
+        }
+    
+        .Feedback{
+            position: relative;
+            top: 50px;
+        }
+    
+        .ratings{
+         position: absolute;
+        //  border: #a6d7e6 solid 2px;
+         bottom: 1px;
+        //  z-index: 100000000;
+        left: 80px;
+        }
+    
+        .thecontent{
+            position: relative;
+            bottom: 250%;
+        }
+    
+        .P{
+           position: relative;
+           bottom: 150px;
+           padding: 10px;
+        }
+        
+        .TheCol{
+            // border: #166b85 2px solid;
+            position: relative;
+            bottom: 90px;
+            width: 100vw;
+        }
+       
+        .Gold{
+            color: gold;
+            font-size: 20px;
+            padding-bottom: 200%;
+           
+        }
+        .StarCard{
+            // border: #166b85 solid 2px;
+            margin-top: 30px;
+            box-shadow: 0 0 0
+        }
+        .Sstar{
+            position: relative;
+            top: 60px;
+            right: 25px;
+            font-size: 1.8em;
+            color: #e4d727;
+            font-weight: 100;
+            
+        }
+        .segment{
+            top: 260px;
+            background-color: white;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+        .cover{
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .round{
+            border: solid 5px rgb(255, 255, 255);
+            width: 110px;
+            border-radius: 100px;
+            height: 110px;
+            margin-left: 100px;
+            margin-bottom: 50px;
+            position: relative;
+            bottom: 50px;
+            // margin: 0 auto;     
+        }
+        .name{
+            // text-align: center;
+            font-weight: 100;
+            color: rgb(0, 0, 0);
+            font-size: 1.5em;
+            text-align: center;
+            position: relative;
+            bottom: 120px;
+        }
+        ion-grid{
+            // border: 2px solid red
+        }
+        ion-row{
+            // border: 2px solid greenyellow        
+        }
+        ion-col{
+            // border: 2px solid red;
+            position: relative;
+            height: 50px;
+        }
+        .details{
+            text-align: lebnft
+        }
+        .flex{
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .main{
+            // border: 2px solid red;
+            margin-top:-10px;
+            background-color: #ffffff;
+            height: 120px;
+            position: relative;
+            text-transform: capitalize;
+        }
+        .stars{
+            // border: 2px solid red;
+            margin-top: -10px;
+        }
+        .category{
+            color: rgb(0, 0, 0);
+            font-style: italic;
+            font-weight: 200;
+            // position: absolute;
+            // left:95px;
+            text-align: center;
+            position: relative;
+            bottom: 135px;
+        }
+        
+        ion-icon{
+            color: rgb(223, 219, 219);
+            position: relative;
+            top: -19px;
+        }
+        .test{
+            // height: 1000px;
+            background: white;
+        }
+        .pictures{
+            height: 110px;
+            // border: solid 2px blue;
+            // border-left: solid 2px white;
+            position: relative;
+            top: 225px;
+            
+        
+        }
+        .image{
+            height: 100px;
+            width: 250vw;
+        }
+        .map{
+            width: 100%;
+            object-fit: cover;
+        }
+        .fullBtn{
+            position: relative;
+            top: 10%;
+        }
+        .buttons{
+            position: relative;
+            bottom: 10px;
+        }
+        .backBtn{
+            color: white;
+        }
+        .arrow{
+            position: relative;
+            top: 2%;
+            text-shadow: 0 0 5px black;
+            font-size: 2em;
+        }
+        .Reviews{
+            // position: relative;
+            // top: 20px;
+        }
+        .Rate{
+            position: relative;
+            top: 15px;
+            
+        }
+        .stars{
+            color: rgb(119, 114, 114);
+            font-size: 1em
+        }
+        .about{
+            margin-top: 50px;
+        }
+        .info{
+            font-weight: 100;
+        }
     }
 }

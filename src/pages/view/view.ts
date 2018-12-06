@@ -9,6 +9,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { SignInPage } from '../sign-in/sign-in';
+import { HomePage } from '../home/home';
 
 
 
@@ -27,7 +28,7 @@ declare var firebase;
   templateUrl: 'view.html',
 })
 export class ViewPage {
-  pet = "About"
+  pet = "about"
   orgArray = new Array();
   commentArr = new Array();
   profileArr = new Array();
@@ -39,54 +40,57 @@ export class ViewPage {
   Star3 = "star-outline";
   Star4 = "star-outline";
   Star5 = "star-outline";
-  rateState:boolean;
+  rateState: boolean;
   condition;
-  commentKey:any;
+  commentKey: any;
   keys2;
   blankStar = "star-outline";
   imageKey;
-  username:any
+  username: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
     console.log(this.navParams.get('orgObject'))
     this.imageKey = this.orgArray[0].key;
-    console.log(this.imageKey);
+
+    console.log(this.orgArray);
+
     this.retrieveComments();
   }
   ionViewDidEnter() {
 
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
-    this.retrieveComments();
 
-    this.pinhomeProvider.checkstate().then((data)=>{
+
+    this.pinhomeProvider.checkstate().then((data) => {
       console.log(data);
     })
 
 
-    // this.pinhomeProvider.UserProfile().then((data)=>{
-    //   console.log(data)
-    // })
+    this.pinhomeProvider.retrieveOrganization().then((data) => {
+      console.log(data)
+    })
   }
 
-  storeCatData(data){
-    this.profileArr =  data;
-   console.log(this.profileArr)
+  storeCatData(data) {
+    this.profileArr = data;
+    console.log(this.profileArr)
     // console.log(this.tempArray);
   }
   retrieveComments() {
-    this.pinhomeProvider.viewComments(this.comments,this.imageKey).then((data:any) => {
-        this.commentArr = data;
-        console.log(data);
-        var rating = this.pinhomeProvider.getRating();
-        console.log(rating)
-        if (rating > 0){
-          this.rate(rating);
-        this.rateState =  true;
-        }
-        else if (rating == undefined){
-          this.rateState = false
-        }
+    this.commentArr.length = 0;
+    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
+      this.commentArr = data;
+      console.log(this.commentArr);
+      let rating = this.pinhomeProvider.getRating();
+      console.log(rating)
+      if (rating > 0) {
+        this.rate(rating);
+        this.rateState = true;
+      }
+      else if (rating == undefined) {
+        this.rateState = false
+      }
     })
   }
   initMap(address) {
@@ -112,7 +116,7 @@ export class ViewPage {
   }
 
   Back() {
-    this.navCtrl.pop()
+    this.navCtrl.setRoot(HomePage);
   }
 
   reposition(event) {
@@ -181,16 +185,16 @@ export class ViewPage {
 
 
   view() {
-    this.pinhomeProvider.viewComments(this.comments,this.imageKey).then((data) => {
+    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
       console.log(data);
     })
   }
 
   comment(num) {
-    this.pinhomeProvider.checkAuthState().then(data =>{
-      if (data == true){
+    this.pinhomeProvider.checkAuthState().then(data => {
+      if (data == true) {
         console.log(data);
-        if (this.rateState == false || this.rateState == undefined){
+        if (this.rateState == false || this.rateState == undefined) {
           const prompt = this.alertCtrl.create({
             title: 'Comment',
             message: "You can comment below",
@@ -210,47 +214,47 @@ export class ViewPage {
               {
                 text: 'Comment',
                 handler: data => {
-         
+
                   console.log('Saved clicked' + data.comments);
-                  this.pinhomeProvider.comments(data.comments,this.imageKey, num).then((data) => {
-                    this.pinhomeProvider.viewComments(this.comments,this.imageKey).then((data) => {
+                  this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
+                    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
                       console.log(data);
-                      // this.commentArr.length = 0;
+                      this.commentArr.length = 0;
                       this.retrieveComments();
                       this.rate(num);
                       this.rateState = true;
                     })
-                  })  
+                  })
                 }
               }
             ]
           });
           prompt.present();
         }
-       else if (this.rateState == true) {
-        let alert = this.alertCtrl.create({
-          title: 'ohhhh! sorry!',
-          subTitle: 'you cannot rate more than once',
-          buttons: ['Ok']
-        });
-        alert.present();
-       }
+        else if (this.rateState == true) {
+          let alert = this.alertCtrl.create({
+            title: 'ohhhh! sorry!',
+            subTitle: 'you cannot rate more than once',
+            buttons: ['Ok']
+          });
+          alert.present();
+        }
       }
-      else{
+      else {
         let alert = this.alertCtrl.create({
           title: 'ohhhh! sorry!',
           subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
           buttons: [
             {
               text: 'Yes',
-              handler:  data =>{
-                var opt =  "rate";
-                this.navCtrl.push(SignInPage, {option:opt,obj:this.orgArray})
+              handler: data => {
+                var opt = "rate";
+                this.navCtrl.push(SignInPage, { option: opt, obj: this.orgArray })
               }
             },
             {
               text: 'No',
-              handler: data =>{
+              handler: data => {
 
               }
             }
@@ -259,7 +263,7 @@ export class ViewPage {
         alert.present();
       }
     })
-    
+
   }
 
   rate(num) {

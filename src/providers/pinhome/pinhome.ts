@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 
 /*
   Generated class for the PinhomeProvider provider.
@@ -32,8 +33,9 @@ export class PinhomeProvider {
   //variables
   // url;
   rating;
+  Location;
 
-  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
   }
 
@@ -210,23 +212,32 @@ export class PinhomeProvider {
     })
   }
 
-
-
-
-
-  getCurrentLocation() {
-    //get current location
-    return new Promise((accpt, rej) => {
-      this.geolocation.getCurrentPosition().then((resp) => {
-        this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data: any) => {
-          accpt(data);
+  setLocation(data){
+    this.Location =  data;
+    console.log(this.Location);
+    }
+  
+    getLocation(){
+      console.log(this.Location);
+      return this.Location;
+    }
+  getCurrentLocation(){
+   //get current location
+    return new Promise ((accpt, rej) =>{
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data:any) =>{
+        this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+        .then((result: NativeGeocoderReverseResult[]) => {
+          this.setLocation(result[0])
         })
-      }).catch((error) => {
-        console.log('Error getting location', error);
-      });
-    })
+        .catch((error: any) => console.log(error))
+        accpt(data);
+      })
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+     })
   }
-
   createPositionRadius(latitude, longitude) {
     var leftposition, rightposition, downposition, uposititon;
     return new Promise((accpt, rej) => {
@@ -384,10 +395,12 @@ export class PinhomeProvider {
               orgLong: SelectCategory[k].longitude,
               orgEmail: SelectCategory[k].Email,
               orgAbout: SelectCategory[k].AboutOrg,
-              orgPrice: SelectCategory[k].Price
-
+              orgPrice: SelectCategory[k].Price,
+              orgGallery :SelectCategory[k].UrlGallery,
+              key: k,
             }
             this.categoryArr.push(obj);
+            console.log(this.categoryArr);
           }
         }
         accpt(this.categoryArr);
@@ -416,9 +429,8 @@ export class PinhomeProvider {
             orgEmail: SelectCategory[k].Email,
             orgAbout: SelectCategory[k].AboutOrg,
             orgPrice: SelectCategory[k].Price,
+            orgGallery :SelectCategory[k].UrlGallery,
             key: k,
-            UrlGallery: SelectCategory[k].UrlGallery
-
           }
           this.categoryArr.push(obj);
           console.log(this.categoryArr)
@@ -441,22 +453,19 @@ export class PinhomeProvider {
       })
       accpt('success');
     });
-
   }
-
-
-
   viewComments(comment: any, commentKey: any) {
     return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
+      let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
-        var CommentDetails = data.val();
+        let CommentDetails = data.val();
+             
         if (data.val() != null || data.val() != undefined) {
           this.commentArr.length = 0;
-          var keys1: any = Object.keys(CommentDetails);
+          let keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
-            var key = keys1[i];
-            var chckId = CommentDetails[key].uid;
+            let key = keys1[i];
+            let chckId = CommentDetails[key].uid;
             let obj = {
               comment: CommentDetails[key].comment,
               uid: CommentDetails[key].uid,
@@ -464,6 +473,7 @@ export class PinhomeProvider {
               rating: parseInt(CommentDetails[key].rate),
               username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
+              key: key,
             }
             if (user) {
               if (user.uid == CommentDetails[key].uid) {
@@ -475,6 +485,7 @@ export class PinhomeProvider {
               obj.username = profileData.name
               console.log(obj)
               this.commentArr.push(obj);
+              console.log(this.commentArr)
             });
           }
           accpt(this.commentArr);

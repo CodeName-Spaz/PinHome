@@ -25,6 +25,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 
 firebase.initializeApp({
@@ -76,7 +77,8 @@ firebase.initializeApp({
     GoogleMaps,
     EmailComposer,
     CallNumber,
-    LaunchNavigator
+    LaunchNavigator,
+    NativeGeocoder
   ]
 })
 export class AppModule {}
