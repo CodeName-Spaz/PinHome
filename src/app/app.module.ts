@@ -23,9 +23,14 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
+<<<<<<< HEAD
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+=======
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization'
+>>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
 
 
 firebase.initializeApp({
@@ -46,8 +51,13 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
+<<<<<<< HEAD
   AddOrganizationPage,
    EditProfilePage
+=======
+    EditProfilePage,
+    AddOrganizationPage
+>>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
     // IonicImageViewerModule
   ],
   imports: [
@@ -64,8 +74,13 @@ firebase.initializeApp({
     SignUpPage,
     SignInPage,
     ProfilePage,
+<<<<<<< HEAD
     AddOrganizationPage,
     EditProfilePage
+=======
+    EditProfilePage,
+    AddOrganizationPage
+>>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
     // IonicImageViewerModule
   ],
   providers: [

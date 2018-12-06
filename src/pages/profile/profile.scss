@@ -1,5 +1,9 @@
 page-profile {
     // transition: 1s;
+
+    .content{
+        background-color: #c3cbce
+    }
     .top{
         // border: 2px solid red;
         background: #fff;
@@ -38,6 +42,7 @@ page-profile {
         z-index: 1000000000000;
         width: 60%;
         box-shadow: 0 0px 2px rgba(128, 128, 128, 0.5);
+     
         
     }
     .para{
@@ -95,10 +100,10 @@ page-profile {
     }
     .theRatingsPart{
         padding-left: 2em;
-        color: grey;
+        color: rgb(37, 36, 36);
         font-size: 10px;
         font-weight: bolder;
-        border-bottom: 1px solid grey
+        border-bottom: 1px solid rgb(0, 0, 0)
     }
     .comment{
         font-size: 12px;

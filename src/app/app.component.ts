@@ -14,11 +14,15 @@ import { ProfilePage } from '../pages/profile/profile';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile'
 
 import { PinhomeProvider } from '../providers/pinhome/pinhome';
+<<<<<<< HEAD
 
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 
 
 
+=======
+import { EditProfilePage } from '../pages/edit-profile/edit-profile'
+>>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,11 +31,16 @@ export class MyApp {
 
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+<<<<<<< HEAD
 
 
     platform.ready().then(() => {
       this.rootPage = HomePage;
 
+=======
+    platform.ready().then(() => {
+      this.rootPage = EditProfilePage;
+>>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
       ;
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
