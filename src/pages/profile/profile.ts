@@ -36,7 +36,7 @@ export class ProfilePage {
   }
 
   GoTOHomePage() {
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(HomePage);
   }
 
   scroller(event) {

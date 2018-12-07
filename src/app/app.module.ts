@@ -23,23 +23,20 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
-<<<<<<< HEAD
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
-=======
-import { EditProfilePage } from '../pages/edit-profile/edit-profile';
-import { AddOrganizationPage } from '../pages/add-organization/add-organization'
->>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
-  authDomain: "pinhome-823ec.firebaseapp.com",
-  databaseURL: "https://pinhome-823ec.firebaseio.com",
-  projectId: "pinhome-823ec",
-  storageBucket: "pinhome-823ec.appspot.com",
-  messagingSenderId: "523364615140"
+  apiKey: "AIzaSyD_x4Z2kN-f2La1wNzDvgD2S3kKQHEWPBs",
+  authDomain: "pinhome2-0.firebaseapp.com",
+  databaseURL: "https://pinhome2-0.firebaseio.com",
+  projectId: "pinhome2-0",
+  storageBucket: "pinhome2-0.appspot.com",
+  messagingSenderId: "966103659311"
 })
 
 @NgModule({
@@ -51,13 +48,8 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
-<<<<<<< HEAD
   AddOrganizationPage,
    EditProfilePage
-=======
-    EditProfilePage,
-    AddOrganizationPage
->>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
     // IonicImageViewerModule
   ],
   imports: [
@@ -74,13 +66,8 @@ firebase.initializeApp({
     SignUpPage,
     SignInPage,
     ProfilePage,
-<<<<<<< HEAD
     AddOrganizationPage,
     EditProfilePage
-=======
-    EditProfilePage,
-    AddOrganizationPage
->>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
     // IonicImageViewerModule
   ],
   providers: [
@@ -93,7 +80,8 @@ firebase.initializeApp({
     EmailComposer,
     CallNumber,
     LaunchNavigator,
-    NativeGeocoder
+    NativeGeocoder,
+    ScreenOrientation
   ]
 })
 export class AppModule {}

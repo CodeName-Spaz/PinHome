@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -8,15 +8,13 @@ import {
   CameraPosition,
   MarkerOptions,
   Marker,
-  Environment,
-  Circle,
-  GoogleMapsAnimation,
-  MarkerCluster
+  Environment,GoogleMapsAnimation, Circle
 } from '@ionic-native/google-maps';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view';
 import { HomePage } from '../home/home';
-import { state } from '@angular/core/src/animation/dsl';
+import { ProfilePage } from '../profile/profile';
+import { SignInPage } from '../sign-in/sign-in';
 
 /**
  * Generated class for the NearbyOrgPage page.
@@ -31,17 +29,19 @@ import { state } from '@angular/core/src/animation/dsl';
 })
 export class NearbyOrgPage {
   map: GoogleMap;
-  orgArray =  new Array();
+  orgArray = new Array();
   cat = [];
   location;
-  images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
-  circle:Circle;
-  category;
   decide = 0;
   arrow = "arrow-down";
+
   arrowDir = "arrow-down";
 
-  constructor(public pinhome : PinhomeProvider, public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController) {
+  navColor = "custom";
+  images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
+  circle: Circle;
+
+  constructor(private pinhomeProvider: PinhomeProvider,private alertCtrl: AlertController,public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -54,7 +54,8 @@ export class NearbyOrgPage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting your location,please wait',
-      duration: 22222000
+      duration: 222000
+
     });
     loading.present();
     this.orgArray.length = 0;
@@ -211,7 +212,7 @@ export class NearbyOrgPage {
       }).then((marker : Marker ) =>{
         marker.showInfoWindow();
       })
-      this.pinhome.getOrganisations().then((data:any) =>{
+      this.pinhome.retrieveOrganization().then((data:any) =>{
         this.orgArray =  data;
         console.log(this.orgArray);
         var indx = 0;
@@ -259,110 +260,106 @@ export class NearbyOrgPage {
   })
 })
   }
-
-  createCurrentLocationMarker(){
-    this.pinhome.getCurrentLocation().then((resp:any) =>{
+  viewDetails(name){
+    for (var i = 0; i < this.orgArray.length; i++) {
+      if (this.orgArray[i].orgName == name) {
+        this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+        break;
+      }
+    }
+  }
+  createCurrentLocationMarker() {
+    this.pinhome.getCurrentLocation().then((resp: any) => {
       this.map.addMarker({
         title: 'current Location',
         icon: 'red',
         animation: 'DROP',
         position: {
           lat: -26.26099,
-          lng:  27.9496564
+          lng: 27.9496564
         }
-      }).then((marker : Marker ) =>{
+      }).then((marker: Marker) => {
         marker.showInfoWindow();
       })
-      this.pinhome.createPositionRadius(resp.coords.latitude,resp.coords.longitude).then(data =>{
+      this.pinhome.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then(data => {
       })
     })
   }
-  GoToHomePage(){
-    this.navCtrl.push(HomePage);
+  GoToHomePage() {
+    this.navCtrl.setRoot(HomePage);
   }
-  selectcategory(){
+  more(category) {
+    console.log(category);
     this.map.clear();
-   this.orgArray.length = 0;
-    this.pinhome.DisplayCategory(this.category).then((data:any) =>{
-     this.cat =  data;
-     let position = {
-      "lat" :this.location.coords.latitude,
-      "lng" : this.location.coords.longitude  
-    }
-     this.map.addCircle({
-      'center': position,
-      'radius': 10000,
-      'strokeColor': '#f5f5f5',
-      'strokeWidth': 2,
-      'fillColor': '#e0e0e0',
-      'animation' : GoogleMapsAnimation.BOUNCE
-    }).then((circle: Circle) => {
-      this.circle = circle;
-    })
-    this.map.addMarker({
-      title: 'current Location',
-      icon:  {
-        url :"assets/imgs/current.png",
-        size : {width: 35, height: 40}
-      },
-      animation: 'DROP',
-      position: {
-        lat:this.location.coords.latitude,
-        lng: this.location.coords.longitude
-      }
-    }).then((marker : Marker ) =>{
-      marker.showInfoWindow();
-    })
-      this.orgArray =  data;
-      console.log(this.orgArray);
-      var indx = 0;
-      for (var x = 0; x < this.cat.length; x++){
-        if (this.orgArray[x].orgCat == "Orphanage")
-            indx =  1;
-            else if (this.orgArray[x].orgCat == "Disability")
-            indx =  2;
-            else if (this.orgArray[x].orgCat == "old age")
-            indx =  3;
-            else if (this.orgArray[x].orgCat == "theraphy")
-            indx =  4;
-            else if (this.orgArray[x].orgCat == "Psychiatric")
-            indx =  5;
-            else if (this.orgArray[x].orgCat == "social centre")
-            indx =  6;
-            else if (this.orgArray[x].orgCat == "Rehab")
-            indx =  7;
+    this.pinhome.DisplayCategory(category).then((data: any) => {
+      this.cat = data;
+      this.map.addMarker({
+        title: 'current Location',
+        icon: 'blue',
+        animation: 'DROP',
+        position: {
+          lat: this.location.coords.latitude,
+          lng: this.location.coords.longitude
+        }
+      }).then((marker: Marker) => {
+        marker.showInfoWindow();
+      })
+      this.orgArray = data;
+      for (var x = 0; x < this.cat.length; x++) {
         this.map.addMarker({
           title: this.cat[x].orgName,
-          icon:  {
-            url :this.images[indx],
-            size : {width: 30, height: 30}
-          },
+          icon: 'red',
           animation: 'DROP',
           position: {
             lat: this.cat[x].orgLat,
-            lng:  this.cat[x].orgLong 
+            lng: this.cat[x].orgLong
           }
-        }).then((marker : Marker ) =>{
-          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
-              for (var i = 0; i < this.cat.length; i++ ){
-                if (this.orgArray[i].orgName ==  marker.getTitle()){
-                  this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
-                    break;
-                }
+        }).then((marker: Marker) => {
+          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e => {
+            for (var i = 0; i < this.cat.length; i++) {
+              if (this.orgArray[i].orgName == marker.getTitle()) {
+                this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+                break;
               }
+            }
           })
         })
       }
     })
   }
 
-  assignLocation(resp){
-    this.location =  resp;
+  assignLocation(resp) {
+    this.location = resp;
+  }
+
+  scroller(event) {
+    var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+    footBtn[0].style.transition ="700ms";
+    if (event.scrollTop > 0) {
+      mapper[0].style.height = "50%";
+              this.arrow = "arrow-down";
+        // footBtn[0].style.top= "-45px";
+      
+        this.arrow = "arrow-down"
+      footBtn[0].style.top = "-38px";
+      this.decide = 0;
+      this.arrow = "arrow-down"
+      this.navColor = "custom"
+    }
+    console.log("scrolling");
+    if(this.decide == 0 || event.scrollTop == 0){
+      this.arrow = "arrow-down";
+    }
+    
+
   }
   changeMapSize() {
     var theArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
     // var divver = document.getElementsByClassName("cont") as HTMLCollectionOf<HTMLElement>;
     var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
 
     if (this.decide == 0) {
       this.decide = 1;
@@ -377,14 +374,20 @@ export class NearbyOrgPage {
       mapSize[0].style.height = "95%";
       console.log('growing map');
       this.arrow = "arrow-up";
+      footBtn[0].style.transition = "300ms"
+      footBtn[0].style.top= "0";
+      this.navColor = "navFull"
 
 
     }
-    else if (this.decide == 0) {
+    else{
 
       mapSize[0].style.height = "50%";
       console.log('shrinking map');
-      this.arrow = "arrow-down"
+      this.arrow = "arrow-down";
+      footBtn[0].style.transition = "1200ms"
+      footBtn[0].style.top= "-45px";
+      this.navColor = "custom"
     }
     setTimeout(() => {
       mapSize[0].style.height = "50%";
@@ -393,8 +396,34 @@ export class NearbyOrgPage {
     }, 60000);
 
   }
-  viewMoreDetails(a){
-    this.navCtrl.push(ViewPage,{orgObject: this.orgArray[a]})
+  viewPage() {
+    this.pinhomeProvider.checkAuthState().then(data => {
+      if (data == false) {
+        let alert = this.alertCtrl.create({
+          title: 'ohhhh! sorry!',
+          subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
+          buttons: [
+            {
+              text: 'Yes',
+              handler: data => {
+                var opt = "profile";
+                this.navCtrl.push(SignInPage, { option: opt })
+              }
+            },
+            {
+              text: 'No',
+              handler: data => {
+
+              }
+            }
+          ]
+        });
+        alert.present();
+      } else {
+        this.navCtrl.push(ProfilePage)
+      }
+
+    })
   }
 
 }

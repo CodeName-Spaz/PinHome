@@ -26,11 +26,7 @@ export class AddOrganizationPage {
   long;
   latitude;
   longitude
-<<<<<<< HEAD
   urlLogo;
-=======
-  urlLogo="../../assets/imgs/Defaults/Person.png";
->>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2
   logoPhoto;
   urlGallery;
   galleryupload;
@@ -151,8 +147,4 @@ export class AddOrganizationPage {
     });
     toast.present();
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8d58149e111b989332e8d69bc751344fcace2cb2

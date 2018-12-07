@@ -27,6 +27,7 @@
     "@ionic-native/google-maps": "^4.15.1",
     "@ionic-native/launch-navigator": "^4.17.0",
     "@ionic-native/native-geocoder": "^4.17.0",
+    "@ionic-native/screen-orientation": "^4.18.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "^4.15.0",
     "@ionic/storage": "2.2.0",

@@ -1,88 +1,159 @@
 <ion-content (ionScroll)="scroller($event)" class="content">
-  <ion-fab class="greenBar" center>
-    <div (click)="removePopper()" class="colorThing"></div>
-  </ion-fab>
-        <ion-fab class="theFab" top left>
-        <button ion-fab clear color="transparent" mini icon-only class="backBTN" (click)="GoTOHomePage()">
-          <ion-icon name="arrow-back"></ion-icon>
-        </button>
-      </ion-fab>
-      <ion-fab  class="theFab2" top right>
-        <button class="editor" (click)="showPopover($event)" color="transparent" ion-fab mini icon-only clear>
-          <ion-icon ios="ios-settings-outline" md="md-settings"></ion-icon>
-        </button>
-      </ion-fab>
-      <ion-fab class="thePopover" top right>
-        <div class="popover">
-          <button ion-button clear (click)="editProfile()">Edit Profile</button><br>
-          <button ion-button clear (click)="logOut()">Log Out</button>
+    <ion-fab class="greenBar" center>
+      <div (click)="removePopper()" class="colorThing"></div>
+    </ion-fab>
+    <ion-fab class="theFab" top left>
+      <button ion-fab clear color="transparent" mini icon-only class="backBTN" (click)="GoTOHomePage()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-fab class="theFab2" top right>
+      <button class="editor" (click)="showPopover($event)" color="transparent" ion-fab mini icon-only clear>
+        <ion-icon ios="ios-settings-outline" md="md-settings"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-fab class="thePopover" top right>
+      <div class="popover">
+        <button ion-button clear (click)="editProfile()">Edit Profile</button>
+        <br>
+        <button ion-button clear (click)="logOut()">Log Out</button>
+      </div>
+    </ion-fab>
+    <div class="everything" (click)="removePopper()" *ngFor="let item of detailArray">
+      <div class="top">
+        <div class="head">
+          <div class="slant">
+          </div>
+          <div class="coverImage"></div>
+          <!-- <img class="coverImage" src="{{coveroUrl}}" alt=""> -->
+          <img class="DP" src="{{item.downloadurl}}" alt="" imageViewer>
+          <ion-card class="userName">
+            <h3>{{item.name}}</h3>
+            <p class="para">Made 30 Reviews</p>
+          </ion-card>
         </div>
-      </ion-fab>
-      <div class="everything" (click)="removePopper()" *ngFor="let item of detailArray">
-  <div class="top">
-    <div class="head">
-      <div class="slant">
-
       </div>
-
-      <img class="coverImage" src="{{coverUrl}}" alt="">
-      <img class="DP" [src]="item.downloadurl" alt="" imageViewer>
-      <ion-card class="userName">
-        <h3>{{item.name}}</h3>
-        <p class="para">Made 30 Reviews</p>
-      </ion-card>
-
-    </div>
-  </div>
-  <p>About</p>
-  <div class="body">
-    <div class="about">
-    <ion-card class="detail">
-      <p class="subTitles">Phone</p>
-    {{item.contact}}
-    </ion-card>
-    <ion-card class="detail">
-      <p class="subTitles">
-        Email
-      </p>
-      <h3>{{item.email}}</h3>
-    </ion-card>
-    <ion-card class="detail">
-      <p class="subTitles">Address</p>
-      4877 Ugago Street
-      <br> Protea Glen Ext 3
-      <br> JOHANNESBURG
-      <br> 1819
-    </ion-card>
-    <ion-card class="detail">
-      <p class="subTitles">Date of Birth</p>
-      1995 March 30
-    </ion-card>
-    </div>
-
-    <div class="myRatings">
-      <div class="theRatingsPart">
-        <p>My Ratings</p>
+      <p class="theAbout">About</p>
+      <div class="body">
+        <div class="about">
+          <ion-card class="detail">
+            <p class="subTitles">Phone</p>
+          {{item.contact}}
+          </ion-card>
+          <ion-card class="detail">
+            <p class="subTitles">
+              Email
+            </p>
+            <h3>{{item.email}}</h3>
+          </ion-card>
+          <ion-card class="detail">
+            <p class="subTitles">Address</p>
+           <P>{{item.address}}</P>
+          </ion-card>
+          <!-- <ion-card class="detail">
+            <p class="subTitles">Date of Birth</p>
+            1995 March 30
+          </ion-card> -->
+        </div>
+        <div class="myRatings">
+          <div class="theRatingsPart">
+            <p>My Ratings</p>
+          </div>
+          <!-- <ion-list>
+        <ion-item class="list" padding>
+            <h3 class="orgName">Alpha World Ministries</h3>
+            <p class="comment">The service is great</p>
+            <p class="stars">
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star"></ion-icon>
+              <ion-icon name="star-outline"></ion-icon>
+            </p>
+          </ion-item>
+          
+        </ion-list> -->
+          <ion-slides slidesPerView="2" loop="true" color="dark" pager paginationType="progress">
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+            <ion-slide>
+              <ion-card class="list" padding>
+                <h3 class="orgName">Alpha World Ministries</h3>
+                <p class="comment">The service is great</p>
+                <p class="stars">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-outline"></ion-icon>
+                </p>
+              </ion-card>
+            </ion-slide>
+          </ion-slides>
+        </div>
       </div>
-      <ion-list>
-      <ion-item class="list" padding>
-          <h3 class="orgName">Alpha World Ministries</h3>
-          <p class="comment">The service is great</p>
-          <p class="stars">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star-outline"></ion-icon>
-          </p>
-        </ion-item>
-        
-      </ion-list>
-        
     </div>
-  </div>
-
-  </div>
-
-
-</ion-content>
+  </ion-content>

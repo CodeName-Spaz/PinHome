@@ -1,14 +1,22 @@
 page-nearby-org {
+    ion-navbar{
+        transition: 700ms;
+    }
+    .btt{
+        background: #242f3e;
+        height: 100%;
+    }
    #map_canvas{
        width: 100%;
        box-shadow: 0 0 0.1px grey;     
-
    }
    .cont{
     position: relative;
     height: 50%;
-    // border: 2px solid
-    box-shadow: 0 0 10px grey;
+    background:rgb(36, 144, 177);
+    box-shadow: 0 -5px 15px rgba(128, 128, 128, 0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
    }
    .cat{
     position: absolute; 
@@ -47,156 +55,96 @@ page-nearby-org {
        transition: 700ms;
    }
    .handle{
-
+    background:#242f3e;
     }
     .ico{
         //    height: 2px;
         //    width: 25px;
-        background: white;
+        background:rgb(36, 144, 177);
         //    border: 2px solid grey;
         //    margin-top: 2px;
         width: 50px;
+        color: white;
         height: 50px;
         border-radius: 50PX;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         top: -25px;
-        box-shadow: 0 -5px 10px rgba(128, 128, 128, 0.5);
+        box-shadow: 0 -5px 15px rgba(128, 128, 128, 0.5);
    }
    .theIcon{
        transition: 700ms;
    }
-   #one{
-       background: #26819c;
-       transition: 700ms;
-   }
-   
-   #two{
-    background: #26819c;
-    transition: 700ms;
-}
-
-#three{
-    background: #2e9ec0;
-    transition: 700ms;
-}
-
-#four{
-    background: #2e9ec0;
-    transition: 700ms;
-}
-
-#five{
-    background: #39c0e9;
-    transition: 700ms;
-}
-
-#six{
-    background: #39c0e9;
-    transition: 700ms;
-}
-
-#seven{
-    background: #6cddff;
-     transition: 700ms;
-}
-
-#one:active{
-    background: #fff;
-    color: white;
-}
-
-#two:active{
- background: #fff;
- color: white;
-}
-
-#three:active{
- background: #fff;
-}
-
-#four:active{
- background: #fff;
-}
-
-#five:active{
- background: #fff;
-}
-
-#six:active{
- background: #fff;
-}
-
-#seven:active{
- background: #fff;
-}
-
 .slides{
     height: 200px;
+    background:rgb(36, 144, 177);
 }
 .theImage{
     width: 100%;
     height: 150px;
     object-fit: cover;
- 
- }
+}
 .card-background-page {
-
     ion-card {
-        position: relative;
-        text-align: left;
-        box-shadow: 0 0 10px black;
-        height: 150px;
-        margin-top: -15px;
-        border-radius: 7px;
-      }
+      position: relative;
+      text-align: left;
+      box-shadow: 0 0 10px black;
+      height: 150px;
+      margin-top: -15px;
+      border-radius: 7px;
+    }
   
     .card-title {
       position: absolute;
-      bottom: 25%;
-      font-size: 1em;
+      bottom: 40%;
+      font-size: 12px;
       width: 100%;
       font-weight: bold;
       color: #fff;
       padding-right: 10px;
       padding-left: 10px;
-      text-shadow: 0 0 15px black;
+      text-align: center;
+    //   text-shadow: 0 0 15px black;
+      -webkit-text-stroke-color:rgba(0, 0, 0, 1);
+      -webkit-text-stroke-width: 0.5px;
     //   border: 2px solid red;
     }
   
     .card-subtitle {
       font-size: 1.0em;
       position: absolute;
+      text-align: center;
       bottom: 15%;
       width: 100%;
       color: #fff;
       text-shadow: 0 0 15px black;
       padding-left: 10px;
       padding-right: 10px;
+      -webkit-text-stroke-color:rgba(0, 0, 0, 1);
+      -webkit-text-stroke-width: 0.5px;
       
     //   border: 2px solid red;
     }
   
   }
-//   ion-slide{
-//       box-shadow: 0 0 10px grey
-//   }
+  ion-slide{
+    //   box-shadow: 0 0 10px grey
+  }
   .theArrow{
-      transition: 700ms;
+    //   transition: 700ms;
     //   transform: rotateX(180DEG)
   }
-
-  ion-slide.swiper-slide{
-      left: 25%;
-  }
-  ion-slide.slider-pager{
-      fill: red;
-      stroke: red;
-  }
-  ion-slide.slider-pager-page.active{
-      fill: red;
-  }
+//   ion-slide.swiper-slide{
+//       left: 25%;
+//   }
+//   ion-slide.slider-pager{
+//       fill: red;
+//       stroke: red;
+//   }
+//   ion-slide.slider-pager-page.active{
+//       fill: red;
+//   }
   .hidden{
       width: 35px;
       position: absolute;
@@ -205,13 +153,16 @@ page-nearby-org {
     background: red;
     opacity: 0;
     
-
   }
   .flex{
       display: flex;
-      width: 100%;
+      width: 95%;
     //   border: 2px solid red;
       position: relative;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%)
     //   opacity: 0;
   }
   .btn{
@@ -225,6 +176,68 @@ page-nearby-org {
       top: -25px;
       left: -10px;
   }
-
-
+  .statement{
+      font-weight: bold;
+      color: white;
+      padding-left: 15px;
+      padding-top: 10px;
+      padding-right: 15px;
+      text-align: center;
+  }
+  .categories{
+      height: 30px;
+      display: none
+  }
+  .small{
+      height: 30px;
+      font-size: 10px;
+  }
+  .theFooter{
+      background: black;
+    //   position: relative;
+      bottom: 0;
+      height: 0px;
+  }
+  .listerBtn{
+      position: absolute;
+      top: -38px;
+      background: white;
+      box-shadow: 0 0 10px black;
+      transition: 1200ms;
+  }
+  @media screen and (min-width: 500px) {
+    .statement{
+        font-weight: bold;
+        color: white;
+        padding-left: 15px;
+        padding-top: 30px;
+        padding-right: 15px;
+        text-align: center;
+    }
+  }
+  .theFooter{
+      
+  }
+  @media screen and (min-height: 700px){
+    .categories{
+        height: 50px;
+        display: block;
+        font-size: 10px;
+        color: white;
+        // border: 2px solid green;
+    }
+    .small{
+        height: 40px;
+        // font-size: 8px;
+        // font-size: 8px;
+        background: white;
+        color: white;
+        border: 2px grey;
+        padding-top: 2px;
+        box-shadow: 0 0 10px black;
+    }
+    // {
+    //     font-size: 12px;
+    // }
+  }
 }

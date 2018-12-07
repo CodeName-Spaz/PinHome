@@ -5,7 +5,7 @@ import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
 
@@ -15,9 +15,9 @@ import * as _ from 'lodash';
 @Injectable()
 export class PinhomeProvider {
 
-  downloadurl: any;
+  downloadurl;
   Placeobject: any;
-  url: any;
+  url;
   detailArray: any;
   // firebase instances
   db = firebase.database();
@@ -68,7 +68,8 @@ export class PinhomeProvider {
           name: name,
           email: email,
           contact: "",
-          downloadurl: "../../assets/imgs/Defaults/default.jpg"
+          downloadurl: "../../assets/imgs/Defaults/default.jpg",
+          address:""
         })
         resolve();
         loading.dismiss();
@@ -216,7 +217,10 @@ export class PinhomeProvider {
     this.Location =  data;
     console.log(this.Location);
     }
-  
+    storeImgur1(url) {
+      this.url = url;
+      console.log(url);
+    }
     getLocation(){
       console.log(this.Location);
       return this.Location;
@@ -347,7 +351,8 @@ export class PinhomeProvider {
               orgLong: organisations[OrganisationKeys].longitude,
               orgEmail: organisations[OrganisationKeys].Email,
               orgAbout: organisations[OrganisationKeys].AboutOrg,
-              orgPrice: organisations[OrganisationKeys].Price
+              orgPrice: organisations[OrganisationKeys].Price,
+              orgGallery : organisations[OrganisationKeys].UrlGallery,
             }
             this.oraganisations.push(organizationObject);
           }
@@ -413,27 +418,41 @@ export class PinhomeProvider {
     return new Promise((accpt, rej) => {
       this.db.ref('OrganizationList').on('value', (data) => {
         let SelectCategory = data.val();
-        console.log(SelectCategory);
         let keys = Object.keys(SelectCategory);
-        console.log(keys);
         for (var i = 0; i < keys.length; i++) {
           let k = keys[i];
-          let obj = {
-            orgCat: SelectCategory[k].Category,
-            orgName: SelectCategory[k].OrganizationName,
-            orgAddress: SelectCategory[k].OrganizationAdress,
-            orgContact: SelectCategory[k].ContactDetails,
-            orgPicture: SelectCategory[k].Url,
-            orgLat: SelectCategory[k].latitude,
-            orgLong: SelectCategory[k].longitude,
-            orgEmail: SelectCategory[k].Email,
-            orgAbout: SelectCategory[k].AboutOrg,
-            orgPrice: SelectCategory[k].Price,
-            orgGallery :SelectCategory[k].UrlGallery,
-            key: k,
-          }
-          this.categoryArr.push(obj);
-          // console.log(this.categoryArr)
+          this.db.ref('comments/' + k).on('value', (data2) => {
+            var totalRating = 0;
+            var avg = 0;
+            if (data2.val() != null || data2.val() != undefined){
+              let ratings =  data2.val();
+              let ratingsKeys =  Object.keys(ratings);
+             for (var x = 0; x < ratingsKeys.length; x++){
+               totalRating =  totalRating + ratings[ratingsKeys[x]].rate
+               avg++;
+             }
+             if (totalRating != 0)
+              totalRating =  totalRating / avg;
+              totalRating =  Math.round(totalRating)
+            }
+                  let obj = {
+                    orgCat: SelectCategory[k].Category,
+                    orgName: SelectCategory[k].OrganizationName,
+                    orgAddress: SelectCategory[k].OrganizationAdress,
+                    orgContact: SelectCategory[k].ContactDetails,
+                    orgPicture: SelectCategory[k].Url,
+                    orgLat: SelectCategory[k].latitude,
+                    orgLong: SelectCategory[k].longitude,
+                    orgEmail: SelectCategory[k].Email,
+                    orgAbout: SelectCategory[k].AboutOrg,
+                    orgPrice: SelectCategory[k].Price,
+                    orgGallery :SelectCategory[k].UrlGallery,
+                    key: k,
+                    rating : totalRating
+                  }
+           this.categoryArr.push(obj);
+          console.log(this.categoryArr)
+        })
         }
         accpt(this.categoryArr);
       })
@@ -448,21 +467,19 @@ export class PinhomeProvider {
         comment: comment,
         uid: user.uid,
         date: day,
-        rate: parseInt(rating)
-        // url: this.url
+        rate: parseInt(rating),
+        // url:this.url 
       })
       accpt('success');
     });
   }
   viewComments(comment: any, commentKey: any) {
+    this.commentArr.length=0;
     return new Promise((accpt, rejc) => {
-      // this.commentArr.length = 0;
       let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
         let CommentDetails = data.val();
-        this.commentArr = _.uniqWith(this.commentArr,_ .isEqual);
-        if (data.val() != null || data.val() != undefined || this.commentArr != null) {
-          // this.commentArr.length = 0;
+        if (data.val() != null || data.val() != undefined) {
           let keys1: any = Object.keys(CommentDetails);
           for (var i = 0; i < keys1.length; i++) {
             let key = keys1[i];
@@ -470,7 +487,7 @@ export class PinhomeProvider {
             let obj = {
               comment: CommentDetails[key].comment,
               uid: CommentDetails[key].uid,
-              url: this.url,
+              url:this.url,
               rating: parseInt(CommentDetails[key].rate),
               username: "",
               date: moment(CommentDetails[key].date, 'MMMM Do YYYY, h:mm:ss a').startOf('minutes').fromNow(),
@@ -489,10 +506,13 @@ export class PinhomeProvider {
               console.log(this.commentArr)
             });
           }
+          for (var x = 0; x < this.commentArr.length / 2; x++){
+            this.commentArr[x] = (this.commentArr[x])
+          }
           accpt(this.commentArr);
         }
         else {
-          this.commentArr = null;
+          this.categoryArr = null;
         }
 
       }, Error => {
@@ -601,16 +621,19 @@ export class PinhomeProvider {
   }
 
 
-  viewPicGallery1() {
+  viewUserProfile() {
     return new Promise((accpt, rejc) => {
-      var user = firebase.auth().currentUser
+      let user = firebase.auth().currentUser
       firebase.database().ref("profiles").on("value", (data: any) => {
-        var b = data.val();
-        var keys = Object.keys(b);
-        if (b !== null) {
+        let DisplayData = data.val();
+        let keys = Object.keys(DisplayData);
+        if (DisplayData !== null) {
         }
-        this.storeImgur(b[keys[0]].downloadurl);
-        accpt(b);
+        for (var i = 0; i < keys.length; i++) {
+          this.storeImgur(DisplayData[keys[i]].downloadurl);
+          console.log(DisplayData[keys[i]].downloadurl)
+        }
+        accpt(DisplayData);
       }, Error => {
         rejc(Error.message)
       })
@@ -632,12 +655,14 @@ export class PinhomeProvider {
     })
   }
 
-  storeImgur(downloadurl) {
-    this.downloadurl = downloadurl;
-    console.log(downloadurl);
+  storeImgur(url) {
+    this.url = url;
+    console.log(this.url)
   }
 
-  update(name, email, contact, downloadurl) {
+
+
+  update(name, email, contact, downloadurl,address) {
     this.ProfileArr.length = 0;
     return new Promise((pass, fail) => {
       var user = firebase.auth().currentUser
@@ -646,6 +671,7 @@ export class PinhomeProvider {
         email: email,
         contact: contact,
         downloadurl: downloadurl,
+        address:address
       });
     })
   }
@@ -654,5 +680,7 @@ export class PinhomeProvider {
     let userID = firebase.auth().currentUser;
     return firebase.database().ref("profiles/" + userID.uid)
   }
+
+
 
 }

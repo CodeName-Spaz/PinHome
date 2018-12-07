@@ -7,6 +7,7 @@ import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
 import { text } from '@angular/core/src/render3/instructions';
 import * as _ from 'lodash';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AddOrganizationPage } from '../add-organization/add-organization';
 @Component({
   selector: 'page-home',
@@ -17,10 +18,11 @@ export class HomePage {
 
   orgArray = new Array();
   categoryArr = new Array();
-
-
+  filtereditems:any;
+	searchTerm: string = '';
+  searchLocation;
   searchQuery: string = '';
-  items: string[];
+	items: any;
   orgs = [];
   color = "custom";
   contribute = 0;
@@ -32,10 +34,11 @@ export class HomePage {
   custom2 = "custom2";
   temp;
   colorState = false;
-  location;
+  location =  "Soweto";
+  textField = "";
   tempOrg =  new Array();
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
+  constructor(private screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
       this.storeCatData(data)
@@ -44,22 +47,34 @@ export class HomePage {
       this.storedata(data);
       this.initializeItems();
     })
+      this.filtereditems=[];
+      this.lockOrientation();
   
+  }
+searchForLocation(name){
+ 
+
   }
 
   storeCatData(data) {
     this.categoryArr = data;
+    console.log(this.categoryArr )
     this.tempArray = this.categoryArr;
     this.storeAllOrgs = data;
   }
 
+  lockOrientation(){
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+  }
+
   storeNearByOrgs(data){
     this.storeNear =  _.uniqWith(data, _.isEqual)
+    console.log(this.storeNear);
   }
 //this.storeNear[x] =  data[x];
   near(){
     if (this.colorState == false){
-      this.categoryArr = this.storeNear ;
+      this.categoryArr = this.storeNear;
       console.log(this.categoryArr)
       this.temp = this.custom1;
       this.custom1 =  this.custom2;
@@ -82,6 +97,7 @@ export class HomePage {
 
   setArrayBack(data) {
     this.categoryArr = data;
+    console.log(this.categoryArr)
   }
 
   storedata(data) {
@@ -90,6 +106,7 @@ export class HomePage {
 
   initializeItems() {
     this.items = this.orgs;
+    console.log(this.items);
   }
 
   goToViewPage(name) {
@@ -102,6 +119,15 @@ export class HomePage {
 
   }
 
+  assignName(name){
+    console.log(name)
+    this.searchTerm =  name;
+    this.filtereditems = [];
+    this.getItem(name);
+    this.goToViewPage(name);
+    this.searchTerm = "";
+    this.initializeItems();
+  }
 
   more(indx) {
     this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
@@ -109,6 +135,35 @@ export class HomePage {
   trimPictures(state) {
     this.categoryArr.length = 0;
     this.categoryArr = this.tempArray;
+  }
+
+  filterItems(){
+    console.log(this.searchTerm);
+    if (this.searchTerm != ""){
+      this.filtereditems=this.items.filter((item) => {
+        return item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });    
+    }else if(this.searchTerm == "" || this.searchTerm == null){
+      this.filtereditems = [];
+    }
+    console.log(this.filtereditems)
+	}
+
+
+  getItem(name) {
+    // Reset items back to all of the items
+    this.initializeItems();
+    this.setArrayBack(this.tempArray)
+    // set val to the value of the searchbar
+    const val = name;
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != "") {
+      this.items = this.items.filter((item) => {
+
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+
+    }
   }
 
   getItems(ev: any) {
@@ -126,6 +181,7 @@ export class HomePage {
 
     }
   }
+
   bodyClick(event) {
     console.log(event);
 
@@ -136,65 +192,80 @@ export class HomePage {
     // search[0].style.display = "none"
 
   }
+
   showButton() {
+    var theCard = document.getElementsByClassName("options") as HTMLCollectionOf <HTMLElement>;
     let searcher = document.getElementsByClassName('searchBar') as HTMLCollectionOf <HTMLElement>;
     var theTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>
+    var nav = document.getElementsByClassName("theHead") as HTMLCollectionOf <HTMLElement>;
+    var searchBtn = document.getElementsByClassName("more") as HTMLCollectionOf <HTMLElement>;
+    var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
+    var restOf = document.getElementsByClassName("restOfBody") as HTMLCollectionOf <HTMLElement>;
+
     if (this.state =="close"){
       this.state = "search";
-      console.log(this.state);
+      // console.log(this.state);
       searcher[0].style.width = "0";
       searcher[0].style.left = "-10%";
-      theTitle[0].style.opacity = "1"
+      searcher[0].style.top = "18px";
+      theTitle[0].style.opacity = "1";
+
+      theCard[0].style.height = "140px";
+      theCard[0].style.top = "60px";
+      theCard[0].style.opacity = "1";
+
+      nav[0].style.height = "120px";
+
+      searchBtn[0].style.top = "20px";
+
+      prof[0].style.top ="20px";
+      this.filtereditems = [];
+      this,this.searchTerm = ""; 
+      this.initializeItems();
+      restOf[0].style.paddingTop = "230px";
+
     } 
     else if(this.state == "search"){
       this.state ="close";
-      console.log(this.state);
-      searcher[0].style.width = "72vw"
-      searcher[0].style.left = "15%"
-      theTitle[0].style.opacity = "0"
+      // console.log(this.state);
+      searcher[0].style.width = "72vw";
+      searcher[0].style.left = "15%";
+      searcher[0].style.top = "5px"
+      theTitle[0].style.opacity = "0";
+
+      theCard[0].style.height = "50px";
+      theCard[0].style.top = "-65px";
+      theCard[0].style.opacity = "0.5";
+
+      nav[0].style.height = "50px";
+
+      searchBtn[0].style.top = "0";
+      prof[0].style.top ="0";
+
+      restOf[0].style.paddingTop = "60px";
+      this.filtereditems = [];
+
+
+      
     }
-
+      console.log(this.textField);
+      this.searchTerm ="";
+      
   }
 
-
-
-  selectcategory() {
-    this.categoryArr.length = 0;
-    this.pinhomeProvider.DisplayCategory(this.category).then((data: any) => {
-      let keys = Object.keys(data);
-      for (var i = 0; i < keys.length; i++) {
-        let k = keys[i];
-        if (this.category == data[k].category) {
-          let obj = {
-            orgAbout: data[k].orgAbout,
-            orgCat: data[k].orgCat,
-            orgContact: data[k].orgContact,
-            orgEmail: data[k].orgEmail,
-            orgAddress: data[k].orgAddress,
-            orgName: data[k].orgName,
-            orgPrice: data[k].orgPrice,
-            orgPicture: data[k].orgPicture,
-            orgLat: data[k].orgLat,
-            orgLong: data[k].orgLong
-          }
-          this.categoryArr.push(obj);
-        }
-      }
-    })
-  }
-
+ 
   getNearByOrganizations() {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'please wait',
-      duration: 2000
+      duration: 222000
     });
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
-          this.location =  this.pinhomeProvider.getLocation();
-         this.location =  this.location.locality; 
+          // /this.location =  this.pinhomeProvider.getLocation();
+        //  this.location =  this.location.locality; 
           this.orgArray = data;
           this.storeNearByOrgs(data);
           loading.dismiss();
@@ -202,7 +273,6 @@ export class HomePage {
       })
     })
   }
-
 
   getAllOrganizations() {
   }
@@ -243,13 +313,12 @@ export class HomePage {
     this.navCtrl.push(ProfilePage);
   }
   gotToAddOrg() {
-    this.navCtrl.push(AddOrganizationPage);
-    console.log("this takes you to the Add Organisation Page");
+    this.navCtrl.setRoot(AddOrganizationPage);
+    // console.log("this takes you to the Add Organisation Page");
 
   }
-
   scroll(event){
-    // console.log(event.directionY);
+    console.log(event.directionY);
     var theCard = document.getElementsByClassName("options") as HTMLCollectionOf <HTMLElement>;
     var nav = document.getElementsByClassName("theHead") as HTMLCollectionOf <HTMLElement>;
     var restOf = document.getElementsByClassName("restOfBody") as HTMLCollectionOf <HTMLElement>;
@@ -257,6 +326,7 @@ export class HomePage {
     var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
     var barTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>;
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf <HTMLElement>;
+    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
 
     restOf[0].style.transition ="700ms";
     if(event.directionY == "down"){
@@ -264,8 +334,8 @@ export class HomePage {
         console.log("hide card");
 
         theCard[0].style.height = "50px";
-        theCard[0].style.top = "-100px";
-        theCard[0].style.opacity = "0";
+        theCard[0].style.top = "-65px";
+        theCard[0].style.opacity = "0.5";
         
         nav[0].style.height = "50px";
 
@@ -278,17 +348,20 @@ export class HomePage {
         barTitle[0].style.top = "12px";
 
         searchTxt[0].style.top = "5px";
+
+        footBtn[0].style.transition = "300ms"
+        footBtn[0].style.top= "0";
       }
     }
     else{
-      // console.log("show Card");
+      console.log("show Card");
       theCard[0].style.height = "140px";
         theCard[0].style.top = "60px";
         theCard[0].style.opacity = "1";
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "210px";
+        restOf[0].style.paddingTop = "230px";
 
         searchBtn[0].style.top = "20px";
 
@@ -297,11 +370,14 @@ export class HomePage {
         barTitle[0].style.top = "25px";
 
         searchTxt[0].style.top = "18px";
+
+        footBtn[0].style.top= "-45px";
       
     }
     
   }
-}
 
+
+}
 
 
