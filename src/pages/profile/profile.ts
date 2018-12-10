@@ -20,7 +20,7 @@ export class ProfilePage {
   detailArray = new Array();
 
   dpUrl = "../../assets/imgs/Defaults/default.jpg";
-  coverUrl = "../../assets/imgs/Defaults/defaultCover1.jpg";
+  coverUrl = "../../assets/imgs/Defaults/defaultCover.jpg";
   popState=0;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

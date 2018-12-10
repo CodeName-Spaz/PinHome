@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="custom">
+  <ion-navbar color="{{navColor}}">
     <ion-title align="center">Map View</ion-title>
     <div class="flex">
       <button ion-button icon-only color="light"  (click)="viewPage()" clear class="listView">
@@ -24,11 +24,17 @@
   </ion-navbar>
 </ion-header>
 <ion-content (ionScroll)="scroller($event)">
+    <ion-fab class="addFAB" bottom right>
+        <button clear color="btn" (click)="GoToHomePage()" ion-fab mini>
+            <ion-icon name="map"></ion-icon>
+          </button>
+    </ion-fab>
 
-  <div class="btt"></div>
+  <div class="btt">
 
   <div id="map_canvas" class="theMap">
   </div>
+  
   <div class="cont">
     <div class="handle">
       <div class="ico" (click)="changeMapSize()">
@@ -41,9 +47,7 @@
     <br>
     <p class="statement">Organisations are filtered according to your location.</p>
     <ion-slides class="slides" slidesPerView="2" offset="50%" loop="true" spaceBetween="10">
-
       <div *ngFor="let i of orgArray">
-
         <ion-slide class="card-background-page">
           <ion-card>
             <img class="theImage" src="{{i.orgPicture}}" />
@@ -65,10 +69,11 @@
     </ion-slides>
 
   </div>
+</div>
 </ion-content>
-<ion-footer class="theFooter">
-  <button class="listerBtn" color="light" (click)="GoToHomePage()" ion-button outline full item-end icon-start>
+<!-- <ion-footer class="theFooter">
+  <button class="listerBtn" color="dark" (click)="GoToHomePage()" ion-button outline full item-end icon-start>
     <ion-icon name="list"></ion-icon>
     List View
   </button>
-</ion-footer>
+</ion-footer> -->

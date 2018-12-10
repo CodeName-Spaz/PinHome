@@ -31,12 +31,12 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCbq2cRI0kgYRsLvx7VvBKYrz-FobKtBME",
-  authDomain: "pinhome-823ec.firebaseapp.com",
-  databaseURL: "https://pinhome-823ec.firebaseio.com",
-  projectId: "pinhome-823ec",
-  storageBucket: "pinhome-823ec.appspot.com",
-  messagingSenderId: "523364615140"
+  apiKey: "AIzaSyD_x4Z2kN-f2La1wNzDvgD2S3kKQHEWPBs",
+  authDomain: "pinhome2-0.firebaseapp.com",
+  databaseURL: "https://pinhome2-0.firebaseio.com",
+  projectId: "pinhome2-0",
+  storageBucket: "pinhome2-0.appspot.com",
+  messagingSenderId: "966103659311"
 })
 
 @NgModule({

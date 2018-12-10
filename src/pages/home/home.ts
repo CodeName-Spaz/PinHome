@@ -6,6 +6,7 @@ import { ProfilePage } from '../profile/profile';
 import { SignInPage } from '../sign-in/sign-in';
 import { NearbyOrgPage } from '../nearby-org/nearby-org';
 import { text } from '@angular/core/src/render3/instructions';
+import { AddOrganizationPage } from '../add-organization/add-organization';
 // import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 @Component({
@@ -283,6 +284,7 @@ export class HomePage {
     this.navCtrl.push(ProfilePage);
   }
   gotToAddOrg() {
+    this.navCtrl.push(AddOrganizationPage);
     console.log("this takes you to the Add Organisation Page");
 
   }
@@ -295,11 +297,12 @@ export class HomePage {
     var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
     var barTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>;
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf <HTMLElement>;
-    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
-
+    // var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+    var Lister = document.getElementsByClassName("listViewFAB") as HTMLCollectionOf <HTMLElement>;
     restOf[0].style.transition ="700ms";
+    Lister[0].style.transition ="700ms";
     if(event.directionY == "down"){
-      if(event.scrollTop > 15){
+      if(event.scrollTop){
         console.log("hide card");
 
         theCard[0].style.height = "50px";
@@ -318,19 +321,22 @@ export class HomePage {
 
         searchTxt[0].style.top = "5px";
 
-        footBtn[0].style.transition = "300ms"
-        footBtn[0].style.top= "0";
+        // footBtn[0].style.transition = "300ms";
+        // footBtn[0].style.top= "0";
+
+        Lister[0].style.right = "-15%";
+        Lister[0].style.transform = "rotate(270DEG)";
       }
     }
     else{
       console.log("show Card");
-      theCard[0].style.height = "140px";
+      theCard[0].style.height = "115px";
         theCard[0].style.top = "60px";
         theCard[0].style.opacity = "1";
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "230px";
+        restOf[0].style.paddingTop = "200px";
 
         searchBtn[0].style.top = "20px";
 
@@ -340,7 +346,10 @@ export class HomePage {
 
         searchTxt[0].style.top = "18px";
 
-        footBtn[0].style.top= "-45px";
+        // footBtn[0].style.top= "-45px";
+
+        Lister[0].style.right = "10px";
+        Lister[0].style.transform = "rotate(0DEG)";
       
     }
     

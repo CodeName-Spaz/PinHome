@@ -1,7 +1,9 @@
 page-home {
 
-    .addFAB{
-        z-index: 10000000000000000000000000000
+    .listViewFAB{
+        z-index: 10000000000000000000000000000;
+        right: 10px;
+        transform: rotate(0DEG)
     }
     ion-slides{
         // animation: 700ms slideInRight;
@@ -210,10 +212,11 @@ page-home {
     .restOfBody{
         padding-left: 15px;        
         padding-right: 15px;
-        padding-top: 230px;
+        padding-top: 200px;
         transition: 500ms;
         // margin-top: 80px;
         background: whitesmoke;
+        animation: 1s slideInUp;
     }
     .theHead{
         transition: 500ms;
@@ -223,7 +226,7 @@ page-home {
         box-shadow: 0 0 5px #fff;
     }
     .options{
-        height: 140px;
+        height: 115px;
         // width: 100vw;
         // box-shadow: 0 10px 15px grey;
         border-radius: 5px;
@@ -263,9 +266,9 @@ page-home {
     }
 
     .statement{
-        font-size:  16px;
+        font-size:  14px;
         font-weight: bolder;
-        margin-top: 10px;
+        margin-top: 0px;
         color: green;
         text-shadow: 0 0 5px greenyellow
     }
@@ -293,7 +296,7 @@ page-home {
         color: white
     }
     .finePrint{
-        font-size: 14px;
+        font-size: 12px;
         color: grey;
         font-weight: bolder;
 
@@ -306,12 +309,14 @@ page-home {
     }
     .listerBtn{
         position: absolute;
-        top: -45px;
+        top: -38px;
         transition: 1200ms;
         width: 100%;
         background: white;
         height: 50px;
         z-index: -1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(0, 0, 0, 0.5)
     }
     .locationSearch{
         background: white;
