@@ -9,6 +9,7 @@ import { text } from '@angular/core/src/render3/instructions';
 import { AddOrganizationPage } from '../add-organization/add-organization';
 // import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
+import * as _ from 'lodash';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -28,13 +29,14 @@ export class HomePage {
   tempArray = [];
   state = "search";
   storeAllOrgs = [];
-  storeNear = [];
+  storeNear = new Array();
   custom1 = "custom1";
   custom2 = "custom2";
   temp;
   colorState = false;
   location;
   textField = "";
+  tempOrg =  new Array();
 
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
@@ -45,7 +47,7 @@ export class HomePage {
       this.storedata(data);
       this.initializeItems();
     })
-
+  
   }
 
   storeCatData(data) {
@@ -54,9 +56,15 @@ export class HomePage {
     this.storeAllOrgs = data;
   }
 
+
+  storeNearByOrgs(data){
+    this.storeNear =  _.uniqWith(data, _.isEqual)
+  }
+// //this.storeNear[x] =  data[x];
   near(){
     if (this.colorState == false){
-      this.categoryArr = this.storeNear;
+      this.categoryArr = this.storeNear ;
+      console.log(this.categoryArr)
       this.temp = this.custom1;
       this.custom1 =  this.custom2;
       this.custom2 =  this.temp;
@@ -68,7 +76,7 @@ export class HomePage {
   all()
   {
     if (this.colorState == true){
-    this.categoryArr =  this.storeAllOrgs;
+    this.categoryArr = _.uniqWith(this.storeAllOrgs, _.isEqual);
     this.temp = this.custom2;
     this.custom2 =  this.custom1;
     this.custom1 =  this.temp;
@@ -190,6 +198,8 @@ export class HomePage {
       
   }
 
+
+
   selectcategory() {
     this.categoryArr.length = 0;
     this.pinhomeProvider.DisplayCategory(this.category).then((data: any) => {
@@ -209,26 +219,22 @@ export class HomePage {
             orgLat: data[k].orgLat,
             orgLong: data[k].orgLong
           }
-          console.log(data[k].orgName)
           this.categoryArr.push(obj);
         }
       }
     })
   }
-  storeNearByOrgs(data){
-  this.storeNear =  data;
-  }
   getNearByOrganizations() {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'please wait',
-      duration: 222000
+      duration: 2000
     });
-    // loading.present();
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
-          // this.location =  this.pinhomeProvider.getLocation();
+          this.location =  this.pinhomeProvider.getLocation();
          this.location =  this.location.locality; 
           this.orgArray = data;
           this.storeNearByOrgs(data);
@@ -237,6 +243,7 @@ export class HomePage {
       })
     })
   }
+
 
   getAllOrganizations() {
   }

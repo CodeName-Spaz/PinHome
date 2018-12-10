@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-// import firebase from 'firebase';
 import firebase from 'firebase';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -23,9 +22,9 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignInPage } from '../pages/sign-in/sign-in';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ProfilePage } from '../pages/profile/profile';
+import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
-import { AddOrganizationPage } from '../pages/add-organization/add-organization'
-
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
@@ -48,9 +47,9 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
+    AddOrganizationPage,
     EditProfilePage,
     AddOrganizationPage
-    // IonicImageViewerModule
   ],
   imports: [
     BrowserModule,
@@ -68,7 +67,6 @@ firebase.initializeApp({
     ProfilePage,
     EditProfilePage,
     AddOrganizationPage
-    // IonicImageViewerModule
   ],
   providers: [
     StatusBar,
@@ -80,7 +78,9 @@ firebase.initializeApp({
     EmailComposer,
     CallNumber,
     LaunchNavigator,
-    ScreenOrientation
+    ScreenOrientation,
+    NativeGeocoder,
+    IonicImageViewerModule
   ]
 })
 export class AppModule {}

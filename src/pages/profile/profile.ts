@@ -21,8 +21,9 @@ export class ProfilePage {
 
   dpUrl = "../../assets/imgs/Defaults/default.jpg";
   coverUrl = "../../assets/imgs/Defaults/defaultCover.jpg";
+  // downloadurl = "../../assets/imgs/Defaults/default.jpg";
   popState=0;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
   }
 
   ionViewDidLoad() {
@@ -103,6 +104,10 @@ export class ProfilePage {
   }
 
   logOut(){
-    this.removePopper()
+    this.pinhomeProvider.logout().then(() => {
+      this.navCtrl.push(HomePage);
+    }, (error) => {
+      console.log(error.message);
+    })
   }
 }
