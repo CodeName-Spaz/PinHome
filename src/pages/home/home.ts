@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, NavParams } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view'
 import { ProfilePage } from '../profile/profile';
@@ -9,6 +9,8 @@ import { text } from '@angular/core/src/render3/instructions';
 import * as _ from 'lodash';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { AddOrganizationPage } from '../add-organization/add-organization';
+import { StatusBar } from '@ionic-native/status-bar';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -34,11 +36,16 @@ export class HomePage {
   custom2 = "custom2";
   temp;
   colorState = false;
-  location =  "Soweto";
+  location;
   textField = "";
+  logInState;
+  img;
+  mapPageState = false;
   tempOrg =  new Array();
+  profilePic = "../../assets/imgs/Defaults/default.png";
+  locationState =  false;
 
-  constructor(private screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
+  constructor(public navParams:NavParams, public statusBar: StatusBar,public screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
       this.storeCatData(data)
@@ -49,16 +56,48 @@ export class HomePage {
     })
       this.filtereditems=[];
       this.lockOrientation();
-  
+      this.pinhomeProvider.checkAuthState().then(data => {
+        if (data == true){
+          this.logInState =  true;
+          this.pinhomeProvider.getProfile().then((data:any) =>{
+            console.log(this.logInState);
+            this.img =  data;
+            console.log(this.img)
+          })
+        }
+        else if (data == false){
+          this.img = "assets/imgs/default.png";
+        }
+      })
   }
 searchForLocation(name){
- 
 
+  }
+  ionViewDidEnter() {
+    this.pinhomeProvider.checkAuthState().then(data => {
+      if (data == true){
+        this.logInState =  true;
+        this.pinhomeProvider.getProfile().then((data:any) =>{
+          console.log(this.logInState);
+          this.img =  data;
+          console.log(this.img)
+        })
+      }
+      else if (data == false){
+        this.img = "assets/imgs/default.png";
+      }
+    })
+   
+  }
+
+  changeStatusBarColor(){
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByName('white')
   }
 
   storeCatData(data) {
     this.categoryArr = data;
-    console.log(this.categoryArr )
+    // console.log(this.categoryArr )
     this.tempArray = this.categoryArr;
     this.storeAllOrgs = data;
   }
@@ -69,20 +108,32 @@ searchForLocation(name){
 
   storeNearByOrgs(data){
     this.storeNear =  _.uniqWith(data, _.isEqual)
-    console.log(this.storeNear);
+    // console.log(this.storeNear);
   }
 //this.storeNear[x] =  data[x];
-  near(){
+near(){
+    
+  if (this.locationState ==  false){
+    let alert = this.alertCtrl.create({
+      title: 'Ohhhhh Sorry!',
+      subTitle: 'You have to enable location for this app first then you can see places near you',
+      buttons: ['OK']
+    });
+    alert.present()
+  }
+  else{
     if (this.colorState == false){
-      this.categoryArr = this.storeNear;
+      this.categoryArr = this.storeNear ;
       console.log(this.categoryArr)
       this.temp = this.custom1;
       this.custom1 =  this.custom2;
       this.custom2 =  this.temp;
       this.colorState =  true
     }
-
   }
+ 
+
+}
 
   all()
   {
@@ -106,7 +157,7 @@ searchForLocation(name){
 
   initializeItems() {
     this.items = this.orgs;
-    console.log(this.items);
+    // console.log(this.items);
   }
 
   goToViewPage(name) {
@@ -210,7 +261,7 @@ searchForLocation(name){
       searcher[0].style.top = "18px";
       theTitle[0].style.opacity = "1";
 
-      theCard[0].style.height = "140px";
+      theCard[0].style.height = "130px";
       theCard[0].style.top = "60px";
       theCard[0].style.opacity = "1";
 
@@ -218,11 +269,11 @@ searchForLocation(name){
 
       searchBtn[0].style.top = "20px";
 
-      prof[0].style.top ="20px";
+      prof[0].style.top ="25px";
       this.filtereditems = [];
       this,this.searchTerm = ""; 
       this.initializeItems();
-      restOf[0].style.paddingTop = "230px";
+      restOf[0].style.paddingTop = "190px";
 
     } 
     else if(this.state == "search"){
@@ -240,7 +291,7 @@ searchForLocation(name){
       nav[0].style.height = "50px";
 
       searchBtn[0].style.top = "0";
-      prof[0].style.top ="0";
+      prof[0].style.top ="8px";
 
       restOf[0].style.paddingTop = "60px";
       this.filtereditems = [];
@@ -248,7 +299,7 @@ searchForLocation(name){
 
       
     }
-      console.log(this.textField);
+      // console.log(this.textField);
       this.searchTerm ="";
       
   }
@@ -264,30 +315,38 @@ searchForLocation(name){
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
-          // /this.location =  this.pinhomeProvider.getLocation();
-        //  this.location =  this.location.locality; 
+          this.location =  this.pinhomeProvider.getLocation();
+         this.location =  this.location.locality; 
           this.orgArray = data;
           this.storeNearByOrgs(data);
           loading.dismiss();
+          this.locationState = true;
         })
       })
-    })
+    }, Error =>{
+      this.pinhomeProvider.getOrganisations().then((org: any) => {
+        console.log(org)
+        this.orgArray = org;
+        console.log(this.orgArray)
+        loading.dismiss();
+      })
+      console.log('no permission')})
   }
-
   getAllOrganizations() {
   }
-  viewPage() {
+  
+  profile() {
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == false) {
         let alert = this.alertCtrl.create({
-          title: 'ohhhh! sorry!',
+          title: 'Ooops!',
           subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
           buttons: [
             {
               text: 'Yes',
               handler: data => {
                 var opt = "profile";
-                this.navCtrl.push(SignInPage, { option: opt })
+                this.navCtrl.push(SignInPage, { option: opt})
               }
             },
             {
@@ -306,7 +365,14 @@ searchForLocation(name){
     })
   }
   GoToMap() {
-    this.navCtrl.setRoot(NearbyOrgPage);
+    
+    // if (this.mapPageState == false){
+      this.navCtrl.push(NearbyOrgPage, {img:this.img});
+    //   this.mapPageState = true;
+    // }
+    // else if  (this.mapPageState == true){
+    //   this.navCtrl.pop();
+    // }    
   }
   goToProfile() {
     this.bodyClick(event);
@@ -318,7 +384,7 @@ searchForLocation(name){
 
   }
   scroll(event){
-    console.log(event.directionY);
+    // console.log(event.directionY);
     var theCard = document.getElementsByClassName("options") as HTMLCollectionOf <HTMLElement>;
     var nav = document.getElementsByClassName("theHead") as HTMLCollectionOf <HTMLElement>;
     var restOf = document.getElementsByClassName("restOfBody") as HTMLCollectionOf <HTMLElement>;
@@ -326,12 +392,12 @@ searchForLocation(name){
     var prof = document.getElementsByClassName("profile") as HTMLCollectionOf <HTMLElement>;
     var barTitle = document.getElementsByClassName("theTitle") as HTMLCollectionOf <HTMLElement>;
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf <HTMLElement>;
-    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+    var FAB = document.getElementsByClassName("theFab") as HTMLCollectionOf <HTMLElement>;
 
     restOf[0].style.transition ="700ms";
     if(event.directionY == "down"){
       if(event.scrollTop > 15){
-        console.log("hide card");
+        // console.log("hide card");
 
         theCard[0].style.height = "50px";
         theCard[0].style.top = "-65px";
@@ -343,35 +409,38 @@ searchForLocation(name){
 
         searchBtn[0].style.top = "0";
 
-        prof[0].style.top = "0";
+        prof[0].style.top = "8px";
 
         barTitle[0].style.top = "12px";
 
         searchTxt[0].style.top = "5px";
 
-        footBtn[0].style.transition = "300ms"
-        footBtn[0].style.top= "0";
+        FAB[0].style.transform = "rotateZ(180DEG)";
+        FAB[0].style.right= "-15%";
+
+        // footBtn[0].style.top= "0";
       }
     }
     else{
-      console.log("show Card");
-      theCard[0].style.height = "140px";
+      // console.log("show Card");
+      theCard[0].style.height = "130px";
         theCard[0].style.top = "60px";
         theCard[0].style.opacity = "1";
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "230px";
+        restOf[0].style.paddingTop = "190px";
 
         searchBtn[0].style.top = "20px";
 
-        prof[0].style.top = "15px";
+        prof[0].style.top = "25px";
 
         barTitle[0].style.top = "25px";
 
         searchTxt[0].style.top = "18px";
 
-        footBtn[0].style.top= "-45px";
+        FAB[0].style.transform = "rotateZ(0DEG)";
+        FAB[0].style.right= "10px";
       
     }
     

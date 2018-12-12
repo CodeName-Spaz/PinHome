@@ -28,7 +28,7 @@ export class SignUpPage {
   password;
   PlaceObject = {} as object;
   errMsg;
-
+  surname;
   constructor(public navCtrl: NavController, public navParams: NavParams,  public loadingCtrl: LoadingController,public pinhomeProvider: PinhomeProvider,public alertCtrl:AlertController ) {
   }
 
@@ -71,9 +71,9 @@ export class SignUpPage {
       alert.present();
     }
     else {
-      this.pinhomeProvider.Signup(this.email, this.password, this.name).then(() => {
+      this.pinhomeProvider.Signup(this.email,this.password,this.name,this.surname).then(() => {
         // this.presentLoading1();
-        this.navCtrl.setRoot(ProfilePage);
+        this.navCtrl.push(ProfilePage);
       }, (error) => {
         console.log(error.message);
       })
@@ -87,5 +87,7 @@ export class SignUpPage {
     });
     loader.present();
   }
-
+  Back(){
+this.navCtrl.pop()  
+}
 }

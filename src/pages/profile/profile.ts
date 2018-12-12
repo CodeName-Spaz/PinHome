@@ -4,6 +4,9 @@ import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import firebase from 'firebase';
 import { HomePage } from '../home/home';
 import { EditProfilePage } from '../edit-profile/edit-profile';
+import { ViewPage } from '../view/view';
+import { unescapeIdentifier } from '@angular/compiler';
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -19,10 +22,15 @@ import { EditProfilePage } from '../edit-profile/edit-profile';
 export class ProfilePage {
   detailArray = new Array();
 
-  // downloadurl = "../../assets/imgs/Defaults/default.jpg";
+  downloadurl = "../../assets/imgs/Defaults/default.jpg";
   coverUrl = "../../assets/imgs/Defaults/defaultCover1.jpg";
   popState=0;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
+  option = this.navParams.get('optionObject');
+
+  totrating = 0;
+  ratings = new Array();
+ 
+  constructor(public pinhome : PinhomeProvider,public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,10 +41,28 @@ export class ProfilePage {
       console.log(details)
       this.detailArray.push(details);
     });
+    this.pinhome.getTotalRatings().then((data:any) =>{
+      this.ratings.length =0;
+      this.totrating = this.pinhome.getTotRating();
+      if (this.totrating == undefined || this.totrating == null){
+        this.totrating = 0;
+      }
+      this.ratings = data;
+      console.log(this.ratings)
+    })
+
   }
 
   GoTOHomePage() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.popToRoot();
+  }
+
+  viewMore(ind){
+    this.navCtrl.push(ViewPage, { orgObject:this.ratings[ind] });
+  }
+
+  bodyClick(){
+    this.removePopper()
   }
 
   scroller(event) {
@@ -70,34 +96,40 @@ export class ProfilePage {
   showPopover(){
     this.popState =1
     console.log(this.popState);
-    var thePop = document.getElementsByClassName("thePopover") as HTMLCollectionOf <HTMLElement>;
+    var thePop = document.getElementsByClassName("popover") as HTMLCollectionOf <HTMLElement>;
     let theState = this.popState;
+    var setBtn = document.getElementsByClassName("settings") as HTMLCollectionOf <HTMLElement>;
 
     if (theState == 1){
       thePop[0].style.right = "0";
+      setBtn[0].style.right = "-50px";
     }
     else{
-      thePop[0].style.right = "-50%"
+      thePop[0].style.right = "-50%";
+      setBtn[0].style.right = "10px";
     }
   }
   removePopper(){
     this.popState = 0;
-    var thePop = document.getElementsByClassName("thePopover") as HTMLCollectionOf <HTMLElement>;
+    var setBtn = document.getElementsByClassName("settings") as HTMLCollectionOf <HTMLElement>;
+    var thePop = document.getElementsByClassName("popover") as HTMLCollectionOf <HTMLElement>;
     let theState = this.popState;
     if (theState == 1){
       thePop[0].style.right = "0";
-      thePop[0].style.opacity = "0"
+      thePop[0].style.opacity = "0";
+      setBtn[0].style.right = "-50px";
     }
     else{
       thePop[0].style.right = "-50%";
-      thePop[0].style.opacity = "1"
+      thePop[0].style.opacity = "1";
+      setBtn[0].style.right = "-10px";
       
     }
     console.log(this.popState);
     
   }
   editProfile(){
-    this.navCtrl.setRoot(EditProfilePage);
+    this.navCtrl.push(EditProfilePage);
   }
 
   logOut(){

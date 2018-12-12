@@ -30,6 +30,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 
+
 firebase.initializeApp({
   apiKey: "AIzaSyD_x4Z2kN-f2La1wNzDvgD2S3kKQHEWPBs",
   authDomain: "pinhome2-0.firebaseapp.com",

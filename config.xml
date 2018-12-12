@@ -16,8 +16,7 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
-    <preference name="StatusBarBackgroundColor" value="#166b85" />
-    <preference name="StatusBarColor" value="white" />
+    <preference name="StatusBarBackgroundColor" value="#005772" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
@@ -97,5 +96,6 @@
         <variable name="OKHTTP_VERSION" value="3.+" />
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <engine name="android" spec="7.0.0" />
 </widget>

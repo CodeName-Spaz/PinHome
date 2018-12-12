@@ -6,7 +6,11 @@
 -->
 <ion-header class="theHeader">
   <div class="round1"></div>
-  
+  <!-- <ion-fab top left class="backBtn">
+      <button color="light" clear ion-button icon-only (click)="Back()">
+        <ion-icon class="arrow" name="arrow-back"></ion-icon>
+      </button>
+    </ion-fab> -->
    <div class="round2"></div>
   
    <div class="round3"></div>
@@ -50,6 +54,8 @@
               </div>
                 <div align="center">
                 <button class="btn" ion-button color="bg" (click)="SignUp()">Register</button>
+
+                <button ion-button full class="signInBtn" clear color="bg" (click)="Back()"><b>Sign In</b></button>
               </div>
 </div>
 

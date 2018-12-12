@@ -1,5 +1,11 @@
 page-sign-up {
-
+    .arrow{
+        text-shadow: 0 0 10px black;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    }
+    .ion-icon{
+        color: white
+    }
     .content{
         background-color: #ffffff;
        
@@ -24,12 +30,10 @@ page-sign-up {
         z-index: 10000;
         // transform: rotateZ(-30DEG)
     }
-
      .logo{
             transition: 1s;
             width: 150px;
         }
-
     // .stuff{
     //     position: absolute;
     //     top: -5%;
@@ -49,11 +53,21 @@ page-sign-up {
         width: 70%;
         position: relative;
         top: 220px;
-    
+        color: white;
+    }
+    ion-icon{
+        color: white;
+    }
+    .signInBtn{
+        position: relative;
+        left: 0;
+        bottom: -220px;
+        text-transform: capitalize;
+        // z-index: 100000000000000000000000000000000000000000000000000000;
     }
     .item{
-        background-color: 	#74A7B4;
-        color: rgb(255, 255, 255);
+        background-color:   #B5BDBF;
+        color: white;
         border-radius: 50px;
         // border: solid 3px #166b85;
         margin-bottom: 10px;
@@ -63,13 +77,13 @@ page-sign-up {
     }
     .btn{
         border-radius: 50px;
-        width: 70%;
+        width: 60%;
         position: relative;
         bottom: -220px;
         transition: 300ms;
         // left: 60px
+        text-transform: capitalize;
     }
-
     
     .theHeader{
         height: 0;
@@ -82,7 +96,6 @@ page-sign-up {
         position: absolute;
         top: -30px;
         left: -80px;
-
     }
     .round2{
         width: 180px;

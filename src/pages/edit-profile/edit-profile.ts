@@ -25,6 +25,7 @@ export class EditProfilePage implements OnInit{
   address;
   imageArr= new Array();
   tempImg;
+  surname;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
     this.retreivePics1()
   }
@@ -38,57 +39,28 @@ export class EditProfilePage implements OnInit{
     this.pinhomeProvider.retrieve().on('value', (data: any) => {
       let details = data.val();
       this.name = details.name;
-      this.email = details.email
-      this.contact = details.contact
+      this.email = details.email;
+      this.address = details.address;
+      this.surname =details.surname;
       this.downloadurl = details.downloadurl;
       this.tempImg =  details.downloadurl;
     })
   }
 
   GoToProfile(){
-    this.navCtrl.setRoot(ProfilePage);
+    this.navCtrl.push(ProfilePage);
   }
 
   uploadPicture() {
-    this.imageArr.length = 0;
+    // this.imageArr.length = 0;
     if (this.tempImg == this.downloadurl){
-
-      if (this.contact.length < 11) {
-          console.log('added to db');
-          this.pinhomeProvider.update(this.name,this.email,this.contact,this.downloadurl,this.address).then((data) => {
-            this.imageArr.push(data);
-            console.log(this.imageArr);
-      
-          this.navCtrl.setRoot(ProfilePage);
-        },
-          Error => {
-            const alert = this.alertCtrl.create({
-              title: "Oops!",
-              subTitle:  Error.message,
-              buttons: ['OK']
-            });
-            alert.present();
-          })
-      }
-      else {
-        const alert = this.alertCtrl.create({
-          title: "Oops!",
-          subTitle: "Please make sure that your mobile number is correct.",
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-    }
-    else{
-      
-    if (this.contact.length < 11) {
       this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
         console.log('added to db');
-        this.pinhomeProvider.update(this.name,this.email,this.contact,this.downloadurl,this.address).then((data) => {
+        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
           console.log(this.imageArr);
         })
-        this.navCtrl.setRoot(ProfilePage);
+        this.navCtrl.push(ProfilePage);
       },
         Error => {
           const alert = this.alertCtrl.create({
@@ -98,15 +70,27 @@ export class EditProfilePage implements OnInit{
           });
           alert.present();
         })
+ 
+    
     }
-    else {
-      const alert = this.alertCtrl.create({
-        title: "Oops!",
-        subTitle: "Please make sure that your mobile number is correct.",
-        buttons: ['OK']
-      });
-      alert.present();
-    }
+    else{
+      this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
+        console.log('added to db');
+        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
+          this.imageArr.push(data);
+          console.log(this.imageArr);
+        })
+        this.navCtrl.push(ProfilePage);
+      },
+        Error => {
+          const alert = this.alertCtrl.create({
+            title: "Oops!",
+            subTitle:  Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
+        })
+ 
     }
 
   }

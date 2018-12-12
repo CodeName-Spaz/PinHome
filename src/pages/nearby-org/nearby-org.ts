@@ -34,14 +34,17 @@ export class NearbyOrgPage {
   location;
   decide = 0;
   arrow = "arrow-down";
-
+  img;
   arrowDir = "arrow-down";
-
+  category;
+  logInState
   navColor = "custom";
   images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
   circle: Circle;
+  profilePic = this.navParams.get('img');
 
   constructor(private pinhomeProvider: PinhomeProvider,private alertCtrl: AlertController,public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  
   }
 
   ionViewDidLoad() {
@@ -58,7 +61,7 @@ export class NearbyOrgPage {
 
     });
     loading.present();
-    this.orgArray.length = 0;
+    // this.orgArray.length = 0;
     this.pinhome.getCurrentLocation().then((radius: any) => {
       this.pinhome.getOrganisations().then((org: any) => {
     // This code is necessary for browser
@@ -160,42 +163,14 @@ export class NearbyOrgPage {
         ],
         controls: {
           'compass': true,
-          'myLocationButton': true,
+          'myLocationButton': false,
           'myLocation': true,   // (blue dot)
           'indoorPicker': true,
-          'zoom': true,          // android only
+          'zoom': false,          // android only
           'mapToolbar': true     // android only
         },
       }
       this.map = GoogleMaps.create('map_canvas', mapOptions);
-      let position = {
-        "lat" :resp.coords.latitude,
-        "lng" : resp.coords.longitude  
-      }
-      this.map.addCircle({
-        'center': position,
-        'radius': 10000,
-        'strokeColor': '#ffffff',
-        'strokeWidth': 2,
-        'fillColor': '#e0e0e0',
-        'animation' : GoogleMapsAnimation.BOUNCE
-      }).then((circle: Circle) => {
-        this.circle = circle;
-      })
-      // let position2 = {
-      //   "lat" :resp.coords.latitude,
-      //   "lng" : resp.coords.longitude  
-      // }
-      // this.map.addCircle({
-      //   'center': position2,
-      //   'radius': 100,
-      //   'strokeColor': '#64aced',
-      //   'strokeWidth': 5,
-      //   'fillColor': '#64aced',
-      //   'animation' : GoogleMapsAnimation.DROP
-      // }).then((circle: Circle) => {
-      //   this.circle = circle;
-      // })
       this.map.addMarker({
         title: 'current Location',
         icon:  {
@@ -273,7 +248,7 @@ export class NearbyOrgPage {
       this.map.addMarker({
         title: 'current Location',
         icon: 'red',
-        animation: 'DROP',
+        animation: 'POP',
         position: {
           lat: -26.26099,
           lng: 27.9496564
@@ -286,29 +261,56 @@ export class NearbyOrgPage {
     })
   }
   GoToHomePage() {
-    this.navCtrl.setRoot(HomePage);
+this.navCtrl.popToRoot();
   }
-  more(category) {
-    console.log(category);
+  selectcategory() {
+    console.log(this.category);
     this.map.clear();
-    this.pinhome.DisplayCategory(category).then((data: any) => {
+    this.pinhome.DisplayCategory(this.category).then((data: any) => {
       this.cat = data;
+
+      let position = {
+        "lat" :this.location.coords.latitude,
+        "lng" : this.location.coords.longitude 
+      }
       this.map.addMarker({
         title: 'current Location',
-        icon: 'blue',
+        icon:  {
+          url :"assets/imgs/current.png",
+          size : {width: 35, height: 40}
+        },
         animation: 'DROP',
+        speed: 500,
         position: {
           lat: this.location.coords.latitude,
           lng: this.location.coords.longitude
         }
-      }).then((marker: Marker) => {
+      }).then((marker : Marker ) =>{
         marker.showInfoWindow();
       })
       this.orgArray = data;
+      var indx = 0;
       for (var x = 0; x < this.cat.length; x++) {
+        if (this.cat[x].orgCat == "Orphanage")
+        indx =  1;
+        else if (this.orgArray[x].orgCat == "Disability")
+        indx =  2;
+        else if (this.orgArray[x].orgCat == "old age")
+        indx =  3;
+        else if (this.orgArray[x].orgCat == "theraphy")
+        indx =  4;
+        else if (this.orgArray[x].orgCat == "Psychiatric")
+        indx =  5;
+        else if (this.orgArray[x].orgCat == "social centre")
+        indx =  6;
+        else if (this.orgArray[x].orgCat == "Rehab")
+        indx =  7;
         this.map.addMarker({
           title: this.cat[x].orgName,
-          icon: 'red',
+          icon:  {
+            url :this.images[indx],
+            size : {width: 30, height: 30}
+          },
           animation: 'DROP',
           position: {
             lat: this.cat[x].orgLat,
@@ -333,24 +335,31 @@ export class NearbyOrgPage {
   }
 
   scroller(event) {
-    var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    // var mapper = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
     var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
-    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
-    footBtn[0].style.transition ="700ms";
-    if (event.scrollTop > 0) {
-      mapper[0].style.height = "50%";
-              this.arrow = "arrow-down";
+    // var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+    // footBtn[0].style.transition ="700ms";
+    var theCont = document.getElementsByClassName("cont") as HTMLCollectionOf <HTMLElement>;
+    if (event.scrollTop > 0 && event.directionY == "down") {
+      // mapper[0].style.height = "60%";
+              // this.arrow = "arrow-down";
         // footBtn[0].style.top= "-45px";
+
+        theCont[0].style.height = "50%"
+        theCont[0].style.top = "50%"
+        myArrow[0].style.transform = "rotateX(0DEG)"
+        console.log("shrinking map 2");
+        
       
-        this.arrow = "arrow-down"
-      footBtn[0].style.top = "-38px";
+        // this.arrow = "arrow-down"
+      // footBtn[0].style.top = "-38px";
       this.decide = 0;
-      this.arrow = "arrow-down"
+      // this.arrow = "arrow-down"
       this.navColor = "custom"
     }
-    console.log("scrolling");
+    // console.log("scrolling");
     if(this.decide == 0 || event.scrollTop == 0){
-      this.arrow = "arrow-down";
+      // this.arrow = "arrow-down";
     }
     
 
@@ -358,40 +367,56 @@ export class NearbyOrgPage {
   changeMapSize() {
     var theArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
     // var divver = document.getElementsByClassName("cont") as HTMLCollectionOf<HTMLElement>;
-    var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
-    var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
+    // var mapSize = document.getElementsByClassName("theMap") as HTMLCollectionOf<HTMLElement>;
+    // var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
 
+  
+    var slideShow = document.getElementsByClassName("slides")  as HTMLCollectionOf <HTMLElement>;
+    var theCont = document.getElementsByClassName("cont") as HTMLCollectionOf <HTMLElement>;
+    var theContent = document.getElementsByClassName("theDiv") as HTMLCollectionOf <HTMLElement>;
     if (this.decide == 0) {
       this.decide = 1;
-      this.arrow ="arrow-up"
+      // this.arrow ="arrow-up"
     }
     else {
       this.decide = 0;
-      this.arrow ="arrow-down"
+      // this.arrow ="arrow-down"
     }
-    if (this.decide == 1 && this.arrow =="arrow-up") {
+    if (this.decide == 1) {
+      theCont[0].style.transition = "300ms"
+      theCont[0].style.height = "5%"
+      theCont[0].style.top = "95%";
+      slideShow[0].style.height = "0"
+      
 
-      mapSize[0].style.height = "95%";
+      // mapSize[0].style.height = "95%";
       console.log('growing map');
-      this.arrow = "arrow-up";
-      footBtn[0].style.transition = "300ms"
-      footBtn[0].style.top= "0";
-      this.navColor = "navFull"
+      theArrow[0].style.transform = "rotateX(180DEG)"
+      // this.arrow = "arrow-up";
+      // footBtn[0].style.transition = "300ms"
+      // footBtn[0].style.top= "0";
+      // this.navColor = "navFull"
 
 
     }
     else{
-
-      mapSize[0].style.height = "50%";
+      theCont[0].style.transition = "700ms"
+      theCont[0].style.top = "85%"
+      theCont[0].style.height = "50%"
+      theCont[0].style.top = "50%"
+      // mapSize[0].style.height = "60%";
       console.log('shrinking map');
-      this.arrow = "arrow-down";
-      footBtn[0].style.transition = "1200ms"
-      footBtn[0].style.top= "-45px";
-      this.navColor = "custom"
+      slideShow[0].style.height = "180px"
+      // this.arrow = "arrow-down";
+      // footBtn[0].style.transition = "1200ms"
+      // footBtn[0].style.top= "-45px";
+      // this.navColor = "custom"
+      theArrow[0].style.transform = "rotateX(0DEG)"
     }
     setTimeout(() => {
-      mapSize[0].style.height = "50%";
-      this.arrow = "arrow-down"
+      // mapSize[0].style.height = "60%";
+      // theArrow[0].style.transform = "rotateX(0DEG)"
+      // this.arrow = "arrow-down"
       this.decide = 0;
     }, 60000);
 
@@ -400,7 +425,7 @@ export class NearbyOrgPage {
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == false) {
         let alert = this.alertCtrl.create({
-          title: 'ohhhh! sorry!',
+          title: 'Ooops!',
           subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
           buttons: [
             {

@@ -1,4 +1,10 @@
 page-edit-profile {
+    .theFab{
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    }
+    ion-icon{
+        color: white;
+    }
     .content{
         background-color: #ffffff;
     }
@@ -34,6 +40,7 @@ page-edit-profile {
         border-radius: 100px;
         border: white solid 2px;
         margin: 0 auto;
+        box-shadow: 0 2px 15px grey;
     }
     .picture{
         width: 180px;
@@ -71,11 +78,11 @@ page-edit-profile {
             border-radius: 50px;
         }
     
-        .Check{
-            position: relative;
-            bottom: 65px;
-            font-size: 1.7em;
-        }
+        // .Check{
+        //     position: relative;
+        //     bottom: 65px;
+        //     font-size: 1.7em;
+        // }
     
         .fileChooser{
             position: relative;

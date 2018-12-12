@@ -54,6 +54,9 @@ page-sign-in {
     //     top: -55px;
     //     z-index: -1;
     // }
+    ion-icon{
+        color: white;
+    }
     p{
         position: relative;
         bottom: 16px;
@@ -96,7 +99,7 @@ page-sign-in {
     
     }
     .item{
-        background-color: 	#74A7B4;
+        background-color:   #B5BDBF;
         color: white;
         border-radius: 50px;
         margin-bottom: 10px;
@@ -109,22 +112,24 @@ page-sign-in {
         // border: solid 2.5px; 
         width: 70%;
         position: relative;
-        bottom: -250px;
+        bottom: -230px;
         transition: 300ms;
         text-transform: capitalize;
         // left: 60px
     }
-
     .btn2{
      position: relative;
-     bottom: -250px;
+     bottom: -248px;
      text-transform: capitalize;
     //  border: #166b85 solid 3px
-
+    }
+    b{
+        padding-left: 5px;
+        font-weight: bolder;
     }
     .btn3{
         position: relative;
-     bottom: -265px;
+     bottom: -245px;
      text-transform: capitalize;
     }
     .theHeader{
@@ -138,7 +143,6 @@ page-sign-in {
         position: absolute;
         top: -30px;
         left: -80px;
-
     }
     .round2{
         width: 180px;
@@ -167,13 +171,7 @@ page-sign-in {
         top: 510px;
         left: 200px;
     }
-
-
-
-
-
     @media  screen and (max-width:350px){
-
          p{
         position: relative;
         bottom: 16px;
@@ -234,12 +232,10 @@ page-sign-in {
         transition: 300ms;
         // left: 60px
     }
-
     .btn2{
      position: relative;
      bottom: -240px;
     //  border: #166b85 solid 3px
-
     }
     .btn3{
         position: relative;
@@ -256,7 +252,6 @@ page-sign-in {
         position: absolute;
         top: -30px;
         left: -80px;
-
     }
     .round2{
         width: 180px;
@@ -285,13 +280,8 @@ page-sign-in {
         top: 520px;
         left: 145px;
     }
-
     }
-
-
-
     @media  screen and (min-width:700px){
-
         p{
             position: relative;
             bottom: 30px;
@@ -411,11 +401,5 @@ page-sign-in {
             left: 480px;
         }  
     }
-
-
-
-
     
-
-
 }

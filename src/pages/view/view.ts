@@ -29,7 +29,7 @@ declare var firebase;
   selector: 'page-view',
   templateUrl: 'view.html',
 })
-export class ViewPage implements OnInit{
+export class ViewPage {
   pet = "Gallery"
   orgArray = new Array();
   commentArr = new Array();
@@ -48,7 +48,9 @@ export class ViewPage implements OnInit{
   keys2;
   blankStar = "star-outline";
   imageKey;
-  username: any
+  username: any;
+  logInState;
+  img;
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
     console.log(this.navParams.get('orgObject'))
@@ -56,9 +58,10 @@ export class ViewPage implements OnInit{
     console.log(this.imageKey);
     console.log(this.orgArray);
     this.retrieveComments();
+
+    
   }
   ionViewDidEnter() {
-    // this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 
@@ -71,20 +74,23 @@ export class ViewPage implements OnInit{
     this.pinhomeProvider.retrieveOrganization().then((data) => {
       console.log(data)
     })
-  }
 
-  ngOnInit() {
+    
+  }
+  ionViewDidLoad() {
     this.retrieveComments();
+    console.log('ionViewDidLoad SignUpPage');
   }
 
+ 
   storeCatData(data) {
     this.profileArr = data;
     console.log(this.profileArr)
     // console.log(this.tempArray);
   }
   retrieveComments() {
+    this.commentArr.length =0;
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
-     this.commentArr.length =0;
       this.commentArr = data;
       console.log(this.commentArr)
       let rating = this.pinhomeProvider.getRating();
@@ -92,8 +98,9 @@ export class ViewPage implements OnInit{
       if (rating > 0) {
         this.rate(rating);
         this.rateState = true;
+        console.log(rating)
       }
-      else if (rating == undefined) {
+      else if (rating == undefined || rating == 0) {
         this.rateState = false
       }
     })
@@ -189,11 +196,11 @@ export class ViewPage implements OnInit{
   }
 
 
-  view() {
-    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
-      console.log(data);
-    })
-  }
+  // view() {
+  //   this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
+  //     console.log(data);
+  //   })
+  // }
 
   comment(num) {
     this.pinhomeProvider.checkAuthState().then(data => {
@@ -221,14 +228,15 @@ export class ViewPage implements OnInit{
                 handler: data => {
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
-                    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data) => {
-                      console.log(data);
-                      this.commentArr.length = 0;
+                    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data:any) => {
+                   this.commentArr =  data;
+                   this.commentArr.length =0;
                       this.retrieveComments();
                       this.rate(num);
                       console.log(num)
                       this.rateState = true;
                     })
+                    console.log(data);
                   })
                 }
               }
@@ -254,13 +262,13 @@ export class ViewPage implements OnInit{
               text: 'Yes',
               handler: data => {
                 var opt = "rate";
-                this.navCtrl.push(SignInPage, { option: opt, obj: this.orgArray })
+                this.navCtrl.setRoot(SignInPage, { option: opt, obj: this.orgArray })
               }
             },
             {
               text: 'No',
               handler: data => {
-
+                this.retrieveComments();
               }
             }
           ]
@@ -272,7 +280,7 @@ export class ViewPage implements OnInit{
   }
 
   rate(num) {
-    if (num == 1) {
+    if (num == 1) {      
       if (this.Star1 == "star-outline") {
         this.Star1 = "star";
       }

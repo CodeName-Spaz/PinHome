@@ -2,30 +2,45 @@ page-view {
     // .content{
     //     background-color: #f3fcff
     // }
+    .comments{
+        // background-color: #166b85;
+        display: block;
+ 
+        // box-shadow: 0 5px 10px rgba(128, 128, 128, 0.472);
+    }
+    .theDiv{
+        // margin-top: 10px;
+        // box-shadow: 0 5px 10px rgb(128, 128, 128);
+    }
     .TheStar{
         color: gold;
        position: relative;
        top: 2px
     }
     .call{
-        color: black
+        // color: #166b85
+        margin-top: 20px;
     }
-    // .contact{
-    //     position: relative;
-    //     bottom: 20px;
-    //     border: blue solid 2px
-      
-    // }
+    .contact{
+        position: relative;
+        bottom: 40px;
+        // border: blue solid 2px;
+        font-size: 1.5em;
+    }
     .message{
         position: relative;
         left: 15px;
     }
-    h3{
+    .OrgMessage{
         position: relative;
         top: 250px;
+        left: -10%;
+        text-transform: capitalize;
         font-weight: 100;
         font-size: 1em;
-        text-align: left;
+        // z-index: 10000000000000;
+        // text-align: left;
+        // text-align: center;
         
     }
     .h1{
@@ -59,11 +74,21 @@ page-view {
         position: relative;
         bottom: 250%;
     }
-    .P{
-       position: relative;
-       bottom: 150px;
-       padding: 10px;
-    }
+    // .P{
+    // //    position: relative;
+    // //    bottom: 150px;
+    //    padding-left: 10px;
+    //    padding-top: 0;
+    // //    margin-top: -10px;
+    //    padding-right: 10px;
+    // //    border: 2px solid red;
+    //    text-align: center;
+    // }
+    // .stars1{
+        
+    //     margin-top: -20px;
+    //     padding-top: 0;
+    // }
     
     .TheCol{
         // border: #166b85 2px solid;
@@ -86,6 +111,8 @@ page-view {
         z-index: 1000000000;
         width:90%;
         height: 50px;
+        text-align: center;
+        left: 1%;
     }
     .Sstar{
         position: relative;
@@ -101,10 +128,25 @@ page-view {
         width: 100%;
         z-index: 1;
     }
+    .switch{
+        // border: 2px solid red;
+        height: 100px;
+    }
+    .theSeg{
+        // border: 2px solid red;
+        position: absolute;
+        top: -100px;
+    }
     .cover{
         height: 200px;
         width: 100%;
         object-fit: cover;
+    }
+    .seperator{
+        height: 15px
+    }
+    .ioSeperator{
+        height: 5px;
     }
     .round{
         border: solid 5px rgb(255, 255, 255);
@@ -118,6 +160,12 @@ page-view {
         bottom: 50px;
         // margin: 0 auto;     
     }
+    .instruction{
+        // border: 2px solid red;
+        text-align: center;
+        width: 100%;
+        margin-left: -20px
+    }
     .name{
         // text-align: center;
         font-weight: 100;
@@ -129,21 +177,26 @@ page-view {
     }
     ion-grid{
         // border: 2px solid red
+        text-align: center;
     }
     ion-row{
-        // border: 2px solid greenyellow        
+        // border: 2px solid greenyellow
+        text-align: center;
+        padding: 0;        
     }
     ion-col{
+        text-align: center;
         // border: 2px solid red;
         position: relative;
+        padding-top: 0;
         height: 50px;
     }
     .details{
         text-align: lebnft
     }
     .flex{
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
         position: relative;
     }
     .main{
@@ -158,21 +211,21 @@ page-view {
         // border: 2px solid red;
         margin-top: -10px;
     }
-    .category{
-        color: rgb(0, 0, 0);
-        font-style: italic;
-        font-weight: 200;
-        // position: absolute;
-        // left:95px;
-        text-align: center;
-        position: relative;
-        bottom: 135px;
-    }
+    // .category{
+    //     color: rgb(0, 0, 0);
+    //     font-style: italic;
+    //     font-weight: 200;
+    //     // position: absolute;
+    //     // left:95px;
+    //     text-align: center;
+    //     position: relative;
+    //     bottom: 135px;
+    // }
     
     ion-icon{
         color: rgb(223, 219, 219);
         position: relative;
-        top: -19px;
+        top: 10px;
     }
     .test{
         // height: 1000px;
@@ -180,22 +233,27 @@ page-view {
     }
     .pictures{
         height: 120px;
+        width: 360px;
+        position: relative;
+        right: 16px;
         // border: solid 2px blue;
         // border-left: solid 2px white;
         position: relative;
         object-fit: cover;
-        top: 310px;
-        border-radius: 10px
+        top: 260px;
+        border-radius: 10px;
+        
     }
     .Galleryimage{
         height: 300%;
-        width: 380%;
+        width: 410%;
         // border: #e4d727 solid 2px;
         position: relative;
-        top: 35px;
+        top: 25px;
         object-fit: cover;
-        border-radius: 5px;
-        box-shadow: 0 0 10px;
+        // border-radius: 5px;
+        // box-shadow: 0 0 10px;
+        padding: 1px;
     }
     .map{
         width: 100%;
@@ -242,6 +300,16 @@ page-view {
             // .content{
         
     // }
+    .Galleryimage{
+        height: 300%;
+        width: 380%;
+        // border: #e4d727 solid 2px;
+        position: relative;
+        top: 35px;
+        object-fit: cover;
+        // border-radius: 5px;
+        // box-shadow: 0 0 10px;
+    }
     h3{
         position: relative;
         bottom: 500%;
@@ -308,6 +376,7 @@ page-view {
         color: gold;
         font-size: 20px;
         padding-bottom: 200%;
+        // border: 2px solid red;
        
     }
     .StarCard{
@@ -413,7 +482,7 @@ page-view {
         // border: solid 2px blue;
         // border-left: solid 2px white;
         position: relative;
-        top: 320px;
+        top: 300px;
     }
     .image{
         height: 120px;
@@ -462,6 +531,17 @@ page-view {
    
     }
     @media  screen and (max-width:350px){
+        .Galleryimage{
+            height: 300%;
+            width: 380%;
+            // border: #e4d727 solid 2px;
+            position: relative;
+            top: 25px;
+            object-fit: cover;
+            // opacity: 0;
+            // border-radius: 5px;
+            // box-shadow: 0 0 10px;
+        }
         .h1{
             position: relative;
             top: 200px;
@@ -621,7 +701,7 @@ page-view {
             // border: solid 2px blue;
             // border-left: solid 2px white;
             position: relative;
-            top: 225px;
+            top: 200px;
             
         
         }
@@ -887,6 +967,17 @@ page-view {
         }
         .info{
             font-weight: 100;
+        }
+
+        .Galleryimage{
+            height: 300%;
+            width: 380%;
+            // border: #e4d727 solid 2px;
+            position: relative;
+            top: 35px;
+            object-fit: cover;
+            // border-radius: 5px;
+            // box-shadow: 0 0 10px;
         }
     }
 }
