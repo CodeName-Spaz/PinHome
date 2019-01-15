@@ -339,6 +339,7 @@ this.navCtrl.popToRoot();
     var myArrow = document.getElementsByClassName("theArrow") as HTMLCollectionOf<HTMLElement>;
     // var footBtn = document.getElementsByClassName("listerBtn") as HTMLCollectionOf <HTMLElement>;
     // footBtn[0].style.transition ="700ms";
+    var slideShow = document.getElementsByClassName("slides")  as HTMLCollectionOf <HTMLElement>;
     var theCont = document.getElementsByClassName("cont") as HTMLCollectionOf <HTMLElement>;
     if (event.scrollTop > 0 && event.directionY == "down") {
       // mapper[0].style.height = "60%";
@@ -348,6 +349,7 @@ this.navCtrl.popToRoot();
         theCont[0].style.height = "50%"
         theCont[0].style.top = "50%"
         myArrow[0].style.transform = "rotateX(0DEG)"
+        slideShow[0].style.height = "180px"
         console.log("shrinking map 2");
         
       
@@ -445,7 +447,7 @@ this.navCtrl.popToRoot();
         });
         alert.present();
       } else {
-        this.navCtrl.push(ProfilePage)
+        this.navCtrl.push(ProfilePage, {optionObject:this.img})
       }
 
     })

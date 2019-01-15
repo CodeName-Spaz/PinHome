@@ -2,10 +2,7 @@
   <!-- <ion-navbar class="Nav"> -->
   <!-- <ion-title>View</ion-title> -->
   <!-- </ion-navbar> -->
-
 </ion-header>
-
-
 <ion-content class="content" (ionScroll)="scroller($event)" *ngFor="let i of orgArray">
   <ion-fab top left class="backBtn">
     <button color="light" clear ion-button icon-only (click)="Back()">
@@ -15,19 +12,16 @@
   <img class="cover" src="{{i.orgPicture}}">
   <div class="main">
     <div class="flex">
-
       <!-- <ion-row> -->
       <!-- <ion-col col-3> -->
       <img class="round" src="../../assets/imgs/home-ministries-1 (1).png"> &ensp;
       <!-- </ion-col> -->
-
       <ion-grid class="TheGrid">
         <ion-row>
           <ion-col>
             <h1 class="name">{{i.orgName}}</h1>
             <p class="category">{{i.orgCat}}</p>
             
-
           </ion-col>
         </ion-row>
         <ion-row class="stars1" no-padding align="center">
@@ -48,7 +42,6 @@
             <div *ngIf="i.rating == 5; then loggedIn5">
             </div>
             <ng-template #loggedIn0>
-
               <p>
                 <ion-icon class="Gold" name="star-outline"></ion-icon>
                 <ion-icon class="Gold" name="star-outline"></ion-icon>
@@ -56,7 +49,6 @@
                 <ion-icon class="Gold" name="star-outline"></ion-icon>
                 <ion-icon class="Gold" name="star-outline"></ion-icon>
               </p>
-
             </ng-template>
             <ng-template #loggedIn1>
               <p>
@@ -103,7 +95,6 @@
                 <ion-icon class="Gold" name="star"></ion-icon>
               </p>
             </ng-template>
-
           </ion-col>
         </ion-row>
         <ion-row no-padding>
@@ -118,10 +109,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
     </div>
-
-
     <ion-grid class="contact" align="center">
       <ion-row>
         <ion-col>
@@ -129,7 +117,6 @@
               
               </div>
               <div class="ioSeperator"></div>
-
             <ion-icon color="bg" name="navigate" (click)="directions(i.orgAddress)"></ion-icon>
     
         </ion-col>
@@ -138,25 +125,17 @@
               
               </div>
               <div class="ioSeperator"></div>
-
             <ion-icon color="bg" name="call" (click)="call(i.orgContact)"></ion-icon>
-
         </ion-col>
         <ion-col>
             <div class="seperator">
               
               </div>
               <div class="ioSeperator"></div>
-
             <ion-icon color="bg" name="mail" (click)="email(i.orgEmail)"></ion-icon>
-
         </ion-col>
       </ion-row>
-
     </ion-grid>
-
-
-
   </div>
   <div class="segment" style="margin-top: 10px">
     <ion-segment class="theSeg" color="bg" [(ngModel)]="pet">
@@ -174,19 +153,13 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-
-
-
   <div class="switch" padding [ngSwitch]="pet">
     <!-- <ion-list class="about" *ngSwitchCase="'About'"> -->
     <!-- <h1 class="info">About {{i.orgName}} {{i.orgCat}}</h1> -->
-
-
     <!--   
           <div padding>
           </div>
         </ion-list> -->
-
     <ion-list *ngSwitchCase="'Gallery'">
       <div class="thecontent">
         <div *ngIf="orgArray.length == 0 || orgArray.length == undefined">
@@ -196,19 +169,18 @@
         <ion-grid no-padding align="center" class="pictures">
           <ion-row *ngFor="let a of orgArray">
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
     </ion-list>
-
     <ion-list *ngSwitchCase="'Reviews'">
       <div class="StarCard">
         <div class="ratings" align="center">
@@ -251,13 +223,11 @@
               <p>{{a.comment}}</p>
             </ion-card-content>
           </ion-card> -->
-
-
       <ion-card class="comments">
         <div class="theDiv" *ngFor="let a of commentArr">
           <ion-item>
             <ion-avatar item-start>
-              <img [src]="a.url">
+              <img class="profilePic" [src]="a.url">
             </ion-avatar>
             <b>
               <h2>{{a.username}}</h2>
@@ -276,7 +246,6 @@
             <div *ngIf="a.rating == 5; then loggedIn5">
             </div>
             <ng-template #loggedIn0>
-
               <p>
                 <ion-icon class="TheStar" name="star"></ion-icon>
                 <ion-icon class="TheStar" name="star-outline"></ion-icon>
@@ -284,7 +253,6 @@
                 <ion-icon class="TheStar" name="star-outline"></ion-icon>
                 <ion-icon class="TheStar" name="star-outline"></ion-icon>
               </p>
-
             </ng-template>
             <ng-template #loggedIn1>
               <p>
@@ -338,7 +306,6 @@
           <hr>
         </div>
       </ion-card>
-
     </ion-list>
   </div>
   <!-- <div *ngIf="commentArr.length == 0 || commentArr.length == undefined">

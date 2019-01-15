@@ -6,15 +6,12 @@
 $font-path: "../assets/fonts";
 
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 
-
-
-
+// $toolbar-md-title-text-color: (base: red,contrast : white);
 
 @import "ionic.globals";
 
@@ -63,7 +60,7 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-$toolbar-md-title-text-color: red;
+
 
 
 
