@@ -91,6 +91,3 @@ export class SignUpPage {
 this.navCtrl.pop()  
 }
 }
-
-
-

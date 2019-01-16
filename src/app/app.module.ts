@@ -47,9 +47,9 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
-    AddOrganizationPage,
-    EditProfilePage,
-    AddOrganizationPage
+  AddOrganizationPage,
+   EditProfilePage
+    // IonicImageViewerModule
   ],
   imports: [
     BrowserModule,
@@ -65,8 +65,9 @@ firebase.initializeApp({
     SignUpPage,
     SignInPage,
     ProfilePage,
-    EditProfilePage,
-    AddOrganizationPage
+    AddOrganizationPage,
+    EditProfilePage
+    // IonicImageViewerModule
   ],
   providers: [
     StatusBar,
@@ -78,9 +79,8 @@ firebase.initializeApp({
     EmailComposer,
     CallNumber,
     LaunchNavigator,
-    ScreenOrientation,
     NativeGeocoder,
-    IonicImageViewerModule
+    ScreenOrientation
   ]
 })
 export class AppModule {}

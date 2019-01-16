@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
@@ -135,3 +136,6 @@ export class EditProfilePage implements OnInit{
 
  
 }
+
+
+

@@ -12,6 +12,7 @@ $font-path: "../assets/fonts";
 $app-direction: ltr;
 
 $toolbar-md-title-text-color: white;
+// $toolbar-md-title-text-color: (base: red,contrast : white);
 
 @import "ionic.globals";
 
@@ -46,9 +47,11 @@ $colors: (
   custom1 : #166b85,
   custom2: #42d3ff,
   transparent: rgba(0, 0, 0, 0),
-
   navFull: #242f3e,
+  
 );
+
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

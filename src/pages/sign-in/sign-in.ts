@@ -101,7 +101,7 @@ forgotpassword(PlaceObject: object) {
   return new Promise((resolve, reject) => {
       if (this.email == null || this.email == undefined) {
         const alert = this.alertCtrl.create({
-          subTitle: 'Please insert your email to retrieve your password',
+          subTitle: 'Oops looks like you missen inserting your email.',
           buttons: ['OK']
         });
         alert.present();
@@ -144,6 +144,3 @@ forgotpassword(PlaceObject: object) {
 
 
 }
-
-
-

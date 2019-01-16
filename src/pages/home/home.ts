@@ -273,7 +273,7 @@ near(){
       this.filtereditems = [];
       this,this.searchTerm = ""; 
       this.initializeItems();
-      restOf[0].style.paddingTop = "210px";
+      restOf[0].style.paddingTop = "190px";
 
     } 
     else if(this.state == "search"){
@@ -429,7 +429,7 @@ near(){
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "210px";
+        restOf[0].style.paddingTop = "190px";
 
         searchBtn[0].style.top = "20px";
 
@@ -448,8 +448,4 @@ near(){
 
 
 }
-
-
-
-
 

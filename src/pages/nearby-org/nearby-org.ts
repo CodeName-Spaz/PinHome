@@ -452,6 +452,3 @@ this.navCtrl.popToRoot();
   }
 
 }
-
-
-

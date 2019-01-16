@@ -140,6 +140,3 @@ export class ProfilePage {
     })
   }
 }
-
-
-

@@ -354,6 +354,3 @@ export class ViewPage {
 
 
 }
-
-
-
