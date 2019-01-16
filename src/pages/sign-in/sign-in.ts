@@ -7,6 +7,7 @@ import { HomePage } from '../home/home';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ThrowStmt } from '@angular/compiler';
 import { ViewPage } from '../view/view';
+import firebase from 'firebase';
 
 
 
@@ -71,7 +72,7 @@ export class SignInPage {
       this.pinhomeProvider.SignIn(this.email,this.password).then(() => {
         // this.presentLoading1();
        if (this.option == "profile"){
-         this.navCtrl.push(ProfilePage);
+         this.navCtrl.push(ProfilePage, {optionObject:this.option});
        }
        else if (this.option == "rate"){
          this.navCtrl.pop();
@@ -87,17 +88,62 @@ export class SignInPage {
   // forgotpassword() {
   //   this.navCtrl.push(ForgotPasswordPage)
   // }
-  forgotpassword(object:PlaceObject ) {
-    this.pinhomeProvider.forgotpassword(object.email).then(() => {
-      // this.navCtrl.setRoot(SignupPage);
-    }, (error)=>{
-      alert(error)
-    })     
-    // this.obj.email ="";    
-  }
+ 
   GoToSignup(){
   this.navCtrl.push(SignUpPage)
 }
+Back(){
+  this.navCtrl.pop()
+}
+
+
+forgotpassword(PlaceObject: object) {
+  return new Promise((resolve, reject) => {
+      if (this.email == null || this.email == undefined) {
+        const alert = this.alertCtrl.create({
+          subTitle: 'Please insert your email to retrieve your password',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+      else if (this.email != null || this.email != undefined) {
+        firebase.auth().sendPasswordResetEmail(this.email).then(() => {
+          const alert = this.alertCtrl.create({
+            title: 'Password request Sent',
+            subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
+            buttons: ['OK']
+
+          });
+          alert.present();
+          resolve()
+        }, Error => {
+          const alert = this.alertCtrl.create({
+            subTitle: Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
+          resolve()
+        });
+      }
+    }).catch((error) => {
+  const alert = this.alertCtrl.create({
+    subTitle: error.message,
+    buttons: [
+      {
+        text: 'ok',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+  });
+  alert.present();
+})
+   }
+
 
 
 }
+
+
+

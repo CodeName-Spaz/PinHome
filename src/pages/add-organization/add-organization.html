@@ -21,7 +21,7 @@
   <br>
   <ion-item>
     <ion-label>aboutorg:</ion-label>
-      <ion-input type="text" #AboutOrg max="250"></ion-input>
+      <ion-input type="text" #AboutOrg maxLength="250"></ion-input>
   </ion-item>
   <br>
   <ion-item>
@@ -75,6 +75,7 @@ Gallery page:<br>
 <img class="galImg" src="{{urlGallery}}" alt="">
 <br>
 <button ion-button (click)="addOrganizations(organization.value,address.value,contactDetails.value,email.value,AboutOrg.value,select.value)">save data</button>
+</ion-content>
 <ion-header>
     <ion-navbar color="custom">
       <ion-title>Add Organisation</ion-title>
@@ -134,7 +135,6 @@ Gallery page:<br>
       </div>
       <button ion-button full color="btn" (click)="addOrganizations(organization.value,address.value,contactDetails.value,email.value,AboutOrg.value,price.value,select.value)">save data</button>
     </div>
-    <button ion-button full color="btn" (click)="addOrganizations(organization.value,address.value,contactDetails.value,email.value,AboutOrg.value,price.value,select.value)">save data</button>
-  </div>
-</ion-content>
+
+  </ion-content>
 

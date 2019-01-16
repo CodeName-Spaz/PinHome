@@ -21,8 +21,12 @@ export class EditProfilePage implements OnInit{
   name;
   email;
   uid;
+  address;
   imageArr= new Array();
+  tempImg;
+  surname;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
+    this.retreivePics1()
   }
 
   ionViewDidLoad() {
@@ -34,38 +38,60 @@ export class EditProfilePage implements OnInit{
     this.pinhomeProvider.retrieve().on('value', (data: any) => {
       let details = data.val();
       this.name = details.name;
-      this.email = details.email
-      this.contact = details.contact
-      this.downloadurl = details.downloadurl
+      this.email = details.email;
+      this.address = details.address;
+      this.surname =details.surname;
+      this.downloadurl = details.downloadurl;
+      this.tempImg =  details.downloadurl;
     })
   }
 
   GoToProfile(){
-    this.navCtrl.setRoot(ProfilePage);
+    this.navCtrl.push(ProfilePage);
   }
 
   uploadPicture() {
-    this.imageArr.length = 0;
-    if (this.contact.length < 11) {
+    // this.imageArr.length = 0;
+    if (this.tempImg == this.downloadurl){
       this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
         console.log('added to db');
-        this.pinhomeProvider.update(this.name,this.email,this.contact,this.downloadurl).then((data) => {
+        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
+          console.log(this.imageArr);
         })
-        this.navCtrl.setRoot(ProfilePage);
+        this.navCtrl.push(ProfilePage);
       },
         Error => {
-          console.log(Error)
+          const alert = this.alertCtrl.create({
+            title: "Oops!",
+            subTitle:  Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
         })
+ 
+    
     }
-    else {
-      const alert = this.alertCtrl.create({
-        title: "Oops!",
-        subTitle: "Please make sure that your mobile number is correct.",
-        buttons: ['OK']
-      });
-      alert.present();
+    else{
+      this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
+        console.log('added to db');
+        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
+          this.imageArr.push(data);
+          console.log(this.imageArr);
+        })
+        this.navCtrl.push(ProfilePage);
+      },
+        Error => {
+          const alert = this.alertCtrl.create({
+            title: "Oops!",
+            subTitle:  Error.message,
+            buttons: ['OK']
+          });
+          alert.present();
+        })
+ 
     }
+
   }
 
   getUid1() {
@@ -77,7 +103,7 @@ export class EditProfilePage implements OnInit{
   retreivePics1() {
     this.imageArr.length = 0;
     this.getUid1();
-    this.pinhomeProvider.viewPicGallery1().then(data => {
+    this.pinhomeProvider.viewUserProfile().then(data => {
       var keys: any = Object.keys(data);
       for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
@@ -86,13 +112,14 @@ export class EditProfilePage implements OnInit{
             downloadurl: data[k].downloadurl
           }
           this.imageArr.push(objt);
-          console.log(this.imageArr);
         }
       }
  
     }, Error => {
       console.log(Error)
     });
+  
+   
   }
 
 
@@ -104,7 +131,6 @@ export class EditProfilePage implements OnInit{
       }
       reader.readAsDataURL(event.target.files[0]);
     }
-
   }
 
  
