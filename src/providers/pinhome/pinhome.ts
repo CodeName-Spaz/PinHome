@@ -495,7 +495,7 @@ export class PinhomeProvider {
 
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
-      this.categoryArr.length = 0;
+      this.categoryArr=[];
       this.db.ref('OrganizationList').on('value', (data) => {
         let SelectCategory = data.val();
         let keys = Object.keys(SelectCategory);
@@ -540,7 +540,6 @@ export class PinhomeProvider {
   }
 
   comments(comment: any, commentKey: any, rating) {
-    // this.commentArr.length =0;
     let user = firebase.auth().currentUser;
     return new Promise((accpt, rejc) => {
       var day = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -554,9 +553,10 @@ export class PinhomeProvider {
     });
   }
   viewComments(comment: any, commentKey: any) {
-    this.commentArr.length =0;
     this.rating = 0;
-    return new Promise((accpt, rejc) => {
+    this.commentArr.length =0;
+    return new Promise((accpt, rejc) => {  
+      this.commentArr.length =0;
       let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
         let CommentDetails = data.val();
@@ -582,7 +582,6 @@ export class PinhomeProvider {
             this.viewProfileMain(chckId).then((profileData: any) => {
               obj.url = profileData.downloadurl;
               obj.username = profileData.name;
-              console.log(obj)
               this.commentArr.push(obj);
               console.log(this.commentArr)
             });

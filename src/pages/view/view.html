@@ -169,13 +169,13 @@
         <ion-grid no-padding align="center" class="pictures">
           <ion-row *ngFor="let a of orgArray">
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
             <ion-col no-padding col-4 class="colume">
-              <img class="Galleryimage" [src]="a.orgGallery" imageViewer>
+              <img [src]="a.orgGallery" imageViewer class="galImg">
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -227,7 +227,7 @@
         <div class="theDiv" *ngFor="let a of commentArr">
           <ion-item>
             <ion-avatar item-start>
-              <img [src]="a.url">
+              <img class="profilePic" [src]="a.url">
             </ion-avatar>
             <b>
               <h2>{{a.username}}</h2>
@@ -313,3 +313,6 @@
           <p>There are no reviews avaliable yet .....</p>
          </div> -->
 </ion-content>
+
+
+

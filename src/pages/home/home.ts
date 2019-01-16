@@ -273,7 +273,7 @@ near(){
       this.filtereditems = [];
       this,this.searchTerm = ""; 
       this.initializeItems();
-      restOf[0].style.paddingTop = "190px";
+      restOf[0].style.paddingTop = "210px";
 
     } 
     else if(this.state == "search"){
@@ -311,7 +311,7 @@ near(){
       content: 'please wait',
       duration: 222000
     });
-    // loading.present();
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
@@ -327,6 +327,7 @@ near(){
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
         this.orgArray = org;
+        this.location  = "Location Disabled"
         console.log(this.orgArray)
         loading.dismiss();
       })
@@ -429,7 +430,7 @@ near(){
 
         nav[0].style.height = "120px";
 
-        restOf[0].style.paddingTop = "190px";
+        restOf[0].style.paddingTop = "210px";
 
         searchBtn[0].style.top = "20px";
 
@@ -448,4 +449,3 @@ near(){
 
 
 }
-

@@ -10,7 +10,7 @@ page-edit-profile {
     }
     .list{
         position: relative;
-        top: 20px;
+        top: 80px;
     }
     .item{
         border-radius: 50px;
@@ -20,13 +20,11 @@ page-edit-profile {
             color: rgb(199, 199, 199);
         }
     }
-    .Check{
+    .check{
         position: relative;
-        bottom: 45px;
-        font-size: 1em;
-        color: #166b85;
-        font-size: 1.5em;
+        font-size: 2.5em;
     }
+ 
     .arrow{
         color: #166b85;
     }
@@ -35,12 +33,14 @@ page-edit-profile {
         top: 40px;
     }
     .round{
-        width: 185px;
-        height: 185px;
+        width: 180px;
+        height: 180px;
         border-radius: 100px;
         border: white solid 2px;
         margin: 0 auto;
         box-shadow: 0 2px 15px grey;
+        position: relative;
+        top: 50px;
     }
     .picture{
         width: 180px;
@@ -52,12 +52,12 @@ page-edit-profile {
         display: none
     }
     .Add{
-        color: #166b85;
+        color: #157491;
         text-shadow: 0 0 5px white;
         font-size: 3.2em;
         position: relative;
-        bottom: 90px;
-        left: 210px;
+        bottom: 30px;
+        left: 60%;
         text-shadow: 0 0 0 black;
     }
     .head{
@@ -71,78 +71,92 @@ page-edit-profile {
     @media  screen and (min-width:700px){
         .list{
             position: relative;
-            top: 20px;
+            top: 200px;
         }
+        .check{
+            position: relative;
+            font-size: 4.5em;
+        }
+        .arrow{
+            font-size: 4em;
     
+        }
+ 
         .item{
             border-radius: 50px;
+            font-size: 1.8em
         }
-    
+ 
         // .Check{
         //     position: relative;
         //     bottom: 65px;
         //     font-size: 1.7em;
         // }
-    
+ 
         .fileChooser{
             position: relative;
-            top: 40px;
+            top: 80px;
+            font-size: 1.5em;
+            position: relative;
         }
-    
+ 
         .round{
-            width: 185px;
-            height: 185px;
-            border-radius: 100px;
+            width: 250px;
+            height: 250px;
+            border-radius: 150px;
             border: white solid 2px;
             margin: 0 auto;
         }
-    
+ 
         .picture{
-            width: 180px;
-            height: 180px;
-            border-radius: 100px;
+            width: 250px;
+            height: 250px;
+            border-radius: 150px;
             margin: 0 auto;
         }
-    
+ 
         #file{
             display: none
         }
-    
+ 
         .Add{
-            color: #d6ebf1;
+            color: #157491;
             font-size: 3.5em;
             position: relative;
-            bottom: 80px;
-            left: 400px;
+            bottom: 95px;
+            left: 55%;
             text-shadow: 0 0 0 black;
         }
         h1{
             text-align: center;
             font-weight: 100;
-            color: white;
+            color: #166b85;
+            position: relative;
+            top: 50px;
+            font-size: 3em
         }
+ 
     }
     @media screen and (max-width:350px){
         .list{
             position: relative;
-            top: 20px;
+            top: 70px;
         }
-    
+ 
         .item{
             border-radius: 50px;
         }
-    
-        .Check{
+ 
+        .check{
             position: relative;
-            bottom: 65px;
-            font-size: 1.7em;
+            font-size: 2.5em;
         }
-    
+ 
         .fileChooser{
             position: relative;
             top: 40px;
         }
-    
+ 
         .round{
             width: 125px;
             height: 125px;
@@ -150,33 +164,34 @@ page-edit-profile {
             border: white solid 2px;
             margin: 0 auto;
         }
-    
+ 
         .picture{
             width: 120px;
             height: 120px;
             border-radius: 100px;
             margin: 0 auto;
         }
-    
+ 
         #file{
             display: none
         }
-    
+ 
         .Add{
-            color: #d6ebf1;
-            font-size: 3.5em;
+            color: #157491;
+            font-size: 3.1em;
             position: relative;
-            bottom: 80px;
-            left: 400px;
+            bottom: 28px;
+            right: 4px;
             text-shadow: 0 0 0 black;
         }
         h1{
             text-align: center;
             font-weight: 100;
-            color: white;
+            color: #157491;
             font-size: 1.6em;
         }
-        
+ 
+ 
     }
-    
-}
+ 
+ }

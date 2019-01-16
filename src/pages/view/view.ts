@@ -29,7 +29,7 @@ declare var firebase;
   selector: 'page-view',
   templateUrl: 'view.html',
 })
-export class ViewPage {
+export class ViewPage  {
   pet = "Gallery"
   orgArray = new Array();
   commentArr = new Array();
@@ -59,9 +59,10 @@ export class ViewPage {
     console.log(this.orgArray);
     this.retrieveComments();
 
-    
+
   }
   ionViewDidEnter() {
+    this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 
@@ -75,30 +76,33 @@ export class ViewPage {
       console.log(data)
     })
 
-    
-  }
-  ionViewDidLoad() {
-    this.retrieveComments();
-    console.log('ionViewDidLoad SignUpPage');
+
   }
 
- 
+  // ngOnInit() {
+  //   this.retrieveComments();
+  // }
+
+  
+  // ionViewDidLoad() {
+  //   this.retrieveComments();
+  //   console.log('ionViewDidLoad SignUpPage');
+  // }
+
+
   storeCatData(data) {
     this.profileArr = data;
     console.log(this.profileArr)
     // console.log(this.tempArray);
   }
   retrieveComments() {
-    this.commentArr.length =0;
+    this.commentArr=[];
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
-      console.log(this.commentArr)
       let rating = this.pinhomeProvider.getRating();
-      console.log(rating)
       if (rating > 0) {
         this.rate(rating);
         this.rateState = true;
-        console.log(rating)
       }
       else if (rating == undefined || rating == 0) {
         this.rateState = false
@@ -228,15 +232,15 @@ export class ViewPage {
                 handler: data => {
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
-                    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data:any) => {
-                   this.commentArr =  data;
-                   this.commentArr.length =0;
+                    this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
+                  
+                      this.commentArr = data;
+                      this.commentArr.reverse();
+                      this.commentArr.length = 0;
                       this.retrieveComments();
                       this.rate(num);
-                      console.log(num)
                       this.rateState = true;
                     })
-                    console.log(data);
                   })
                 }
               }
@@ -262,7 +266,7 @@ export class ViewPage {
               text: 'Yes',
               handler: data => {
                 var opt = "rate";
-                this.navCtrl.setRoot(SignInPage, { option: opt, obj: this.orgArray })
+                this.navCtrl.push(SignInPage, { option: opt, obj: this.orgArray })
               }
             },
             {
@@ -280,7 +284,7 @@ export class ViewPage {
   }
 
   rate(num) {
-    if (num == 1) {      
+    if (num == 1) {
       if (this.Star1 == "star-outline") {
         this.Star1 = "star";
       }

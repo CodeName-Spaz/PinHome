@@ -1,31 +1,5 @@
-<!-- <ion-header>
-  <ion-toolbar color="custom">
-    <div class="flex">
-
-      <div class="profile">
-        <img src="{{profilePic}}" (click)="viewPage()" class="dp" alt="">
-      </div>
-      <ion-item class="hidden">
-        <ion-label>Filtey by</ion-label>
-        <ion-select [(ngModel)]="category" (ionChange)="selectcategory()" color="custom" id="drop">
-          <ion-option value="Orphanage">Orphanage</ion-option>
-          <ion-option value="Disability">Disability</ion-option>
-          <ion-option value="old age">Old Age Homes</ion-option>
-          <ion-option value="theraphy">Theraphy</ion-option>
-          <ion-option value="Psychiatric">Psychiatric centres/Hospital</ion-option>
-          <ion-option value="social centre">Social Centre</ion-option>
-          <ion-option value="Rehab">Rehab</ion-option>
-        </ion-select>
-      </ion-item>
-      <button ion-button icon-only color="light" clear class="btn">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </div>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content (ionScroll)="scroller($event)">
-  <ion-fab top left>
+  <ion-fab class="prof" top left>
       <div class="profile">
           <img src="{{profilePic}}" (click)="viewPage()" class="dp" alt="">
         </div>
@@ -144,7 +118,6 @@
           </ion-card>
         </ion-slide>
       </div>
-
     </ion-slides>
   </div>
 </div>
