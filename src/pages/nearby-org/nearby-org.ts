@@ -32,6 +32,9 @@ export class NearbyOrgPage {
   orgArray = new Array();
   cat = [];
   location;
+  lat;
+  long;
+  time;
   decide = 0;
   arrow = "arrow-down";
   img;
@@ -39,6 +42,7 @@ export class NearbyOrgPage {
   category;
   logInState
   navColor = "custom";
+  locationState =false;
   images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
   circle: Circle;
   profilePic = this.navParams.get('img');
@@ -53,213 +57,238 @@ export class NearbyOrgPage {
     //this.createCurrentLocationMarker();
   }
 
-  loadMap() {
+
+  loadAllMaps(){
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Getting your location,please wait',
-      duration: 222000
+      content: 'Almost Done',
+      duration: 70220
 
     });
     loading.present();
-    // this.orgArray.length = 0;
-    this.pinhome.getCurrentLocation().then((radius: any) => {
-      this.pinhome.getOrganisations().then((org: any) => {
-    // This code is necessary for browser
-    this.pinhome.listenForLocation().then((resp:any) =>{
-      this.assignLocation(resp);
-      Environment.setEnv({
-        'API_KEY_FOR_BROWSER_RELEASE': '(your api key for `https://`)',
-        'API_KEY_FOR_BROWSER_DEBUG': '(your api key for `http://`)'
-      });
-  
-      let mapOptions: GoogleMapOptions = {
-        camera: {
-           target: {
-             lat: resp.coords.latitude,
-             lng: resp.coords.longitude
-           },
-           zoom: 10,
-           tilt: 0,
-         },
-         styles : [
-          {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-          {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-          {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-          {
-            featureType: 'administrative.locality',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#d59563'}]
-          },
-          {
-            featureType: 'poi',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#d59563'}]
-          },
-          {
-            featureType: 'poi.park',
-            elementType: 'geometry',
-            stylers: [{color: '#263c3f'}]
-          },
-          {
-            featureType: 'poi.park',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#6b9a76'}]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry',
-            stylers: [{color: '#38414e'}]
-          },
-          {
-            featureType: 'road',
-            elementType: 'geometry.stroke',
-            stylers: [{color: '#212a37'}]
-          },
-          {
-            featureType: 'road',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#9ca5b3'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'geometry',
-            stylers: [{color: '#746855'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'geometry.stroke',
-            stylers: [{color: '#1f2835'}]
-          },
-          {
-            featureType: 'road.highway',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#f3d19c'}]
-          },
-          {
-            featureType: 'transit',
-            elementType: 'geometry',
-            stylers: [{color: '#2f3948'}]
-          },
-          {
-            featureType: 'transit.station',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#d59563'}]
-          },
-          {
-            featureType: 'water',
-            elementType: 'geometry',
-            stylers: [{color: '#17263c'}]
-          },
-          {
-            featureType: 'water',
-            elementType: 'labels.text.fill',
-            stylers: [{color: '#515c6d'}]
-          },
-          {
-            featureType: 'water',
-            elementType: 'labels.text.stroke',
-            stylers: [{color: '#17263c'}]
-          }
-        ],
-        controls: {
-          'compass': true,
-          'myLocationButton': false,
-          'myLocation': true,   // (blue dot)
-          'indoorPicker': true,
-          'zoom': false,          // android only
-          'mapToolbar': true     // android only
-        },
+    this.pinhome.getOrganisations().then((org: any) => {
+      // This code is necessary for browser
+      
+      if (this.locationState == false){
+        this.lat = '-25.871575';
+        this.long = '28.226656'
+        this.time = '500'
       }
-      this.map = GoogleMaps.create('map_canvas', mapOptions);
-      this.map.addMarker({
-        title: 'current Location',
-        icon:  {
-          url :"assets/imgs/current.png",
-          size : {width: 35, height: 40}
-        },
-        animation: 'DROP',
-        speed: 500,
-        time : resp.timestamp,
-        position: {
-          lat: resp.coords.latitude,
-          lng: resp.coords.longitude
-        }
-      }).then((marker : Marker ) =>{
-        marker.showInfoWindow();
-      })
-      this.pinhome.retrieveOrganization().then((data:any) =>{
-        this.orgArray =  data;
-        console.log(this.orgArray);
-        var indx = 0;
-        for (var x = 0; x < this.orgArray.length; x++){
-          if (this.orgArray[x].orgCat == "Orphanage")
-            indx =  1;
-            else if (this.orgArray[x].orgCat == "Disability")
-            indx =  2;
-            else if (this.orgArray[x].orgCat == "old age")
-            indx =  3;
-            else if (this.orgArray[x].orgCat == "theraphy")
-            indx =  4;
-            else if (this.orgArray[x].orgCat == "Psychiatric")
-            indx =  5;
-            else if (this.orgArray[x].orgCat == "social centre")
-            indx =  6;
-            else if (this.orgArray[x].orgCat == "Rehab")
-            indx =  7;
-          this.map.addMarker({
-            title: this.orgArray[x].orgName,
-            icon:  {
-              url :this.images[indx],
-              size : {width: 30, height: 30}
+      else{
+        this.lat = this.location.coords.latitude
+        this.long = this.location.coords.longitude
+        this.time = this.location.timestamp
+      }
+
+        Environment.setEnv({
+          'API_KEY_FOR_BROWSER_RELEASE': '(your api key for `https://`)',
+          'API_KEY_FOR_BROWSER_DEBUG': '(your api key for `http://`)'
+        });
+    
+        let mapOptions: GoogleMapOptions = {
+          camera: {
+             target: {
+              lat: this.lat,
+              lng: this.long
+             },
+             zoom: 8,
+             tilt: 0,
+           },
+           styles : [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
             },
-            animation: 'DROP',
-            disableAutoPan: true,
-            position: {
-              lat: this.orgArray[x].orgLat,
-              lng:  this.orgArray[x].orgLong 
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
             }
-          }).then((marker : Marker ) =>{
-            marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
-                for (var i = 0; i < this.orgArray.length; i++ ){
-                  if (this.orgArray[i].orgName ==  marker.getTitle()){
-                    this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
-                      break;
-                  }
-                }
-            })
-          })
+          ],
+          controls: {
+            'compass': true,
+            'myLocationButton': false,
+            'myLocation': true,   // (blue dot)
+            'indoorPicker': true,
+            'zoom': false,          // android only
+            'mapToolbar': true     // android only
+          },
         }
+        this.map = GoogleMaps.create('map_canvas', mapOptions);
+      
+          if (this.locationState ==  true){
+            this.map.addMarker({
+              title: 'current Location',
+              icon:  {
+                url :"assets/imgs/current.png",
+                size : {width: 35, height: 40}
+              },
+              animation: 'DROP',
+              speed: 500,
+              time :  this.time,
+              position: {
+                lat: this.lat,
+                lng: this.long
+              }
+            }).then((marker : Marker ) =>{
+              marker.showInfoWindow();
+            })
+          }
+     
+        this.pinhome.retrieveOrganization().then((data:any) =>{
+          this.orgArray =  data;
+          console.log(this.orgArray);
+          var indx = 0;
+          for (var x = 0; x < this.orgArray.length; x++){
+            if (this.orgArray[x].orgCat == "Orphanage")
+              indx =  1;
+              else if (this.orgArray[x].orgCat == "Disability")
+              indx =  2;
+              else if (this.orgArray[x].orgCat == "old age")
+              indx =  3;
+              else if (this.orgArray[x].orgCat == "theraphy")
+              indx =  4;
+              else if (this.orgArray[x].orgCat == "Psychiatric")
+              indx =  5;
+              else if (this.orgArray[x].orgCat == "social centre")
+              indx =  6;
+              else if (this.orgArray[x].orgCat == "Rehab")
+              indx =  7;
+            this.map.addMarker({
+              title: this.orgArray[x].orgName,
+              icon:  {
+                url :this.images[indx],
+                size : {width: 30, height: 30}
+              },
+              animation: 'DROP',
+              disableAutoPan: true,
+              position: {
+                lat: this.orgArray[x].orgLat,
+                lng:  this.orgArray[x].orgLong 
+              }
+            }).then((marker : Marker ) =>{
+              marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e =>{
+                  for (var i = 0; i < this.orgArray.length; i++ ){
+                    if (this.orgArray[i].orgName ==  marker.getTitle()){
+                      this.navCtrl.push(ViewPage,{orgObject: this.orgArray[i]})
+                        break;
+                    }
+                  }
+              })
+              loading.dismiss();
+            })
+          }
+      })
+    })
+    }
+  
+    assignLocationStatus(value){
+      this.locationState = value;
+    }
+  
+    viewDetails(name){
+      for (var i = 0; i < this.orgArray.length; i++) {
+        if (this.orgArray[i].orgName == name) {
+          this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+          break;
+        }
+      }
+  }
+
+
+  loadMap() {
+    // this.orgArray.length = 0;
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Getting Ready, please wait',
+      duration: 70220
+
+    });
+    loading.present();
+    this.pinhome.getCurrentLocation().then((radius: any) => {
+
+      this.pinhome.listenForLocation().then((resp:any) =>{
+        this.assignLocation(resp);
+        this.loadAllMaps();
+        this.assignLocationStatus(true);
         loading.dismiss();
       })
-    })
-  })
-})
-  }
-  viewDetails(name){
-    for (var i = 0; i < this.orgArray.length; i++) {
-      if (this.orgArray[i].orgName == name) {
-        this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
-        break;
-      }
-    }
-  }
-  createCurrentLocationMarker() {
-    this.pinhome.getCurrentLocation().then((resp: any) => {
-      this.map.addMarker({
-        title: 'current Location',
-        icon: 'red',
-        animation: 'POP',
-        position: {
-          lat: -26.26099,
-          lng: 27.9496564
-        }
-      }).then((marker: Marker) => {
-        marker.showInfoWindow();
-      })
-      this.pinhome.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then(data => {
-      })
+    },Error =>{
+      this.assignLocationStatus(false);
+      this.loadAllMaps();
+      loading.dismiss();
     })
   }
+
   GoToHomePage() {
 this.navCtrl.popToRoot();
   }
@@ -268,26 +297,38 @@ this.navCtrl.popToRoot();
     this.map.clear();
     this.pinhome.DisplayCategory(this.category).then((data: any) => {
       this.cat = data;
-
-      let position = {
-        "lat" :this.location.coords.latitude,
-        "lng" : this.location.coords.longitude 
+      if (this.locationState == false){
+        this.lat = '-25.871575';
+        this.long = '28.226656'
+        this.time = '500'
       }
-      this.map.addMarker({
-        title: 'current Location',
-        icon:  {
-          url :"assets/imgs/current.png",
-          size : {width: 35, height: 40}
-        },
-        animation: 'DROP',
-        speed: 500,
-        position: {
-          lat: this.location.coords.latitude,
-          lng: this.location.coords.longitude
-        }
-      }).then((marker : Marker ) =>{
-        marker.showInfoWindow();
-      })
+      else{
+        this.lat = this.location.coords.latitude
+        this.long = this.location.coords.longitude
+        this.time = this.location.timestamp
+      }
+      let position = {
+        "lat" : this.lat ,
+        "lng" :   this.long  
+      }
+      if (this.locationState == true){
+          this.map.addMarker({
+            title: 'current Location',
+            icon:  {
+              url :"assets/imgs/current.png",
+              size : {width: 35, height: 40}
+            },
+            animation: 'DROP',
+            speed: 500,
+            position: {
+              lat: this.lat,
+              lng: this.long 
+            }
+          }).then((marker : Marker ) =>{
+            marker.showInfoWindow();
+          })
+      }
+    
       this.orgArray = data;
       var indx = 0;
       for (var x = 0; x < this.cat.length; x++) {
@@ -332,6 +373,7 @@ this.navCtrl.popToRoot();
 
   assignLocation(resp) {
     this.location = resp;
+    console.log(this.location)
   }
 
   scroller(event) {

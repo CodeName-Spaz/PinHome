@@ -327,6 +327,7 @@ near(){
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
         this.orgArray = org;
+        this.location  = "Location Disabled"
         console.log(this.orgArray)
         loading.dismiss();
       })
