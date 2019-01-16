@@ -26,7 +26,6 @@ page-profile {
         height: 100%;
         object-fit: cover;
         border-radius: 10px
-
     }
     .empty{
         height: 100%;
@@ -67,7 +66,6 @@ page-profile {
         height: 30px;
         width: 100%;
         text-align: left
-
     }
     .back{
         position: absolute;
@@ -153,7 +151,6 @@ page-profile {
        border-bottom: 1px black;
     }
     #theAbout{
-
         margin-bottom: -10px;
     }
     .stars{
@@ -164,7 +161,6 @@ page-profile {
         z-index: 1000000000;
         color: white;
     }
-
     ion-slides{
         height:26vh;
         background: rgb(255, 255, 255);
@@ -183,5 +179,4 @@ page-profile {
         text-transform: capitalize;
     }
     
-
 }
