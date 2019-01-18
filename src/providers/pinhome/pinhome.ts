@@ -34,10 +34,12 @@ export class PinhomeProvider {
   // url;
   rating;
   Location;
+  resp;
 
   popState=0;
   ratedOrgs = new Array();
   totRating;
+  newSeachedHomes=[];
   
 
   constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
@@ -288,10 +290,21 @@ export class PinhomeProvider {
       console.log(this.Location);
       return this.Location;
     }
+    assignResp(resp){
+      this.resp =  resp
+    }
+
+    getResp(){
+      return this.resp
+    }
+
+    
+
   getCurrentLocation(){
    //get current location
     return new Promise ((accpt, rej) =>{
     this.geolocation.getCurrentPosition().then((resp) => {
+      this.assignResp(resp)
       this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data:any) =>{
         this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
         .then((result: NativeGeocoderReverseResult[]) => {
@@ -306,94 +319,167 @@ export class PinhomeProvider {
        });
      })
   }
-  createPositionRadius(latitude, longitude) {
+  createPositionRadius(latitude, longitude){
     var leftposition, rightposition, downposition, uposititon;
-    return new Promise((accpt, rej) => {
-      // down  position
-      var downlat = new String(latitude);
-      var latIndex = downlat.indexOf(".");
-      var down = parseInt(downlat.substr(latIndex + 1, 2)) + 6;
-      if (down >= 100) {
-        if (downlat.substr(0, 1) == "-") {
-          var firstDigits = parseInt(downlat.substr(0, 3)) - 1;
-        }
-        else {
-          var firstDigits = parseInt(downlat.substr(0, 2)) + 1;
-        }
-        var remainder = down - 100;
-        downposition = firstDigits + ".0" + down;
-      } else {
-        if (downlat.substr(0, 1) == "-") {
-          downposition = downlat.substr(0, 3) + "." + down;
-        }
-        else {
-          downposition = downlat.substr(0, 2) + "." + down;
-        }
-      }
-      //up  position
-      var uplat = new String(latitude);
-      var latIndex = uplat.indexOf(".");
-      var up = parseInt(uplat.substr(latIndex + 1, 2)) - 6;
-      if (up <= 0) {
-        if (uplat.substr(0, 1) == "-") {
-          var firstDigits = parseInt(uplat.substr(0, 3)) + 1;
-        }
-        else {
-          var firstDigits = parseInt(uplat.substr(0, 2)) - 1;
-        }
-        var remainder = up - 100;
-        uposititon = firstDigits + ".0" + remainder;
-      } else {
-        if (uplat.substr(0, 1) == "-") {
-          uposititon = uplat.substr(0, 3) + "." + up;
-        }
-        else {
-          uposititon = uplat.substr(0, 2) + "." + up;
-        }
-      }
-      //left position
-      var leftlat = new String(longitude);
-      var longIndex = leftlat.indexOf(".");
-      var left = parseInt(leftlat.substr(longIndex + 1, 2)) - 6;
-      if (left <= 0) {
-        if (leftlat.substr(0, 1) == "-") {
-          var firstDigits = parseInt(leftlat.substr(0, 3)) - 1;
-        } else {
-          var firstDigits = parseInt(leftlat.substr(0, 2)) + 1;
-        }
-        var remainder = left - 100;
-        leftposition = firstDigits + ".0" + remainder;
-      } else {
-        if (leftlat.substr(0, 1) == "-") {
-          leftposition = leftlat.substr(0, 3) + "." + left;
-        }
-        else {
-          leftposition = leftlat.substr(0, 2) + "." + left;
-        }
+    return new Promise ((accpt, rej) =>{
+ // down  position
+ var downlat = new String(latitude);
+ var latIndex = downlat.indexOf( "." );
+ var down = parseInt(downlat.substr(latIndex + 1,2)) + 12;
+ if (down >= 100){
+  if (downlat.substr(0,1) == "-"){
+    var firstDigits = parseInt(downlat.substr(0,3)) + 1;
+  }
+  else{
+    var firstDigits = parseInt(downlat.substr(0,2)) - 1;
+  }
+  var remainder = down - 100;
+  if (remainder >= 10){
+    downposition = firstDigits + "." + remainder;
+  }
+  else{
+    downposition = firstDigits +  ".0" + remainder;
+  }
+ 
+ }else{
+  if (downlat.substr(0,1) == "-"){
+    downposition =  downlat.substr(0,3) + "." + down ;
+  }
+  else{
+    downposition = downlat.substr(0,2) + "." + down;
+  }
+ 
+ }
+ 
+ //up  position
+ var uplat = new String(latitude);
+ var latIndex = uplat .indexOf( "." );
+ var up= parseInt(uplat .substr(latIndex + 1,2)) - 12;
+ if (up >= 100){
+  if (uplat.substr(0,1) == "-"){
+    var firstDigits = parseInt(uplat.substr(0,3)) + 1;
+  }
+  else{
+    var firstDigits = parseInt(uplat.substr(0,2)) - 1;
+  }
+  var remainder = up - 100;
+  if (remainder >= 10){
+    uposititon = firstDigits + "." + remainder;
+  }
+  else{
+    uposititon = firstDigits +  ".0" + remainder;
+  }
+ }else{
+   
+  if (uplat.substr(0,1) == "-"){
+    var temp3 = "-"  + (parseInt(uplat.substr(1,2)) - 1) 
+    console.log(temp)
+    if (up < 0){
+      var str =  new String(up);
+      var str2 = str.indexOf("-");
+      var rem = parseInt(str.substr(str2 + 1, str.length)); 
+      uposititon =  temp3 + ".0" + rem;
+    }
+    else if (up >= 10){
+      uposititon =  temp3 + "." + up;
+    }
+    else{
+      uposititon =  temp3 + ".0" + up;
+    }
+  }
+ }
+  //left position
+ var leftlat = new String(longitude);
+ var longIndex =  leftlat.indexOf(".");
+//  var left =  parseInt(leftlat.substr(longIndex + 1,2)) - 6;
+ var left =  parseInt(leftlat.substr(longIndex + 1,2)) - 12;
+ if (left >= 100){
+   if (leftlat.substr(0,1) == "-"){
+      var firstDigits =  parseInt(leftlat.substr(0,3)) - 1;
+   }else{
+    var firstDigits =  parseInt(leftlat.substr(0,2)) + 1;
+   }
+   var remainder = left - 100;
+   leftposition= firstDigits +  ".0" + remainder;
+ }else{
+   if (leftlat.substr(0,1) == "-"){
+    var firstDigits= parseInt(leftlat.substr(0,3)) + 1;
+   }
+   else{
+    var firstDigits= parseInt(leftlat.substr(0,2)) - 1;
+    console.log(firstDigits)
+   }
+ 
+   if (left == 0){
+    var remainder = 0;
+    leftposition = firstDigits +  ".0" + remainder;
+   }
+   else if (left < 0){
+     var temp = new String(left);
+      var temp2 = temp.indexOf("-");
+      var remainder = parseInt(temp.substr(temp2 + 1, temp.length)); 
+      leftposition = firstDigits +  ".0" + remainder;
+   }
+   else if (left >= 10){
+    leftposition = firstDigits + "." + left    
+   }
+   else{
+    var remainder = left;
+    leftposition = firstDigits + ".0" + remainder;
+   }
+ 
+   //right position
 
-      }
-      //right position
-      var rightlat = new String(longitude);
-      var longIndex = rightlat.indexOf(".");
-      var right = parseInt(rightlat.substr(longIndex + 1, 2)) + 6;
-      if (right >= 100) {
-        if (rightlat.substr(0, 1) == "-") {
-          var firstDigits = parseInt(rightlat.substr(0, 3)) - 1;
-        } else {
-          var firstDigits = parseInt(rightlat.substr(0, 2)) + 1;
-        }
-        var remainder = right - 100;
-        rightposition = firstDigits + ".0" + remainder;
-      } else {
-        rightposition = rightlat.substr(0, 2) + "." + right;
-      }
-      let radius = {
-        left: leftposition,
-        right: rightposition,
-        up: uposititon,
-        down: downposition
-      }
-      accpt(radius);
+   var rightlat = new String(longitude);
+   var longIndex =  rightlat.indexOf(".");
+   var right =  parseInt(rightlat.substr(longIndex + 1,2)) + 12;
+   console.log(right)
+   if (right >= 100){
+     if (rightlat.substr(0,1) == "-"){
+        var firstDigits =  parseInt(rightlat.substr(0,3)) - 1;
+     }else{
+      var firstDigits =  parseInt(rightlat.substr(0,2)) + 1;
+     }
+     var remainder = right - 100;
+     rightposition= firstDigits +  ".0" + remainder;
+   }else{
+     if (rightlat.substr(0,1) == "-"){
+      var firstDigits= parseInt(rightlat.substr(0,3)) + 1;
+     }
+     else{
+      var firstDigits= parseInt(rightlat.substr(0,2)) - 1;
+      console.log(firstDigits)
+     }
+     if (right  == 0){
+      var remainder = 0;
+      rightposition = firstDigits +  ".0" + remainder;
+     }
+     else if (right < 0){
+       var temp = new String(right);
+        var temp2 = temp.indexOf("-");
+        var remainder = parseInt(temp.substr(temp2 + 1, temp.length)); 
+        rightposition = firstDigits +  ".0" + remainder;
+     }
+     else if (right >= 10){
+      rightposition = firstDigits +  "." + right;
+     }
+     else{
+      var remainder = right ;
+      rightposition = firstDigits + ".0"  + remainder;
+      console.log(firstDigits)
+     }
+ }
+    
+}
+ 
+    let radius ={
+      left: leftposition,
+      right : rightposition,
+      up : uposititon,
+      down : downposition
+    }
+    console.log(radius)
+    accpt(radius);
     })
   }
 
@@ -417,6 +503,9 @@ export class PinhomeProvider {
               orgAbout: organisations[OrganisationKeys].AboutOrg,
               orgPrice: organisations[OrganisationKeys].Price,
               orgGallery : organisations[OrganisationKeys].UrlGallery,
+              orgLogo : organisations[OrganisationKeys].UrlLogo,
+              orgGallery1 : organisations[OrganisationKeys].UrlGallery,
+              orgGallery2 : organisations[OrganisationKeys].UrlGallery,
             }
             this.oraganisations.push(organizationObject);
           }
@@ -515,6 +604,9 @@ export class PinhomeProvider {
               totalRating =  totalRating / avg;
               totalRating =  Math.round(totalRating)
             }
+              if (SelectCategory[k].city != undefined || SelectCategory[k].city != null){
+                this.SignCities(SelectCategory[k].city)
+              }
                   let obj = {
                     orgCat: SelectCategory[k].Category,
                     orgName: SelectCategory[k].OrganizationName,
@@ -526,17 +618,40 @@ export class PinhomeProvider {
                     orgEmail: SelectCategory[k].Email,
                     orgAbout: SelectCategory[k].AboutOrg,
                     orgPrice: SelectCategory[k].Price,
-                    orgGallery :SelectCategory[k].UrlGallery,
+                    orgLogo :SelectCategory[k].Logo,
+                    orgGallery :SelectCategory[k].Gallery,
+                    orgGallery1 :SelectCategory[k].Gallery1,
+                    orgGallery2 :SelectCategory[k].Gallery2,
                     key: k,
-                    rating : totalRating
+                    rating : totalRating,
+                    city : SelectCategory[k].city
                   }
            this.categoryArr.push(obj);
-          // console.log(this.categoryArr)
+    
         })
         }
+              console.log(this.categoryArr)
         accpt(this.categoryArr);
       })
     })
+  }
+
+
+  cities = new Array();
+  SignCities(city){
+    var results = "";
+    for (var x = 0; x < this.cities.length; x++){
+      if (this.cities[x] == city){
+        results = "found";
+        break
+      }
+    }
+    if (results != "found"){
+      this.cities.push(city);
+    }
+  }
+  getAllcities(){
+    return this.cities;
   }
 
   comments(comment: any, commentKey: any, rating) {
@@ -760,6 +875,19 @@ export class PinhomeProvider {
     return firebase.database().ref("profiles/" + userID.uid)
   }
 
-
+  
+searchedOrg = new Array()
+filertUsingCity(city,org){
+  return new  Promise((pass,fail) =>{
+    this.searchedOrg = [];
+    for (var x = 0; x < org.length; x++){
+      console.log(org[x].city);
+      if (org[x].city == city){
+        this.searchedOrg.push(org[x])
+      }
+    }
+    pass(this.searchedOrg);
+  })
+}
 
 }

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the EditProfilePage page.
  *
@@ -48,7 +49,7 @@ export class EditProfilePage implements OnInit{
   }
 
   GoToProfile(){
-    this.navCtrl.push(ProfilePage);
+    this.navCtrl.pop();
   }
 
   uploadPicture() {
@@ -60,7 +61,7 @@ export class EditProfilePage implements OnInit{
           this.imageArr.push(data);
           console.log(this.imageArr);
         })
-        this.navCtrl.push(ProfilePage);
+        this.navCtrl.popToRoot();
       },
         Error => {
           const alert = this.alertCtrl.create({
@@ -80,7 +81,7 @@ export class EditProfilePage implements OnInit{
           this.imageArr.push(data);
           console.log(this.imageArr);
         })
-        this.navCtrl.push(ProfilePage);
+        this.navCtrl.popToRoot();
       },
         Error => {
           const alert = this.alertCtrl.create({

@@ -31,7 +31,7 @@ export class NearbyOrgPage {
   map: GoogleMap;
   orgArray = new Array();
   cat = [];
-  location;
+  location =  this.navParams.get('resp');
   lat;
   long;
   time;
@@ -42,7 +42,7 @@ export class NearbyOrgPage {
   category;
   logInState
   navColor = "custom";
-  locationState =false;
+  locationState =  this.navParams.get('locState');;
   images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
   circle: Circle;
   profilePic = this.navParams.get('img');
@@ -52,16 +52,14 @@ export class NearbyOrgPage {
   }
 
   ionViewDidLoad() {
-    this.loadMap();
-    // this.pinhome.getProfile()
-    //this.createCurrentLocationMarker();
+    this.loadAllMaps();
   }
 
 
   loadAllMaps(){
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Almost Done',
+      content: 'Getting Ready, Please wait',
       duration: 70220
 
     });
@@ -251,10 +249,6 @@ export class NearbyOrgPage {
     })
     }
   
-    assignLocationStatus(value){
-      this.locationState = value;
-    }
-  
     viewDetails(name){
       for (var i = 0; i < this.orgArray.length; i++) {
         if (this.orgArray[i].orgName == name) {
@@ -265,29 +259,6 @@ export class NearbyOrgPage {
   }
 
 
-  loadMap() {
-    // this.orgArray.length = 0;
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Getting Ready, please wait',
-      duration: 70220
-
-    });
-    loading.present();
-    this.pinhome.getCurrentLocation().then((radius: any) => {
-
-      this.pinhome.listenForLocation().then((resp:any) =>{
-        this.assignLocation(resp);
-        this.loadAllMaps();
-        this.assignLocationStatus(true);
-        loading.dismiss();
-      })
-    },Error =>{
-      this.assignLocationStatus(false);
-      this.loadAllMaps();
-      loading.dismiss();
-    })
-  }
 
   GoToHomePage() {
 this.navCtrl.popToRoot();
@@ -369,11 +340,6 @@ this.navCtrl.popToRoot();
         })
       }
     })
-  }
-
-  assignLocation(resp) {
-    this.location = resp;
-    console.log(this.location)
   }
 
   scroller(event) {

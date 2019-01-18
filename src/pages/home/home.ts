@@ -23,6 +23,7 @@ export class HomePage {
   filtereditems:any;
 	searchTerm: string = '';
   searchLocation;
+  searchbar=[];
   searchQuery: string = '';
 	items: any;
   orgs = [];
@@ -36,19 +37,24 @@ export class HomePage {
   custom2 = "custom2";
   temp;
   colorState = false;
-  location;
+  location="Searching for location"
   textField = "";
   logInState;
   img;
+  Searchlat;
   mapPageState = false;
   tempOrg =  new Array();
+  nearbyArray = new Array();
   profilePic = "../../assets/imgs/Defaults/default.png";
   locationState =  false;
+  resp;
 
   constructor(public navParams:NavParams, public statusBar: StatusBar,public screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
       this.storeCatData(data)
+      this.storeCities(this.pinhomeProvider.getAllcities())
+      this.initializeItems();
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
       this.storedata(data);
@@ -155,9 +161,17 @@ near(){
     this.orgs = data;
   }
 
+  cities = new Array()
+  storeCities(cities){
+    this.cities = cities;
+    console.log(this.cities);
+    
+  }
+
   initializeItems() {
-    this.items = this.orgs;
-    // console.log(this.items);
+    this.items = null;
+    this.items = this.cities;
+    console.log(this.items);
   }
 
   goToViewPage(name) {
@@ -167,16 +181,16 @@ near(){
         this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }
-
   }
-
   assignName(name){
+    this.pinhomeProvider.filertUsingCity(name,this.tempArray).then((data:any) =>{
+      this.categoryArr = [];
+      this.categoryArr =  data;
+      console.log(data)
+    })
     console.log(name)
     this.searchTerm =  name;
     this.filtereditems = [];
-    this.getItem(name);
-    this.goToViewPage(name);
-    this.searchTerm = "";
     this.initializeItems();
   }
 
@@ -190,6 +204,7 @@ near(){
 
   filterItems(){
     console.log(this.searchTerm);
+    this.initializeItems();
     if (this.searchTerm != ""){
       this.filtereditems=this.items.filter((item) => {
         return item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
@@ -201,21 +216,21 @@ near(){
 	}
 
 
-  getItem(name) {
-    // Reset items back to all of the items
-    this.initializeItems();
-    this.setArrayBack(this.tempArray)
-    // set val to the value of the searchbar
-    const val = name;
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != "") {
-      this.items = this.items.filter((item) => {
+  // getItem(name) {
+  //   // Reset items back to all of the items
+  //   this.initializeItems();
+  //   this.setArrayBack(this.tempArray)
+  //   // set val to the value of the searchbar
+  //   const val = name;
+  //   // if the value is an empty string don't filter the items
+  //   if (val && val.trim() != "") {
+  //     this.items = this.items.filter((item) => {
 
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+  //       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     })
 
-    }
-  }
+  //   }
+  // }
 
   getItems(ev: any) {
     // Reset items back to all of the items
@@ -273,6 +288,7 @@ near(){
       this.filtereditems = [];
       this,this.searchTerm = ""; 
       this.initializeItems();
+      this.setArrayBack(this.tempArray)
       restOf[0].style.paddingTop = "210px";
 
     } 
@@ -304,6 +320,10 @@ near(){
       
   }
 
+  assignresp(){
+    this.resp = this.pinhomeProvider.getResp();
+    console.log(this.resp);
+  }
  
   getNearByOrganizations() {
     let loading = this.loadingCtrl.create({
@@ -315,14 +335,16 @@ near(){
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
-          this.location =  this.pinhomeProvider.getLocation();
-         this.location =  this.location.locality; 
-          this.orgArray = data;
+          var loc =  this.pinhomeProvider.getLocation();
+          this.location =  loc.locality; 
+          this.orgArray = data;      
           this.storeNearByOrgs(data);
-          loading.dismiss();
+          this.assignresp();
           this.locationState = true;
         })
+        loading.dismiss();
       })
+    
     }, Error =>{
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
@@ -360,7 +382,7 @@ near(){
         });
         alert.present();
       } else {
-        this.navCtrl.push(ProfilePage)
+        this.navCtrl.setRoot(ProfilePage)
       }
 
     })
@@ -368,7 +390,7 @@ near(){
   GoToMap() {
     
     // if (this.mapPageState == false){
-      this.navCtrl.push(NearbyOrgPage, {img:this.img});
+      this.navCtrl.push(NearbyOrgPage, {img:this.img, locState:this.locationState, resp:this.resp});
     //   this.mapPageState = true;
     // }
     // else if  (this.mapPageState == true){

@@ -54,10 +54,10 @@
       </ion-list>
     </ion-grid>
   <div class="restOfBody">
-    <div *ngFor="let a of items; let i = index">
+    <!-- <div *ngFor="let a of items; let i = index"> -->
       <div *ngFor="let x of categoryArr">
-        <div *ngIf="x.orgName == a">
-          <ion-item (click)="goToViewPage(a)" no-padding class="listedCard" no-lines>
+        <!-- <div *ngIf="x.orgName == a"> -->
+          <ion-item (click)="goToViewPage(x.orgName)" no-padding class="listedCard" no-lines>
             <ion-thumbnail item-start large>
               <img class="image" [src]="x.orgPicture">
             </ion-thumbnail>
@@ -135,8 +135,8 @@
         </ion-item>
 
         </div>
-      </div>
-    </div>
+      <!-- </div> -->
+    <!-- </div> -->
     <!-- <div *ngIf="items === null">
     </div> -->
   </div>

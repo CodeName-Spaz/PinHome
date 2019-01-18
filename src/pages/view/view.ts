@@ -62,7 +62,7 @@ export class ViewPage  {
 
   }
   ionViewDidEnter() {
-    this.retrieveComments();
+    // this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 
@@ -79,9 +79,9 @@ export class ViewPage  {
 
   }
 
-  // ngOnInit() {
-  //   this.retrieveComments();
-  // }
+  ngOnInit() {
+    this.retrieveComments();
+  }
 
   
   // ionViewDidLoad() {

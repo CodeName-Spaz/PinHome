@@ -28,7 +28,7 @@ page-profile {
         border-radius: 10px
     }
     .empty{
-        height: 100%;
+       
         width: 100%;
         // border: 2px solid red;
         // color: whitesmoke;
@@ -38,17 +38,19 @@ page-profile {
         height: 80px;
         width:80px;
         position: absolute;
+        z-index: 0;
         left: 50%;
-        top: 6%;
+        top: 10%;
         transform: translateX(-50%);
     }
     .itsEmpty{
         position: absolute;
-        top: 80%;
+        top: 100%;
+        z-index: 10000000;
         left: 50%;
         color: grey;
         // border: 2px solid red;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%,230%);
         // text-shadow: 0 0 5px black;
         text-align: center;
     }

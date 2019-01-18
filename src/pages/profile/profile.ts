@@ -54,7 +54,7 @@ export class ProfilePage {
   }
 
   GoTOHomePage() {
-    this.navCtrl.popToRoot();
+    this.navCtrl.setRoot(HomePage);
   }
 
   viewMore(ind){
@@ -103,6 +103,7 @@ export class ProfilePage {
     if (theState == 1){
       thePop[0].style.right = "0";
       setBtn[0].style.right = "-50px";
+      thePop[0].style.zIndex = "10000000";
     }
     else{
       thePop[0].style.right = "-50%";
@@ -117,11 +118,13 @@ export class ProfilePage {
     if (theState == 1){
       thePop[0].style.right = "0";
       thePop[0].style.opacity = "0";
+      thePop[0].style.zIndex = "10000000";
       setBtn[0].style.right = "-50px";
     }
     else{
       thePop[0].style.right = "-50%";
       thePop[0].style.opacity = "1";
+      thePop[0].style.zIndex = "-1000";
       setBtn[0].style.right = "-10px";
       
     }
@@ -129,6 +132,7 @@ export class ProfilePage {
     
   }
   editProfile(){
+    this.showPopover();
     this.navCtrl.push(EditProfilePage);
   }
 
