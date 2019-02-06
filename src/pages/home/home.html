@@ -10,7 +10,7 @@
         <button ion-button icon-only clear class="more" (click)="showButton(textField)">
           <ion-icon name="{{state}}"></ion-icon>
         </button>
-        <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterItems(); getItems($event)"></ion-input>
+        <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search by city(e.g johannesburg)" [(ngModel)]="searchTerm" (input)="filterItems(); getItems($event)"></ion-input>
         <!-- <ion-input class="locationSearch" placeholder="Search Location"></ion-input> -->
         <!-- <ion-input color="custom" maxLength="44" class="searchBar" type="text" placeholder="Search"></ion-input> -->
         <!-- <button ion-button icon-only clear color="light" class="profile" (click)="viewPage()">

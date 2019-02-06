@@ -16,7 +16,7 @@ page-nearby-org {
     top: 50%;
     height: 50%;
     width: 100%;
-    background:rgba(36, 144, 177, 0.452);
+    background:rgba(113, 101, 84, 0.5);
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
     // border-top-left-radius: 10px;
     // border-top-right-radius: 10px;
@@ -66,11 +66,12 @@ page-nearby-org {
     .ico{
         //    height: 2px;
         //    width: 25px;
-        background:rgb(36, 144, 177);
+        background:#dbd7d0;
         //    border: 2px solid grey;
         //    margin-top: 2px;
         width: 50px;
-        color: white;
+        color: black;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         height: 20px;
         border-radius: 50PX;
         position: absolute;

@@ -29,7 +29,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
  
     platform.ready().then(() => {
-      this.rootPage = HomePage;
+      this.rootPage = SignInPage;
 
       ;
       // Okay, so the plSignInPageatform is ready and our plugins are available.

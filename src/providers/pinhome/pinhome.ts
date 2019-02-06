@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,NgZone } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import firebase from 'firebase'
 import { Option, LoadingController, Select } from 'ionic-angular';
@@ -42,13 +42,14 @@ export class PinhomeProvider {
   newSeachedHomes=[];
   
 
-  constructor(private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
+  constructor(private ngzone:NgZone,private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
   }
 
   getTotalRatings(){
     this.ratedOrgs = [];
     return new Promise((accpt, rej) =>{
+      this.ngzone.run(()=>{
        let userID = firebase.auth().currentUser;
        var numRating = 0; 
        this.db.ref("comments/").on("value", (data: any) => {
@@ -92,6 +93,7 @@ export class PinhomeProvider {
        })
  
     })
+  })
   }
 
   getTotRating(){
@@ -106,6 +108,7 @@ export class PinhomeProvider {
 
   checkstate() {
     return new Promise((resolve, reject) => {
+      this.ngzone.run(()=>{
       firebase.auth().onAuthStateChanged((user) => {
         if (user != null) {
           this.stayLoggedIn = 1
@@ -116,10 +119,12 @@ export class PinhomeProvider {
         resolve(this.stayLoggedIn)
       })
     })
+  })
   }
 
   Signup(email, password, name,surname) {
     return new Promise((resolve, reject) => {
+      this.ngzone.run(()=>{
       let loading = this.loadingCtrl.create({
         spinner: 'bubbles',
         content: 'Sign in....',
@@ -155,6 +160,7 @@ export class PinhomeProvider {
         console.log(error);
       })
     })
+  })
   }
   SignIn(email, password) {
     let loading = this.loadingCtrl.create({
@@ -164,6 +170,7 @@ export class PinhomeProvider {
     });
     loading.present();
     return new Promise((resolve, reject) => {
+      this.ngzone.run(()=>{
       firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         resolve();
         loading.dismiss();
@@ -202,6 +209,7 @@ export class PinhomeProvider {
 
       })
     })
+  })
 
   }
 
@@ -252,6 +260,7 @@ export class PinhomeProvider {
   listenForLocation() {
     //listen for current location
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       let watch = this.geolocation.watchPosition();
       watch.subscribe((data) => {
         accpt(data)
@@ -260,10 +269,11 @@ export class PinhomeProvider {
         // data.coords.longitude
       });
     })
+  })
   }
-
   getOrgNames() {
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.db.ref('OrganizationList').on('value', (data: any) => {
         if (data.val() != null || data.val() != undefined) {
           let organisations = data.val();
@@ -276,6 +286,7 @@ export class PinhomeProvider {
         }
       })
     })
+  })
   }
 
   setLocation(data){
@@ -303,6 +314,7 @@ export class PinhomeProvider {
   getCurrentLocation(){
    //get current location
     return new Promise ((accpt, rej) =>{
+      this.ngzone.run(()=>{
     this.geolocation.getCurrentPosition().then((resp) => {
       this.assignResp(resp)
       this.createPositionRadius(resp.coords.latitude, resp.coords.longitude).then((data:any) =>{
@@ -318,6 +330,7 @@ export class PinhomeProvider {
          rej("no network");
        });
      })
+    })
   }
   createPositionRadius(latitude, longitude){
     var leftposition, rightposition, downposition, uposititon;
@@ -485,6 +498,7 @@ export class PinhomeProvider {
 
   getOrganisations() {
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.db.ref('OrganizationList').on('value', (data: any) => {
         if (data.val() != null || data.val() != undefined) {
           let organisations = data.val();
@@ -504,8 +518,9 @@ export class PinhomeProvider {
               orgPrice: organisations[OrganisationKeys].Price,
               orgGallery : organisations[OrganisationKeys].UrlGallery,
               orgLogo : organisations[OrganisationKeys].UrlLogo,
-              orgGallery1 : organisations[OrganisationKeys].UrlGallery,
-              orgGallery2 : organisations[OrganisationKeys].UrlGallery,
+              orgGallery1 : organisations[OrganisationKeys].UrlGallery1,
+              orgGallery2 : organisations[OrganisationKeys].UrlGallery2,
+              
             }
             this.oraganisations.push(organizationObject);
           }
@@ -513,10 +528,12 @@ export class PinhomeProvider {
         }
       })
     })
+  })
   }
 
   getNearByOrganisations(radius, org) {
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.listenForLocation().then((resp: any) => {
         var lat = new String(resp.coords.latitude).substr(0, 6);
         var long = new String(resp.coords.longitude).substr(0, 5);
@@ -530,6 +547,7 @@ export class PinhomeProvider {
         accpt(this.nearByOrg)
       })
     })
+  })
   }
 
 
@@ -537,6 +555,7 @@ export class PinhomeProvider {
   DisplayCategory(Category) {
     this.categoryArr.length = 0;
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.db.ref('OrganizationList').on('value', (data: any) => {
         let SelectCategory = data.val();
         let keys = Object.keys(SelectCategory);
@@ -580,10 +599,12 @@ export class PinhomeProvider {
         accpt(this.categoryArr);
       })
     })
+  })
   }
 
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.categoryArr=[];
       this.db.ref('OrganizationList').on('value', (data) => {
         let SelectCategory = data.val();
@@ -634,6 +655,7 @@ export class PinhomeProvider {
         accpt(this.categoryArr);
       })
     })
+  })
   }
 
 
@@ -657,6 +679,7 @@ export class PinhomeProvider {
   comments(comment: any, commentKey: any, rating) {
     let user = firebase.auth().currentUser;
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       var day = moment().format('MMMM Do YYYY, h:mm:ss a');
       firebase.database().ref('comments/' + commentKey).push({
         comment: comment,
@@ -666,11 +689,13 @@ export class PinhomeProvider {
       })
       accpt('success');
     });
+  })
   }
   viewComments(comment: any, commentKey: any) {
     this.rating = 0;
     this.commentArr.length =0;
     return new Promise((accpt, rejc) => {  
+      this.ngzone.run(()=>{
       this.commentArr.length =0;
       let user = firebase.auth().currentUser
       this.db.ref("comments/" + commentKey).on("value", (data: any) => {
@@ -715,6 +740,7 @@ export class PinhomeProvider {
       })
 
     })
+  })
   }
 
 
@@ -729,6 +755,7 @@ export class PinhomeProvider {
 
   viewProfileMain(userid: string) {
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       firebase.database().ref("profiles/" + userid).on("value", (data: any) => {
         var a = data.val();
         accpt(a);
@@ -736,10 +763,12 @@ export class PinhomeProvider {
         rejc(Error.message)
       })
     })
+  })
   }
 
   getProfile() {
       return new Promise((accpt, rej) => {
+        this.ngzone.run(()=>{
         this.auth.onAuthStateChanged(function (user) {
         if (user) {
           firebase.database().ref("profiles/" + user.uid).on('value', (data: any) => {
@@ -751,10 +780,12 @@ export class PinhomeProvider {
         }
       });
     })
+  })
   }
 
   checkAuthState() {
     return new Promise((accpt, rej) => {
+      this.ngzone.run(()=>{
       this.auth.onAuthStateChanged(function (user) {
         if (user) {
           accpt(true)
@@ -763,28 +794,27 @@ export class PinhomeProvider {
         }
       });
     })
+  })
   }
 
   logout() {
     return new Promise((resolve, reject) => {
+      this.ngzone.run(()=>{
       firebase.auth().signOut();
         resolve()
     });
-  }
+  })
+}
 
 
 
   uploadProfilePic(pic, name) {
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Please wait',
-      duration: 2000
-    });
     const toast = this.toastCtrl.create({
       message: 'data has been updated!',
       duration: 3000
     });
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       toast.present();
       firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
         accpt(name);
@@ -793,10 +823,12 @@ export class PinhomeProvider {
         rejc(Error.message)
       })
     })
+  })
   }
 
   storeToDB1(name) {
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       this.ProfileArr.length = 0;
       var storageRef = firebase.storage().ref(name);
       storageRef.getDownloadURL().then(url => {
@@ -812,11 +844,13 @@ export class PinhomeProvider {
         console.log(Error.message);
       });
     })
+  })
   }
 
 
   viewUserProfile() {
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       let user = firebase.auth().currentUser
       firebase.database().ref("profiles").on("value", (data: any) => {
         let DisplayData = data.val();
@@ -832,10 +866,12 @@ export class PinhomeProvider {
         rejc(Error.message)
       })
     })
+  })
   }
 
   getUserID() {
     return new Promise((accpt, rejc) => {
+      this.ngzone.run(()=>{
       var userID = firebase.auth().currentUser
       firebase.database().ref("profiles").on("value", (data: any) => {
         var profileDetails = data.val();
@@ -847,6 +883,7 @@ export class PinhomeProvider {
         rejc(Error.message)
       })
     })
+  })
   }
 
   storeImgur(url) {
@@ -859,6 +896,7 @@ export class PinhomeProvider {
   update(name, email, downloadurl,address,surname) {
     this.ProfileArr.length = 0;
     return new Promise((pass, fail) => {
+      this.ngzone.run(()=>{
       var user = firebase.auth().currentUser
       firebase.database().ref('profiles/' + user.uid).update({
         name: name,
@@ -868,6 +906,7 @@ export class PinhomeProvider {
         surname: surname
       });
     })
+  })
   }
 
   retrieve() {
@@ -879,6 +918,7 @@ export class PinhomeProvider {
 searchedOrg = new Array()
 filertUsingCity(city,org){
   return new  Promise((pass,fail) =>{
+    this.ngzone.run(()=>{
     this.searchedOrg = [];
     for (var x = 0; x < org.length; x++){
       console.log(org[x].city);
@@ -888,6 +928,7 @@ filertUsingCity(city,org){
     }
     pass(this.searchedOrg);
   })
+})
 }
 
 }

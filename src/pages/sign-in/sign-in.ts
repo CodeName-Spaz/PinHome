@@ -31,6 +31,7 @@ export class SignInPage {
   errMsg;
   option = this.navParams.get('option');
   obj = this.navParams.get('obj');
+  out =  this.navParams.get('out');
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl:  AlertController,public pinhomeProvider: PinhomeProvider ) {
   }
@@ -77,6 +78,12 @@ export class SignInPage {
        else if (this.option == "rate"){
          this.navCtrl.pop();
        }
+     
+         else{
+          this.navCtrl.setRoot(HomePage);
+         }
+
+       
       }, (error) => {
         console.log(error.message);
       })
@@ -95,6 +102,10 @@ export class SignInPage {
 Back(){
   this.navCtrl.pop()
 }
+Explore(){
+  this.navCtrl.setRoot(HomePage);
+}
+
 
 
 forgotpassword(PlaceObject: object) {

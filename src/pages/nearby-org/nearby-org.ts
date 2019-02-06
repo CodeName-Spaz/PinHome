@@ -43,17 +43,19 @@ export class NearbyOrgPage {
   logInState
   navColor = "custom";
   locationState =  this.navParams.get('locState');;
-  images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
+  images = ["assets/imgs/pin.png","assets/imgs/pin2.png","assets/imgs/pin3.png","assets/imgs/pin4.png","assets/imgs/pin5.png","assets/imgs/pin6.png","assets/imgs/pin8.png","assets/imgs/pin7.png" ]
   circle: Circle;
   profilePic = this.navParams.get('img');
 
   constructor(private pinhomeProvider: PinhomeProvider,private alertCtrl: AlertController,public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
-  
+    
   }
 
   ionViewDidLoad() {
     this.loadAllMaps();
   }
+  
+  
 
 
   loadAllMaps(){
@@ -182,13 +184,13 @@ export class NearbyOrgPage {
           },
         }
         this.map = GoogleMaps.create('map_canvas', mapOptions);
-      
+      console.log(this.map)
           if (this.locationState ==  true){
             this.map.addMarker({
               title: 'current Location',
               icon:  {
                 url :"assets/imgs/current.png",
-                size : {width: 35, height: 40}
+                size : {width: 55, height: 60}
               },
               animation: 'DROP',
               speed: 500,
@@ -261,7 +263,7 @@ export class NearbyOrgPage {
 
 
   GoToHomePage() {
-this.navCtrl.popToRoot();
+this.navCtrl.pop();
   }
   selectcategory() {
     console.log(this.category);

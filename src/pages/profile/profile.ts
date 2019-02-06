@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { ViewPage } from '../view/view';
 import { unescapeIdentifier } from '@angular/compiler';
+import { SignInPage } from '../sign-in/sign-in';
 
 /**
  * Generated class for the ProfilePage page.
@@ -33,11 +34,13 @@ export class ProfilePage {
   constructor(public pinhome : PinhomeProvider,public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.detailArray.length = 0;
     console.log('ionViewDidLoad ProfilePage');
     let userID = firebase.auth().currentUser;
     firebase.database().ref("profiles/" + userID.uid).on('value', (data: any) => {
       let details = data.val();
+      this.detailArray.length = 0;
       console.log(details)
       this.detailArray.push(details);
     });
@@ -138,7 +141,7 @@ export class ProfilePage {
 
   logOut(){
     this.pinhomeProvider.logout().then(() => {
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(SignInPage, {out:'logout'});
     }, (error) => {
       console.log(error.message);
     })

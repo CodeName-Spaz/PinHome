@@ -1,10 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 /**
  * Generated class for the EditProfilePage page.
  *
@@ -27,7 +27,8 @@ export class EditProfilePage implements OnInit{
   imageArr= new Array();
   tempImg;
   surname;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
+  d=1;
+  constructor(public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
     this.retreivePics1()
   }
 
@@ -51,17 +52,15 @@ export class EditProfilePage implements OnInit{
   GoToProfile(){
     this.navCtrl.pop();
   }
-
   uploadPicture() {
-    // this.imageArr.length = 0;
     if (this.tempImg == this.downloadurl){
       this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
         console.log('added to db');
         this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
-          console.log(this.imageArr);
-        })
-        this.navCtrl.popToRoot();
+        });
+        // this.viewCtrl.dismiss();
+        this.navCtrl.pop();
       },
         Error => {
           const alert = this.alertCtrl.create({
@@ -71,7 +70,7 @@ export class EditProfilePage implements OnInit{
           });
           alert.present();
         })
- 
+        this.viewCtrl.dismiss()
     
     }
     else{
@@ -80,8 +79,10 @@ export class EditProfilePage implements OnInit{
         this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
           console.log(this.imageArr);
-        })
-        this.navCtrl.popToRoot();
+        });
+        this.viewCtrl.dismiss()
+        // this.navCtrl.push(ProfilePage);
+
       },
         Error => {
           const alert = this.alertCtrl.create({
@@ -93,6 +94,8 @@ export class EditProfilePage implements OnInit{
         })
  
     }
+    // this.navCtrl.push(ProfilePage)
+    
 
   }
 
@@ -124,14 +127,34 @@ export class EditProfilePage implements OnInit{
    
   }
 
+  insertpic(event: any){
 
-  insertpic(event: any) {
+    this.d = 1;
+
+    let opts = document.getElementsByClassName('options') as HTMLCollectionOf <HTMLElement>;
+
+    if(this.d == 1){
+      // opts[0].style.top = "10vh";
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.downloadurl = event.target.result;
+
+      if (event.target.files[0].size > 1500000){
+        let alert = this.alertCtrl.create({
+          title: "Oh no!",
+          subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
+          buttons: ['OK']
+        });
+        alert.present();
       }
-      reader.readAsDataURL(event.target.files[0]);
+      else{
+        reader.onload = (event: any) => {
+          this.downloadurl= event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+    }
+      
     }
   }
 

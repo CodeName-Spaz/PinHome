@@ -73,7 +73,7 @@ export class SignUpPage {
     else {
       this.pinhomeProvider.Signup(this.email,this.password,this.name,this.surname).then(() => {
         // this.presentLoading1();
-        this.navCtrl.push(ProfilePage);
+        this.navCtrl.push(HomePage);
       }, (error) => {
         console.log(error.message);
       })
