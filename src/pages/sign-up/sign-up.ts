@@ -5,6 +5,8 @@ import { SignInPage } from '../sign-in/sign-in';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 
 
 
@@ -29,7 +31,7 @@ export class SignUpPage {
   PlaceObject = {} as object;
   errMsg;
   surname;
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public loadingCtrl: LoadingController,public pinhomeProvider: PinhomeProvider,public alertCtrl:AlertController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public loadingCtrl: LoadingController,public pinhomeProvider: PinhomeProvider,public alertCtrl:AlertController, public screenOrientation: ScreenOrientation, ) {
   }
 
   ionViewDidLoad() {
@@ -71,9 +73,21 @@ export class SignUpPage {
       alert.present();
     }
     else {
-      this.pinhomeProvider.Signup(this.email,this.password,this.name,this.surname).then(() => {
-        // this.presentLoading1();
-        this.navCtrl.push(HomePage);
+      this.pinhomeProvider.Signup(this.email,this.password,this.name).then(() => {
+        const alert = this.alertCtrl.create({
+          title: "No Name",
+          subTitle: "Please verify your email",
+          buttons: [
+            {
+              text: 'Ok',
+              handler: () => {
+             this.navCtrl.pop()
+              }
+            },
+          ]
+        });
+        alert.present();
+
       }, (error) => {
         console.log(error.message);
       })
@@ -90,6 +104,11 @@ export class SignUpPage {
   Back(){
 this.navCtrl.pop()  
 }
+
+lockOrientation() {
+  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+}
+
 }
 
 

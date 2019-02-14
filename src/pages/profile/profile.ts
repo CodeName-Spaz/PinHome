@@ -57,7 +57,7 @@ export class ProfilePage {
   }
 
   GoTOHomePage() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.pop();
   }
 
   viewMore(ind){

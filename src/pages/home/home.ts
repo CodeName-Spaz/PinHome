@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,NgZone} from '@angular/core';
 import { NavController, LoadingController, AlertController, NavParams } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view'
@@ -37,7 +37,7 @@ export class HomePage {
   custom2 = "custom2";
   temp;
   colorState = false;
-  location = "Searching for location"
+  location = "Searching for location..."
   textField = "";
   logInState;
   img;
@@ -53,11 +53,13 @@ export class HomePage {
   constructor(public navParams: NavParams, public statusBar: StatusBar, public screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization().then((data: any) => {
+      console.log(data)
       this.storeCatData(data)
       this.storeCities(this.pinhomeProvider.getAllcities())
       this.initializeItems();
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
+      console.log(data);
       this.storedata(data);
       this.initializeItems();
     })
@@ -105,7 +107,7 @@ export class HomePage {
 
   storeCatData(data) {
     this.categoryArr = data;
-    // console.log(this.categoryArr )
+    console.log(this.categoryArr )
     this.tempArray = this.categoryArr;
     this.storeAllOrgs = data;
   }
@@ -118,10 +120,12 @@ export class HomePage {
     this.storeNear = _.uniqWith(data, _.isEqual)
     // console.log(this.storeNear);
   }
+
+ 
   //this.storeNear[x] =  data[x];
   near() {
     if (this.locationState == false) {
-     this.getNearByOrganizations();
+      this.getNearByOrganizations();
     }
     else {
       if (this.colorState == false) {
@@ -322,11 +326,11 @@ export class HomePage {
 
   getNearByOrganizations() {
 
-    var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf <HTMLElement>;
+    var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
 
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'please wait',
+      content: 'Loading...',
       duration: 222000
     });
     loading.present();
@@ -341,7 +345,6 @@ export class HomePage {
           this.locationState = true;
           theColor[0].style.color = "green"
         })
-        // this.near();
         loading.dismiss();
       })
 
@@ -354,7 +357,7 @@ export class HomePage {
         console.log(this.orgArray)
         loading.dismiss();
       })
-      console.log('no permission')
+      // console.log('no permission')
     })
   }
   getAllOrganizations() {
@@ -364,8 +367,7 @@ export class HomePage {
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == false) {
         let alert = this.alertCtrl.create({
-          title: 'Ooops!',
-          subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
+          subTitle: 'You have to sign in before you can view your profile, would you like to sign in now?',
           buttons: [
             {
               text: 'Yes',
@@ -384,7 +386,7 @@ export class HomePage {
         });
         alert.present();
       } else {
-        this.navCtrl.setRoot(ProfilePage)
+        this.navCtrl.push(ProfilePage)
       }
 
     })
@@ -403,11 +405,11 @@ export class HomePage {
     this.bodyClick(event);
     this.navCtrl.push(ProfilePage);
   }
-  gotToAddOrg() {
-    this.navCtrl.setRoot(AddOrganizationPage);
-    // console.log("this takes you to the Add Organisation Page");
+  // gotToAddOrg() {
+  //   this.navCtrl.setRoot(AddOrganizationPage);
+  //   // console.log("this takes you to the Add Organisation Page");
 
-  }
+  // }
   scroll(event) {
     // console.log(event.directionY);
     var theCard = document.getElementsByClassName("options") as HTMLCollectionOf<HTMLElement>;

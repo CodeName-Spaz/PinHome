@@ -26,7 +26,7 @@ export class MyApp {
   rootPage:any;
 
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public pinhomeProvider: PinhomeProvider) {
  
     platform.ready().then(() => {
       this.rootPage = SignInPage;
@@ -37,5 +37,15 @@ export class MyApp {
       statusBar.styleLightContent();
       splashScreen.hide();
     });
+
+
+    pinhomeProvider.checkstate().then((data:any)=>{
+      if (data ==1){
+        this.rootPage =  HomePage
+      }
+      else {
+        this.rootPage = SignInPage
+      }
+     })
   }
 }

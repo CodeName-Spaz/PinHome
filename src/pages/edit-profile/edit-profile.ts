@@ -5,6 +5,10 @@ import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
+declare var firebase
+
 /**
  * Generated class for the EditProfilePage page.
  *
@@ -18,6 +22,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'edit-profile.html',
 })
 export class EditProfilePage implements OnInit{
+  mypic: any;
   contact;
   downloadurl;
   name;
@@ -28,7 +33,7 @@ export class EditProfilePage implements OnInit{
   tempImg;
   surname;
   d=1;
-  constructor(public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
+  constructor(public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider, public camera: Camera) {
     this.retreivePics1()
   }
 
@@ -157,6 +162,25 @@ export class EditProfilePage implements OnInit{
       
     }
   }
+
+  uploadImage(){
+    const options: CameraOptions = {
+     quality: 70,
+     destinationType: this.camera.DestinationType.DATA_URL,  
+     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+     saveToPhotoAlbum:false
+   }
+   
+   this.camera.getPicture(options).then((imageData) => {
+     console.log(imageData)
+    this.downloadurl = 'data:image/jpeg;base64,' + imageData;
+    console.log(this.downloadurl);
+   }, (err) => {
+   console.log(err);
+   
+   });
+  }
+  
 
  
 }
