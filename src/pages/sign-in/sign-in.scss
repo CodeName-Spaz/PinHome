@@ -52,10 +52,12 @@ page-sign-in {
     .list{
         width: 70%;    
     }
-    .item{
+    .item{        
         background-color:   #B5BDBF;
         color: white;
         border-radius: 50px;
+        margin-left: 50%;
+        transform: translateX(-28%);
         margin-bottom: 10px;
         ::-webkit-input-placeholder{
             color: rgb(255, 255, 255);
@@ -283,6 +285,13 @@ page-sign-in {
      0    1px 0 white,
     -1px  1px 0 white,
     -1px  0   0 white;
+    }
+    .help-block helptext{
+        font-size: 14px;
+        color: red;
+    }
+    span{
+        height: 10px;
     }
     
 }

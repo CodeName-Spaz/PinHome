@@ -13,6 +13,7 @@
         <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search by city(e.g johannesburg)" [(ngModel)]="searchTerm" (input)="filterItems(); getItems($event)"></ion-input>
         <div class="profile">
           <img [src]="img" class="displayPic" alt=""  (click)="profile()">
+          <!-- <ion-icon class="displayPic" name="contact-outline" (click)="profile()"></ion-icon> -->
         </div>
       <ion-card class="options">
         <div class="intro">

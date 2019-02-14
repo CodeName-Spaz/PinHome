@@ -15,30 +15,38 @@
         <img class="logo" src="../../assets/imgs/PinHome icon.png">
         <p>PinHome</p>
       </div>
-      <div align="center">
+      <!-- <form align="center">
         <ion-list class="list" align="center">
           <ion-item class="item">
             <ion-label>
               <ion-icon name="mail"></ion-icon>
             </ion-label>
             <ion-input type="text" placeholder="Name" [(ngModel)]="name"></ion-input>
+            <span *ngIf="!password.valid && password.touched" class="help-block helptext">Please enter name</span>
           </ion-item>
-
+          <ion-item class="item">
+            <ion-label>
+              <ion-icon name="lock"></ion-icon>
+            </ion-label>
+            <ion-input type="text" placeholder="Surname" [(ngModel)]="surname"></ion-input>
+            <span *ngIf="!password.valid && password.touched" class="help-block helptext">Please enter surname</span>
+          </ion-item>
           <ion-item class="item">
             <ion-label>
               <ion-icon name="lock"></ion-icon>
             </ion-label>
             <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+            <span *ngIf="!password.valid && password.touched" class="help-block helptext">Please enter email</span>
           </ion-item>
-
           <ion-item class="item">
             <ion-label>
               <ion-icon name="lock"></ion-icon>
             </ion-label>
             <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+            <span *ngIf="!password.valid && password.touched" class="help-block helptext">Please enter password</span>
           </ion-item>
         </ion-list>
-      </div>
+      </form> -->
       <div class="conts" align="center">
         <div>
           <button class="btn" ion-button color="bg" (click)="SignUp()">Sign Up</button>

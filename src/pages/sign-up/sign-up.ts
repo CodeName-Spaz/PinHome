@@ -42,52 +42,44 @@ export class SignUpPage {
       this.email == undefined || this.email == null,
       this.password == undefined || this.password == null) {
       const alert = this.alertCtrl.create({
-        title: "Oops! ",
-        subTitle: "Please enter your name,email and password to login.",
-        buttons: ['OK']
+        // title: "Oops! ",
+        subTitle: "Please enter your valid name,email and password to login.",
+        buttons: ['OK'],
+        cssClass : 'myAlert',
       });
       alert.present();
     }
     else if (this.email == undefined || this.email == null) {
       const alert = this.alertCtrl.create({
-        title: "No Email",
-        subTitle: "It looks like you didn't enter your email address.",
-        buttons: ['OK']
+        // title: "No Email",
+        subTitle: "Email address cannot be left empty.",
+        buttons: ['OK'],
+        cssClass : 'myAlert',
       });
       alert.present();
     }
     else if (this.password == undefined || this.password == null) {
       const alert = this.alertCtrl.create({
-        title: "No Password",
-        subTitle: "You have not entered your password. Please enter your password",
-        buttons: ['OK']
+        // title: "No Password",
+        subTitle: "Password cannot be left empty",
+        buttons: ['OK'],
+        cssClass : 'myAlert',
       });
       alert.present();
     }
     else if (this.name == undefined) {
       const alert = this.alertCtrl.create({
-        title: "No Name",
-        subTitle: "It looks like you didn't enter your Name.",
-        buttons: ['OK']
+        // title: "No Name",
+        subTitle: " Name cannot be left empty.",
+        buttons: ['OK'],
+        cssClass : 'myAlert',
       });
       alert.present();
     }
     else {
       this.pinhomeProvider.Signup(this.email,this.password,this.name).then(() => {
-        const alert = this.alertCtrl.create({
-          title: "No Name",
-          subTitle: "Please verify your email",
-          buttons: [
-            {
-              text: 'Ok',
-              handler: () => {
-             this.navCtrl.pop()
-              }
-            },
-          ]
-        });
-        alert.present();
-
+        // this.presentLoading1();
+        this.navCtrl.push(ProfilePage);
       }, (error) => {
         console.log(error.message);
       })

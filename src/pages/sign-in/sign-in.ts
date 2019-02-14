@@ -45,7 +45,7 @@ export class SignInPage {
   }
 
 
-  SignIn() {
+  SignIn(email,password) {
     this.pinhomeProvider.loginx(this.email, this.password).then((user) => {
       console.log(user);
       if (user.user.emailVerified == true) {
@@ -53,29 +53,38 @@ export class SignInPage {
           || this.password == undefined) {
           const alert = this.alertCtrl.create({
             // title: "Oh no! ",
-            subTitle: "Please enter your email and password to login.",
-            buttons: ['OK']
+            subTitle: "Please enter your valid email and password to login.",
+            buttons: ['OK'],
+            cssClass : 'myAlert',
           });
         } else if (this.email == "") {
           const alert = this.alertCtrl.create({
             // title: "No Email",
-            subTitle: "It looks like you didn't enter your email address.",
-            buttons: ['OK']
+            subTitle: "Your email can't be blank.",
+            buttons: ['OK'],
+            cssClass : 'myAlert',
           });
           alert.present();
         }
         else if (this.password == "") {
           const alert = this.alertCtrl.create({
             // title: "No Password",
-            subTitle: "You have not entered your password. Please enter your password",
-            buttons: ['OK']
+            subTitle: "Your password can't be blank",
+            buttons: ['OK'],
+            cssClass : 'myAlert',
           });
           alert.present();
         }
         this.navCtrl.push(HomePage)
       }
     }).catch((error) => {
-      alert(error)
+      const alert = this.alertCtrl.create({
+        // title: "No Password",
+        subTitle: error.message,
+        buttons: ['OK'],
+        cssClass : 'myAlert',
+      });
+      alert.present();
     })
   }
 

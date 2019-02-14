@@ -125,6 +125,13 @@ export class HomePage {
   //this.storeNear[x] =  data[x];
   near() {
     if (this.locationState == false) {
+      let alert = this.alertCtrl.create({
+        title: 'Attention!',
+        subTitle: 'Please enable location to see places near you',
+        buttons: ['OK'],
+        cssClass : 'myAlert',
+      });
+      alert.present()
       this.getNearByOrganizations();
     }
     else {
@@ -368,16 +375,17 @@ export class HomePage {
       if (data == false) {
         let alert = this.alertCtrl.create({
           subTitle: 'You have to sign in before you can view your profile, would you like to sign in now?',
+          cssClass : 'myAlert',
           buttons: [
             {
-              text: 'Yes',
+              text: 'Sign in',
               handler: data => {
                 var opt = "profile";
                 this.navCtrl.push(SignInPage, { option: opt })
               }
             },
             {
-              text: 'No',
+              text: 'Cancel',
               handler: data => {
 
               }
