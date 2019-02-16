@@ -45,12 +45,13 @@ export class SignInPage {
   }
 
 
-  SignIn(email,password) {
-    this.pinhomeProvider.loginx(this.email, this.password).then((user) => {
+  SignIn(email:string,password:string) {
+    console.log(email,password)
+    this.pinhomeProvider.loginx(email,password).then((user) => {
       console.log(user);
       if (user.user.emailVerified == true) {
-        if (this.email == undefined
-          || this.password == undefined) {
+        if (email == undefined
+          || password == undefined) {
           const alert = this.alertCtrl.create({
             // title: "Oh no! ",
             subTitle: "Please enter your valid email and password to login.",
@@ -66,7 +67,7 @@ export class SignInPage {
           });
           alert.present();
         }
-        else if (this.password == "") {
+        else if (password == "") {
           const alert = this.alertCtrl.create({
             // title: "No Password",
             subTitle: "Your password can't be blank",
@@ -75,7 +76,7 @@ export class SignInPage {
           });
           alert.present();
         }
-        this.navCtrl.push(HomePage)
+        this.navCtrl.setRoot(HomePage);
       }
     }).catch((error) => {
       const alert = this.alertCtrl.create({
@@ -104,8 +105,28 @@ export class SignInPage {
     return new Promise((resolve, reject) => {
       if (this.email == null || this.email == undefined) {
         const alert = this.alertCtrl.create({
-          subTitle: 'Please insert your email to retrieve your password',
-          buttons: ['OK']
+          title: 'Forgot your password?',
+          message: "We just need your registered email address to reset your password.",
+          inputs: [
+            {
+              name: 'title',
+              placeholder: 'Your email address'
+            },
+          ],
+          buttons: [
+            {
+              text: 'Cancel',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Send',
+              handler: data => {
+                console.log('Saved clicked');
+              }
+            }
+          ],
         });
         alert.present();
       }
@@ -114,7 +135,8 @@ export class SignInPage {
           const alert = this.alertCtrl.create({
             title: 'Password request Sent',
             subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
-            buttons: ['OK']
+            buttons: ['OK'],
+            cssClass: 'myAlert'
 
           });
           alert.present();
@@ -122,7 +144,7 @@ export class SignInPage {
         }, Error => {
           const alert = this.alertCtrl.create({
             subTitle: Error.message,
-            buttons: ['OK']
+            buttons: ['OK'],
           });
           alert.present();
           resolve()
@@ -138,7 +160,8 @@ export class SignInPage {
               console.log('Cancel clicked');
             }
           }
-        ]
+        ],
+        cssClass: 'myAlert'
       });
       alert.present();
     })

@@ -5,7 +5,8 @@ import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 declare var firebase
 
@@ -33,7 +34,7 @@ export class EditProfilePage implements OnInit{
   tempImg;
   surname;
   d=1;
-  constructor(public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider, public camera: Camera) {
+  constructor(private camera: Camera,public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider,) {
     this.retreivePics1()
   }
 
@@ -69,7 +70,7 @@ export class EditProfilePage implements OnInit{
       },
         Error => {
           const alert = this.alertCtrl.create({
-            title: "Oops!",
+            // title: "Oops!",
             subTitle:  Error.message,
             buttons: ['OK']
           });
@@ -132,53 +133,54 @@ export class EditProfilePage implements OnInit{
    
   }
 
-  insertpic(event: any){
+  // insertpic(event: any){
 
-    this.d = 1;
+  //   this.d = 1;
 
-    let opts = document.getElementsByClassName('options') as HTMLCollectionOf <HTMLElement>;
+  //   let opts = document.getElementsByClassName('options') as HTMLCollectionOf <HTMLElement>;
 
-    if(this.d == 1){
-      // opts[0].style.top = "10vh";
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
+  //   if(this.d == 1){
+  //     // opts[0].style.top = "10vh";
+  //   if (event.target.files && event.target.files[0]) {
+  //     let reader = new FileReader();
 
-      if (event.target.files[0].size > 1500000){
-        let alert = this.alertCtrl.create({
-          title: "Oh no!",
-          subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-      else{
-        reader.onload = (event: any) => {
-          this.downloadurl= event.target.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-      }
+  //     if (event.target.files[0].size > 1500000){
+  //       let alert = this.alertCtrl.create({
+  //         title: "Oh no!",
+  //         subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
+  //         buttons: ['OK']
+  //       });
+  //       alert.present();
+  //     }
+  //     else{
+  //       reader.onload = (event: any) => {
+  //         this.downloadurl= event.target.result;
+  //       }
+  //       reader.readAsDataURL(event.target.files[0]);
+  //     }
 
-    }
+  //   }
       
-    }
-  }
+  //   }
+  // }
 
-  uploadImage(){
+  setImage(k) {
+    this.downloadurl = k;
+  }
+  insertpic() {
     const options: CameraOptions = {
-     quality: 70,
-     destinationType: this.camera.DestinationType.DATA_URL,  
-     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-     saveToPhotoAlbum:false
-   }
-   
-   this.camera.getPicture(options).then((imageData) => {
-     console.log(imageData)
-    this.downloadurl = 'data:image/jpeg;base64,' + imageData;
-    console.log(this.downloadurl);
-   }, (err) => {
-   console.log(err);
-   
-   });
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum: false
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      var x = 'data:image/jpeg;base64,' + imageData;
+      this.setImage(x);
+    }, (err) => {
+      console.log(err);
+    });
+ 
   }
   
 

@@ -40,7 +40,7 @@ export class HomePage {
   location = "Searching for location..."
   textField = "";
   logInState;
-  img;
+  img =  "../../assets/imgs/Defaults/default.png";;
   locationColor = "secondary"
   Searchlat;
   mapPageState = false;
@@ -125,13 +125,6 @@ export class HomePage {
   //this.storeNear[x] =  data[x];
   near() {
     if (this.locationState == false) {
-      let alert = this.alertCtrl.create({
-        title: 'Attention!',
-        subTitle: 'Please enable location to see places near you',
-        buttons: ['OK'],
-        cssClass : 'myAlert',
-      });
-      alert.present()
       this.getNearByOrganizations();
     }
     else {
@@ -164,11 +157,13 @@ export class HomePage {
   }
 
   storedata(data) {
+    // this.categoryArr.length =0;
     this.orgs = data;
   }
 
   cities = new Array()
   storeCities(cities) {
+    // this.categoryArr.length =0;
     this.cities = cities;
     console.log(this.cities);
 
@@ -204,7 +199,7 @@ export class HomePage {
     this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
   }
   trimPictures(state) {
-    this.categoryArr.length = 0;
+    // this.categoryArr.length = 0;
     this.categoryArr = this.tempArray;
   }
 
@@ -332,15 +327,13 @@ export class HomePage {
   }
 
   getNearByOrganizations() {
-
     var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
-
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Loading...',
+      content: 'Loading123...',
       duration: 222000
     });
-    loading.present();
+    // loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.retrieveOrganization().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {

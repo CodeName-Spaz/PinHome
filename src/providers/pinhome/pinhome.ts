@@ -624,7 +624,7 @@ export class PinhomeProvider {
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
       this.ngzone.run(() => {
-        this.categoryArr = [];
+        this.categoryArr.length = 0;
         this.db.ref('OrganizationList').on('value', (data) => {
           let SelectCategory = data.val();
           let keys = Object.keys(SelectCategory);
@@ -750,7 +750,7 @@ export class PinhomeProvider {
 
           }
           else {
-            this.categoryArr = null;
+            this.categoryArr.length = 0;
             accpt('');
           }
 
@@ -829,7 +829,7 @@ export class PinhomeProvider {
 
   uploadProfilePic(pic, name) {
     const toast = this.toastCtrl.create({
-      message: 'data has been updated!',
+      message: 'Successfully updated!',
       duration: 3000
     });
     return new Promise((accpt, rejc) => {

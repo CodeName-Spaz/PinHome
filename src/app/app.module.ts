@@ -26,7 +26,8 @@ import { AddOrganizationPage } from '../pages/add-organization/add-organization'
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 
 
@@ -82,7 +83,7 @@ firebase.initializeApp({
     LaunchNavigator,
     NativeGeocoder,
     ScreenOrientation,
-    Camera
+    Camera,
   ]
 })
 export class AppModule {}

@@ -37,49 +37,59 @@ export class SignUpPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
-  SignUp() {
-    if (this.name == undefined,
-      this.email == undefined || this.email == null,
-      this.password == undefined || this.password == null) {
+  SignUp(name,email,password) {
+    if (
+      this.name == undefined,
+      email == undefined || email == null,
+      password == undefined || password == null) {
       const alert = this.alertCtrl.create({
         // title: "Oops! ",
-        subTitle: "Please enter your valid name,email and password to login.",
-        buttons: ['OK'],
-        cssClass : 'myAlert',
+        subTitle: "Please enter your name,email and password to login.",
+        buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.email == undefined || this.email == null) {
+    else if (email == undefined || email == null) {
       const alert = this.alertCtrl.create({
         // title: "No Email",
         subTitle: "Email address cannot be left empty.",
-        buttons: ['OK'],
-        cssClass : 'myAlert',
+        buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.password == undefined || this.password == null) {
+    else if (password == undefined ||password == null) {
       const alert = this.alertCtrl.create({
         // title: "No Password",
-        subTitle: "Password cannot be left empty",
-        buttons: ['OK'],
-        cssClass : 'myAlert',
+        subTitle: "Password cannot be left empty.",
+        buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.name == undefined) {
+    else if (name == undefined) {
       const alert = this.alertCtrl.create({
         // title: "No Name",
-        subTitle: " Name cannot be left empty.",
-        buttons: ['OK'],
-        cssClass : 'myAlert',
+        subTitle: "Name cannot be left empty.",
+        buttons: ['OK']
       });
       alert.present();
     }
     else {
-      this.pinhomeProvider.Signup(this.email,this.password,this.name).then(() => {
-        // this.presentLoading1();
-        this.navCtrl.push(ProfilePage);
+      this.pinhomeProvider.Signup(email,password,name).then(() => {
+        const alert = this.alertCtrl.create({
+          // title: "No Name",
+          subTitle: "We have sent you a link on your email ,Please verify your email",
+          cssClass : 'myAlert',
+          buttons: [
+            {
+              text: 'Ok',
+              handler: () => {
+             this.navCtrl.pop()
+              }
+            },
+          ]
+        });
+        alert.present();
+
       }, (error) => {
         console.log(error.message);
       })

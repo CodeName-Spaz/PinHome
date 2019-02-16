@@ -261,7 +261,7 @@ export class ViewPage  {
       else {
         let alert = this.alertCtrl.create({
           title: '',
-          subTitle: 'You have to sign in before you can view your profile, would you like to sign in now?',
+          subTitle: 'You have to sign in before you can rate this organistion, would you like to sign in now?',
           buttons: [
             {
               text: 'Sign in',
