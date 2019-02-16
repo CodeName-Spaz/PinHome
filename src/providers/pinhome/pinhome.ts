@@ -77,10 +77,14 @@ export class PinhomeProvider {
                           orgEmail: orgs.Email,
                           orgAbout: orgs.AboutOrg,
                           rating: values[inderKeys[i]].rate,
-                          orgGallery: orgs.UrlGallery,
+                          orgGallery: orgs.Gallery,
                           key: keys[x],
                           comment: values[inderKeys[i]].comment,
-                          orgPrice: orgs.Price
+                          orgPrice: orgs.Price,
+                          orgGallery1: orgs.Gallery1,
+                          orgGallery2: orgs.Gallery2,
+                          city: orgs.city,
+                          orgLogo: orgs.Logo,
                         }
                         this.ratedOrgs.push(organizationObject)
                       }
@@ -231,33 +235,33 @@ export class PinhomeProvider {
   forgotpassword(email) {
     return new Promise((resolve, reject) => {
       this.ngzone.run(() => {
-      if (email == null || email == undefined) {
-        const alert = this.alertCtrl.create({
-          subTitle: 'Please enter your Email.',
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-      else if (email != null || email != undefined) {
-        firebase.auth().sendPasswordResetEmail(email).then(() => {
+        if (email == null || email == undefined) {
           const alert = this.alertCtrl.create({
-            title: 'Password request Sent',
-            subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
+            subTitle: 'Please enter your Email.',
             buttons: ['OK']
+          });
+          alert.present();
+        }
+        else if (email != null || email != undefined) {
+          firebase.auth().sendPasswordResetEmail(email).then(() => {
+            const alert = this.alertCtrl.create({
+              title: 'Password request Sent',
+              subTitle: "We've sent you and email with a reset link, go to your email to recover your account.",
+              buttons: ['OK']
 
+            });
+            alert.present();
+            resolve()
+          }, Error => {
+            const alert = this.alertCtrl.create({
+              subTitle: Error.message,
+              buttons: ['OK']
+            });
+            alert.present();
+            resolve()
           });
-          alert.present();
-          resolve()
-        }, Error => {
-          const alert = this.alertCtrl.create({
-            subTitle: Error.message,
-            buttons: ['OK']
-          });
-          alert.present();
-          resolve()
-        });
-      }
-    })
+        }
+      })
     }).catch((error) => {
       const alert = this.alertCtrl.create({
         subTitle: error.message,
@@ -621,11 +625,69 @@ export class PinhomeProvider {
     })
   }
 
+  categoryArr2 = new Array;
+  retrieveOrganization2() {
+    return new Promise((accpt, rej) => {
+      this.db.ref('OrganizationList').on('value', (data) => {
+        this.ngzone.run(() => {
+          this.categoryArr2.length = 0;
+          let SelectCategory = data.val();
+          let keys = Object.keys(SelectCategory);
+          for (var i = 0; i < keys.length; i++) {
+            let k = keys[i];
+            this.db.ref('comments/' + k).on('value', (data2) => {
+              let totalRating = 0;
+              let avg = 0;
+              if (data2.val() != null || data2.val() != undefined) {
+                let ratings = data2.val();
+                let ratingsKeys = Object.keys(ratings);
+                for (var x = 0; x < ratingsKeys.length; x++) {
+                  totalRating = totalRating + ratings[ratingsKeys[x]].rate
+                  avg++;
+                }
+                if (totalRating != 0)
+                  totalRating = totalRating / avg;
+                totalRating = Math.round(totalRating)
+              }
+              if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
+                this.SignCities(SelectCategory[k].city)
+              }
+              let obj = {
+                orgCat: SelectCategory[k].Category,
+                orgName: SelectCategory[k].OrganizationName,
+                orgAddress: SelectCategory[k].OrganizationAdress,
+                orgContact: SelectCategory[k].ContactDetails,
+                orgPicture: SelectCategory[k].Url,
+                orgLat: SelectCategory[k].latitude,
+                orgLong: SelectCategory[k].longitude,
+                orgEmail: SelectCategory[k].Email,
+                orgAbout: SelectCategory[k].AboutOrg,
+                orgPrice: SelectCategory[k].Price,
+                orgLogo: SelectCategory[k].Logo,
+                orgGallery: SelectCategory[k].Gallery,
+                orgGallery1: SelectCategory[k].Gallery1,
+                orgGallery2: SelectCategory[k].Gallery2,
+                key: k,
+                rating: totalRating,
+                city: SelectCategory[k].city
+              }
+              this.categoryArr2.push(obj);
+
+            })
+          }
+          console.log(this.categoryArr2)
+          accpt(this.categoryArr2);
+        })
+      })
+    })
+  }
+
+
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
-      this.ngzone.run(() => {
-        this.categoryArr.length = 0;
-        this.db.ref('OrganizationList').on('value', (data) => {
+      this.db.ref('OrganizationList').on('value', (data) => {
+        this.ngzone.run(() => {
+          this.categoryArr.length = 0;
           let SelectCategory = data.val();
           let keys = Object.keys(SelectCategory);
           for (var i = 0; i < keys.length; i++) {

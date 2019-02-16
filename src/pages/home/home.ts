@@ -1,4 +1,4 @@
-import { Component ,NgZone} from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, LoadingController, AlertController, NavParams } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { ViewPage } from '../view/view'
@@ -40,7 +40,7 @@ export class HomePage {
   location = "Searching for location..."
   textField = "";
   logInState;
-  img =  "../../assets/imgs/Defaults/default.png";;
+  img = "../../assets/imgs/Defaults/default.png";;
   locationColor = "secondary"
   Searchlat;
   mapPageState = false;
@@ -52,7 +52,7 @@ export class HomePage {
 
   constructor(public navParams: NavParams, public statusBar: StatusBar, public screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
-    this.pinhomeProvider.retrieveOrganization().then((data: any) => {
+    this.pinhomeProvider.retrieveOrganization2().then((data: any) => {
       console.log(data)
       this.storeCatData(data)
       this.storeCities(this.pinhomeProvider.getAllcities())
@@ -107,7 +107,7 @@ export class HomePage {
 
   storeCatData(data) {
     this.categoryArr = data;
-    console.log(this.categoryArr )
+    console.log(this.categoryArr)
     this.tempArray = this.categoryArr;
     this.storeAllOrgs = data;
   }
@@ -121,7 +121,7 @@ export class HomePage {
     // console.log(this.storeNear);
   }
 
- 
+
   //this.storeNear[x] =  data[x];
   near() {
     if (this.locationState == false) {
@@ -327,6 +327,7 @@ export class HomePage {
   }
 
   getNearByOrganizations() {
+
     var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -338,6 +339,7 @@ export class HomePage {
       this.pinhomeProvider.retrieveOrganization().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           var loc = this.pinhomeProvider.getLocation();
+          this.orgArray.length = 0
           this.location = loc.locality;
           this.orgArray = data;
           this.storeNearByOrgs(data);
@@ -368,7 +370,7 @@ export class HomePage {
       if (data == false) {
         let alert = this.alertCtrl.create({
           subTitle: 'You have to sign in before you can view your profile, would you like to sign in now?',
-          cssClass : 'myAlert',
+          cssClass: 'myAlert',
           buttons: [
             {
               text: 'Sign in',

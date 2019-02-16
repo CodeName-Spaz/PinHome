@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController,LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { PlaceObject } from '../../app/class';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ProfilePage } from '../profile/profile';
@@ -37,7 +37,7 @@ export class SignInPage {
   obj = this.navParams.get('obj');
   out = this.navParams.get('out');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider, public screenOrientation: ScreenOrientation, public loadingCtrl: LoadingController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider, public screenOrientation: ScreenOrientation, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -45,9 +45,9 @@ export class SignInPage {
   }
 
 
-  SignIn(email:string,password:string) {
-    console.log(email,password)
-    this.pinhomeProvider.loginx(email,password).then((user) => {
+  SignIn(email: string, password: string) {
+    console.log(email, password)
+    this.pinhomeProvider.loginx(email, password).then((user) => {
       console.log(user);
       if (user.user.emailVerified == true) {
         if (email == undefined
@@ -56,14 +56,14 @@ export class SignInPage {
             // title: "Oh no! ",
             subTitle: "Please enter your valid email and password to login.",
             buttons: ['OK'],
-            cssClass : 'myAlert',
+            cssClass: 'myAlert',
           });
         } else if (this.email == "") {
           const alert = this.alertCtrl.create({
             // title: "No Email",
             subTitle: "Your email can't be blank.",
             buttons: ['OK'],
-            cssClass : 'myAlert',
+            cssClass: 'myAlert',
           });
           alert.present();
         }
@@ -72,7 +72,7 @@ export class SignInPage {
             // title: "No Password",
             subTitle: "Your password can't be blank",
             buttons: ['OK'],
-            cssClass : 'myAlert',
+            cssClass: 'myAlert',
           });
           alert.present();
         }
@@ -83,7 +83,7 @@ export class SignInPage {
         // title: "No Password",
         subTitle: error.message,
         buttons: ['OK'],
-        cssClass : 'myAlert',
+        cssClass: 'myAlert',
       });
       alert.present();
     })
