@@ -185,9 +185,12 @@ page-home {
         // height: 40px;
         // width: 40px;
         border-radius: 40px;
-        // font-size: 25px;
+        font-size: 25px;
+        font-weight: bold;
         padding-right: 7px;
     }
+ 
+ 
     .selector{
         // border: 2px solid red;
         width: 5px;
@@ -217,6 +220,8 @@ page-home {
         height: 35px;
         border-radius: 50px;
         object-fit: cover;
+        font-size: 3em;
+        color: black
     }
     .restOfBody{
         padding-left: 15px;        
@@ -277,8 +282,8 @@ page-home {
         font-size:  16px;
         font-weight: bolder;
         margin-top: 10px;
-        color: green;
-        text-shadow: 0 0 5px greenyellow
+        color: orange;
+        // text-shadow: 0 0 5px greenyellow
     }
     .item ion-thumbnail {
         min-width:110px;    

@@ -31,7 +31,7 @@ export class NearbyOrgPage {
   map: GoogleMap;
   orgArray = new Array();
   cat = [];
-  location;
+  location =  this.navParams.get('resp');
   lat;
   long;
   time;
@@ -42,26 +42,26 @@ export class NearbyOrgPage {
   category;
   logInState
   navColor = "custom";
-  locationState =false;
-  images = ["assets/imgs/a.png","assets/imgs/b.png","assets/imgs/c.png","assets/imgs/d.png","assets/imgs/e.png","assets/imgs/f.png","assets/imgs/g.png","assets/imgs/6.png" ]
+  locationState =  this.navParams.get('locState');;
+  images = ["assets/imgs/loaction.png","assets/imgs/loaction2(1).png","assets/imgs/loaction1.png","assets/imgs/loaction2.png","assets/imgs/loaction3.png","assets/imgs/loaction4.png","assets/imgs/loaction5.png","assets/imgs/loaction6.png" ]
   circle: Circle;
   profilePic = this.navParams.get('img');
 
   constructor(private pinhomeProvider: PinhomeProvider,private alertCtrl: AlertController,public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
-  
+    
   }
 
   ionViewDidLoad() {
-    this.loadMap();
-    // this.pinhome.getProfile()
-    //this.createCurrentLocationMarker();
+    this.loadAllMaps();
   }
+  
+  
 
 
   loadAllMaps(){
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Almost Done',
+      content: 'Getting Ready, Please wait',
       duration: 70220
 
     });
@@ -184,13 +184,13 @@ export class NearbyOrgPage {
           },
         }
         this.map = GoogleMaps.create('map_canvas', mapOptions);
-      
+      console.log(this.map)
           if (this.locationState ==  true){
             this.map.addMarker({
               title: 'current Location',
               icon:  {
                 url :"assets/imgs/current.png",
-                size : {width: 35, height: 40}
+                size : {width: 55, height: 60}
               },
               animation: 'DROP',
               speed: 500,
@@ -251,10 +251,6 @@ export class NearbyOrgPage {
     })
     }
   
-    assignLocationStatus(value){
-      this.locationState = value;
-    }
-  
     viewDetails(name){
       for (var i = 0; i < this.orgArray.length; i++) {
         if (this.orgArray[i].orgName == name) {
@@ -265,32 +261,9 @@ export class NearbyOrgPage {
   }
 
 
-  loadMap() {
-    // this.orgArray.length = 0;
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Getting Ready, please wait',
-      duration: 70220
-
-    });
-    loading.present();
-    this.pinhome.getCurrentLocation().then((radius: any) => {
-
-      this.pinhome.listenForLocation().then((resp:any) =>{
-        this.assignLocation(resp);
-        this.loadAllMaps();
-        this.assignLocationStatus(true);
-        loading.dismiss();
-      })
-    },Error =>{
-      this.assignLocationStatus(false);
-      this.loadAllMaps();
-      loading.dismiss();
-    })
-  }
 
   GoToHomePage() {
-this.navCtrl.popToRoot();
+this.navCtrl.pop();
   }
   selectcategory() {
     console.log(this.category);
@@ -369,11 +342,6 @@ this.navCtrl.popToRoot();
         })
       }
     })
-  }
-
-  assignLocation(resp) {
-    this.location = resp;
-    console.log(this.location)
   }
 
   scroller(event) {

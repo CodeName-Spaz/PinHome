@@ -1,9 +1,15 @@
 
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfilePage } from '../profile/profile';
 import { AlertController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
+import { HomePage } from '../home/home';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
+
+declare var firebase
+
 /**
  * Generated class for the EditProfilePage page.
  *
@@ -17,6 +23,7 @@ import { PinhomeProvider } from '../../providers/pinhome/pinhome';
   templateUrl: 'edit-profile.html',
 })
 export class EditProfilePage implements OnInit{
+  mypic: any;
   contact;
   downloadurl;
   name;
@@ -26,7 +33,8 @@ export class EditProfilePage implements OnInit{
   imageArr= new Array();
   tempImg;
   surname;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider) {
+  d=1;
+  constructor(private camera: Camera,public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider,) {
     this.retreivePics1()
   }
 
@@ -48,29 +56,27 @@ export class EditProfilePage implements OnInit{
   }
 
   GoToProfile(){
-    this.navCtrl.push(ProfilePage);
+    this.navCtrl.pop();
   }
-
   uploadPicture() {
-    // this.imageArr.length = 0;
     if (this.tempImg == this.downloadurl){
       this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
         console.log('added to db');
         this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
-          console.log(this.imageArr);
-        })
-        this.navCtrl.push(ProfilePage);
+        });
+        // this.viewCtrl.dismiss();
+        this.navCtrl.pop();
       },
         Error => {
           const alert = this.alertCtrl.create({
-            title: "Oops!",
+            // title: "Oops!",
             subTitle:  Error.message,
             buttons: ['OK']
           });
           alert.present();
         })
- 
+        this.viewCtrl.dismiss()
     
     }
     else{
@@ -79,8 +85,10 @@ export class EditProfilePage implements OnInit{
         this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
           this.imageArr.push(data);
           console.log(this.imageArr);
-        })
-        this.navCtrl.push(ProfilePage);
+        });
+        this.viewCtrl.dismiss()
+        // this.navCtrl.push(ProfilePage);
+
       },
         Error => {
           const alert = this.alertCtrl.create({
@@ -92,6 +100,8 @@ export class EditProfilePage implements OnInit{
         })
  
     }
+    // this.navCtrl.push(ProfilePage)
+    
 
   }
 
@@ -123,16 +133,56 @@ export class EditProfilePage implements OnInit{
    
   }
 
+  // insertpic(event: any){
 
-  insertpic(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.downloadurl = event.target.result;
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  //   this.d = 1;
+
+  //   let opts = document.getElementsByClassName('options') as HTMLCollectionOf <HTMLElement>;
+
+  //   if(this.d == 1){
+  //     // opts[0].style.top = "10vh";
+  //   if (event.target.files && event.target.files[0]) {
+  //     let reader = new FileReader();
+
+  //     if (event.target.files[0].size > 1500000){
+  //       let alert = this.alertCtrl.create({
+  //         title: "Oh no!",
+  //         subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
+  //         buttons: ['OK']
+  //       });
+  //       alert.present();
+  //     }
+  //     else{
+  //       reader.onload = (event: any) => {
+  //         this.downloadurl= event.target.result;
+  //       }
+  //       reader.readAsDataURL(event.target.files[0]);
+  //     }
+
+  //   }
+      
+  //   }
+  // }
+
+  setImage(k) {
+    this.downloadurl = k;
   }
+  insertpic() {
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum: false
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      var x = 'data:image/jpeg;base64,' + imageData;
+      this.setImage(x);
+    }, (err) => {
+      console.log(err);
+    });
+ 
+  }
+  
 
  
 }

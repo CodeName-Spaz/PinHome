@@ -1,48 +1,56 @@
 <ion-header class="theHeader">
-  <ion-fab top left class="backBtn">
+  <!-- <ion-fab top left class="backBtn">
     <button color="light" clear ion-button icon-only (click)="Back()">
       <ion-icon class="arrow" name="arrow-back"></ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-header>
 <ion-content class="content">
-  <div class="body">
-  <div class="round1"></div>
-  <div class="round2"></div>
-  <div class="container">
-  <div align="center" class="picture">
-    <img class="logo" src="../../assets/imgs/PinHome icon.png">
-    <p>PinHome</p>
+  <div class="everything">
+
+      <div class="body">
+          <!-- <div class="round1"></div>
+          <div class="round2"></div> -->
+          <div class="container">
+          <div align="center" class="picture">
+            <img class="logo" src="../../assets/imgs/PinHome icon.png">
+            <p>PinHome</p>
+          </div>
+          <div align="center">
+            <ion-list class="list" align="center">
+              <ion-item class="item" style=" height: 1px;">
+                <ion-label>
+                  <ion-icon name="mail"></ion-icon>
+                </ion-label>
+                <ion-input name="email" #email="ngModel" type="email" placeholder="Email" ngModel required></ion-input>
+
+              </ion-item>
+              <span style="color: red" *ngIf="!email.valid && email.touched" class="help-block helptext">Please enter your email</span>
+              <ion-item class="item" style="height: 1px;">
+                <ion-label>
+                  <ion-icon name="lock"></ion-icon>
+                </ion-label>
+                <ion-input type="password" name="password" #password="ngModel" minlength="6" placeholder="Password (min 6 char)" required ngModel></ion-input>
+              </ion-item>
+              <span style="color: red" *ngIf="!password.valid && password.touched" class="help-block helptext">Please enter password</span>
+            </ion-list>
+          </div>
+          <div class="conts" align="center">
+            <div class="theLodin">
+
+             <button style=" height: 50px" class="btn" ion-button color="bg" (click)="SignIn(email.value,password.value)">Login</button><br><br>    
+             <button style=" height: 50px" class="btn" ion-button color="bg" (click)="Explore()">Explore</button>   
+            </div><br>
+            <button class="btn2" ion-button clear color="segments" (click)="forgotpassword()">Forgot your password?</button><br>
+            <button class="btn3" ion-button clear color="dark" (click)="GoToSignup()">Don't have an account?
+              <b class="signUp">Sign Up</b>
+            </button>
+          </div>    
+          </div>
+        </div>
+        
+    <!-- <div class="round3"></div>
+    <div class="round4"></div> -->
   </div>
-  <div align="center">
-    <ion-list class="list" align="center">
-      <ion-item class="item">
-        <ion-label>
-          <ion-icon name="mail"></ion-icon>
-        </ion-label>
-        <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
-      </ion-item>
-      <ion-item class="item">
-        <ion-label>
-          <ion-icon name="lock"></ion-icon>
-        </ion-label>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
-      </ion-item>
-    </ion-list>
-  </div>
-  <div class="conts" align="center">
-    <div class="theLodin">
-     <button class="btn" ion-button color="bg" (click)="SignIn()">Login</button><br>     
-    </div><br>
-    <button class="btn2" ion-button clear color="segments" (click)="forgotpassword()">Forgot your password?</button><br>
-    <button class="btn3" ion-button clear color="dark" (click)="GoToSignup()">Don't have an account?
-      <b>Sign Up</b>
-    </button>
-  </div>    
-  </div>
-</div>
+
 </ion-content>
-<ion-footer>
-    <div class="round3"></div>
-    <div class="round4"></div>
-</ion-footer>

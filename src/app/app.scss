@@ -14,3 +14,94 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.myAlert{
+    color: #eaf0f1;
+
+        
+button {
+    color: white !important; // button text color
+    // background-color: color($colors, secondary, base) !important;
+        //button bg color
+        // width: 30%;
+        margin: 0 auto;
+}
+
+subTitle{
+    color: red
+}
+.alert-message {
+    color: white; // text color for confirm alerts
+}
+
+.alert-wrapper {
+    background-color: color($colors, bg, base); // bg color of alert content
+    border-radius: 10px;
+}
+
+.alert-input{
+    color: rgb(255, 255, 255)
+}
+
+}
+
+.splash{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color($colors, bg);
+    .spinner {
+        margin: 100px auto;
+        width: 40px;
+        height: 40px;
+        position: relative;
+       }
+       
+       .cube1, .cube2 {
+        background-color: color($colors, light);
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
+       
+        -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
+        animation: sk-cubemove 1.8s infinite ease-in-out;
+       }
+       
+       .cube2 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+       }
+       
+       @-webkit-keyframes sk-cubemove {
+        25% { -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5) }
+        50% { -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg) }
+        75% { -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5) }
+        100% { -webkit-transform: rotate(-360deg) }
+       }
+       
+       @keyframes sk-cubemove {
+        25% {
+          transform: translateX(42px) rotate(-90deg) scale(0.5);
+          -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+        } 50% {
+          transform: translateX(42px) translateY(42px) rotate(-179deg);
+          -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
+        } 50.1% {
+          transform: translateX(42px) translateY(42px) rotate(-180deg);
+          -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
+        } 75% {
+          transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+          -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+        } 100% {
+          transform: rotate(-360deg);
+          -webkit-transform: rotate(-360deg);
+        }
+       }
+    }

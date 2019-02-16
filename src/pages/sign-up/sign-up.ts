@@ -5,6 +5,8 @@ import { SignInPage } from '../sign-in/sign-in';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 
 
 
@@ -29,51 +31,65 @@ export class SignUpPage {
   PlaceObject = {} as object;
   errMsg;
   surname;
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public loadingCtrl: LoadingController,public pinhomeProvider: PinhomeProvider,public alertCtrl:AlertController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public loadingCtrl: LoadingController,public pinhomeProvider: PinhomeProvider,public alertCtrl:AlertController, public screenOrientation: ScreenOrientation, ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignUpPage');
   }
-  SignUp() {
-    if (this.name == undefined,
-      this.email == undefined || this.email == null,
-      this.password == undefined || this.password == null) {
+  SignUp(name,email,password) {
+    if (
+      this.name == undefined,
+      email == undefined || email == null,
+      password == undefined || password == null) {
       const alert = this.alertCtrl.create({
-        title: "Oops! ",
+        // title: "Oops! ",
         subTitle: "Please enter your name,email and password to login.",
         buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.email == undefined || this.email == null) {
+    else if (email == undefined || email == null) {
       const alert = this.alertCtrl.create({
-        title: "No Email",
-        subTitle: "It looks like you didn't enter your email address.",
+        // title: "No Email",
+        subTitle: "Email address cannot be left empty.",
         buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.password == undefined || this.password == null) {
+    else if (password == undefined ||password == null) {
       const alert = this.alertCtrl.create({
-        title: "No Password",
-        subTitle: "You have not entered your password. Please enter your password",
+        // title: "No Password",
+        subTitle: "Password cannot be left empty.",
         buttons: ['OK']
       });
       alert.present();
     }
-    else if (this.name == undefined) {
+    else if (name == undefined) {
       const alert = this.alertCtrl.create({
-        title: "No Name",
-        subTitle: "It looks like you didn't enter your Name.",
+        // title: "No Name",
+        subTitle: "Name cannot be left empty.",
         buttons: ['OK']
       });
       alert.present();
     }
     else {
-      this.pinhomeProvider.Signup(this.email,this.password,this.name,this.surname).then(() => {
-        // this.presentLoading1();
-        this.navCtrl.push(ProfilePage);
+      this.pinhomeProvider.Signup(email,password,name).then(() => {
+        const alert = this.alertCtrl.create({
+          // title: "No Name",
+          subTitle: "We have sent you a link on your email ,Please verify your email",
+          cssClass : 'myAlert',
+          buttons: [
+            {
+              text: 'Ok',
+              handler: () => {
+             this.navCtrl.pop()
+              }
+            },
+          ]
+        });
+        alert.present();
+
       }, (error) => {
         console.log(error.message);
       })
@@ -90,6 +106,11 @@ export class SignUpPage {
   Back(){
 this.navCtrl.pop()  
 }
+
+lockOrientation() {
+  this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+}
+
 }
 
 

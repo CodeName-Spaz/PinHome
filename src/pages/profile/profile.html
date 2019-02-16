@@ -43,11 +43,12 @@
       </div>
     </div>
   </div>
+  <div class="empty" *ngIf="ratings.length == 0 || ratings.length == undefined">
+    <img class="telescope" src="../../assets/imgs/Defaults/empty.png" alt="">  
+    <p class="itsEmpty">You haven't made any reviews so far...</p>
+    </div>
   <ion-slides slidesPerView="2" color="dark">
-      <div class="empty" *ngIf="ratings.length == 0 || ratings.length == undefined">
-        <img class="telescope" src="../../assets/imgs/Defaults/empty.png" alt="">  
-        <p class="itsEmpty">You haven't made any reviews so far...</p>
-        </div>
+
     <div *ngFor="let i of ratings; let ind = index" (click)="viewMore(ind)">
       <ion-slide>
         <ion-card class="list">

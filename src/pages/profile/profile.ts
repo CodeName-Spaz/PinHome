@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 import { ViewPage } from '../view/view';
 import { unescapeIdentifier } from '@angular/compiler';
+import { SignInPage } from '../sign-in/sign-in';
 
 /**
  * Generated class for the ProfilePage page.
@@ -33,11 +34,13 @@ export class ProfilePage {
   constructor(public pinhome : PinhomeProvider,public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.detailArray.length = 0;
     console.log('ionViewDidLoad ProfilePage');
     let userID = firebase.auth().currentUser;
     firebase.database().ref("profiles/" + userID.uid).on('value', (data: any) => {
       let details = data.val();
+      this.detailArray.length = 0;
       console.log(details)
       this.detailArray.push(details);
     });
@@ -54,7 +57,7 @@ export class ProfilePage {
   }
 
   GoTOHomePage() {
-    this.navCtrl.popToRoot();
+    this.navCtrl.pop();
   }
 
   viewMore(ind){
@@ -103,6 +106,7 @@ export class ProfilePage {
     if (theState == 1){
       thePop[0].style.right = "0";
       setBtn[0].style.right = "-50px";
+      thePop[0].style.zIndex = "10000000";
     }
     else{
       thePop[0].style.right = "-50%";
@@ -117,11 +121,13 @@ export class ProfilePage {
     if (theState == 1){
       thePop[0].style.right = "0";
       thePop[0].style.opacity = "0";
+      thePop[0].style.zIndex = "10000000";
       setBtn[0].style.right = "-50px";
     }
     else{
       thePop[0].style.right = "-50%";
       thePop[0].style.opacity = "1";
+      thePop[0].style.zIndex = "-1000";
       setBtn[0].style.right = "-10px";
       
     }
@@ -129,12 +135,13 @@ export class ProfilePage {
     
   }
   editProfile(){
+    this.showPopover();
     this.navCtrl.push(EditProfilePage);
   }
 
   logOut(){
     this.pinhomeProvider.logout().then(() => {
-      this.navCtrl.push(HomePage);
+      this.navCtrl.push(SignInPage, {out:'logout'});
     }, (error) => {
       console.log(error.message);
     })

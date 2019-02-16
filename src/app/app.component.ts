@@ -17,6 +17,7 @@ import { PinhomeProvider } from '../providers/pinhome/pinhome';
 
 import { AddOrganizationPage } from '../pages/add-organization/add-organization';
 
+import { timer } from 'rxjs/observable/timer'
 
 
 @Component({
@@ -25,17 +26,34 @@ import { AddOrganizationPage } from '../pages/add-organization/add-organization'
 export class MyApp {
   rootPage:any;
 
+  showSplash = true;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public pinhomeProvider: PinhomeProvider) {
  
     platform.ready().then(() => {
-      this.rootPage = HomePage;
+      this.rootPage = SignInPage;
 
       ;
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       splashScreen.hide();
+
+      this.c()
     });
+
+
+    pinhomeProvider.checkstate().then((data:any)=>{
+      if (data ==1){
+        this.rootPage =  HomePage
+      }
+      else {
+        this.rootPage = SignInPage
+      }
+     })
+  }
+
+  c(){
+    timer(3000).subscribe(()=> this.showSplash = false)
   }
 }

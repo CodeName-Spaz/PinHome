@@ -62,7 +62,7 @@ export class ViewPage  {
 
   }
   ionViewDidEnter() {
-    this.retrieveComments();
+    // this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 
@@ -79,9 +79,9 @@ export class ViewPage  {
 
   }
 
-  // ngOnInit() {
-  //   this.retrieveComments();
-  // }
+  ngOnInit() {
+    this.retrieveComments();
+  }
 
   
   // ionViewDidLoad() {
@@ -212,8 +212,8 @@ export class ViewPage  {
         console.log(data);
         if (this.rateState == false || this.rateState == undefined) {
           const prompt = this.alertCtrl.create({
-            title: 'Comment',
-            message: "You can comment below",
+            // title: 'Comment',
+            message: "Pleave leave your comment below",
             inputs: [
               {
                 name: 'comments',
@@ -244,14 +244,15 @@ export class ViewPage  {
                   })
                 }
               }
-            ]
+            ],
+            cssClass : 'myAlert',
           });
           prompt.present();
         }
         else if (this.rateState == true) {
           let alert = this.alertCtrl.create({
-            title: 'ohhhh! sorry!',
-            subTitle: 'you cannot rate more than once',
+            title: 'Oops!',
+            subTitle: 'You cannot rate more than once',
             buttons: ['Ok']
           });
           alert.present();
@@ -259,23 +260,24 @@ export class ViewPage  {
       }
       else {
         let alert = this.alertCtrl.create({
-          title: 'ohhhh! sorry!',
-          subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
+          title: '',
+          subTitle: 'You have to sign in before you can rate this organistion, would you like to sign in now?',
           buttons: [
             {
-              text: 'Yes',
+              text: 'Sign in',
               handler: data => {
                 var opt = "rate";
                 this.navCtrl.push(SignInPage, { option: opt, obj: this.orgArray })
               }
             },
             {
-              text: 'No',
+              text: 'Cancel',
               handler: data => {
                 this.retrieveComments();
               }
             }
-          ]
+          ],
+          cssClass : 'myAlert',
         });
         alert.present();
       }

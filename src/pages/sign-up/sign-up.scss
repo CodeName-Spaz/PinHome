@@ -1,8 +1,18 @@
 page-sign-up {
     .content{
-        background-color: white;
-       
-    }
+        background-image: url('../../assets/imgs/check\ 3\ -\ Copy.jpg');
+            object-fit: cover;
+            background-repeat: no-repeat;
+            background-position:     center;
+           
+        }
+        .everything{
+            position: fixed;
+            // overflow: hidden;
+            overflow-y: scroll;
+            width: 100%;
+            height: 100%;
+        }
     .container{
         position: absolute;
         top: 20%;
@@ -79,44 +89,44 @@ page-sign-up {
     .theHeader{
         height: 0;
     }
-    .round1{
-        width: 180px;
-        height: 180px;
-        border-radius: 100%;
-        background-color: #166b85;
-        position: absolute;
-        top: -10%;
-        left: -20%;
-    }
-    .round2{
-        width: 180px;
-        height: 180px;
-        border-radius: 100%;
-        background-color: #328097;
-        position: absolute;
-        top: -18%;
-        left: -5%;
-    }
-    .round3{
-        width: 180px;
-        height: 180px;
-        border-radius: 100%;
-        background-color: #166b85;
-        position: absolute;
-        top: -10vh;
-        right: 0%;
-        z-index: -100000000000
-    }
-    .round4{
-        width: 180px;
-        height: 180px;
-        border-radius: 100%;
-        background-color: #448da3;
-        position: absolute;
-        top: -15vh;
-        right: -25%;
-        z-index: -100000000000000000
-    }
+    // .round1{
+    //     width: 180px;
+    //     height: 180px;
+    //     border-radius: 100%;
+    //     background-color: #166b85;
+    //     position: absolute;
+    //     top: -10%;
+    //     left: -20%;
+    // }
+    // .round2{
+    //     width: 180px;
+    //     height: 180px;
+    //     border-radius: 100%;
+    //     background-color: #328097;
+    //     position: absolute;
+    //     top: -18%;
+    //     left: -5%;
+    // }
+    // .round3{
+    //     width: 180px;
+    //     height: 180px;
+    //     border-radius: 100%;
+    //     background-color: #166b85;
+    //     position: absolute;
+    //     bottom: -90px;
+    //     right: -50px;
+    //     z-index: -100000000000
+    // }
+    // .round4{
+    //     width: 180px;
+    //     height: 180px;
+    //     border-radius: 100%;
+    //     background-color: #448da3;
+    //     position: absolute;
+    //     bottom: -50px;
+    //     right: -90px;
+    //     z-index: -100000000000000000
+    // }
     ion-footer{
         box-shadow: 0 0 0px grey;
         height: 0px;
@@ -176,6 +186,12 @@ page-sign-up {
     }
     }
     @media  screen and (min-width:700px){
+        .content{
+            background-image: url('../../assets/imgs/big.jpg');
+            background-size: cover;
+                background-repeat: no-repeat;
+                background-position:     center;
+        }
         .picture{
             width: 20vw;
             min-width: 90px;
@@ -248,6 +264,3 @@ page-sign-up {
     }
     
 }
-
-
-
