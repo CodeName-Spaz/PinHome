@@ -629,55 +629,57 @@ export class PinhomeProvider {
   retrieveOrganization2() {
     return new Promise((accpt, rej) => {
       this.db.ref('OrganizationList').on('value', (data) => {
-        this.ngzone.run(() => {
-          this.categoryArr2.length = 0;
-          let SelectCategory = data.val();
-          let keys = Object.keys(SelectCategory);
-          for (var i = 0; i < keys.length; i++) {
-            let k = keys[i];
-            this.db.ref('comments/' + k).on('value', (data2) => {
-              let totalRating = 0;
-              let avg = 0;
-              if (data2.val() != null || data2.val() != undefined) {
-                let ratings = data2.val();
-                let ratingsKeys = Object.keys(ratings);
-                for (var x = 0; x < ratingsKeys.length; x++) {
-                  totalRating = totalRating + ratings[ratingsKeys[x]].rate
-                  avg++;
+        if (data.val() != undefined || data.val() != null) {
+          this.ngzone.run(() => {
+            this.categoryArr2.length = 0;
+            let SelectCategory = data.val();
+            let keys = Object.keys(SelectCategory);
+            for (var i = 0; i < keys.length; i++) {
+              let k = keys[i];
+              this.db.ref('comments/' + k).on('value', (data2) => {
+                let totalRating = 0;
+                let avg = 0;
+                if (data2.val() != null || data2.val() != undefined) {
+                  let ratings = data2.val();
+                  let ratingsKeys = Object.keys(ratings);
+                  for (var x = 0; x < ratingsKeys.length; x++) {
+                    totalRating = totalRating + ratings[ratingsKeys[x]].rate
+                    avg++;
+                  }
+                  if (totalRating != 0)
+                    totalRating = totalRating / avg;
+                  totalRating = Math.round(totalRating)
                 }
-                if (totalRating != 0)
-                  totalRating = totalRating / avg;
-                totalRating = Math.round(totalRating)
-              }
-              if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
-                this.SignCities(SelectCategory[k].city)
-              }
-              let obj = {
-                orgCat: SelectCategory[k].Category,
-                orgName: SelectCategory[k].OrganizationName,
-                orgAddress: SelectCategory[k].OrganizationAdress,
-                orgContact: SelectCategory[k].ContactDetails,
-                orgPicture: SelectCategory[k].Url,
-                orgLat: SelectCategory[k].latitude,
-                orgLong: SelectCategory[k].longitude,
-                orgEmail: SelectCategory[k].Email,
-                orgAbout: SelectCategory[k].AboutOrg,
-                orgPrice: SelectCategory[k].Price,
-                orgLogo: SelectCategory[k].Logo,
-                orgGallery: SelectCategory[k].Gallery,
-                orgGallery1: SelectCategory[k].Gallery1,
-                orgGallery2: SelectCategory[k].Gallery2,
-                key: k,
-                rating: totalRating,
-                city: SelectCategory[k].city
-              }
-              this.categoryArr2.push(obj);
+                if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
+                  this.SignCities(SelectCategory[k].city)
+                }
+                let obj = {
+                  orgCat: SelectCategory[k].Category,
+                  orgName: SelectCategory[k].OrganizationName,
+                  orgAddress: SelectCategory[k].OrganizationAdress,
+                  orgContact: SelectCategory[k].ContactDetails,
+                  orgPicture: SelectCategory[k].Url,
+                  orgLat: SelectCategory[k].latitude,
+                  orgLong: SelectCategory[k].longitude,
+                  orgEmail: SelectCategory[k].Email,
+                  orgAbout: SelectCategory[k].AboutOrg,
+                  orgPrice: SelectCategory[k].Price,
+                  orgLogo: SelectCategory[k].Logo,
+                  orgGallery: SelectCategory[k].Gallery,
+                  orgGallery1: SelectCategory[k].Gallery1,
+                  orgGallery2: SelectCategory[k].Gallery2,
+                  key: k,
+                  rating: totalRating,
+                  city: SelectCategory[k].city
+                }
+                this.categoryArr2.push(obj);
 
-            })
-          }
-          console.log(this.categoryArr2)
-          accpt(this.categoryArr2);
-        })
+              })
+            }
+            console.log(this.categoryArr2)
+            accpt(this.categoryArr2);
+          })
+        }
       })
     })
   }
@@ -686,55 +688,57 @@ export class PinhomeProvider {
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
       this.db.ref('OrganizationList').on('value', (data) => {
-        this.ngzone.run(() => {
-          this.categoryArr.length = 0;
-          let SelectCategory = data.val();
-          let keys = Object.keys(SelectCategory);
-          for (var i = 0; i < keys.length; i++) {
-            let k = keys[i];
-            this.db.ref('comments/' + k).on('value', (data2) => {
-              let totalRating = 0;
-              let avg = 0;
-              if (data2.val() != null || data2.val() != undefined) {
-                let ratings = data2.val();
-                let ratingsKeys = Object.keys(ratings);
-                for (var x = 0; x < ratingsKeys.length; x++) {
-                  totalRating = totalRating + ratings[ratingsKeys[x]].rate
-                  avg++;
+        if (data.val() != undefined || data.val() != null) {
+          this.ngzone.run(() => {
+            this.categoryArr.length = 0;
+            let SelectCategory = data.val();
+            let keys = Object.keys(SelectCategory);
+            for (var i = 0; i < keys.length; i++) {
+              let k = keys[i];
+              this.db.ref('comments/' + k).on('value', (data2) => {
+                let totalRating = 0;
+                let avg = 0;
+                if (data2.val() != null || data2.val() != undefined) {
+                  let ratings = data2.val();
+                  let ratingsKeys = Object.keys(ratings);
+                  for (var x = 0; x < ratingsKeys.length; x++) {
+                    totalRating = totalRating + ratings[ratingsKeys[x]].rate
+                    avg++;
+                  }
+                  if (totalRating != 0)
+                    totalRating = totalRating / avg;
+                  totalRating = Math.round(totalRating)
                 }
-                if (totalRating != 0)
-                  totalRating = totalRating / avg;
-                totalRating = Math.round(totalRating)
-              }
-              if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
-                this.SignCities(SelectCategory[k].city)
-              }
-              let obj = {
-                orgCat: SelectCategory[k].Category,
-                orgName: SelectCategory[k].OrganizationName,
-                orgAddress: SelectCategory[k].OrganizationAdress,
-                orgContact: SelectCategory[k].ContactDetails,
-                orgPicture: SelectCategory[k].Url,
-                orgLat: SelectCategory[k].latitude,
-                orgLong: SelectCategory[k].longitude,
-                orgEmail: SelectCategory[k].Email,
-                orgAbout: SelectCategory[k].AboutOrg,
-                orgPrice: SelectCategory[k].Price,
-                orgLogo: SelectCategory[k].Logo,
-                orgGallery: SelectCategory[k].Gallery,
-                orgGallery1: SelectCategory[k].Gallery1,
-                orgGallery2: SelectCategory[k].Gallery2,
-                key: k,
-                rating: totalRating,
-                city: SelectCategory[k].city
-              }
-              this.categoryArr.push(obj);
+                if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
+                  this.SignCities(SelectCategory[k].city)
+                }
+                let obj = {
+                  orgCat: SelectCategory[k].Category,
+                  orgName: SelectCategory[k].OrganizationName,
+                  orgAddress: SelectCategory[k].OrganizationAdress,
+                  orgContact: SelectCategory[k].ContactDetails,
+                  orgPicture: SelectCategory[k].Url,
+                  orgLat: SelectCategory[k].latitude,
+                  orgLong: SelectCategory[k].longitude,
+                  orgEmail: SelectCategory[k].Email,
+                  orgAbout: SelectCategory[k].AboutOrg,
+                  orgPrice: SelectCategory[k].Price,
+                  orgLogo: SelectCategory[k].Logo,
+                  orgGallery: SelectCategory[k].Gallery,
+                  orgGallery1: SelectCategory[k].Gallery1,
+                  orgGallery2: SelectCategory[k].Gallery2,
+                  key: k,
+                  rating: totalRating,
+                  city: SelectCategory[k].city
+                }
+                this.categoryArr.push(obj);
 
-            })
-          }
-          console.log(this.categoryArr)
-          accpt(this.categoryArr);
-        })
+              })
+            }
+            console.log(this.categoryArr)
+            accpt(this.categoryArr);
+          })
+        }
       })
     })
   }
@@ -890,13 +894,8 @@ export class PinhomeProvider {
 
 
   uploadProfilePic(pic, name) {
-    const toast = this.toastCtrl.create({
-      message: 'Successfully updated!',
-      duration: 3000
-    });
     return new Promise((accpt, rejc) => {
       this.ngzone.run(() => {
-        toast.present();
         firebase.storage().ref(name).putString(pic, 'data_url').then(() => {
           accpt(name);
           console.log(name);

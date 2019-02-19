@@ -10,7 +10,7 @@
         <button ion-button icon-only clear class="more" (click)="showButton(textField)">
           <ion-icon name="{{state}}"></ion-icon>
         </button>
-        <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search by city(e.g johannesburg)" [(ngModel)]="searchTerm" (input)="filterItems(); getItems($event)"></ion-input>
+        <ion-input maxLength="44" class="searchBar" type="text" placeholder="Search by city (e.g johannesburg)" [(ngModel)]="searchTerm" (input)="filterItems(); getItems($event)"></ion-input>
         <div class="profile">
           <img [src]="img" class="displayPic" alt=""  (click)="profile()">
           <!-- <ion-icon ios="ios-contact" class="displayPic" md="md-contact-outline" (click)="profile()"></ion-icon> -->

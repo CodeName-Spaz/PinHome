@@ -33,11 +33,11 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 firebase.initializeApp({
   apiKey: "AIzaSyAqOYQVilf8j49rk0uf6kj_UtgbG9uLfAA",
-    authDomain: "pinhomedatabase.firebaseapp.com",
-    databaseURL: "https://pinhomedatabase.firebaseio.com",
-    projectId: "pinhomedatabase",
-    storageBucket: "gs://pinhomedatabase.appspot.com/",
-    messagingSenderId: "1004548425362"
+  authDomain: "pinhomedatabase.firebaseapp.com",
+  databaseURL: "https://pinhomedatabase.firebaseio.com",
+  projectId: "pinhomedatabase",
+  storageBucket: "gs://pinhomedatabase.appspot.com/",
+  messagingSenderId: "1004548425362"
 })
 
 @NgModule({
@@ -49,8 +49,8 @@ firebase.initializeApp({
     SignInPage,
     SignUpPage,
     ProfilePage,
-  AddOrganizationPage,
-   EditProfilePage
+    AddOrganizationPage,
+    EditProfilePage
     // IonicImageViewerModule
   ],
   imports: [
@@ -74,7 +74,7 @@ firebase.initializeApp({
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     PinhomeProvider,
     Geolocation,
     GoogleMaps,
@@ -86,4 +86,4 @@ firebase.initializeApp({
     Camera,
   ]
 })
-export class AppModule {}
+export class AppModule { }

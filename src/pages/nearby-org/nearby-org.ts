@@ -437,8 +437,9 @@ this.navCtrl.pop();
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == false) {
         let alert = this.alertCtrl.create({
-          title: 'Ooops!',
-          subTitle: 'you have to sign in before you can view your profile, would you like to sign in now?',
+          // title: 'Not Signed i!',
+          subTitle: 'You have to sign in before you can view your profile, would you like to sign in now?',
+          cssClass: 'myAlert',
           buttons: [
             {
               text: 'Yes',

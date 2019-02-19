@@ -438,14 +438,15 @@ export class HomePage {
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf<HTMLElement>;
     var FAB = document.getElementsByClassName("theFab") as HTMLCollectionOf<HTMLElement>;
 
-    restOf[0].style.transition = "700ms";
+    console.log(event.directionY);
     if (event.directionY == "down") {
-      if (event.scrollTop > 15) {
+      
+      if (event.scrollTop >= 15) {
         // console.log("hide card");
 
         theCard[0].style.height = "50px";
         theCard[0].style.top = "-65px";
-        theCard[0].style.opacity = "0.5";
+        theCard[0].style.opacity = "0";
 
         nav[0].style.height = "50px";
 
