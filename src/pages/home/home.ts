@@ -128,6 +128,12 @@ export class HomePage {
       this.getNearByOrganizations();
     }
     else {
+      let loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Loading...',
+        duration: 222000
+      });
+      loading.present();
       if (this.colorState == false) {
         this.categoryArr = this.storeNear;
         console.log(this.categoryArr)
@@ -136,12 +142,19 @@ export class HomePage {
         this.custom2 = this.temp;
         this.colorState = true
       }
+      loading.dismiss();
     }
 
 
   }
 
   all() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Loading...',
+      duration: 222000
+    });
+    loading.present();
     if (this.colorState == true) {
       this.categoryArr = _.uniqWith(this.storeAllOrgs, _.isEqual);
       this.temp = this.custom2;
@@ -149,6 +162,7 @@ export class HomePage {
       this.custom1 = this.temp;
       this.colorState = false
     }
+    loading.dismiss();
   }
 
   setArrayBack(data) {
@@ -331,10 +345,10 @@ export class HomePage {
     var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Loading123...',
+      content: 'Loading...',
       duration: 222000
     });
-    // loading.present();
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.retrieveOrganization().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
