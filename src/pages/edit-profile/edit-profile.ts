@@ -52,6 +52,12 @@ export class EditProfilePage implements OnInit {
       this.surname = details.surname;
       this.downloadurl = details.downloadurl;
       this.tempImg = details.downloadurl;
+      if (this.address == null || this.address == undefined) {
+        this.address = "";
+      }
+      if (this.surname == null || this.surname == undefined) {
+        this.surname = "";
+      }
     })
   }
 

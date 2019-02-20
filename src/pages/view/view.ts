@@ -233,7 +233,6 @@ export class ViewPage  {
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
                     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
-                  
                       this.commentArr = data;
                       this.commentArr.reverse();
                       this.commentArr.length = 0;

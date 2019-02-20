@@ -346,7 +346,7 @@ export class HomePage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading...',
-      duration: 222000
+      duration: 22000
     });
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
@@ -363,7 +363,6 @@ export class HomePage {
         })
         loading.dismiss();
       })
-
     }, Error => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
@@ -373,7 +372,7 @@ export class HomePage {
         console.log(this.orgArray)
         loading.dismiss();
       })
-      // console.log('no permission')
+      console.log('no permission')
     })
   }
   getAllOrganizations() {
@@ -440,7 +439,7 @@ export class HomePage {
 
     console.log(event.directionY);
     if (event.directionY == "down") {
-      
+
       if (event.scrollTop >= 15) {
         // console.log("hide card");
 
