@@ -5,6 +5,7 @@ import { Option, LoadingController, Select } from 'ionic-angular';
 import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { ParseSourceFile } from '@angular/compiler';
 // import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
@@ -89,7 +90,7 @@ export class PinhomeProvider {
                             let organizationObject = {
                               orgCat: data4.val().category,
                               orgName: data4.val().OrganisationName,
-                              orgContact: data4.val().Telephone,
+                              orgContact: "0" + data4.val().Telephone,
                               orgPicture: data4.val().Url,
                               orgLat: data4.val().latitude,
                               orgLong: data4.val().longitude,
@@ -154,14 +155,24 @@ export class PinhomeProvider {
     })
   }
   loginx(email, password) {
-    let loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
-      content: 'Sign in....',
-      duration: 1000
-    });
-    loading.present();
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
+
+  checkVerification() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        console.log(user);
+        if (user.emailVerified == false) {
+          this.logout();
+          resolve(0)
+        }
+        else {
+          resolve(1)
+        }
+      })
+    })
+  }
+
   Signup(email, password, name) {
     return new Promise((resolve, reject) => {
       this.ngzone.run(() => {
@@ -191,6 +202,7 @@ export class PinhomeProvider {
           loading.dismiss();
           const alert = this.alertCtrl.create({
             subTitle: error.message,
+            cssClass: 'myAlert',
             buttons: [
               {
                 text: 'ok',
@@ -303,6 +315,8 @@ export class PinhomeProvider {
     })
   }
 
+
+
   listenForLocation() {
     //listen for current location
     return new Promise((accpt, rej) => {
@@ -356,6 +370,13 @@ export class PinhomeProvider {
   }
 
 
+  getLoc() {
+    return new Promise((pass, fail) => {
+      this.geolocation.getCurrentPosition().then((resp) => {
+        pass(resp)
+      })
+    })
+  }
 
   getCurrentLocation() {
     //get current location
@@ -385,7 +406,7 @@ export class PinhomeProvider {
         // down  position
         var downlat = new String(latitude);
         var latIndex = downlat.indexOf(".");
-        var down = parseInt(downlat.substr(latIndex + 1, 2)) + 12;
+        var down = parseInt(downlat.substr(latIndex + 1, 2)) + 6;
         if (down >= 100) {
           if (downlat.substr(0, 1) == "-") {
             var firstDigits = parseInt(downlat.substr(0, 3)) + 1;
@@ -414,7 +435,7 @@ export class PinhomeProvider {
         //up  position
         var uplat = new String(latitude);
         var latIndex = uplat.indexOf(".");
-        var up = parseInt(uplat.substr(latIndex + 1, 2)) - 12;
+        var up = parseInt(uplat.substr(latIndex + 1, 2)) - 6;
         if (up >= 100) {
           if (uplat.substr(0, 1) == "-") {
             var firstDigits = parseInt(uplat.substr(0, 3)) + 1;
@@ -452,7 +473,7 @@ export class PinhomeProvider {
         var leftlat = new String(longitude);
         var longIndex = leftlat.indexOf(".");
         //  var left =  parseInt(leftlat.substr(longIndex + 1,2)) - 6;
-        var left = parseInt(leftlat.substr(longIndex + 1, 2)) - 12;
+        var left = parseInt(leftlat.substr(longIndex + 1, 2)) - 6;
         if (left >= 100) {
           if (leftlat.substr(0, 1) == "-") {
             var firstDigits = parseInt(leftlat.substr(0, 3)) - 1;
@@ -492,7 +513,7 @@ export class PinhomeProvider {
 
           var rightlat = new String(longitude);
           var longIndex = rightlat.indexOf(".");
-          var right = parseInt(rightlat.substr(longIndex + 1, 2)) + 12;
+          var right = parseInt(rightlat.substr(longIndex + 1, 2)) + 6;
           console.log(right)
           if (right >= 100) {
             if (rightlat.substr(0, 1) == "-") {
@@ -581,22 +602,34 @@ export class PinhomeProvider {
 
   getNearByOrganisations(radius, org) {
     return new Promise((accpt, rej) => {
-      this.ngzone.run(() => {
-        this.listenForLocation().then((resp: any) => {
-          var lat = new String(resp.coords.latitude).substr(0, 6);
-          var long = new String(resp.coords.longitude).substr(0, 5);
+      console.log('getting near by');
+      this.nearByOrg.length = 0;
+      console.log(radius);
+      console.log(org);
+      this.getLoc().then((resp: any) => {
+        console.log(resp);
+        var lat = new String(resp.coords.latitude).substr(0, 6);
+        var long = new String(resp.coords.longitude).substr(0, 5);
+        console.log(lat);
+        console.log(long);
           for (var x = 0; x < org.length; x++) {
             var orglat = new String(org[x].orgLat).substr(0, 6);
             var orgLong = new String(org[x].orgLong).substr(0, 5);
+            // console.log(orglat);
+            // console.log(orgLong);
             if ((orgLong <= long && orgLong >= radius.left || orgLong >= long && orgLong <= radius.right) && (orglat >= lat && orglat <= radius.down || orglat <= lat && orglat >= radius.up)) {
-              this.nearByOrg.push(org[x]);
+              // this.nearByOrg.push(org[x]);
+              // console.log(this.nearByOrg);
+              console.log('fooun');
+
             }
           }
+          console.log(this.nearByOrg);
           accpt(this.nearByOrg)
-        })
       })
     })
   }
+
   DisplayCategory(Category) {
     return new Promise((accpt, rej) => {
       this.categoryArr.length = 0;
@@ -736,26 +769,27 @@ export class PinhomeProvider {
             let keys = Object.keys(SelectCategory);
             for (var i = 0; i < keys.length; i++) {
               let k = keys[i];
-              this.db.ref('comments/' + k).on('value', (data2) => {
-
-                let totalRating = 0;
-                let avg = 0;
-                if (data2.val() != null || data2.val() != undefined) {
-                  let ratings = data2.val();
-                  let ratingsKeys = Object.keys(ratings);
-                  for (var x = 0; x < ratingsKeys.length; x++) {
-                    totalRating = totalRating + ratings[ratingsKeys[x]].rate
-                    avg++;
-                  }
-                  if (totalRating != 0)
-                    totalRating = totalRating / avg;
-                  totalRating = Math.round(totalRating)
-                }
-                this.db.ref('Websiteprofiles/' + k).on('value', (data2) => {
-                  var branch = data2.val();
-                  var bKeys = Object.keys(branch)
-                  for (var p = 0; p < bKeys.length; p++) {
-                    var x = bKeys[p]
+              let totalRating = 0;
+              let avg = 0;
+              this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
+                var branch = data3.val();
+                var bKeys = Object.keys(branch)
+                for (var p = 0; p < bKeys.length; p++) {
+                  var x = bKeys[p]
+                  this.db.ref('comments/' + x).on('value', (data2) => {
+                    if (data2.val() != null || data2.val() != undefined) {
+                      var rate = data2.val();
+                      var rateKeys = Object.keys(data2.val())
+                      totalRating = totalRating + rate[rateKeys[0]].rate
+                      // for (var r = 0; r < rateKeys.length; r++) {
+                      //   totalRating = totalRating + rate[rateKeys[r]].rate;
+                      //   avg++;
+                      // }
+                      // if (totalRating != 0) {
+                      //   totalRating = totalRating / avg;
+                      //   totalRating = Math.round(totalRating)
+                      // }
+                    }
                     if (branch[x].city != undefined || branch[x].city != null) {
                       this.SignCities(branch[x].city)
                     }
@@ -771,11 +805,12 @@ export class PinhomeProvider {
                     if (gal3 == undefined || gal3 == null) {
                       gal3 = "../../assets/imgs/Defaults/DP.jpg"
                     }
+
                     let obj = {
                       orgCat: branch[x].category,
                       orgName: branch[x].OrganisationName,
                       orgAddress: branch[x].OrganizationAdress,
-                      orgContact: branch[x].Telephone,
+                      orgContact: "0" + branch[x].Telephone,
                       orgPicture: branch[x].Url,
                       orgLat: branch[x].latitude,
                       orgLong: branch[x].longitude,
@@ -789,10 +824,12 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city
                     }
-                    this.categoryArr2.push(obj);
-                  }
-                })
+                    this.categoryArr2.push(obj)
+
+                  })
+                }
               })
+              // })
             }
             console.log(this.categoryArr2)
             accpt(this.categoryArr2);
@@ -801,6 +838,99 @@ export class PinhomeProvider {
       })
     })
   }
+
+  // retrieveOrganization2() {
+  //   return new Promise((accpt, rej) => {
+  //     this.db.ref('Websiteprofiles').on('value', (data) => {
+  //       if (data.val() != undefined || data.val() != null) {
+  //         this.categoryArr2.length = 0;
+  //         this.ngzone.run(() => {
+  //           let SelectCategory = data.val();
+  //           let keys = Object.keys(SelectCategory);
+  //           for (var i = 0; i < keys.length; i++) {
+  //             let k = keys[i];
+  //             // this.db.ref('comments/' + k).on('value', (data2) => {
+
+  //             //   let totalRating = 0;
+  //             //   let avg = 0;
+  //             //   if (data2.val() != null || data2.val() != undefined) {
+  //             //     let ratings = data2.val();
+  //             //     let ratingsKeys = Object.keys(ratings);
+  //             //     for (var x = 0; x < ratingsKeys.length; x++) {
+  //             //       totalRating = totalRating + ratings[ratingsKeys[x]].rate
+  //             //       avg++;
+  //             //     }
+  //             //     if (totalRating != 0)
+  //             //       totalRating = totalRating / avg;
+  //             //     totalRating = Math.round(totalRating)
+  //             //   }
+  //             let totalRating = 0;
+  //             let avg = 0;
+  //             this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
+  //               var branch = data3.val();
+  //               var bKeys = Object.keys(branch)
+  //               for (var p = 0; p < bKeys.length; p++) {
+  //                 var x = bKeys[p]
+  //                 this.db.ref('comments/' + x).on('value', (data2) => {
+  //                   if (data2.val() != null || data2.val() != undefined) {
+  //                     var rate = data2.val();
+  //                     var rateKeys = Object.keys(data2.val())
+  //                     for (var r = 0; r < rateKeys.length; r++) {
+  //                       totalRating = totalRating + rate[rateKeys[r]].rate;
+  //                       avg++;
+  //                     }
+  //                     if (totalRating != 0) {
+  //                       totalRating = totalRating / avg;
+  //                       totalRating = Math.round(totalRating)
+  //                     }
+  //                   }
+
+  //                 })
+  //                 if (branch[x].city != undefined || branch[x].city != null) {
+  //                   this.SignCities(branch[x].city)
+  //                 }
+  //                 var gal1;
+  //                 var gal2;
+  //                 var gal3;
+  //                 if (gal1 == undefined || gal1 == null) {
+  //                   gal1 = "../../assets/imgs/Defaults/DP.jpg"
+  //                 }
+  //                 if (gal2 == undefined || gal2 == null) {
+  //                   gal2 = "../../assets/imgs/Defaults/DP.jpg"
+  //                 }
+  //                 if (gal3 == undefined || gal3 == null) {
+  //                   gal3 = "../../assets/imgs/Defaults/DP.jpg"
+  //                 }
+  //                 let obj = {
+  //                   orgCat: branch[x].category,
+  //                   orgName: branch[x].OrganisationName,
+  //                   orgAddress: branch[x].OrganizationAdress,
+  //                   orgContact: "0" + branch[x].Telephone,
+  //                   orgPicture: branch[x].Url,
+  //                   orgLat: branch[x].latitude,
+  //                   orgLong: branch[x].longitude,
+  //                   orgEmail: branch[x].Email,
+  //                   orgAbout: branch[x].desc,
+  //                   orgLogo: branch[x].Logo,
+  //                   orgGallery: gal1,
+  //                   orgGallery1: gal2,
+  //                   orgGallery2: gal3,
+  //                   key: x,
+  //                   rating: totalRating,
+  //                   city: branch[x].city
+  //                 }
+  //                 this.categoryArr2.push(obj);
+  //               }
+  //             })
+  //             // })
+  //           }
+  //           console.log(this.categoryArr2)
+  //           accpt(this.categoryArr2);
+  //         })
+  //       }
+  //     })
+  //   })
+  // }
 
 
   retrieveOrganization() {
@@ -813,30 +943,30 @@ export class PinhomeProvider {
             let keys = Object.keys(SelectCategory);
             for (var i = 0; i < keys.length; i++) {
               let k = keys[i];
-              this.db.ref('comments/' + k).on('value', (data2) => {
-                let totalRating = 0;
-
-                let avg = 0;
-                if (data2.val() != null || data2.val() != undefined) {
-                  let ratings = data2.val();
-                  let ratingsKeys = Object.keys(ratings);
-                  for (var x = 0; x < ratingsKeys.length; x++) {
-                    totalRating = totalRating + ratings[ratingsKeys[x]].rate
-                    avg++;
-                  }
-                  if (totalRating != 0)
-                    totalRating = totalRating / avg;
-                  totalRating = Math.round(totalRating)
-                }
-                this.db.ref('Websiteprofiles/' + k).on('value', (data2) => {
-                  var branch = data2.val();
-                  var bKeys = Object.keys(branch)
-                  for (var p = 0; p < bKeys.length; p++) {
-                    var x = bKeys[p]
+              let totalRating = 0;
+              let avg = 0;
+              this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
+                var branch = data3.val();
+                var bKeys = Object.keys(branch)
+                for (var p = 0; p < bKeys.length; p++) {
+                  var x = bKeys[p]
+                  this.db.ref('comments/' + x).on('value', (data2) => {
+                    if (data2.val() != null || data2.val() != undefined) {
+                      var rate = data2.val();
+                      var rateKeys = Object.keys(data2.val())
+                      totalRating = totalRating + rate[rateKeys[0]].rate
+                      // for (var r = 0; r < rateKeys.length; r++) {
+                      //   totalRating = totalRating + rate[rateKeys[r]].rate;
+                      //   avg++;
+                      // }
+                      // if (totalRating != 0) {
+                      //   totalRating = totalRating / avg;
+                      //   totalRating = Math.round(totalRating)
+                      // }
+                    }
                     if (branch[x].city != undefined || branch[x].city != null) {
                       this.SignCities(branch[x].city)
                     }
-                    console.log(branch[x].OrganisationName);
                     var gal1;
                     var gal2;
                     var gal3;
@@ -849,16 +979,18 @@ export class PinhomeProvider {
                     if (gal3 == undefined || gal3 == null) {
                       gal3 = "../../assets/imgs/Defaults/DP.jpg"
                     }
+
                     let obj = {
                       orgCat: branch[x].category,
                       orgName: branch[x].OrganisationName,
                       orgAddress: branch[x].OrganizationAdress,
-                      orgContact: branch[x].Telephone,
+                      orgContact: "0" + branch[x].Telephone,
                       orgPicture: branch[x].Url,
                       orgLat: branch[x].latitude,
                       orgLong: branch[x].longitude,
                       orgEmail: branch[x].Email,
                       orgAbout: branch[x].desc,
+                      orgLogo: branch[x].Logo,
                       orgGallery: gal1,
                       orgGallery1: gal2,
                       orgGallery2: gal3,
@@ -866,10 +998,12 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city
                     }
-                    this.categoryArr.push(obj);
-                  }
-                })
+                    this.categoryArr.push(obj)
+
+                  })
+                }
               })
+              // })
             }
             console.log(this.categoryArr)
             accpt(this.categoryArr);
@@ -878,6 +1012,8 @@ export class PinhomeProvider {
       })
     })
   }
+
+
 
   // retrieveOrganization() {
   //   return new Promise((accpt, rej) => {

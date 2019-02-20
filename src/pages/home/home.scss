@@ -234,6 +234,10 @@ page-home {
         background: rgb(250, 250, 250);
         animation: 1s slideInUp;
     }
+    #no-data{
+        display: none;
+        background: whitesmoke;
+    }
     .theHead{
         transition: 500ms;
         height: 120px;
