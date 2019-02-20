@@ -350,7 +350,7 @@ export class HomePage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading...',
-      duration: 200
+      duration: 20000
     });
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {

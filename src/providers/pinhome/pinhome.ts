@@ -610,22 +610,23 @@ export class PinhomeProvider {
         console.log(resp);
         var lat = new String(resp.coords.latitude).substr(0, 6);
         var long = new String(resp.coords.longitude).substr(0, 5);
-        console.log(lat);
-        console.log(long);
+        // console.log(lat);
+        // console.log(long);
+        if (resp != null || resp != undefined) {
           for (var x = 0; x < org.length; x++) {
             var orglat = new String(org[x].orgLat).substr(0, 6);
             var orgLong = new String(org[x].orgLong).substr(0, 5);
             // console.log(orglat);
-            // console.log(orgLong);
-            if ((orgLong <= long && orgLong >= radius.left || orgLong >= long && orgLong <= radius.right) && (orglat >= lat && orglat <= radius.down || orglat <= lat && orglat >= radius.up)) {
-              // this.nearByOrg.push(org[x]);
-              // console.log(this.nearByOrg);
-              console.log('fooun');
+            console.log(org);
+            console.log(orglat);
 
+            if ((orglat >= lat && orglat <= radius.up || orglat >= lat && orglat <= radius.down) && (long >= long && long <= radius.left || long >= long && long <= radius.right)) {
+              this.nearByOrg.push(org[x]);
             }
           }
           console.log(this.nearByOrg);
           accpt(this.nearByOrg)
+        }
       })
     })
   }
