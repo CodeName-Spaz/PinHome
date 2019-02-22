@@ -43,7 +43,7 @@ export class NearbyOrgPage {
   logInState
   navColor = "custom";
   locationState = this.navParams.get('locState');;
-  images = ["assets/imgs/loaction.png", "assets/imgs/loaction2(1).png", "assets/imgs/loaction1.png", "assets/imgs/loaction2.png", "assets/imgs/loaction3.png", "assets/imgs/loaction4.png", "assets/imgs/loaction5.png", "assets/imgs/loaction6.png"]
+  images = ["assets/imgs/loaction.png", "assets/imgs/loaction2 (1).png", "assets/imgs/loaction1.png", "assets/imgs/loaction2.png", "assets/imgs/loaction3.png", "assets/imgs/loaction4.png", "assets/imgs/loaction5.png", "assets/imgs/loaction6.png"]
   circle: Circle;
   profilePic = this.navParams.get('img');
 
@@ -88,7 +88,7 @@ export class NearbyOrgPage {
           lat: this.lat,
           lng: this.long
         },
-        zoom: 8,
+        zoom: 10,
         tilt: 0,
       },
       styles: [
