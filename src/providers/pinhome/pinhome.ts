@@ -103,6 +103,7 @@ export class PinhomeProvider {
                               orgGallery: gal1,
                               orgGallery1: gal2,
                               orgGallery2: gal3,
+                              orgId: xx[p],
                               city: data4.val().city,
                               orgLogo: data4.val().Logo,
                             }
@@ -759,13 +760,12 @@ export class PinhomeProvider {
   // }
 
   categoryArr2 = new Array;
-
   retrieveOrganization2() {
     return new Promise((accpt, rej) => {
       this.db.ref('Websiteprofiles').on('value', (data) => {
         if (data.val() != undefined || data.val() != null) {
-          this.categoryArr2.length = 0;
           this.ngzone.run(() => {
+            this.categoryArr2.length = 0;
             let SelectCategory = data.val();
             let keys = Object.keys(SelectCategory);
             for (var i = 0; i < keys.length; i++) {
@@ -773,6 +773,7 @@ export class PinhomeProvider {
               let totalRating = 0;
               let avg = 0;
               this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
+                console.log('get data1');
                 var branch = data3.val();
                 var bKeys = Object.keys(branch)
                 for (var p = 0; p < bKeys.length; p++) {
@@ -781,32 +782,20 @@ export class PinhomeProvider {
                     if (data2.val() != null || data2.val() != undefined) {
                       var rate = data2.val();
                       var rateKeys = Object.keys(data2.val())
-                      totalRating = totalRating + rate[rateKeys[0]].rate
-                      // for (var r = 0; r < rateKeys.length; r++) {
-                      //   totalRating = totalRating + rate[rateKeys[r]].rate;
-                      //   avg++;
-                      // }
-                      // if (totalRating != 0) {
-                      //   totalRating = totalRating / avg;
-                      //   totalRating = Math.round(totalRating)
-                      // }
+                      // totalRating = totalRating + rate[rateKeys[0]].rate
+                      for (var r = 0; r < rateKeys.length; r++) {
+                        totalRating = totalRating + rate[rateKeys[r]].rate;
+                        avg++;
+                      }
+
+                      if (totalRating != 0) {
+                        totalRating = totalRating / avg;
+                        totalRating = Math.round(totalRating)
+                      }
                     }
                     if (branch[x].city != undefined || branch[x].city != null) {
                       this.SignCities(branch[x].city)
                     }
-                    var gal1;
-                    var gal2;
-                    var gal3;
-                    if (gal1 == undefined || gal1 == null) {
-                      gal1 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-                    if (gal2 == undefined || gal2 == null) {
-                      gal2 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-                    if (gal3 == undefined || gal3 == null) {
-                      gal3 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-
                     let obj = {
                       orgCat: branch[x].category,
                       orgName: branch[x].OrganisationName,
@@ -818,12 +807,11 @@ export class PinhomeProvider {
                       orgEmail: branch[x].Email,
                       orgAbout: branch[x].desc,
                       orgLogo: branch[x].Logo,
-                      orgGallery: gal1,
-                      orgGallery1: gal2,
-                      orgGallery2: gal3,
                       key: x,
                       rating: totalRating,
-                      city: branch[x].city
+                      city: branch[x].city,
+                      avg: avg,
+                      orgId: k
                     }
                     this.categoryArr2.push(obj)
 
@@ -840,106 +828,13 @@ export class PinhomeProvider {
     })
   }
 
-  // retrieveOrganization2() {
-  //   return new Promise((accpt, rej) => {
-  //     this.db.ref('Websiteprofiles').on('value', (data) => {
-  //       if (data.val() != undefined || data.val() != null) {
-  //         this.categoryArr2.length = 0;
-  //         this.ngzone.run(() => {
-  //           let SelectCategory = data.val();
-  //           let keys = Object.keys(SelectCategory);
-  //           for (var i = 0; i < keys.length; i++) {
-  //             let k = keys[i];
-  //             // this.db.ref('comments/' + k).on('value', (data2) => {
-
-  //             //   let totalRating = 0;
-  //             //   let avg = 0;
-  //             //   if (data2.val() != null || data2.val() != undefined) {
-  //             //     let ratings = data2.val();
-  //             //     let ratingsKeys = Object.keys(ratings);
-  //             //     for (var x = 0; x < ratingsKeys.length; x++) {
-  //             //       totalRating = totalRating + ratings[ratingsKeys[x]].rate
-  //             //       avg++;
-  //             //     }
-  //             //     if (totalRating != 0)
-  //             //       totalRating = totalRating / avg;
-  //             //     totalRating = Math.round(totalRating)
-  //             //   }
-  //             let totalRating = 0;
-  //             let avg = 0;
-  //             this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
-  //               var branch = data3.val();
-  //               var bKeys = Object.keys(branch)
-  //               for (var p = 0; p < bKeys.length; p++) {
-  //                 var x = bKeys[p]
-  //                 this.db.ref('comments/' + x).on('value', (data2) => {
-  //                   if (data2.val() != null || data2.val() != undefined) {
-  //                     var rate = data2.val();
-  //                     var rateKeys = Object.keys(data2.val())
-  //                     for (var r = 0; r < rateKeys.length; r++) {
-  //                       totalRating = totalRating + rate[rateKeys[r]].rate;
-  //                       avg++;
-  //                     }
-  //                     if (totalRating != 0) {
-  //                       totalRating = totalRating / avg;
-  //                       totalRating = Math.round(totalRating)
-  //                     }
-  //                   }
-
-  //                 })
-  //                 if (branch[x].city != undefined || branch[x].city != null) {
-  //                   this.SignCities(branch[x].city)
-  //                 }
-  //                 var gal1;
-  //                 var gal2;
-  //                 var gal3;
-  //                 if (gal1 == undefined || gal1 == null) {
-  //                   gal1 = "../../assets/imgs/Defaults/DP.jpg"
-  //                 }
-  //                 if (gal2 == undefined || gal2 == null) {
-  //                   gal2 = "../../assets/imgs/Defaults/DP.jpg"
-  //                 }
-  //                 if (gal3 == undefined || gal3 == null) {
-  //                   gal3 = "../../assets/imgs/Defaults/DP.jpg"
-  //                 }
-  //                 let obj = {
-  //                   orgCat: branch[x].category,
-  //                   orgName: branch[x].OrganisationName,
-  //                   orgAddress: branch[x].OrganizationAdress,
-  //                   orgContact: "0" + branch[x].Telephone,
-  //                   orgPicture: branch[x].Url,
-  //                   orgLat: branch[x].latitude,
-  //                   orgLong: branch[x].longitude,
-  //                   orgEmail: branch[x].Email,
-  //                   orgAbout: branch[x].desc,
-  //                   orgLogo: branch[x].Logo,
-  //                   orgGallery: gal1,
-  //                   orgGallery1: gal2,
-  //                   orgGallery2: gal3,
-  //                   key: x,
-  //                   rating: totalRating,
-  //                   city: branch[x].city
-  //                 }
-  //                 this.categoryArr2.push(obj);
-  //               }
-  //             })
-  //             // })
-  //           }
-  //           console.log(this.categoryArr2)
-  //           accpt(this.categoryArr2);
-  //         })
-  //       }
-  //     })
-  //   })
-  // }
-
 
   retrieveOrganization() {
     return new Promise((accpt, rej) => {
       this.db.ref('Websiteprofiles').on('value', (data) => {
         if (data.val() != undefined || data.val() != null) {
-          this.categoryArr.length = 0;
           this.ngzone.run(() => {
+            this.categoryArr.length = 0;
             let SelectCategory = data.val();
             let keys = Object.keys(SelectCategory);
             for (var i = 0; i < keys.length; i++) {
@@ -947,6 +842,7 @@ export class PinhomeProvider {
               let totalRating = 0;
               let avg = 0;
               this.db.ref('Websiteprofiles/' + k).on('value', (data3) => {
+                console.log('get data');
                 var branch = data3.val();
                 var bKeys = Object.keys(branch)
                 for (var p = 0; p < bKeys.length; p++) {
@@ -955,32 +851,20 @@ export class PinhomeProvider {
                     if (data2.val() != null || data2.val() != undefined) {
                       var rate = data2.val();
                       var rateKeys = Object.keys(data2.val())
-                      totalRating = totalRating + rate[rateKeys[0]].rate
-                      // for (var r = 0; r < rateKeys.length; r++) {
-                      //   totalRating = totalRating + rate[rateKeys[r]].rate;
-                      //   avg++;
-                      // }
-                      // if (totalRating != 0) {
-                      //   totalRating = totalRating / avg;
-                      //   totalRating = Math.round(totalRating)
-                      // }
+                      // totalRating = totalRating + rate[rateKeys[0]].rate
+                      for (var r = 0; r < rateKeys.length; r++) {
+                        totalRating = totalRating + rate[rateKeys[r]].rate;
+                        avg++;
+                      }
+
+                      if (totalRating != 0) {
+                        totalRating = totalRating / avg;
+                        totalRating = Math.round(totalRating)
+                      }
                     }
                     if (branch[x].city != undefined || branch[x].city != null) {
                       this.SignCities(branch[x].city)
                     }
-                    var gal1;
-                    var gal2;
-                    var gal3;
-                    if (gal1 == undefined || gal1 == null) {
-                      gal1 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-                    if (gal2 == undefined || gal2 == null) {
-                      gal2 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-                    if (gal3 == undefined || gal3 == null) {
-                      gal3 = "../../assets/imgs/Defaults/DP.jpg"
-                    }
-
                     let obj = {
                       orgCat: branch[x].category,
                       orgName: branch[x].OrganisationName,
@@ -992,12 +876,11 @@ export class PinhomeProvider {
                       orgEmail: branch[x].Email,
                       orgAbout: branch[x].desc,
                       orgLogo: branch[x].Logo,
-                      orgGallery: gal1,
-                      orgGallery1: gal2,
-                      orgGallery2: gal3,
                       key: x,
                       rating: totalRating,
-                      city: branch[x].city
+                      city: branch[x].city,
+                      avg: avg,
+                      orgId: k
                     }
                     this.categoryArr.push(obj)
 
@@ -1014,65 +897,26 @@ export class PinhomeProvider {
     })
   }
 
-
-
-  // retrieveOrganization() {
-  //   return new Promise((accpt, rej) => {
-  //     this.db.ref('Websiteprofiles').on('value', (data) => {
-  //       if (data.val() != undefined || data.val() != null) {
-  //         this.ngzone.run(() => {
-  //           this.categoryArr.length = 0;
-  //           let SelectCategory = data.val();
-  //           let keys = Object.keys(SelectCategory);
-  //           for (var i = 0; i < keys.length; i++) {
-  //             let k = keys[i];
-  //             let totalRating = 0;
-  //             this.db.ref('comments/' + k).on('value', (data2) => {
-  //               let avg = 0;
-  //               if (data2.val() != null || data2.val() != undefined) {
-  //                 let ratings = data2.val();
-  //                 let ratingsKeys = Object.keys(ratings);
-  //                 for (var x = 0; x < ratingsKeys.length; x++) {
-  //                   totalRating = totalRating + ratings[ratingsKeys[x]].rate
-  //                   avg++;
-  //                 }
-  //                 if (totalRating != 0)
-  //                   totalRating = totalRating / avg;
-  //                 totalRating = Math.round(totalRating)
-  //               }
-  //               if (SelectCategory[k].city != undefined || SelectCategory[k].city != null) {
-  //                 this.SignCities(SelectCategory[k].city)
-  //               }
-  //               let obj = {
-  //                 orgCat: SelectCategory[k].category,
-  //                 orgName: SelectCategory[k].OrganizationName,
-  //                 orgAddress: SelectCategory[k].OrganizationAdress,
-  //                 orgContact: SelectCategory[k].Tel,
-  //                 orgPicture: SelectCategory[k].Url,
-  //                 orgLat: SelectCategory[k].latitude,
-  //                 orgLong: SelectCategory[k].longitude,
-  //                 // orgEmail: SelectCategory[k].Email,
-  //                 orgAbout: SelectCategory[k].desc,
-  //                 // orgPrice: SelectCategory[k].Price,
-  //                 orgLogo: SelectCategory[k].Logo,
-  //                 // orgGallery: SelectCategory[k].Gallery,
-  //                 // orgGallery1: SelectCategory[k].Gallery1,
-  //                 // orgGallery2: SelectCategory[k].Gallery2,
-  //                 key: k,
-  //                 rating: totalRating,
-  //                 city: SelectCategory[k].city
-  //               }
-  //               this.categoryArr.push(obj);
-
-  //             })
-  //           }
-  //           console.log(this.categoryArr)
-  //           accpt(this.categoryArr);
-  //         })
-  //       }
-  //     })
-  //   })
-  // }
+  gallery = new Array();
+  getGallery(id) {
+    return new Promise((pass, fail) => {
+      this.db.ref('Gallery/' + id).on('value', (data) => {
+        if (data.val() != undefined || data.val() != null) {
+          this.gallery.length = 0;
+          var gal = data.val();
+          var keys = Object.keys(gal);
+          for (var x = 0; x < keys.length; x++) {
+            var k = keys[x];
+            let obj = {
+              gal: gal[k].GalUrl
+            }
+            this.gallery.push(obj)
+          }
+          pass(this.gallery)
+        }
+      })
+    })
+  }
 
 
   cities = new Array();
@@ -1109,13 +953,11 @@ export class PinhomeProvider {
   }
   viewComments(comment: any, commentKey: any) {
     this.rating = 0;
-    this.commentArr.length = 0;
     return new Promise((accpt, rejc) => {
       this.ngzone.run(() => {
-        this.commentArr.length = 0;
-        let user = firebase.auth().currentUser
         this.db.ref("comments/" + commentKey).on("value", (data: any) => {
-
+          this.commentArr.length = 0;
+          let user = firebase.auth().currentUser
           let CommentDetails = data.val();
           if (data.val() != null || data.val() != undefined) {
             let keys1: any = Object.keys(CommentDetails);

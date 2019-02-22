@@ -236,6 +236,23 @@ export class NearbyOrgPage {
           marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e => {
             for (var i = 0; i < this.orgArray.length; i++) {
               if (this.orgArray[i].orgName == marker.getTitle()) {
+                // let points = [
+                //   {
+                //     lat: this.lat,
+                //     lng: this.long
+                //   },
+                //   {
+                //     lat: this.orgArray[i].orgLat,
+                //     lng: this.orgArray[i].orgLong
+                //   }
+                // ];
+
+                // this.map.addPolyline({
+                //   points: points,
+                //   'color': '#AA00FF',
+                //   'width': 10,
+                //   'geodesic': true
+                // });
                 this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
                 break;
               }

@@ -83,6 +83,7 @@ export class HomePage {
 
   }
   ionViewDidEnter() {
+    this.all();
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == true) {
         this.logInState = true;
@@ -95,7 +96,6 @@ export class HomePage {
         this.img = "assets/imgs/default.png";
       }
     })
-
   }
 
   changeStatusBarColor() {

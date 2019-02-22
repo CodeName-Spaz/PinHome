@@ -77,3 +77,15 @@ h3{
 .arrow{
     text-shadow: 0 0 10px black;    
 }
+#lie{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,20%)
+}
+#emptyIMG{
+    height: 80px;
+}
+.emptyCont{
+    position: relative;
+}
