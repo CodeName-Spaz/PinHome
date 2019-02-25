@@ -198,6 +198,7 @@ page-sign-in {
         border-radius: 100%;
     }
     }
+
     @media  screen and (min-width:500px){
         .content{
             background-image: url('../../assets/imgs/big.jpg');
@@ -272,6 +273,85 @@ page-sign-in {
             z-index: -100000000000000000
         }  
     }
+
+
+    
+    @media  screen and (min-width:700px){
+        .content{
+            background-image: url('../../assets/imgs/big.jpg');
+            background-size: cover;
+                background-repeat: no-repeat;
+                background-position:     center;
+        
+        
+               
+            }
+        .picture{
+            width: 20vw;
+            min-width: 90px;
+            z-index: 10000;
+            margin: 0 auto;
+            // border: 2px solid red;
+        }
+        p{
+            position: relative;
+            bottom: 30px;
+            color: rgb(10, 10, 10);
+            font-size: 180%;
+        }
+        .logo{
+            transition: 1s;
+            width: 50vw;
+        }
+        h1{
+            font-weight: 100;
+            font-size: 2.5em;
+            text-align: center;
+            position: relative;
+            bottom: -190px;
+        }
+        .btn3{
+            // position: absolute;
+            // top: 60vh;
+            // left: 50%;
+            // transform: translateX(-50%);
+            text-transform: capitalize;
+            z-index: 100000000000
+        }
+        .theHeader{
+            height: 0;
+        }
+        .round1{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+        }
+        .round2{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+        }
+        .round3{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+            position: absolute;
+            top: -10vh;
+            right: 0%;
+            z-index: -100000000000
+        }
+        .round4{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+            position: absolute;
+            top: -15vh;
+            right: -15%;
+            z-index: -100000000000000000
+        }  
+    }
+
+    
     .signUp{
         padding-left: 5px;
         color: #1f8fb1;
