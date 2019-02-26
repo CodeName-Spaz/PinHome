@@ -197,6 +197,7 @@ export class HomePage {
     this.bodyClick(event);
     for (var x = 0; x < this.categoryArr.length; x++) {
       if (name == this.categoryArr[x].orgName) {
+        this.pinhomeProvider.AddViewers(this.categoryArr[x].views, this.categoryArr[x].key, this.categoryArr[x].orgId);
         this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }

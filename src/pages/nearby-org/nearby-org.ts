@@ -59,7 +59,7 @@ export class NearbyOrgPage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting Ready, Please wait',
-      duration: 70220
+      duration: 5
 
     });
     loading.present();
@@ -279,6 +279,12 @@ export class NearbyOrgPage {
     this.navCtrl.pop();
   }
   selectcategory() {
+    this.pinhomeProvider.AddViewsNumber(this.category).then((data: any) => {
+      this.pinhomeProvider.updateField(data)
+    }, Error => {
+      console.log('failed');
+      this.pinhomeProvider.setFiled(this.category)
+    })
     this.orgArray.length = 0;
     console.log(this.category);
     this.map.clear();

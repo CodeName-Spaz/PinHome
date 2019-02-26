@@ -47,6 +47,63 @@ export class PinhomeProvider {
     console.log('Hello PinhomeProvider Provider');
   }
 
+  AddViewers(views, key, id) {
+    views = views + 1;
+    console.log(views);
+    console.log(key);
+    console.log(id);
+
+    return new Promise((accpt, rej) => {
+      this.ngzone.run(() => {
+        firebase
+          .database()
+          .ref("Websiteprofiles/" + id + "/" + key)
+          .update({ Views: views });
+        accpt("View added");
+      });
+    });
+  }
+
+
+
+  AddViewsNumber(cat) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + cat).on("value", (data: any) => {
+        if (data.val() != null || data.val() != undefined) {
+          var v = data.val();
+          var key = Object.keys(v);
+          console.log(v[key[0]].views);
+          var num = v[key[0]].views + 1;
+          let obj = {
+            num: num,
+            k: key[0],
+            cat: cat
+          }
+          pass(obj)
+        }
+        else {
+          fail('')
+        }
+      })
+    })
+  }
+
+  setFiled(cat) {
+    console.log('set data');
+    this.db.ref("catViews/" + cat).push({
+      views: 1
+    })
+  }
+
+  updateField(data) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + data.cat + "/" + data.k).update({
+        views: data.num
+      })
+      pass('')
+    })
+  }
+
 
 
   getTotalRatings() {
@@ -811,7 +868,8 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city,
                       avg: avg,
-                      orgId: k
+                      orgId: k,
+                      views: branch[x].Views
                     }
                     this.categoryArr2.push(obj)
 
@@ -880,7 +938,8 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city,
                       avg: avg,
-                      orgId: k
+                      orgId: k,
+                      views: branch[x].Views
                     }
                     this.categoryArr.push(obj)
 
