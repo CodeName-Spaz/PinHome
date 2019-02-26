@@ -40,6 +40,15 @@
     color: gold;
 
 }
+#needs{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.342);
+    border-radius: 5px;
+    text-align: left
+
+}
+ion-card-header{
+    font-weight: bold;
+}
 .TheStar{
     color: gold;
 }
@@ -76,4 +85,16 @@ h3{
 }
 .arrow{
     text-shadow: 0 0 10px black;    
+}
+#lie{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,20%)
+}
+#emptyIMG{
+    height: 80px;
+}
+.emptyCont{
+    position: relative;
 }

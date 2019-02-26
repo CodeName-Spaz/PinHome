@@ -99,6 +99,11 @@
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
+<<<<<<< HEAD
     <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
+=======
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <engine name="android" spec="7.1.4" />
+>>>>>>> 9f365eed16f1d5a35f54638dd978b1b13f40fe39
 </widget>

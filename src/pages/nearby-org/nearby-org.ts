@@ -43,7 +43,7 @@ export class NearbyOrgPage {
   logInState
   navColor = "custom";
   locationState = this.navParams.get('locState');;
-  images = ["assets/imgs/loaction.png", "assets/imgs/loaction2(1).png", "assets/imgs/loaction1.png", "assets/imgs/loaction2.png", "assets/imgs/loaction3.png", "assets/imgs/loaction4.png", "assets/imgs/loaction5.png", "assets/imgs/loaction6.png"]
+  images = ["assets/imgs/loaction.png", "assets/imgs/loaction2 (1).png", "assets/imgs/loaction1.png", "assets/imgs/loaction2.png", "assets/imgs/loaction3.png", "assets/imgs/loaction4.png", "assets/imgs/loaction5.png", "assets/imgs/loaction6.png"]
   circle: Circle;
   profilePic = this.navParams.get('img');
 
@@ -59,7 +59,7 @@ export class NearbyOrgPage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting Ready, Please wait',
-      duration: 70220
+      duration: 5
 
     });
     loading.present();
@@ -88,7 +88,7 @@ export class NearbyOrgPage {
           lat: this.lat,
           lng: this.long
         },
-        zoom: 8,
+        zoom: 10,
         tilt: 0,
       },
       styles: [
@@ -236,6 +236,23 @@ export class NearbyOrgPage {
           marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(e => {
             for (var i = 0; i < this.orgArray.length; i++) {
               if (this.orgArray[i].orgName == marker.getTitle()) {
+                // let points = [
+                //   {
+                //     lat: this.lat,
+                //     lng: this.long
+                //   },
+                //   {
+                //     lat: this.orgArray[i].orgLat,
+                //     lng: this.orgArray[i].orgLong
+                //   }
+                // ];
+
+                // this.map.addPolyline({
+                //   points: points,
+                //   'color': '#AA00FF',
+                //   'width': 10,
+                //   'geodesic': true
+                // });
                 this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
                 break;
               }
@@ -262,6 +279,12 @@ export class NearbyOrgPage {
     this.navCtrl.pop();
   }
   selectcategory() {
+    this.pinhomeProvider.AddViewsNumber(this.category).then((data: any) => {
+      this.pinhomeProvider.updateField(data)
+    }, Error => {
+      console.log('failed');
+      this.pinhomeProvider.setFiled(this.category)
+    })
     this.orgArray.length = 0;
     console.log(this.category);
     this.map.clear();

@@ -36,7 +36,7 @@
     "angular2-google-map": "^0.1.8",
     "animate.css": "^3.7.0",
     "call-number": "^1.0.1",
-    "cordova-android": "7.0.0",
+    "cordova-android": "7.1.4",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "^2.0.2",
@@ -70,7 +70,7 @@
     "@angular/cli": "^7.3.2",
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
-    "@ionic/app-scripts": "3.2.0",
+    "@ionic/app-scripts": "^3.2.2",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",

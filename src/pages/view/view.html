@@ -70,7 +70,7 @@
           <ion-icon class="Gold" name="star"></ion-icon>
           <ion-icon class="Gold" name="star"></ion-icon>
           <ion-icon class="Gold" name="star"></ion-icon>
-          <ion-icon class="Gold" name="sta"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
           <ion-icon class="Gold" name="star-outline"></ion-icon>
         </p>
       </ng-template>
@@ -108,26 +108,23 @@
         <ion-segment-button value="Reviews" (click)="reposition($event)">
           Reviews
         </ion-segment-button>
+        <ion-segment-button value="Contribute" (click)="reposition($event)">
+          Contribute
+        </ion-segment-button>
       </ion-segment>
     </div>
     <div class="switchCases">
       <div class="switch" no-padding [ngSwitch]="pet">
         <div class="uploads1" *ngSwitchCase="'Gallery'">
           <div class="thecontent">
-            <div *ngIf="orgArray.length == 0 || orgArray.length == undefined">
-              <img src="../../assets/empty.JPG">
-              <p>There are no reviews avaliable yet .....</p>
+            <div class="emptyCont" *ngIf="gallery.length == 0 || gallery.length == undefined">
+              <img id="emptyIMG" src="../../assets/empty.JPG">
+              <p id="lie">There are no uploads avaliable yet .....</p>
             </div>
             <ion-grid no-padding align="center" class="pictures">
-              <ion-row *ngFor="let a of orgArray">
-                <ion-col no-padding col-4 class="colume">
-                  <img [src]="a.orgGallery" imageViewer class="galImg">
-                </ion-col>
-                <ion-col no-padding col-4 class="colume">
-                  <img [src]="a.orgGallery1" imageViewer class="galImg">
-                </ion-col>
-                <ion-col no-padding col-4 class="colume">
-                  <img [src]="a.orgGallery2" imageViewer class="galImg">
+              <ion-row>
+                <ion-col no-padding col-4 class="colume" *ngFor="let a of gallery">
+                  <img [src]="a.gal" imageViewer class="galImg">
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -239,6 +236,23 @@
             </div>
           </ion-card>
         </ion-list>
+        <div class="uploads1" *ngSwitchCase="'Contribute'">
+          <div class="thecontent">
+            <!-- <div class="emptyCont" *ngIf="gallery.length == 0 || gallery.length == undefined">
+              <img id="emptyIMG" src="../../assets/empty.JPG">
+              <p id="lie">There are no uploads avaliable yet .....</p>
+            </div> -->
+            
+            <ion-card id="needs">
+              <ion-card-header>
+                Header
+              </ion-card-header>
+              <ion-card-content>
+                The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
       </div>
 
     </div>
