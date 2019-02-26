@@ -59,7 +59,7 @@ export class NearbyOrgPage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting Ready, Please wait',
-      duration: 5
+      duration: 222000
 
     });
     loading.present();

@@ -6,6 +6,7 @@ import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { ParseSourceFile } from '@angular/compiler';
+import { Title } from '@angular/platform-browser';
 // import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
@@ -26,6 +27,7 @@ export class PinhomeProvider {
   //arrays
   oraganisations = new Array()
   nearByOrg = new Array();
+  contributesArr = new Array();
   categoryArr = new Array();
   commentArr = new Array();
   searchOrgArray = new Array();
@@ -36,7 +38,7 @@ export class PinhomeProvider {
   rating;
   Location;
   resp;
-
+  Desciption;
   popState = 0;
   ratedOrgs = new Array();
   totRating;
@@ -1243,5 +1245,30 @@ export class PinhomeProvider {
       })
     })
   }
+
+
+
+
+  getContributions(id) {
+    return new Promise((pass, fail) => {
+      this.db.ref('contributes/' + id).on('value', (data) => {
+        if (data.val() != undefined || data.val() != null) {
+          this.contributesArr.length = 0;
+          var contributes = data.val();
+          var keys = Object.keys(contributes);
+          for (var x = 0; x < keys.length; x++) {
+            var k = keys[x];
+            let obj = {
+              Title: contributes[k].Title,
+              Description:contributes[k].Description
+            }
+            this.contributesArr.push(obj)
+          }
+          pass(this.contributesArr)
+        }
+      })
+    })
+  }
+
 
 }

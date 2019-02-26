@@ -102,7 +102,7 @@ export class SignInPage {
           title: 'Forgot your password?',
           message: "We just need your registered email address to reset your password.",
           
-          cssClass: 'myAlert',
+          // cssClass: 'myAlert',
           inputs: [
             {
               name: 'title',

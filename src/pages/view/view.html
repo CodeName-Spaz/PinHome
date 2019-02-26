@@ -237,18 +237,16 @@
           </ion-card>
         </ion-list>
         <div class="uploads1" *ngSwitchCase="'Contribute'">
-          <div class="thecontent">
-            <!-- <div class="emptyCont" *ngIf="gallery.length == 0 || gallery.length == undefined">
-              <img id="emptyIMG" src="../../assets/empty.JPG">
-              <p id="lie">There are no uploads avaliable yet .....</p>
-            </div> -->
-            
+            <div class="emptyCont" *ngIf="ContributionArr.length == 0 || ContributionArr.length == undefined">
+                <p id="lie">There is nothing to Contribute yet...</p>
+              </div>
+          <div class="thecontent" *ngFor=" let a of ContributionArr">       
             <ion-card id="needs">
               <ion-card-header>
-                Header
+                {{a.Title}}
               </ion-card-header>
               <ion-card-content>
-                The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+                {{a.Description}}
               </ion-card-content>
             </ion-card>
           </div>
