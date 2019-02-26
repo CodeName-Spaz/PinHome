@@ -71,7 +71,6 @@ export class HomePage {
         this.pinhomeProvider.getProfile().then((data: any) => {
           console.log(this.logInState);
           this.img = data;
-          console.log(this.img)
         })
       }
       else if (data == false) {
@@ -90,7 +89,6 @@ export class HomePage {
         this.pinhomeProvider.getProfile().then((data: any) => {
           console.log(this.logInState);
           this.img = data;
-          console.log(this.img)
         })
       }
       else if (data == false) {
@@ -124,10 +122,20 @@ export class HomePage {
 
   //this.storeNear[x] =  data[x];
   near() {
+
+    console.log(this.storeNear);
+
+    // document.getElementById("no-data").style.display = "block"
     if (this.locationState == false) {
       this.getNearByOrganizations();
     }
     else {
+      let loading = this.loadingCtrl.create({
+        spinner: 'bubbles',
+        content: 'Loading...',
+        duration: 222000
+      });
+      loading.present();
       if (this.colorState == false) {
         this.categoryArr = this.storeNear;
         console.log(this.categoryArr)
@@ -135,13 +143,22 @@ export class HomePage {
         this.custom1 = this.custom2;
         this.custom2 = this.temp;
         this.colorState = true
+        loading.dismiss();
       }
+      loading.dismiss();
     }
 
 
   }
 
   all() {
+    // document.getElementById("no-data").style.display = "none"
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Loading...',
+      duration: 222000
+    });
+    loading.present();
     if (this.colorState == true) {
       this.categoryArr = _.uniqWith(this.storeAllOrgs, _.isEqual);
       this.temp = this.custom2;
@@ -149,6 +166,7 @@ export class HomePage {
       this.custom1 = this.temp;
       this.colorState = false
     }
+    loading.dismiss();
   }
 
   setArrayBack(data) {
@@ -331,15 +349,14 @@ export class HomePage {
     var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'Loading123...',
-      duration: 222000
+      content: 'Loading...',
+      duration: 200
     });
-    // loading.present();
+    loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.retrieveOrganization().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           var loc = this.pinhomeProvider.getLocation();
-          this.orgArray.length = 0
           this.location = loc.locality;
           this.orgArray = data;
           this.storeNearByOrgs(data);
@@ -349,7 +366,6 @@ export class HomePage {
         })
         loading.dismiss();
       })
-
     }, Error => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
@@ -359,7 +375,7 @@ export class HomePage {
         console.log(this.orgArray)
         loading.dismiss();
       })
-      // console.log('no permission')
+      console.log('no permission')
     })
   }
   getAllOrganizations() {
@@ -424,14 +440,15 @@ export class HomePage {
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf<HTMLElement>;
     var FAB = document.getElementsByClassName("theFab") as HTMLCollectionOf<HTMLElement>;
 
-    restOf[0].style.transition = "700ms";
+    console.log(event.directionY);
     if (event.directionY == "down") {
-      if (event.scrollTop > 15) {
+
+      if (event.scrollTop >= 15) {
         // console.log("hide card");
 
         theCard[0].style.height = "50px";
         theCard[0].style.top = "-65px";
-        theCard[0].style.opacity = "0.5";
+        theCard[0].style.opacity = "0";
 
         nav[0].style.height = "50px";
 

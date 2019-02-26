@@ -29,7 +29,7 @@ declare var firebase;
   selector: 'page-view',
   templateUrl: 'view.html',
 })
-export class ViewPage  {
+export class ViewPage {
   pet = "Gallery"
   orgArray = new Array();
   commentArr = new Array();
@@ -83,7 +83,7 @@ export class ViewPage  {
     this.retrieveComments();
   }
 
-  
+
   // ionViewDidLoad() {
   //   this.retrieveComments();
   //   console.log('ionViewDidLoad SignUpPage');
@@ -96,7 +96,7 @@ export class ViewPage  {
     // console.log(this.tempArray);
   }
   retrieveComments() {
-    this.commentArr=[];
+    this.commentArr = [];
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
       let rating = this.pinhomeProvider.getRating();
@@ -179,9 +179,11 @@ export class ViewPage  {
   }
 
   call(cell) {
-    this.callNumber.callNumber(cell, true)
-      .then(res => console.log('Launched dialer!', res))
-      .catch(err => console.log('Error launching dialer', err));
+    console.log(cell);
+
+    // this.callNumber.callNumber(cell, true)
+    //   .then(res => console.log('Launched dialer!', res))
+    //   .catch(err => console.log('Error launching dialer', err));
   }
 
   email(emails) {
@@ -233,7 +235,6 @@ export class ViewPage  {
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
                     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
-                  
                       this.commentArr = data;
                       this.commentArr.reverse();
                       this.commentArr.length = 0;
@@ -245,7 +246,7 @@ export class ViewPage  {
                 }
               }
             ],
-            cssClass : 'myAlert',
+            cssClass: 'myAlert',
           });
           prompt.present();
         }
@@ -277,7 +278,7 @@ export class ViewPage  {
               }
             }
           ],
-          cssClass : 'myAlert',
+          cssClass: 'myAlert',
         });
         alert.present();
       }

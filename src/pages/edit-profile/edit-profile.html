@@ -1,4 +1,3 @@
-
 <ion-content padding class="content">
   <ion-fab top left>
     <button class="theFab" ion-fab mini color="transparent" icon-only clear (click)="GoToProfile()">
@@ -20,7 +19,7 @@
       <label for="file" id="cam">
         <ion-icon class="Add" name="add-circle"></ion-icon>
       </label>
-      <input id="file" type="file" accept="image/*" (click)="insertpic()">
+      <input id="file" type="file" accept="image/*" (change)="insertpic($event)">
     </div>
   </div>
   <br>
@@ -37,7 +36,7 @@
       <ion-label>
         <ion-icon name="person"></ion-icon>
       </ion-label>
-      <ion-input type="text" [value]="surname" [(ngModel)]="surname"  placeholder="Surname"></ion-input>
+      <ion-input type="text" [value]="surname" [(ngModel)]="surname" placeholder="Surname"></ion-input>
     </ion-item>
     <br>
     <ion-item no-lines class="item">

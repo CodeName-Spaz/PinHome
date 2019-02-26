@@ -24,36 +24,33 @@ import { timer } from 'rxjs/observable/timer'
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  rootPage: any;
 
   showSplash = true;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public pinhomeProvider: PinhomeProvider) {
- 
-    platform.ready().then(() => {
-      this.rootPage = SignInPage;
 
-      ;
+    platform.ready().then(() => {
+
+      pinhomeProvider.checkstate().then((data: any) => {
+        if (data == 1) {
+          this.rootPage = HomePage
+        }
+        else {
+          this.rootPage = SignInPage
+        }
+      })
       // Okay, so the plSignInPageatform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       splashScreen.hide();
-
       this.c()
     });
 
 
-    pinhomeProvider.checkstate().then((data:any)=>{
-      if (data ==1){
-        this.rootPage =  HomePage
-      }
-      else {
-        this.rootPage = SignInPage
-      }
-     })
   }
 
-  c(){
-    timer(3000).subscribe(()=> this.showSplash = false)
+  c() {
+    timer(3000).subscribe(() => this.showSplash = false)
   }
 }
