@@ -65,10 +65,10 @@ export class ViewPage {
     })
 
 
-    this.pinhomeProvider.getContributions(this.orgArray[0].orgId).then((data:any) => {
+    this.pinhomeProvider.getContributions(this.orgArray[0].orgId).then((data: any) => {
       this.gallery.length = 0;
       this.ContributionArr = data
-      console.log( this.ContributionArr)
+      console.log(this.ContributionArr)
     })
 
   }
@@ -110,6 +110,7 @@ export class ViewPage {
     this.commentArr = [];
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
+      this.commentArr.reverse();
       let rating = this.pinhomeProvider.getRating();
       if (rating > 0) {
         this.rate(rating);
