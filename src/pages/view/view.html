@@ -1,107 +1,106 @@
-
 <ion-content *ngFor="let i of orgArray" (ionScroll)="scroller($event)">
   <ion-fab top left class="backBtn">
-    
-      <button color="light" clear ion-button icon-only (click)="Back()">
-        <ion-icon class="arrow" name="arrow-back"></ion-icon>
-      </button>
-    </ion-fab>
-<div class="cover">
-  <img id="myLogo" src="{{i.orgLogo}}" alt="">
-  <img id="myCover" src="{{i.orgPicture}}" alt="">
-</div>
-<div class="details">
-  <div class="orgName">
-      {{i.orgName}}
-  </div>
-  <div class="category">
-    {{i.orgCat}}
-  </div>
-  <div class="theStars">
-    <div *ngIf="i.rating == 0; then loggedIn0">
-    </div>
-    <div *ngIf="i.rating == 1; then loggedIn1">
-    </div>
-    <div *ngIf="i.rating == 2; then loggedIn2">
-    </div>
-    <div *ngIf="i.rating == 3; then loggedIn3">
-    </div>
-    <div *ngIf="i.rating == 4; then loggedIn4">
-    </div>
-    <div *ngIf="i.rating == 5; then loggedIn5">
-    </div>
-    <ng-template #loggedIn0>
-      <p>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-      </p>
-    </ng-template>
-    <ng-template #loggedIn1>
-      <p>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-      </p>
-    </ng-template>
-    <ng-template #loggedIn2>
-      <p>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-      </p>
-    </ng-template>
-    <ng-template #loggedIn3>
-      <p>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-      </p>
-    </ng-template>
-    <ng-template #loggedIn4>
-      <p>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="sta"></ion-icon>
-        <ion-icon class="Gold" name="star-outline"></ion-icon>
-      </p>
-    </ng-template>
-    <ng-template #loggedIn5>
-      <p>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-        <ion-icon class="Gold" name="star"></ion-icon>
-      </p>
-    </ng-template>
-  </div>
-  <div class="description" padding>
-    {{i.orgAbout}}
-  </div>
-  <div class="actions">
-    <div class="icons">
-      <ion-icon name="navigate" (click)="directions(i.orgAddress)"></ion-icon>
-    </div>
-    <div class="icons">
-      <ion-icon name="call" (click)="call(i.orgContact)"></ion-icon>
-    </div>
-    <div class="icons">
-      <ion-icon name="mail" (click)="email(i.orgEmail)"></ion-icon>
-    </div>
-    
 
+    <button color="light" clear ion-button icon-only (click)="Back()">
+      <ion-icon class="arrow" name="arrow-back"></ion-icon>
+    </button>
+  </ion-fab>
+  <div class="cover">
+    <img id="myLogo" src="{{i.orgLogo}}" alt="">
+    <img id="myCover" src="{{i.orgPicture}}" alt="">
   </div>
-  <div class="ourSegment">
+  <div class="details">
+    <div class="orgName">
+      {{i.orgName}}
+    </div>
+    <div class="category">
+      {{i.orgCat}}
+    </div>
+    <div class="theStars">
+      <div *ngIf="i.rating == 0; then loggedIn0">
+      </div>
+      <div *ngIf="i.rating == 1; then loggedIn1">
+      </div>
+      <div *ngIf="i.rating == 2; then loggedIn2">
+      </div>
+      <div *ngIf="i.rating == 3; then loggedIn3">
+      </div>
+      <div *ngIf="i.rating == 4; then loggedIn4">
+      </div>
+      <div *ngIf="i.rating == 5; then loggedIn5">
+      </div>
+      <ng-template #loggedIn0>
+        <p>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+        </p>
+      </ng-template>
+      <ng-template #loggedIn1>
+        <p>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+        </p>
+      </ng-template>
+      <ng-template #loggedIn2>
+        <p>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+        </p>
+      </ng-template>
+      <ng-template #loggedIn3>
+        <p>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+        </p>
+      </ng-template>
+      <ng-template #loggedIn4>
+        <p>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star-outline"></ion-icon>
+        </p>
+      </ng-template>
+      <ng-template #loggedIn5>
+        <p>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+          <ion-icon class="Gold" name="star"></ion-icon>
+        </p>
+      </ng-template>
+    </div>
+    <div class="description" padding>
+      {{i.orgAbout}}
+    </div>
+    <div class="actions">
+      <div class="icons">
+        <ion-icon name="navigate" (click)="directions(i.orgName)"></ion-icon>
+      </div>
+      <div class="icons">
+        <ion-icon name="call" (click)="call(i.orgContact)"></ion-icon>
+      </div>
+      <div class="icons">
+        <ion-icon name="mail" (click)="email(i.orgEmail)"></ion-icon>
+      </div>
+
+
+    </div>
+    <div class="ourSegment">
       <ion-segment color="bg" [(ngModel)]="pet">
         <ion-segment-button value="Gallery" (click)="reposition($event)">
           Gallery
@@ -109,142 +108,153 @@
         <ion-segment-button value="Reviews" (click)="reposition($event)">
           Reviews
         </ion-segment-button>
+        <ion-segment-button value="Contribute" (click)="reposition($event)">
+          Contribute
+        </ion-segment-button>
       </ion-segment>
     </div>
     <div class="switchCases">
-        <div class="switch" no-padding [ngSwitch]="pet">
-          <div class="uploads1" *ngSwitchCase="'Gallery'">
-            <div class="thecontent">
-              <div *ngIf="orgArray.length == 0 || orgArray.length == undefined">
-                <img src="../../assets/empty.JPG">
-                <p>There are no reviews avaliable yet .....</p>
+      <div class="switch" no-padding [ngSwitch]="pet">
+        <div class="uploads1" *ngSwitchCase="'Gallery'">
+          <div class="thecontent">
+            <div class="emptyCont" *ngIf="gallery.length == 0 || gallery.length == undefined">
+              <img id="emptyIMG" src="../../assets/empty.JPG">
+              <p id="lie">There are no uploads avaliable yet .....</p>
+            </div>
+            <ion-grid no-padding align="center" class="pictures">
+              <ion-row>
+                <ion-col no-padding col-4 class="colume" *ngFor="let a of gallery">
+                  <img [src]="a.gal" imageViewer class="galImg">
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+        <ion-list *ngSwitchCase="'Reviews'">
+          <div class="StarCard">
+            <div class="ratings" align="center">
+              <div *ngIf="rateState == false; then loggedIn5 ">
               </div>
-              <ion-grid no-padding align="center" class="pictures">
-                <ion-row *ngFor="let a of orgArray">
-                  <ion-col no-padding col-4 class="colume">
-                    <img [src]="a.orgGallery" imageViewer class="galImg">
-                  </ion-col>
-                  <ion-col no-padding col-4 class="colume">
-                    <img [src]="a.orgGallery1" imageViewer class="galImg">
-                  </ion-col>
-                  <ion-col no-padding col-4 class="colume">
-                    <img [src]="a.orgGallery2" imageViewer class="galImg">
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
+              <div *ngIf="rateState == true; then loggedIn2">
+              </div>
+              <ng-template #loggedIn5>
+                <h1 class="h1">
+                  <ion-icon name={{Star1}} (click)="comment('1')"></ion-icon>
+                  <ion-icon name={{Star2}} (click)="comment('2')"></ion-icon>
+                  <ion-icon name={{Star3}} (click)="comment('3')"></ion-icon>
+                  <ion-icon name={{Star4}} (click)="comment('4')"></ion-icon>
+                  <ion-icon name={{Star5}} (click)="comment('5')"></ion-icon>
+                </h1>
+                <h3>Rate this organisation!</h3>
+              </ng-template>
+              <ng-template #loggedIn2>
+                <h3 class="OrgMessage">Thank you for rating this organisation.</h3>
+              </ng-template>
             </div>
           </div>
-          <ion-list *ngSwitchCase="'Reviews'">
-            <div class="StarCard">
-              <div class="ratings" align="center">
-                <div *ngIf="rateState == false; then loggedIn5 ">
+          <ion-card class="comments">
+            <div class="theDiv" *ngFor="let a of commentArr">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img class="profilePic" [src]="a.url">
+                </ion-avatar>
+                <b>
+                  <h2>{{a.username}}</h2>
+                </b>
+                <p style="color: #166b85">{{a.date}}</p>
+                <div *ngIf="a.rating == 0; then loggedIn0">
                 </div>
-                <div *ngIf="rateState == true; then loggedIn2">
+                <div *ngIf="a.rating == 1; then loggedIn1">
                 </div>
-                <ng-template #loggedIn5>
-                  <h1 class="h1">
-                    <ion-icon name={{Star1}} (click)="comment('1')"></ion-icon>
-                    <ion-icon name={{Star2}} (click)="comment('2')"></ion-icon>
-                    <ion-icon name={{Star3}} (click)="comment('3')"></ion-icon>
-                    <ion-icon name={{Star4}} (click)="comment('4')"></ion-icon>
-                    <ion-icon name={{Star5}} (click)="comment('5')"></ion-icon>
-                  </h1>
-                  <h3>Rate this organisation!</h3>
+                <div *ngIf="a.rating == 2; then loggedIn2">
+                </div>
+                <div *ngIf="a.rating == 3; then loggedIn3">
+                </div>
+                <div *ngIf="a.rating == 4; then loggedIn4">
+                </div>
+                <div *ngIf="a.rating == 5; then loggedIn5">
+                </div>
+                <ng-template #loggedIn0>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                  </p>
+                </ng-template>
+                <ng-template #loggedIn1>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                  </p>
                 </ng-template>
                 <ng-template #loggedIn2>
-                  <h3 class="OrgMessage">Thank you for rating this organisation.</h3>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                  </p>
                 </ng-template>
-              </div>
+                <ng-template #loggedIn3>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                  </p>
+                </ng-template>
+                <ng-template #loggedIn4>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star-outline"></ion-icon>
+                  </p>
+                </ng-template>
+                <ng-template #loggedIn5>
+                  <p>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                    <ion-icon class="TheStar" name="star"></ion-icon>
+                  </p>
+                </ng-template>
+              </ion-item>
+              <ion-card-content>
+                <p class="message">{{a.comment}}</p>
+              </ion-card-content>
+              <hr>
             </div>
-            <ion-card class="comments">
-              <div class="theDiv" *ngFor="let a of commentArr">
-                <ion-item>
-                  <ion-avatar item-start>
-                    <img class="profilePic" [src]="a.url">
-                  </ion-avatar>
-                  <b>
-                    <h2>{{a.username}}</h2>
-                  </b>
-                  <p style="color: #166b85">{{a.date}}</p>
-                  <div *ngIf="a.rating == 0; then loggedIn0">
-                  </div>
-                  <div *ngIf="a.rating == 1; then loggedIn1">
-                  </div>
-                  <div *ngIf="a.rating == 2; then loggedIn2">
-                  </div>
-                  <div *ngIf="a.rating == 3; then loggedIn3">
-                  </div>
-                  <div *ngIf="a.rating == 4; then loggedIn4">
-                  </div>
-                  <div *ngIf="a.rating == 5; then loggedIn5">
-                  </div>
-                  <ng-template #loggedIn0>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                    </p>
-                  </ng-template>
-                  <ng-template #loggedIn1>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                    </p>
-                  </ng-template>
-                  <ng-template #loggedIn2>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                    </p>
-                  </ng-template>
-                  <ng-template #loggedIn3>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                    </p>
-                  </ng-template>
-                  <ng-template #loggedIn4>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star-outline"></ion-icon>
-                    </p>
-                  </ng-template>
-                  <ng-template #loggedIn5>
-                    <p>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                      <ion-icon class="TheStar" name="star"></ion-icon>
-                    </p>
-                  </ng-template>
-                </ion-item>
-                <ion-card-content>
-                  <p class="message">{{a.comment}}</p>
-                </ion-card-content>
-                <hr>
-              </div>
+          </ion-card>
+        </ion-list>
+        <div class="uploads1" *ngSwitchCase="'Contribute'">
+          <div class="thecontent">
+            <!-- <div class="emptyCont" *ngIf="gallery.length == 0 || gallery.length == undefined">
+              <img id="emptyIMG" src="../../assets/empty.JPG">
+              <p id="lie">There are no uploads avaliable yet .....</p>
+            </div> -->
+            
+            <ion-card id="needs">
+              <ion-card-header>
+                Header
+              </ion-card-header>
+              <ion-card-content>
+                The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+              </ion-card-content>
             </ion-card>
-          </ion-list>
+          </div>
         </div>
+      </div>
 
     </div>
-</div>
+  </div>
 </ion-content>
-
-
-

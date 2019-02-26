@@ -34,14 +34,19 @@ subTitle{
 .alert-message {
     color: white; // text color for confirm alerts
 }
+.alert-sub-title{
+    color: white;
+}
 
 .alert-wrapper {
     background-color: color($colors, bg, base); // bg color of alert content
     border-radius: 10px;
+    color: #eaf0f1;
+
 }
 
 .alert-input{
-    color: rgb(255, 255, 255)
+    color: #b8ab00
 }
 
 }
@@ -104,4 +109,8 @@ subTitle{
           -webkit-transform: rotate(-360deg);
         }
        }
+    }
+
+    .toast-message{
+        background: color($colors, bg, base);
     }

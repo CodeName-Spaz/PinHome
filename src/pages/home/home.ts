@@ -71,7 +71,6 @@ export class HomePage {
         this.pinhomeProvider.getProfile().then((data: any) => {
           console.log(this.logInState);
           this.img = data;
-          console.log(this.img)
         })
       }
       else if (data == false) {
@@ -84,20 +83,19 @@ export class HomePage {
 
   }
   ionViewDidEnter() {
+    this.all();
     this.pinhomeProvider.checkAuthState().then(data => {
       if (data == true) {
         this.logInState = true;
         this.pinhomeProvider.getProfile().then((data: any) => {
           console.log(this.logInState);
           this.img = data;
-          console.log(this.img)
         })
       }
       else if (data == false) {
         this.img = "assets/imgs/default.png";
       }
     })
-
   }
 
   changeStatusBarColor() {
@@ -124,6 +122,10 @@ export class HomePage {
 
   //this.storeNear[x] =  data[x];
   near() {
+
+    console.log(this.storeNear);
+
+    // document.getElementById("no-data").style.display = "block"
     if (this.locationState == false) {
       this.getNearByOrganizations();
     }
@@ -141,6 +143,7 @@ export class HomePage {
         this.custom1 = this.custom2;
         this.custom2 = this.temp;
         this.colorState = true
+        loading.dismiss();
       }
       loading.dismiss();
     }
@@ -149,6 +152,7 @@ export class HomePage {
   }
 
   all() {
+    // document.getElementById("no-data").style.display = "none"
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading...',
@@ -193,6 +197,7 @@ export class HomePage {
     this.bodyClick(event);
     for (var x = 0; x < this.categoryArr.length; x++) {
       if (name == this.categoryArr[x].orgName) {
+        this.pinhomeProvider.AddViewers(this.categoryArr[x].views, this.categoryArr[x].key, this.categoryArr[x].orgId);
         this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }
@@ -346,14 +351,13 @@ export class HomePage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Loading...',
-      duration: 222000
+      duration: 20000
     });
     loading.present();
     this.pinhomeProvider.getCurrentLocation().then((radius: any) => {
       this.pinhomeProvider.retrieveOrganization().then((org: any) => {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           var loc = this.pinhomeProvider.getLocation();
-          this.orgArray.length = 0
           this.location = loc.locality;
           this.orgArray = data;
           this.storeNearByOrgs(data);
@@ -363,7 +367,6 @@ export class HomePage {
         })
         loading.dismiss();
       })
-
     }, Error => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
@@ -373,7 +376,7 @@ export class HomePage {
         console.log(this.orgArray)
         loading.dismiss();
       })
-      // console.log('no permission')
+      console.log('no permission')
     })
   }
   getAllOrganizations() {
@@ -438,14 +441,15 @@ export class HomePage {
     var searchTxt = document.getElementsByClassName("searchBar") as HTMLCollectionOf<HTMLElement>;
     var FAB = document.getElementsByClassName("theFab") as HTMLCollectionOf<HTMLElement>;
 
-    restOf[0].style.transition = "700ms";
+    console.log(event.directionY);
     if (event.directionY == "down") {
-      if (event.scrollTop > 15) {
+
+      if (event.scrollTop >= 15) {
         // console.log("hide card");
 
         theCard[0].style.height = "50px";
         theCard[0].style.top = "-65px";
-        theCard[0].style.opacity = "0.5";
+        theCard[0].style.opacity = "0";
 
         nav[0].style.height = "50px";
 

@@ -29,7 +29,7 @@ declare var firebase;
   selector: 'page-view',
   templateUrl: 'view.html',
 })
-export class ViewPage  {
+export class ViewPage {
   pet = "Gallery"
   orgArray = new Array();
   commentArr = new Array();
@@ -51,14 +51,17 @@ export class ViewPage  {
   username: any;
   logInState;
   img;
+  gallery = new Array()
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailComposer: EmailComposer, public callNumber: CallNumber, public launchNavigator: LaunchNavigator, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider) {
     this.orgArray.push(this.navParams.get('orgObject'));
     console.log(this.navParams.get('orgObject'))
     this.imageKey = this.orgArray[0].key;
     console.log(this.imageKey);
     console.log(this.orgArray);
-    this.retrieveComments();
-
+    this.pinhomeProvider.getGallery(this.orgArray[0].orgId).then((data: any) => {
+      this.gallery.length = 0;
+      this.gallery = data
+    })
 
   }
   ionViewDidEnter() {
@@ -83,7 +86,7 @@ export class ViewPage  {
     this.retrieveComments();
   }
 
-  
+
   // ionViewDidLoad() {
   //   this.retrieveComments();
   //   console.log('ionViewDidLoad SignUpPage');
@@ -96,7 +99,7 @@ export class ViewPage  {
     // console.log(this.tempArray);
   }
   retrieveComments() {
-    this.commentArr=[];
+    this.commentArr = [];
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
       let rating = this.pinhomeProvider.getRating();
@@ -179,6 +182,8 @@ export class ViewPage  {
   }
 
   call(cell) {
+    console.log(cell);
+
     this.callNumber.callNumber(cell, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
@@ -233,7 +238,10 @@ export class ViewPage  {
                   console.log('Saved clicked' + data.comments);
                   this.pinhomeProvider.comments(data.comments, this.imageKey, num).then((data) => {
                     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
-                  
+                      var y = this.orgArray[0].avg + 1;
+                      var x = ((num - this.orgArray[0].rating) / y);
+                      x = x + this.orgArray[0].rating
+                      this.orgArray[0].rating = Math.round(x);
                       this.commentArr = data;
                       this.commentArr.reverse();
                       this.commentArr.length = 0;
@@ -245,7 +253,7 @@ export class ViewPage  {
                 }
               }
             ],
-            cssClass : 'myAlert',
+            cssClass: 'myAlert',
           });
           prompt.present();
         }
@@ -277,7 +285,7 @@ export class ViewPage  {
               }
             }
           ],
-          cssClass : 'myAlert',
+          cssClass: 'myAlert',
         });
         alert.present();
       }

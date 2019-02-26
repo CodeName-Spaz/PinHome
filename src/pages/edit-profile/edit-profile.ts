@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ProfilePage } from '../profile/profile';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { PinhomeProvider } from '../../providers/pinhome/pinhome';
 import { HomePage } from '../home/home';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
@@ -22,7 +22,7 @@ declare var firebase
   selector: 'page-edit-profile',
   templateUrl: 'edit-profile.html',
 })
-export class EditProfilePage implements OnInit{
+export class EditProfilePage implements OnInit {
   mypic: any;
   contact;
   downloadurl;
@@ -30,11 +30,11 @@ export class EditProfilePage implements OnInit{
   email;
   uid;
   address;
-  imageArr= new Array();
+  imageArr = new Array();
   tempImg;
   surname;
-  d=1;
-  constructor(private camera: Camera,public navCtrl: NavController,public viewCtrl: ViewController, public navParams: NavParams,public alertCtrl: AlertController,public pinhomeProvider: PinhomeProvider,) {
+  d = 1;
+  constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, private camera: Camera, public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider, ) {
     this.retreivePics1()
   }
 
@@ -49,59 +49,80 @@ export class EditProfilePage implements OnInit{
       this.name = details.name;
       this.email = details.email;
       this.address = details.address;
-      this.surname =details.surname;
+      this.surname = details.surname;
       this.downloadurl = details.downloadurl;
-      this.tempImg =  details.downloadurl;
+      this.tempImg = details.downloadurl;
+      if (this.address == null || this.address == undefined) {
+        this.address = "";
+      }
+      if (this.surname == null || this.surname == undefined) {
+        this.surname = "";
+      }
     })
   }
 
-  GoToProfile(){
+  GoToProfile() {
     this.navCtrl.pop();
   }
   uploadPicture() {
-    if (this.tempImg == this.downloadurl){
-      this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait...',
+      duration: 4000000
+    });
+    loading.present();
+    if (this.tempImg == this.downloadurl) {
+      this.pinhomeProvider.uploadProfilePic(this.downloadurl, this.name).then(data => {
         console.log('added to db');
-        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
+        this.pinhomeProvider.update(this.name, this.email, this.downloadurl, this.address, this.surname).then((data) => {
           this.imageArr.push(data);
         });
-        // this.viewCtrl.dismiss();
-        this.navCtrl.pop();
+        loading.dismiss();
+        this.viewCtrl.dismiss();
+        const toast = this.toastCtrl.create({
+          message: 'Successfully updated!',
+          duration: 3000
+        });
+        toast.present();
       },
         Error => {
+          loading.dismiss();
           const alert = this.alertCtrl.create({
             // title: "Oops!",
-            subTitle:  Error.message,
+            subTitle: Error.message,
             buttons: ['OK']
           });
           alert.present();
         })
-        this.viewCtrl.dismiss()
-    
+      this.viewCtrl.dismiss()
     }
-    else{
-      this.pinhomeProvider.uploadProfilePic(this.downloadurl,this.name).then(data => {
+    else {
+      this.pinhomeProvider.uploadProfilePic(this.downloadurl, this.name).then(data => {
         console.log('added to db');
-        this.pinhomeProvider.update(this.name,this.email,this.downloadurl,this.address,this.surname).then((data) => {
+        this.pinhomeProvider.update(this.name, this.email, this.downloadurl, this.address, this.surname).then((data) => {
           this.imageArr.push(data);
-          console.log(this.imageArr);
         });
+        loading.dismiss();
+        console.log(this.imageArr);
+        const toast = this.toastCtrl.create({
+          message: 'Profile successfully updated!',
+          duration: 3000
+        });
+        toast.present();
         this.viewCtrl.dismiss()
-        // this.navCtrl.push(ProfilePage);
-
       },
         Error => {
+          loading.dismiss();
           const alert = this.alertCtrl.create({
-            title: "Oops!",
-            subTitle:  Error.message,
+            subTitle: Error.message,
             buttons: ['OK']
           });
           alert.present();
         })
- 
+
     }
     // this.navCtrl.push(ProfilePage)
-    
+
 
   }
 
@@ -125,64 +146,63 @@ export class EditProfilePage implements OnInit{
           this.imageArr.push(objt);
         }
       }
- 
+
     }, Error => {
       console.log(Error)
     });
-  
-   
+
+
   }
 
-  // insertpic(event: any){
+  insertpic(event: any) {
 
-  //   this.d = 1;
+    this.d = 1;
 
-  //   let opts = document.getElementsByClassName('options') as HTMLCollectionOf <HTMLElement>;
+    let opts = document.getElementsByClassName('options') as HTMLCollectionOf<HTMLElement>;
 
-  //   if(this.d == 1){
-  //     // opts[0].style.top = "10vh";
-  //   if (event.target.files && event.target.files[0]) {
-  //     let reader = new FileReader();
+    if (this.d == 1) {
+      // opts[0].style.top = "10vh";
+      if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
 
-  //     if (event.target.files[0].size > 1500000){
-  //       let alert = this.alertCtrl.create({
-  //         title: "Oh no!",
-  //         subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
-  //         buttons: ['OK']
-  //       });
-  //       alert.present();
-  //     }
-  //     else{
-  //       reader.onload = (event: any) => {
-  //         this.downloadurl= event.target.result;
-  //       }
-  //       reader.readAsDataURL(event.target.files[0]);
-  //     }
+        if (event.target.files[0].size > 1500000) {
+          let alert = this.alertCtrl.create({
+            title: "Oh no!",
+            subTitle: "your photo is too large, please choose a photo with 1.5MB or less.",
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        else {
+          reader.onload = (event: any) => {
+            this.downloadurl = event.target.result;
+          }
+          reader.readAsDataURL(event.target.files[0]);
+        }
 
+      }
+
+    }
+  }
+
+  // setImage(k) {
+  //   this.downloadurl = k;
+  // }
+  // insertpic() {
+  //   const options: CameraOptions = {
+  //     quality: 70,
+  //     destinationType: this.camera.DestinationType.DATA_URL,
+  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+  //     saveToPhotoAlbum: false
   //   }
-      
-  //   }
+  //   this.camera.getPicture(options).then((imageData) => {
+  //     this.downloadurl = 'data:image/jpeg;base64,' + imageData;
+  //   }, (err) => {
+  //     console.log(err);
+  //   });
+
   // }
 
-  setImage(k) {
-    this.downloadurl = k;
-  }
-  insertpic() {
-    const options: CameraOptions = {
-      quality: 70,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      saveToPhotoAlbum: false
-    }
-    this.camera.getPicture(options).then((imageData) => {
-      var x = 'data:image/jpeg;base64,' + imageData;
-      this.setImage(x);
-    }, (err) => {
-      console.log(err);
-    });
- 
-  }
-  
 
- 
+
 }

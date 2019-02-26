@@ -47,37 +47,30 @@ export class SignInPage {
 
   SignIn(email: string, password: string) {
     console.log(email, password)
-    this.pinhomeProvider.loginx(email, password).then((user) => {
-      console.log(user);
-      if (user.user.emailVerified == true) {
-        if (email == undefined
-          || password == undefined) {
-          const alert = this.alertCtrl.create({
-            // title: "Oh no! ",
-            subTitle: "Please enter your valid email and password to login.",
-            buttons: ['OK'],
-            cssClass: 'myAlert',
-          });
-        } else if (this.email == "") {
-          const alert = this.alertCtrl.create({
-            // title: "No Email",
-            subTitle: "Your email can't be blank.",
-            buttons: ['OK'],
-            cssClass: 'myAlert',
-          });
-          alert.present();
-        }
-        else if (password == "") {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Signing in...',
+      duration: 40000
+    });
+    loading.present();
+    this.pinhomeProvider.loginx(email, password).then((user: any) => {
+      // console.log(user);
+      this.pinhomeProvider.checkVerification().then((data: any) => {
+        if (data == 0) {
           const alert = this.alertCtrl.create({
             // title: "No Password",
-            subTitle: "Your password can't be blank",
+            subTitle: "We have sent you a verification mail, Please activate your account with the link in the mail",
             buttons: ['OK'],
             cssClass: 'myAlert',
           });
+          loading.dismiss()
           alert.present();
         }
-        this.navCtrl.setRoot(HomePage);
-      }
+        else if (data == 1) {
+          loading.dismiss()
+          this.navCtrl.setRoot(HomePage);
+        }
+      })
     }).catch((error) => {
       const alert = this.alertCtrl.create({
         // title: "No Password",
@@ -85,6 +78,7 @@ export class SignInPage {
         buttons: ['OK'],
         cssClass: 'myAlert',
       });
+      loading.dismiss()
       alert.present();
     })
   }
@@ -107,12 +101,15 @@ export class SignInPage {
         const alert = this.alertCtrl.create({
           title: 'Forgot your password?',
           message: "We just need your registered email address to reset your password.",
+          
+          cssClass: 'myAlert',
           inputs: [
             {
               name: 'title',
               placeholder: 'Your email address'
             },
           ],
+          cssClass: 'myAlert',
           buttons: [
             {
               text: 'Cancel',
@@ -145,6 +142,7 @@ export class SignInPage {
           const alert = this.alertCtrl.create({
             subTitle: Error.message,
             buttons: ['OK'],
+            cssClass: 'myAlert'
           });
           alert.present();
           resolve()

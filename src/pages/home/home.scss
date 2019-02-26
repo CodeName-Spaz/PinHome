@@ -187,7 +187,7 @@ page-home {
         border-radius: 40px;
         font-size: 25px;
         font-weight: bold;
-        padding-right: 7px;
+        padding-left: 10px;
     }
  
  
@@ -221,9 +221,11 @@ page-home {
         border-radius: 50px;
         object-fit: cover;
         font-size: 3em;
-        color: black
+        color: black;
+   
     }
     .restOfBody{
+        transition: 700ms;
         padding-left: 15px;        
         padding-right: 15px;
         padding-top: 210px;
@@ -231,6 +233,10 @@ page-home {
         // margin-top: 80px;
         background: rgb(250, 250, 250);
         animation: 1s slideInUp;
+    }
+    #no-data{
+        display: none;
+        background: whitesmoke;
     }
     .theHead{
         transition: 500ms;

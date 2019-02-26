@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.codek.pinhome" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Pinhome</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>A mobile application made to simplify mapping solutions for individuals in search of a safer home. Finding a safe home made easy!</description>
     <author email="codek@gmail.com">Codek Dev. Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -99,6 +99,11 @@
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
-    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+<<<<<<< HEAD
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-camera" spec="4.0.3" />
+=======
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <engine name="android" spec="7.1.4" />
+>>>>>>> 9f365eed16f1d5a35f54638dd978b1b13f40fe39
 </widget>
