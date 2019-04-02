@@ -7,7 +7,7 @@ import { EditProfilePage } from '../edit-profile/edit-profile';
 import { ViewPage } from '../view/view';
 import { unescapeIdentifier } from '@angular/compiler';
 import { SignInPage } from '../sign-in/sign-in';
-
+import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -31,7 +31,7 @@ export class ProfilePage {
   totrating = 0;
   ratings = new Array();
  
-  constructor(public pinhome : PinhomeProvider,public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider) {
+  constructor(public pinhome : PinhomeProvider,public navCtrl: NavController, public navParams: NavParams, public pinhomeProvider: PinhomeProvider, public alertCtrl: AlertController) {
   }
 
   ionViewDidEnter() {
@@ -137,13 +137,38 @@ export class ProfilePage {
   editProfile(){
     this.showPopover();
     this.navCtrl.push(EditProfilePage);
+    this.bodyClick()
   }
 
   logOut(){
+    this.bodyClick()
     this.pinhomeProvider.logout().then(() => {
       this.navCtrl.push(SignInPage, {out:'logout'});
     }, (error) => {
       console.log(error.message);
     })
   }
+  requestAddOrg(){
+    this.bodyClick()
+   
+    this.pinhomeProvider.checkRequestLink().then(() => {
+      const alert2 = this.alertCtrl.create({
+        title: 'Email Already Sent',
+        subTitle: 'We have already sent you an email with a link to register an organisation, please check your email.',
+        buttons: ['OK']
+      });
+      alert2.present();
+    }, Error => {
+      this.pinhomeProvider.requestLink().then(() => {
+        const alert = this.alertCtrl.create({
+          title: 'Request Sent',
+          subTitle: 'We have sent you an email with a link to register an organisation, please check your email.',
+          buttons: ['OK']
+        });
+    
+        alert.present();
+      })
+    })
+    }
+  
 }

@@ -1,8 +1,84 @@
 page-sign-in {
+    p{
+        margin-bottom: 50%;
+    }
+    ion-col{
+        // border: solid 1px white;
+        // border-bottom: 00px;
+    }
+    ion-row{
+        
+        height: 40px;
+    }
+    .Col1{
+        border: #ffffff solid 1px;
+        border-right: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+        height: 40px;
+    }
+    .Col2{
+        border: #ffffff solid 1px;
+        border-bottom: 0px;
+        border-right: 0px;
+        height: 40px;
+    }
+    #firstButton{
+        position: relative;
+        top: -5px;
+        left: 0;
+        height: 40px;
+        font-weight: 100;
+        // border-right: 2px solid white;
+    }
+    .theGrid{
+        position: absolute;
+        bottom: 0px;
+        height: 50px;
+        // border:2px solid red;
+    }
+    #SecondButton{
+        position: relative;
+        right: 0;
+        top: -5px;
+        height: 40px;
+        margin-right: 0;
+        font-weight: 100;
+    }
+    ion-footer{
+        height: 0;
+    }
+    ion-toolbar{
+        position: absolute;
+        top: -50px;
+        display: flex;
+        border-top: 2px solid transparent;
+        text-align: center;
+       
+        // height: 50px;   
+        button{
+            width: 40%;
+            // margin: -10px auto;
+            border: 2px solid red;
+            height: 50px;
+        }
+    }
+    // ion-footer{
+    //     box-shadow: 0 0 0px transparent;
+    //     border-top: 0px solid transparent;
+    //     padding: 0;
+    //     height: 60px;
+    // }
+    .line{
+        height: 100%;
+        width: 0;
+        border: 2px solid white;
+    }
     .content{
-    background-image: url('../../assets/imgs/check\ 3\ -\ Copy.jpg');
+        background-image: url('../../assets/imgs/try1.jpg');
         object-fit: cover;
         background-repeat: no-repeat;
+        background-size: cover;
         background-position:     center;
        
     }
@@ -19,7 +95,7 @@ page-sign-in {
         width: 100%;
     }
     ion-icon{
-        color: white;
+        color: rgb(190, 190, 190);
     }
     .body{
         scroll-behavior: smooth;
@@ -53,16 +129,17 @@ page-sign-in {
         width: 70%;    
     }
     .item{
-        background-color:   #B5BDBF;
-        color: white;
+        background-color:   rgba(241, 241, 241, 0.657);
+        color: rgb(117, 111, 111);
         border-radius: 50px;
         margin-bottom: 10px;
-        height: 25%;
+        height: 20%;
+        border-top: 0px;
         ::-webkit-input-placeholder{
-            color: rgb(255, 255, 255);
+            color: rgb(126, 121, 121);
         }
     }
-    .btn{
+    .btan{
         border-radius: 50px;
         width: 70%;
         margin-top: -8px;
@@ -70,11 +147,11 @@ page-sign-in {
         // margin-top: -15px;
         transition: 300ms;
         text-transform: capitalize;
-        border: 2px solid white;
+        // border: 2px solid white;
     }
     .btn2{
         margin-top: -5px;
-        text-transform: lowercase;
+        text-transform: none;
     }
     // b{
     //     padding-left: 5px;
@@ -82,7 +159,7 @@ page-sign-in {
     // }
     .btn3{
         margin-top: -5px;
-        text-transform: capitalize;
+        text-transform: initial;
         z-index: 100000000000
     }
     .theHeader{
@@ -126,15 +203,16 @@ page-sign-in {
     //     right: -90px;
     //     z-index: -100000000000000000
     // }
-    ion-footer{
-        box-shadow: 0 0 0px grey;
-        height: 0px;
-        z-index: 1;
-
-    }
+    // ion-footer{
+    //     box-shadow: 0 0 0px transparent;
+    //     // height: 0px;
+    //     z-index: 1;
+    //     border: 0px solid transparent;
+    // }
     @media  screen and (max-width:350px){
         .content{
-            background-image: url('../../assets/imgs/small.jpg');
+            background-image: url('../../assets/imgs/try1.jpg');
+            background-size: cover;
                 object-fit: cover;
                 background-repeat: no-repeat;
                 background-position:     center;
@@ -200,7 +278,7 @@ page-sign-in {
     }
     @media  screen and (min-width:500px){
         .content{
-            background-image: url('../../assets/imgs/big.jpg');
+            background-image: url('../../assets/imgs/try1.jpg');
             background-size: cover;
                 background-repeat: no-repeat;
                 background-position:     center;
@@ -272,25 +350,99 @@ page-sign-in {
             z-index: -100000000000000000
         }  
     }
+    
+    @media  screen and (min-width:700px){
+        .content{
+            background-image: url('../../assets/imgs/try1.jpg');
+            background-size: cover;
+                background-repeat: no-repeat;
+                background-position:     center;
+        
+        
+               
+            }
+        .picture{
+            width: 20vw;
+            min-width: 90px;
+            z-index: 10000;
+            margin: 0 auto;
+            // border: 2px solid red;
+        }
+        p{
+            position: relative;
+            bottom: 30px;
+            color: rgb(10, 10, 10);
+            font-size: 180%;
+        }
+        .logo{
+            transition: 1s;
+            width: 50vw;
+        }
+        h1{
+            font-weight: 100;
+            font-size: 2.5em;
+            text-align: center;
+            position: relative;
+            bottom: -190px;
+        }
+        .btn3{
+            // position: absolute;
+            // top: 60vh;
+            // left: 50%;
+            // transform: translateX(-50%);
+            text-transform: capitalize;
+            z-index: 100000000000
+        }
+        .theHeader{
+            height: 0;
+        }
+        .round1{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+        }
+        .round2{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+        }
+        .round3{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+            position: absolute;
+            top: -10vh;
+            right: 0%;
+            z-index: -100000000000
+        }
+        .round4{
+            width: 290px;
+            height: 290px;
+            border-radius: 100%;
+            position: absolute;
+            top: -15vh;
+            right: -15%;
+            z-index: -100000000000000000
+        }  
+    }
+    
     .signUp{
         padding-left: 5px;
-        color: #1f8fb1;
+        color: #ffffff;
+        font-weight: 100;
         z-index: 1000000000000000000000000;
-        text-shadow:
-    -1px -1px 0 white,
-     0   -1px 0 white,
-     1px -1px 0 white,
-     1px  0   0 white,
-     1px  1px 0 white,
-     0    1px 0 white,
-    -1px  1px 0 white,
-    -1px  0   0 white;
+    //     text-shadow:
+    // -1px -1px 0 white,
+    //  0   -1px 0 white,
+    //  1px -1px 0 white,
+    //  1px  0   0 white,
+    //  1px  1px 0 white,
+    //  0    1px 0 white,
+    // -1px  1px 0 white,
+    // -1px  0   0 white;
     }
-
     // ion-input{
     //     background: red;
     //     height: 10px;
     // }
 }
-
-

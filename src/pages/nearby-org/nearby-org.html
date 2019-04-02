@@ -42,7 +42,12 @@
       </div>
       <br>
       <p class="statement">Organisations are filtered according to your location.</p>
-      <ion-slides class="slides" slidesPerView="2" offset="50%" loop="true" spaceBetween="10">
+      <div class="none" *ngIf="this.orgArray == 0 || this.orgArray == undefined">
+          <p id="nothingBhuti">There are currently no available organisations.
+            <br> Please toggle your search to filter your options. </p>
+        </div>
+      <ion-slides class="slides" slidesPerView="2" offset="50%" loop="false" spaceBetween="10">
+     
         <div class="theDiv" *ngFor="let i of orgArray">
           <ion-slide class="card-background-page">
             <ion-card (click)="viewDetails(i.orgName)">

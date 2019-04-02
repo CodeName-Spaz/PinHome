@@ -25,6 +25,7 @@ export class PinhomeProvider {
   auth = firebase.auth();
   //arrays
   oraganisations = new Array()
+  contributesArr = new Array()
   nearByOrg = new Array();
   categoryArr = new Array();
   commentArr = new Array();
@@ -47,6 +48,24 @@ export class PinhomeProvider {
     console.log('Hello PinhomeProvider Provider');
   }
 
+
+  
+  AddViewers(views, key, id) {
+    views = views + 1;
+    console.log(views);
+    console.log(key);
+    console.log(id);
+
+    return new Promise((accpt, rej) => {
+      this.ngzone.run(() => {
+        firebase
+          .database()
+          .ref("Websiteprofiles/" + id + "/" + key)
+          .update({ views: views });
+        accpt("View added");
+      });
+    });
+  }
 
 
   getTotalRatings() {
@@ -103,6 +122,7 @@ export class PinhomeProvider {
                               orgGallery: gal1,
                               orgGallery1: gal2,
                               orgGallery2: gal3,
+                              view:data4.val().view,
                               orgId: xx[p],
                               city: data4.val().city,
                               orgLogo: data4.val().Logo,
@@ -691,7 +711,8 @@ export class PinhomeProvider {
                         orgGallery2: gal2,
                         key: x,
                         rating: totalRating,
-                        city: branch[x].city
+                        city: branch[x].city,
+                        views:branch[x].views
                       }
                       this.categoryArr.push(obj);
                     }
@@ -762,6 +783,7 @@ export class PinhomeProvider {
   categoryArr2 = new Array;
   retrieveOrganization2() {
     return new Promise((accpt, rej) => {
+    
       this.db.ref('Websiteprofiles').on('value', (data) => {
         if (data.val() != undefined || data.val() != null) {
           this.ngzone.run(() => {
@@ -811,14 +833,15 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city,
                       avg: avg,
-                      orgId: k
+                      orgId: k,
+                      views: branch[x].Views
                     }
                     this.categoryArr2.push(obj)
 
                   })
                 }
               })
-              // })
+              // loading.dismiss();
             }
             console.log(this.categoryArr2)
             accpt(this.categoryArr2);
@@ -880,7 +903,8 @@ export class PinhomeProvider {
                       rating: totalRating,
                       city: branch[x].city,
                       avg: avg,
-                      orgId: k
+                      orgId: k,
+                      views: branch[x].Views
                     }
                     this.categoryArr.push(obj)
 
@@ -1182,6 +1206,90 @@ export class PinhomeProvider {
         }
         pass(this.searchedOrg);
       })
+    })
+  }
+
+
+  getContributions(id) {
+    return new Promise((pass, fail) => {
+      this.db.ref('contributes/' + id).on('value', (data) => {
+        if (data.val() != undefined || data.val() != null) {
+          this.contributesArr.length = 0;
+          var contributes = data.val();
+          var keys = Object.keys(contributes);
+          for (var x = 0; x < keys.length; x++) {
+            var k = keys[x];
+            let obj = {
+              Title: contributes[k].Title,
+              Description:contributes[k].Description
+            }
+            this.contributesArr.push(obj)
+          }
+          pass(this.contributesArr)
+        }
+      })
+    })
+  }
+
+  
+  AddViewsNumber(cat) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + cat).on("value", (data: any) => {
+        if (data.val() != null || data.val() != undefined) {
+          var v = data.val();
+          var key = Object.keys(v);
+          console.log(v[key[0]].views);
+          var num = v[key[0]].views + 1;
+          let obj = {
+            num: num,
+            k: key[0],
+            cat: cat
+          }
+          pass(obj)
+        }
+        else {
+          fail('')
+        }
+      })
+    })
+  }
+
+  requestLink() {
+    return new Promise((pass, fail) => {
+      let userID = firebase.auth().currentUser;
+      this.db.ref('requests/' + userID.uid).set({
+        email: userID.email
+      })
+    })
+  }
+
+  checkRequestLink() {
+    return new Promise((pass, fail) => {
+      let userID = firebase.auth().currentUser;
+      this.db.ref('requests/' + userID.uid).on("value", (data: any) => {
+        if (data.val() != undefined || data.val() != null) {
+          pass('');
+        }
+        else {
+          fail('')
+        }
+      })
+    })
+  }
+
+  setFiled(cat) {
+    console.log('set data');
+    this.db.ref("catViews/" + cat).push({
+      views: 1
+    })
+  }
+
+  updateField(data) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + data.cat + "/" + data.k).update({
+        views: data.num
+      })
+      pass('')
     })
   }
 

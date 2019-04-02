@@ -1,9 +1,11 @@
 page-sign-up {
     .content{
-        background-image: url('../../assets/imgs/check\ 3\ -\ Copy.jpg');
+        background-image: url('../../assets/imgs/try1.jpg');
             object-fit: cover;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position:     center;
+            
            
         }
         .everything{
@@ -15,11 +17,11 @@ page-sign-up {
         }
     .container{
         position: absolute;
-        top: 20%;
+        top: 45px;
         width: 100%;
     }
     ion-icon{
-        color: white;
+        color: rgb(190, 190, 190);
     }
     .body{
         scroll-behavior: smooth;
@@ -55,27 +57,41 @@ page-sign-up {
         width: 70%;    
     }
     .item{
-        background-color:   #B5BDBF;
-        color: white;
+        background-color:   rgba(241, 241, 241, 0.657);
+        color: rgb(117, 111, 111);
         border-radius: 50px;
         margin-bottom: 10px;
+        height: 20%;
+        border-top: 0px;
         ::-webkit-input-placeholder{
-            color: rgb(255, 255, 255);
+            color: rgb(126, 121, 121);
         }
     }
     .btn{
         border-radius: 50px;
         width: 70%;
+      
         margin-top: -8px;
         position: relative;
         // margin-top: -15px;
         transition: 300ms;
         text-transform: capitalize;
-        border: 2px solid white;
+        // border: 2px solid white;
     }
     .btn2{
-        margin-top: -5px;
+        margin-top: 15px;
         text-transform: capitalize;
+        color: #1f8fb1;
+        text-shadow:
+
+        -1px -1px 0 white,
+         0   -1px 0 white,
+         1px -1px 0 white,
+         1px  0   0 white,
+         1px  1px 0 white,
+         0    1px 0 white,
+        -1px  1px 0 white,
+        -1px  0   0 white;
     }
     // b{
     //     padding-left: 5px;
@@ -187,7 +203,7 @@ page-sign-up {
     }
     @media  screen and (min-width:500px){
         .content{
-            background-image: url('../../assets/imgs/big.jpg');
+            background-image: url('../../assets/imgs/try1.jpg');
             background-size: cover;
                 background-repeat: no-repeat;
                 background-position:     center;

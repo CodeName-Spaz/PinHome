@@ -34,6 +34,7 @@ export class ViewPage {
   orgArray = new Array();
   commentArr = new Array();
   profileArr = new Array();
+  ContributionArr = new Array();
   comments;
   address;
   state = ["star-outline", "star-outline", "star-outline", "star-outline", "star-outline"]
@@ -63,9 +64,15 @@ export class ViewPage {
       this.gallery = data
     })
 
+
+    this.pinhomeProvider.getContributions(this.orgArray[0].orgId).then((data:any) => {
+      this.gallery.length = 0;
+      this.ContributionArr = data
+      console.log( this.ContributionArr)
+    })
+
   }
   ionViewDidEnter() {
-    // this.retrieveComments();
     this.initMap(this.orgArray[0].orgAddress);
     console.log(this.pet)
 

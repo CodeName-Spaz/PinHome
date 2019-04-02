@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Keyboard } from 'ionic-angular';
 import { PlaceObject } from '../../app/class';
 import { SignUpPage } from '../sign-up/sign-up';
 import { ProfilePage } from '../profile/profile';
@@ -37,7 +37,7 @@ export class SignInPage {
   obj = this.navParams.get('obj');
   out = this.navParams.get('out');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider, public screenOrientation: ScreenOrientation, public loadingCtrl: LoadingController) {
+  constructor(private keyboard: Keyboard, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public pinhomeProvider: PinhomeProvider, public screenOrientation: ScreenOrientation, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {

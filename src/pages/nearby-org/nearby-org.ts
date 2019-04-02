@@ -42,28 +42,30 @@ export class NearbyOrgPage {
   category;
   logInState
   navColor = "custom";
+  totalViews=0;
   locationState = this.navParams.get('locState');;
   images = ["assets/imgs/loaction.png", "assets/imgs/loaction2 (1).png", "assets/imgs/loaction1.png", "assets/imgs/loaction2.png", "assets/imgs/loaction3.png", "assets/imgs/loaction4.png", "assets/imgs/loaction5.png", "assets/imgs/loaction6.png"]
   circle: Circle;
   profilePic = this.navParams.get('img');
 
   constructor(private pinhomeProvider: PinhomeProvider, private alertCtrl: AlertController, public pinhome: PinhomeProvider, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
-
+  
   }
 
   ionViewDidLoad() {
     this.loadAllMaps();
+    this.pinhome.DisplayCategory("Disability")
   }
 
   loadAllMaps() {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting Ready, Please wait',
-      duration: 70220
+      duration: 7022222220
 
     });
     loading.present();
-    this.orgArray.length = 0;
+    // this.orgArray.length = 0;
     // This code is necessary for browser
 
     if (this.locationState == false) {
@@ -268,6 +270,7 @@ export class NearbyOrgPage {
     for (var i = 0; i < this.orgArray.length; i++) {
       if (this.orgArray[i].orgName == name) {
         this.navCtrl.push(ViewPage, { orgObject: this.orgArray[i] })
+      
         break;
       }
     }
@@ -279,9 +282,15 @@ export class NearbyOrgPage {
     this.navCtrl.pop();
   }
   selectcategory() {
-    this.orgArray.length = 0;
+    this.pinhomeProvider.AddViewsNumber(this.category).then((data: any) => {
+      this.pinhomeProvider.updateField(data)
+    }, Error => {
+      console.log('failed');
+      this.pinhomeProvider.setFiled(this.category)
+    })
+    this.orgArray==[];
     console.log(this.category);
-    this.map.clear();
+
     this.pinhome.DisplayCategory(this.category).then((data: any) => {
       this.cat = data;
       if (this.locationState == false) {
@@ -315,7 +324,8 @@ export class NearbyOrgPage {
           marker.showInfoWindow();
         })
       }
-      this.orgArray = data;
+      this.map.clear();
+      this.orgArray = this.cat;
       var indx = 0;
       for (var x = 0; x < this.cat.length; x++) {
         if (this.cat[x].orgCat == "Orphanage")

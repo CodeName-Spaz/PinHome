@@ -1,4 +1,18 @@
 page-nearby-org {
+    .none{
+        color: white;
+        text-shadow: 0 0 10px black;
+        text-align: center;
+        width: 100%;
+        height: 180px;
+        padding-top: 90px;
+        p{
+            transform: translateY(-50%);
+        }
+    }
+    #nothingBhuti{
+        font-size: 16px;
+    }
     ion-navbar{
         transition: 700ms;
     }
@@ -283,3 +297,28 @@ page-nearby-org {
 
 
 
+.alert-wrapper{
+    background: #166b85;
+    color: white;
+    border-radius: 5px;
+    .alert-head{
+        width: 100%;
+    background: #166b85;
+    border-right: #166b85 1px solid;
+    border-right: 0px;
+    border-left: 0px;
+    }
+    .alert-radio-group{
+        background: #166b85;
+    }
+    .alert-button-group{
+        background: #166b85;
+        color: #166b85;
+    }
+    .alert-radio-label{
+        color: white;
+    }
+    .button-inner{
+        color: white;
+    }
+}

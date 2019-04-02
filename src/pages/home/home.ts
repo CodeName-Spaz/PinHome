@@ -18,7 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 export class HomePage {
   category;
 
-  orgArray = new Array();
+  orgArray2 = new Array();
   categoryArr = new Array();
   filtereditems: any;
   searchTerm: string = '';
@@ -49,14 +49,16 @@ export class HomePage {
   profilePic = "../../assets/imgs/Defaults/default.png";
   locationState = false;
   resp;
-
+  totalViews=0;
   constructor(public navParams: NavParams, public statusBar: StatusBar, public screenOrientation: ScreenOrientation, public alertCtrl: AlertController, public navCtrl: NavController, public pinhomeProvider: PinhomeProvider, public loadingCtrl: LoadingController) {
     this.getNearByOrganizations();
     this.pinhomeProvider.retrieveOrganization2().then((data: any) => {
+    
       console.log(data)
       this.storeCatData(data)
       this.storeCities(this.pinhomeProvider.getAllcities())
       this.initializeItems();
+
     })
     this.pinhomeProvider.getOrgNames().then((data: any) => {
       console.log(data);
@@ -70,6 +72,7 @@ export class HomePage {
         this.logInState = true;
         this.pinhomeProvider.getProfile().then((data: any) => {
           console.log(this.logInState);
+
           this.img = data;
         })
       }
@@ -122,9 +125,7 @@ export class HomePage {
 
   //this.storeNear[x] =  data[x];
   near() {
-
     console.log(this.storeNear);
-
     // document.getElementById("no-data").style.display = "block"
     if (this.locationState == false) {
       this.getNearByOrganizations();
@@ -137,18 +138,28 @@ export class HomePage {
       });
       loading.present();
       if (this.colorState == false) {
-        this.categoryArr = this.storeNear;
-        console.log(this.categoryArr)
-        this.temp = this.custom1;
-        this.custom1 = this.custom2;
-        this.custom2 = this.temp;
-        this.colorState = true
-        loading.dismiss();
+        if (this.storeNear.length == 0){
+          const alert = this.alertCtrl.create({
+            title: 'No Results',
+            subTitle: 'There are no organisations near your area.',
+            buttons: ['OK'],
+            cssClass: 'myAlert',
+          });
+          alert.present();
+     
+        }
+        else{
+          this.categoryArr = this.storeNear;
+          console.log(this.categoryArr)
+          this.temp = this.custom1;
+          this.custom1 = this.custom2;
+          this.custom2 = this.temp;
+          this.colorState = true
+          loading.dismiss();
+        }
       }
       loading.dismiss();
     }
-
-
   }
 
   all() {
@@ -197,6 +208,7 @@ export class HomePage {
     this.bodyClick(event);
     for (var x = 0; x < this.categoryArr.length; x++) {
       if (name == this.categoryArr[x].orgName) {
+        this.pinhomeProvider.AddViewers(this.categoryArr[x].views, this.categoryArr[x].key, this.categoryArr[x].orgId);
         this.navCtrl.push(ViewPage, { orgObject: this.categoryArr[x] });
       }
     }
@@ -214,7 +226,7 @@ export class HomePage {
   }
 
   more(indx) {
-    this.navCtrl.push(ViewPage, { orgObject: this.orgArray[indx] })
+    this.navCtrl.push(ViewPage, { orgObject: this.orgArray2[indx] })
   }
   trimPictures(state) {
     // this.categoryArr.length = 0;
@@ -345,7 +357,6 @@ export class HomePage {
   }
 
   getNearByOrganizations() {
-
     var theColor = document.getElementsByClassName("statement") as HTMLCollectionOf<HTMLElement>;
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -358,21 +369,21 @@ export class HomePage {
         this.pinhomeProvider.getNearByOrganisations(radius, org).then((data: any) => {
           var loc = this.pinhomeProvider.getLocation();
           this.location = loc.locality;
-          this.orgArray = data;
+          this.orgArray2= data;
           this.storeNearByOrgs(data);
           this.assignresp();
           this.locationState = true;
           theColor[0].style.color = "green"
-        })
+        });
         loading.dismiss();
       })
     }, Error => {
       this.pinhomeProvider.getOrganisations().then((org: any) => {
         console.log(org)
-        this.orgArray = org;
+        this.orgArray2 = org;
         this.location = "Location Disabled"
         theColor[0].style.color = "red"
-        console.log(this.orgArray)
+        console.log(this.orgArray2)
         loading.dismiss();
       })
       console.log('no permission')

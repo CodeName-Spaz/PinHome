@@ -32,12 +32,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 firebase.initializeApp({
-  apiKey: "AIzaSyC-2anvDOujTYUrKmr4VZQKKh6OkmqpBGc",
-  authDomain: "databaseofpinhome.firebaseapp.com",
-  databaseURL: "https://databaseofpinhome.firebaseio.com",
-  projectId: "databaseofpinhome",
-  storageBucket: "databaseofpinhome.appspot.com",
-  messagingSenderId: "1060918700864"
+  apiKey: "AIzaSyAZD2oL5ezPQO7wtu72OK5OC5JAB82I1zM",
+  authDomain: "pin-home-v01.firebaseapp.com",
+  databaseURL: "https://pin-home-v01.firebaseio.com",
+  projectId: "pin-home-v01",
+  storageBucket: "pin-home-v01.appspot.com",
+  messagingSenderId: "1030787388928"
 })
 
 @NgModule({
