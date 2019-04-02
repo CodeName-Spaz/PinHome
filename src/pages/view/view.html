@@ -237,6 +237,7 @@
           </ion-card>
         </ion-list>
         <div class="uploads1" *ngSwitchCase="'Contribute'">
+<<<<<<< HEAD
           <div class="emptyCont" *ngIf="ContributionArr.length == 0 || ContributionArr.length == undefined">
               <p id="lie">There is nothing to Contribute yet...</p>
             </div>
@@ -253,6 +254,22 @@
       </div>
 
 
+=======
+            <div class="emptyCont" *ngIf="ContributionArr.length == 0 || ContributionArr.length == undefined">
+                <p id="lie">There is nothing to Contribute yet...</p>
+              </div>
+          <div class="thecontent" *ngFor=" let a of ContributionArr">       
+            <ion-card id="needs">
+              <ion-card-header>
+                {{a.Title}}
+              </ion-card-header>
+              <ion-card-content>
+                {{a.Description}}
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
       </div>
 
     </div>

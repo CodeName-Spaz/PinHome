@@ -276,6 +276,7 @@ page-sign-in {
         border-radius: 100%;
     }
     }
+
     @media  screen and (min-width:500px){
         .content{
             background-image: url('../../assets/imgs/try1.jpg');
@@ -350,10 +351,19 @@ page-sign-in {
             z-index: -100000000000000000
         }  
     }
+<<<<<<< HEAD
     
     @media  screen and (min-width:700px){
         .content{
             background-image: url('../../assets/imgs/try1.jpg');
+=======
+
+
+    
+    @media  screen and (min-width:700px){
+        .content{
+            background-image: url('../../assets/imgs/big.jpg');
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
             background-size: cover;
                 background-repeat: no-repeat;
                 background-position:     center;
@@ -425,6 +435,10 @@ page-sign-in {
             z-index: -100000000000000000
         }  
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
     
     .signUp{
         padding-left: 5px;

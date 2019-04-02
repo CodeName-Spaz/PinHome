@@ -109,6 +109,7 @@ export class ViewPage {
     this.commentArr = [];
     this.pinhomeProvider.viewComments(this.comments, this.imageKey).then((data: any) => {
       this.commentArr = data;
+      this.commentArr.reverse();
       let rating = this.pinhomeProvider.getRating();
       if (rating > 0) {
         this.rate(rating);

@@ -6,6 +6,7 @@ import moment from 'moment';
 import { AlertController, ToastController } from 'ionic-angular';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { ParseSourceFile } from '@angular/compiler';
+import { Title } from '@angular/platform-browser';
 // import * as _ from 'lodash';
 /*
   Generated class for the PinhomeProvider provider.
@@ -27,6 +28,7 @@ export class PinhomeProvider {
   oraganisations = new Array()
   contributesArr = new Array()
   nearByOrg = new Array();
+  contributesArr = new Array();
   categoryArr = new Array();
   commentArr = new Array();
   searchOrgArray = new Array();
@@ -37,7 +39,7 @@ export class PinhomeProvider {
   rating;
   Location;
   resp;
-
+  Desciption;
   popState = 0;
   ratedOrgs = new Array();
   totRating;
@@ -46,6 +48,63 @@ export class PinhomeProvider {
 
   constructor(private ngzone: NgZone, private geolocation: Geolocation, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public toastCtrl: ToastController, private nativeGeocoder: NativeGeocoder) {
     console.log('Hello PinhomeProvider Provider');
+  }
+
+  AddViewers(views, key, id) {
+    views = views + 1;
+    console.log(views);
+    console.log(key);
+    console.log(id);
+
+    return new Promise((accpt, rej) => {
+      this.ngzone.run(() => {
+        firebase
+          .database()
+          .ref("Websiteprofiles/" + id + "/" + key)
+          .update({ Views: views });
+        accpt("View added");
+      });
+    });
+  }
+
+
+
+  AddViewsNumber(cat) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + cat).on("value", (data: any) => {
+        if (data.val() != null || data.val() != undefined) {
+          var v = data.val();
+          var key = Object.keys(v);
+          console.log(v[key[0]].views);
+          var num = v[key[0]].views + 1;
+          let obj = {
+            num: num,
+            k: key[0],
+            cat: cat
+          }
+          pass(obj)
+        }
+        else {
+          fail('')
+        }
+      })
+    })
+  }
+
+  setFiled(cat) {
+    console.log('set data');
+    this.db.ref("catViews/" + cat).push({
+      views: 1
+    })
+  }
+
+  updateField(data) {
+    return new Promise((pass, fail) => {
+      this.db.ref("catViews/" + data.cat + "/" + data.k).update({
+        views: data.num
+      })
+      pass('')
+    })
   }
 
 
@@ -1210,6 +1269,11 @@ export class PinhomeProvider {
   }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
   getContributions(id) {
     return new Promise((pass, fail) => {
       this.db.ref('contributes/' + id).on('value', (data) => {
@@ -1231,6 +1295,7 @@ export class PinhomeProvider {
     })
   }
 
+<<<<<<< HEAD
   
   AddViewsNumber(cat) {
     return new Promise((pass, fail) => {
@@ -1292,5 +1357,7 @@ export class PinhomeProvider {
       pass('')
     })
   }
+=======
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
 
 }

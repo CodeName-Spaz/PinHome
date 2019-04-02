@@ -61,7 +61,11 @@ export class NearbyOrgPage {
     let loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Getting Ready, Please wait',
+<<<<<<< HEAD
       duration: 7022222220
+=======
+      duration: 222000
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
 
     });
     loading.present();
@@ -288,7 +292,11 @@ export class NearbyOrgPage {
       console.log('failed');
       this.pinhomeProvider.setFiled(this.category)
     })
+<<<<<<< HEAD
     this.orgArray==[];
+=======
+    this.orgArray.length = 0;
+>>>>>>> 45f7e3a0e2fe38c15112e1ee9749e0af69a30c67
     console.log(this.category);
 
     this.pinhome.DisplayCategory(this.category).then((data: any) => {

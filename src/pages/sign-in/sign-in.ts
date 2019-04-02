@@ -101,6 +101,8 @@ export class SignInPage {
         const alert = this.alertCtrl.create({
           title: 'Forgot your password?',
           message: "We just need your registered email address to reset your password.",
+          
+          // cssClass: 'myAlert',
           inputs: [
             {
               name: 'title',
@@ -140,6 +142,7 @@ export class SignInPage {
           const alert = this.alertCtrl.create({
             subTitle: Error.message,
             buttons: ['OK'],
+            cssClass: 'myAlert'
           });
           alert.present();
           resolve()
